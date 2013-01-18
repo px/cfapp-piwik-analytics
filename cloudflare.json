@@ -24,7 +24,7 @@
       "type": "MIT",
       "url": "http://www.opensource.org/licenses/MIT"
     }],
-    "implements" : "",
+    "implements" : "AMD",
     "scripts" : {
     },
     "account": {
@@ -53,28 +53,26 @@
       },
       "interface": [
       {
-        "type": "string",
-        "name": "Favorite Food",
-        "description": "Please tell us your favorite food.",
-        "id": "food",
-        "domain_request": true
+        "id": "piwik_js",
+        "name": "piwik.js location ",
+        "description": "A piwik.js URL 'http://' or 'https://'.",
+        "type": "string"
       },
       {
-        "id": "lottery",
-        "type": "select",
-        "name": "Do you Lotto?",
-        "description": "Choose whether to buy a ticket",
-        "options": [
-        {
-          "label": "Yes, buy a ticket!",
-          "value": "true"
-        },
-        {
-          "label": "No, I am scared.",
-          "value": ""
-        }
-        ]
-      }
+        "id": "piwik_receiver",
+        "name": "Receiver URL)",
+        "description": "A receiver URL 'https://'.",
+        "type": "string"
+      },
+
+      {
+        "id": "site_id",
+        "name": "SiteID ",
+        "description": "Site ID to be tracked",
+        "type": "string"
+      },
+
+
       ]
     }
 }
