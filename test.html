@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <title>Testing piwik_analytics cfapp</title>
+
+    <style type="text/css">
+      body {padding-top:2em;}
+    </style>
+
+    <script type="text/javascript"> var CloudFlare = CloudFlare || []; </script>
+    <script type="text/javascript" src="http://ajax.cloudflare.com/cdn-cgi/nexp/cloudflare.js"></script>
+    <script type="text/javascript">
+
+
+      var piwikConfig = {
+        "piwik_receiver" : "https://piwik-ssl.ns1.net/piwik.php",
+        "site_id" : "1",
+        "link_tracking" : true
+      }
+
+var a=window.CloudFlare;
+a.push(
+    {
+paths:{
+piwik_analytics:"public/javascripts/"
+}
+}
+);
+a.push(
+    function(b,c){
+    c("piwik_analytics/config",function(){
+      return piwikConfig
+      }
+     );
+    b(["piwik_analytics"])
+    });
+</script>
+
+</head>
+
+<body>
+  <h1>Piwik</h1>
+  <p>
+  <strong>Piwik</strong>
+  </p>
+  <ul>
+    <li>not empty1</li>
+    <li>not empty2</li>
+
+  </ul>
+  <h2>Built on top of Cloudflare</h2>
+  <p>
+  Cloudflare enables one click install, and ensures safe delivery of the javascript
+  </p>
+
+
+
+</body>
+</html>
