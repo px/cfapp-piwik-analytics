@@ -19,9 +19,9 @@ CloudFlare.require(
  * */
 
 CloudFlare.define(
-    "miniaturehipster/js",
+    "piwik_analytics/js",
     // be sure to keep the same order here in the modules
-    [ "cloudflare/config", "cloudflare/console", "cloudflare/dom", 'cloudflare/user', "miniaturehipster/config"],
+    [ "cloudflare/config", "cloudflare/console", "cloudflare/dom", 'cloudflare/user', "piwik_analytics/config"],
 
     // as you have here in the parameters
     //
