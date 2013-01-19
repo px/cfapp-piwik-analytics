@@ -1,5 +1,5 @@
 {
-  "name":"Piwik Analytics",
+  "name": "Piwik Analytics",
 
   "description": "A Piwik Analytics CloudFlare application that helps speed up things",
 
@@ -18,73 +18,74 @@
   {
     "name" : "Rob Friedman",
     "email" : "px@ns1.net"
-  },
-
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/px/cfapp-piwik-analytics.git"
-  },
-
-  "main" : "./public/javascripts/piwik_analytics.js",
-  "dependencies" : {
-  },
-
-  "licenses" : [
-  {
-    "type": "BSD-2-Clause",
-    "url": "http://www.opensource.org/licenses/BSD-2-Clause"
-  }],
-
-  "implements" : "AMD",
-  "scripts" : {
-  },
-
-  "config":{
-
-    "details":{
-      "Category": "Analytics",
-      "Language": "English",
-      "Price": "Free to install.",
-      "Restrictions": "None",
-      "playerx.net": "<a href='http://playerx.net/' target='_blank'>Rob Friedman</a>",
-      "NS1.net": "<a href='http://ns1.net/en/legal/' target='_blank'>NS1.net - Terms of use</a>"
-    },
-
-    "assets":{
-      "logos" : {
-        "200px": "./public/images/logo-200.png",
-        "132px": "./public/images/logo-132.png"
-      },
-      "detail_page" : [
-        "./public/images/piwik_analytics_screenshot.png"
-        ],
-      "images" : [
-        "./public/images/piwik_analytics.png"
-        ]
-    },
-
-    "interface": [
-    {
-      "id": "piwik_js",
-      "name": "piwik.js location ",
-      "description": "A piwik.js URL 'http://' or 'https://'. Leaving this empty will default to use piwik.js from cdnjs.com ",
-      "type": "string"
-    },
-
-    {
-      "id": "piwik_receiver",
-      "name": "Receiver URL (REQUIRED)",
-      "description": "A receiver URL 'https://'. Should be using SSL for security purposes. ",
-      "type": "string"
-    },
-
-    {
-      "id": "site_id",
-      "name": "SiteID ",
-      "description": "Site ID to be tracked, otherwise it will default to use '1'.",
-      "type": "string"
-    }
-
-    ]
   }
+  ],
+
+    "repository" : {
+      "type" : "git",
+      "url" : "https://github.com/px/cfapp-piwik-analytics.git"
+    },
+
+    "main" : "./public/javascripts/piwik_analytics.js",
+    "dependencies" : {
+    },
+
+    "licenses" : [
+    {
+      "type": "BSD-2-Clause",
+      "url": "http://www.opensource.org/licenses/BSD-2-Clause"
+    }],
+
+    "implements" : "AMD",
+    "scripts" : {
+    },
+
+    "config":{
+
+      "details":{
+        "Category": "Analytics",
+        "Language": "English",
+        "Price": "Free to install.",
+        "Restrictions": "None",
+        "playerx.net": "<a href='http://playerx.net/' target='_blank'>Rob Friedman</a>",
+        "NS1.net": "<a href='http://ns1.net/en/legal/' target='_blank'>NS1.net - Terms of use</a>"
+      },
+
+      "assets":{
+        "logos" : {
+          "200px": "./public/images/logo-200.png",
+          "132px": "./public/images/logo-132.png"
+        },
+        "detail_page" : [
+          "./public/images/piwik_analytics_screenshot.png"
+          ],
+        "images" : [
+          "./public/images/piwik_analytics.png"
+          ]
+      },
+
+      "interface": [
+      {
+        "id": "piwik_js",
+        "name": "piwik.js location ",
+        "description": "A piwik.js URL 'http://' or 'https://'. Leaving this empty will default to use piwik.js from cdnjs.com ",
+        "type": "string"
+      },
+
+      {
+        "id": "piwik_receiver",
+        "name": "Receiver URL (REQUIRED)",
+        "description": "A receiver URL 'https://'. Should be using SSL for security purposes. ",
+        "type": "string"
+      },
+
+      {
+        "id": "site_id",
+        "name": "SiteID ",
+        "description": "Site ID to be tracked, otherwise it will default to use '1'.",
+        "type": "string"
+      }
+
+      ]
+    }
 }
