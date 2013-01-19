@@ -15,7 +15,7 @@ This CloudFlare App aims to improve upon the available Analytics &amp; Tracking 
     * Support a single Piwik Site ID
     * Support a single Piwik tracker/receiver
     * provide &lt;noscript&gt; tag for recording visitors without Javascript using a gif pixel.
-    * utilize cdnjs for serving piwik.js if left unsupplied by the user.
+    * utilize [cdnjs](http://cdnjs.com) for serving piwik.js if left unsupplied by the user.
 
 
 
