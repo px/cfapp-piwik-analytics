@@ -1,6 +1,5 @@
 {
-  "main":"public/javascripts/miniature_hipster_tracking.js",
-  "name":"Miniature Hipster Analytics",
+  "name":"Piwik Analytics",
   "description": "A Piwik Analytics CloudFlare application that helps speed up things",
   "version": "0.0.1b",
   "category": "webmaster",
@@ -17,15 +16,15 @@
   }
   "repository" : {
     "type" : "git",
-    "url" : "https://github.com/px/miniature-hipster.git"
+    "url" : "https://github.com/px/cfapp-piwik-analytics.git"
   },
-    "main" : "./public/javascripts/miniature_hipster_tracking.js",
+    "main" : "./public/javascripts/piwik_analytics.js",
     "dependencies" : {
     },
     "licenses" : [
     {
-      "type": "MIT",
-      "url": "http://www.opensource.org/licenses/MIT"
+      "type": "BSD-2-Clause",
+      "url": "http://www.opensource.org/licenses/BSD-2-Clause"
     }],
     "implements" : "AMD",
     "scripts" : {
@@ -45,7 +44,7 @@
           "132px": "./public/images/logo-132.png"
         },
         "detail_page" : [
-          "./public/images/piwik_tracking_screenshot.png"
+          "./public/images/piwik_analytics_screenshot.png"
           ],
         "images" : [
           "./public/images/piwik_analytics.png"
