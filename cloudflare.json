@@ -3,7 +3,7 @@
 
   "description": "A Piwik Analytics CloudFlare application that helps speed up things",
 
-  "version": "0.0.1c",
+  "version": "0.0.1d",
 
   "category": "webmaster",
 
@@ -39,13 +39,30 @@
     "implements" : "AMD",
     "scripts" : {
     },
+    "billing": {
+      "type": "zone",
+      "plans":[
+      {
+        "name" : "FREE",
+        "price": "0.00"
+      },
+      {
+        "name" : "Some Features",
+        "price" : "4.55"
+      },
+      {
+        "name" : "More than Some Features",
+        "price" : "9.99"
+      }
 
+      ]
+    },
     "config":{
 
       "details":{
         "Category": "Analytics",
         "Language": "English",
-        "Price": "Free to install.",
+        "Price": "Free to start and install, some plans coming soon.",
         "Restrictions": "None",
         "playerx.net": "<a href='http://playerx.net/' target='_blank'>Rob Friedman</a>",
         "NS1.net": "<a href='http://ns1.net/en/legal/' target='_blank'>NS1.net - Terms of use</a>"
@@ -63,13 +80,13 @@
           "./public/images/piwik_analytics.png"
           ]
       },
-/*
- * Lot os things to implement in the interface
- * just the basics for now.
- *
- * http://piwik.org/docs/javascript-tracking/
- *
- * */
+      /*
+       * Lot os things to implement in the interface
+       * just the basics for now.
+       *
+       * http://piwik.org/docs/javascript-tracking/
+       *
+       * */
       "interface": [
       {
         "id": "piwik_js",
