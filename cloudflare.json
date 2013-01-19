@@ -55,7 +55,7 @@
       {
         "id": "piwik_js",
         "name": "piwik.js location ",
-        "description": "A piwik.js URL 'http://' or 'https://'.",
+        "description": "A piwik.js URL 'http://' or 'https://'. Leaving this empty will use piwik.js from cdnjs.com '//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js' ",
         "type": "string"
       },
       {

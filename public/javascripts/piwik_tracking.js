@@ -7,35 +7,38 @@ CloudFlare.require(
     );
 
 CloudFlare.define(
-    "piwik_tracking.js",
-    [ "cloudflare/dom", 'cloudflare/user', "piwik_tracking/config"],
+    "piwik/js",
+    // be sure to keep the same order here in the modules
+    [ "cloudflare/config","cloudflare/console", "cloudflare/dom", 'cloudflare/user', "piwik_tracking/config"],
 
-    function(dom, config) {
+    // as you have here in the parameters
+    function(config, console, dom, user, _config) {
+
       "use strict";
 
 
       var Piwik = function Piwik(config) {
         this.piwikEl = null;
-        this.config = config;
+        this._config = _config;
         this.cookie = "__piwik_tracking_cfapp_px";
 
       };
 
-      var piwik = new Piwik (config);
+      var piwik = new Piwik (_config);
 
 
 
-     var translations =
-{
-  'en': 'English: ',
-  'es': 'Espanol: ',
-  'de': 'Deutsche: ',
-  'fr': 'French: '
-};
+      var translations =
+      {
+        'en': 'English: ',
+        'es': 'Espanol: ',
+        'de': 'Deutsche: ',
+        'fr': 'French: '
+      };
 
-/*
- * detect language using the browser
- * */
+      /*
+       * detect language using the browser
+       * */
 var language = window.navigator.browserLanguage || window.navigator.userLanguage || 'en',
     translation = translations[ language.substring( 0, 2 ) ] || translations.en;
 
@@ -49,18 +52,20 @@ Piwik.prototype.activate = function() {
 };
 
 function noScript(){
-  var test_site = "//pikwik-ssl.ns1.net/piwik.php?id=6&amp;rec=1";
+  var test_site = this.config.piwik_receiver || "//pikwik-ssl.ns1.net/piwik.php";
+  test_site += "?id="+this.config.site_id+"&amp;rec=1";
   var script = dom.createElement("noscript");
-  var cursor = document.getElementsByTagName('script', true)[0];
+  var cursor = dom.getElementsByTagName('script', true)[0];
   // dom.setAttribute(script, "type", "text/javascript")
   // dom.setAttribute(script, "src", test_site)
   cursor.parentNode.insertBefore(script, cursor);
 }
 
 function piwikScript(){
-  var piwik_js = "//pikwik-ssl.ns1.net/piwik.js";
+  var piwik_js = this.config.piwik_js || "//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js";
   var script = dom.createElement("script");
-  var cursor = document.getElementsByTagName('script', true)[0];
+  // var cursor = document.getElementsByTagName('script', true)[0];
+  var cursor = dom.getElementsByTagName('script', true)[0];
   // dom.setAttribute(script, "type", "text/javascript");
   dom.setAttribute(script, "src", piwik_js);
   cursor.parentNode.insertBefore(script, cursor);
@@ -69,17 +74,18 @@ function piwikScript(){
 
 
 Piwik.prototype.setup = function() {
-  noScript();
   piwikScript();
+  noScript();
 };
 
 
+console.log("hello piwik");
 
-if (!window.jasmine) {
+//if (!window.jasmine) {
 // activate if not in jasmine
-  piwik.activate();
+piwik.activate();
 
-}
+//}
 
 return piwik;
 
