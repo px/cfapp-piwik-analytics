@@ -83,7 +83,7 @@
       "name": "SiteID ",
       "description": "Site ID to be tracked, otherwise it will default to use '1'.",
       "type": "string"
-    },
+    }
 
     ]
   }
