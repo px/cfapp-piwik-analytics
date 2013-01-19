@@ -5,21 +5,22 @@
     <title>Testing piwik_analytics cfapp</title>
 
     <style type="text/css">
-      body {padding-top:2em;}
+      body {padding-top:4em;}
     </style>
 
     <script type="text/javascript"> var CloudFlare = CloudFlare || []; </script>
     <script type="text/javascript" src="http://ajax.cloudflare.com/cdn-cgi/nexp/cloudflare.js"></script>
     <script type="text/javascript">
 
-
       var piwikConfig = {
         "piwik_receiver" : "https://piwik-ssl.ns1.net/piwik.php",
+        "piwik_js" : "https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js",
         "site_id" : "1",
-        "link_tracking" : true
+        "link_tracking" : "true"
       }
-
+// just use a, it's smaller
 var a=window.CloudFlare;
+// push this local path for the module
 a.push(
     {
 paths:{
@@ -35,7 +36,8 @@ a.push(
      );
     b(["piwik_analytics"])
     });
-</script>
+
+  </script>
 
 </head>
 
@@ -45,7 +47,7 @@ a.push(
   <strong>Piwik</strong>
   </p>
   <ul>
-    <li>not empty1</li>
+    <li id="visitorId" >getVisitorId </li>
     <li>not empty2</li>
 
   </ul>
@@ -54,6 +56,16 @@ a.push(
   Cloudflare enables one click install, and ensures safe delivery of the javascript
   </p>
 
+  <script type="text/javascript">
+
+var _paq = _paq || []; 
+var visitor_id;
+
+_paq.push([ function() { visitor_id = this.getVisitorId(); }]);
+
+document.getElementById("visitorId").innerHTML = "getVisitorId="+visitor_id;
+
+</script>
 
 
 </body>
