@@ -57,8 +57,6 @@ CloudFlare.define(
         test_site += "?id="+this.config.site_id+"&amp;rec=1";
         var script = dom.createElement("noscript");
         var cursor = dom.getElementsByTagName('script', true)[0];
-        // dom.setAttribute(script, "type", "text/javascript")
-        // dom.setAttribute(script, "src", test_site)
         cursor.parentNode.insertBefore(script, cursor);
       }
 
@@ -67,7 +65,8 @@ CloudFlare.define(
         var script = dom.createElement("script");
         // var cursor = document.getElementsByTagName('script', true)[0];
         var cursor = dom.getElementsByTagName('script', true)[0];
-        // dom.setAttribute(script, "type", "text/javascript");
+        // for html5 does not need type declaration
+        dom.setAttribute(script, "type", "text/javascript");
         dom.setAttribute(script, "src", piwik_js);
         cursor.parentNode.insertBefore(script, cursor);
       }
@@ -88,6 +87,8 @@ CloudFlare.define(
       //if (!window.jasmine) {
       // activate if not in jasmine
       piwik.activate();
+
+      console.log("piwik loaded. probably.");
 
       //}
 
