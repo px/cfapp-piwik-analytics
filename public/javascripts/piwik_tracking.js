@@ -30,7 +30,7 @@ CloudFlare.define(
       //"use strict";
 
 
-      var Piwik = function Piwik(config) {
+      var Piwik = function Piwik(_config) {
         this.piwikEl = null;
         this._config = _config;
         //   this.cookie = "__piwik_tracking_cfapp_px";
@@ -53,15 +53,15 @@ CloudFlare.define(
       };
 
       function noScript(){
-        var test_site = this.config.piwik_receiver || "//pikwik-ssl.ns1.net/piwik.php";
-        test_site += "?id="+this.config.site_id+"&amp;rec=1";
+        var test_site = this._config.piwik_receiver || "//pikwik-ssl.ns1.net/piwik.php";
+        test_site += "?id="+this._config.site_id+"&amp;rec=1";
         var script = dom.createElement("noscript");
         var cursor = dom.getElementsByTagName('script', true)[0];
         cursor.parentNode.insertBefore(script, cursor);
       }
 
       function piwikScript(){
-        var piwik_js = this.config.piwik_js || "//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js";
+        var piwik_js = this._config.piwik_js || "//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js";
         var script = dom.createElement("script");
         // var cursor = document.getElementsByTagName('script', true)[0];
         var cursor = dom.getElementsByTagName('script', true)[0];
@@ -71,6 +71,14 @@ CloudFlare.define(
         cursor.parentNode.insertBefore(script, cursor);
       }
 
+      function piwikPush(){
+        var script = dom.createElement("script");
+        var cursor = dom.getElementsByTagName('script', true)[0];
+        dom.setAttribute(script, "type", "text/javascript");
+        script.innerHTML = this._config.paq_push || '// test';
+        cursor.parentNode.insertBefore(script, cursor);
+
+      }
 
       /*
        * setup()
