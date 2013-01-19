@@ -1,4 +1,5 @@
 # Piwik Analytics CloudFlare App
+## Codename: Miniature Hipster
 
 CloudFlare's Apps platform enables developers to create and publish web applications for use by website owners on CloudFlare's network. See the [full list](https://www.cloudflare.com/apps).
 
@@ -14,6 +15,7 @@ This CloudFlare App aims to improve upon the available Analytics &amp; Tracking 
     * Support a single Piwik Site ID
     * Support a single Piwik tracker/receiver
     * provide &lt;noscript&gt; tag for recording visitors without Javascript using a gif pixel.
+    * utilize cdnjs for serving piwik.js if left unsupplied by the user.
 
 
 
