@@ -1,34 +1,22 @@
-#CloudFlare Apps
+#Miniature Hipster -- An Interesting Analytics Tracking CloudFlare App
 
 CloudFlare's Apps platform enables developers to create and publish web applications for use by website owners on CloudFlare's network. See the [full list](https://www.cloudflare.com/apps).
 
-When you're ready to develop an App, the first step is to [sign up](https://www.cloudflare.com/app-signup.html) as a developer using your CloudFlare account.
+Miniature Hipster is the 'random' name provided by Github. I may change it. But it's kind of interesting.
+  [Miniature Hipster](https://github.com/px/miniature-hipster.git/) git repository.
 
-This sample repo is an important model for developers. Full documentation is at http://appdev.cloudflare.com
+  [Miniature Hipster](https://www.cloudflare.com/apps/TBD) CloudFlare App.
 
-#Live Examples
 
-Three live examples of CloudFlare Apps created by outside developers
- * [EarthHour](https://www.cloudflare.com/apps/earthhour) generated from the [Earth-Hour-2012 repo](https://github.com/eitak-ssim/Earth-Hour-2012)
- * [Trumpet](https://www.cloudflare.com/apps/trumpet) is generated from [Trumpet repo](https://github.com/martior/trumpet)
- * [A Better Browser](https://www.cloudflare.com/apps/abetterbrowser) is generated from [CF-ABetterBrowser repo](https://github.com/xPaw/CF-ABetterBrowser)
+This CloudFlare App aims to improve upon the available Analytics &amp; Tracking options available to users.
+  * Initially this App aims to:
+    * work with Piwik;
+    * Support a single Piwik Site ID
+    * provide &lt;noscript&gt; tag for recording visitors without Javascript using a gif pixel.
 
-CloudFlare uses this same method to deliver some new services to its customers. Here are two examples.
- * [Instaflare](https://www.cloudflare.com/apps/instaflare) is generated from [Instaflare repo](https://github.com/cloudflare/instaflare)
- * [Visitor DNSChanger Detector](https://www.cloudflare.com/apps/dnschanger_detector) is generated from [DNSChanger Detector repo](https://github.com/cloudflare/dnschanger_detector)
 
-##App key
 
-Note: the trailing directory in the above examples (/earthhour and /trumpet and /abetterbrowser) is the __app key__. The app key is unique to your app, and must be approved by CloudFlare.
-
-#Building an App
-
-CloudFlare Apps are described with a cloudflare.json file, explained to the site owner with a cloudflare.md file, and are deployed using the CommonJS-compatible module loader [cloudflare.js](js.cloudflare.com).
-
-To build an app, you might clone this repository, and use it as a template to create your Javascript, app description, and app configuration. When you are done, go to the CloudFlare [App Signup Page](https://cloudflare.com/app-signup)
-and submit a description of your app along with a git:// url for the repository.
-
-We will evaluate your app, provide feedback and guidance, and help you publish and promote it to CloudFlare website owners.
+# Remnants from Sample App are still below for now.
 
 #Elements of a CloudFlare App repo
 

@@ -1,11 +1,14 @@
 {
-  "main":"public/javascripts/piwik_tracking.js",
-  "name":"Piwik Analytics",
+  "main":"public/javascripts/miniature_hipster_tracking.js",
+  "name":"Miniature Hipster Analytics",
   "description": "A Piwik Analytics CloudFlare application that helps speed up things",
   "version": "0.0.1b",
   "category": "webmaster",
   "keywords" : [
-    "webmaster"
+    "webmaster",
+  "analytics",
+  "tracking",
+  "websites"
     ],
   "contributors": [
   {
@@ -16,7 +19,7 @@
     "type" : "git",
     "url" : "https://github.com/px/miniature-hipster.git"
   },
-    "main" : "./public/javascripts/piwik_tracking.js",
+    "main" : "./public/javascripts/miniature_hipster_tracking.js",
     "dependencies" : {
     },
     "licenses" : [
@@ -27,17 +30,14 @@
     "implements" : "AMD",
     "scripts" : {
     },
-    "account": {
-      "callback_url": "http://countersback.herokuapp.com/api",
-      "user_fields": ["email"]
-    },
     "config":{
       "details":{
         "Category": "Analytics",
         "Language": "English",
         "Price": "Free to install.",
         "Restrictions": "None",
-        "NS1.net": "<a href='http://ns1.net/en/legal/' target='_blank'>Terms of use</a>"
+        "playerx.net": "<a href='http://playerx.net/' target='_blank'>Rob Friedman</a>",
+        "NS1.net": "<a href='http://ns1.net/en/legal/' target='_blank'>NS1.net - Terms of use</a>"
       },
       "assets":{
         "logos" : {
@@ -55,20 +55,20 @@
       {
         "id": "piwik_js",
         "name": "piwik.js location ",
-        "description": "A piwik.js URL 'http://' or 'https://'. Leaving this empty will use piwik.js from cdnjs.com '//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js' ",
+        "description": "A piwik.js URL 'http://' or 'https://'. Leaving this empty will default to use piwik.js from cdnjs.com ",
         "type": "string"
       },
       {
         "id": "piwik_receiver",
-        "name": "Receiver URL)",
-        "description": "A receiver URL 'https://'.",
+        "name": "Receiver URL (REQUIRED)",
+        "description": "A receiver URL 'https://'. Should be using SSL for security purposes. ",
         "type": "string"
       },
 
       {
         "id": "site_id",
         "name": "SiteID ",
-        "description": "Site ID to be tracked",
+        "description": "Site ID to be tracked, otherwise it will default to use '1'.",
         "type": "string"
       },
 
