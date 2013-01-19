@@ -29,6 +29,16 @@ CloudFlare.define(
       // re-enable strict someday!
       //"use strict";
 
+      var Piwik = function Piwik(_config) {
+        this.piwikEl = null;
+        this._config = _config;
+
+        //   this.cookie = "__piwik_tracking_cfapp_px";
+
+      };
+
+      var piwik = new Piwik (_config);
+
 
       var paq_push="";
       paq_push+='var _paq=_paq || []';
@@ -66,15 +76,15 @@ CloudFlare.define(
 
 */
 
-      var Piwik = function Piwik(_config) {
-        this.piwikEl = null;
-        this._config = _config;
+      function piwikPush(){
+        var script = dom.createElement("script");
+        var cursor = dom.getElementsByTagName('script', true)[0];
+        dom.setAttribute(script, "type", "text/javascript");
+        script.innerHTML = this._config.paq_push || paq_push_default;
+        cursor.parentNode.insertBefore(script, cursor);
 
-        //   this.cookie = "__piwik_tracking_cfapp_px";
+      }
 
-      };
-
-      var piwik = new Piwik (_config);
 
 
 
@@ -117,15 +127,6 @@ CloudFlare.define(
         cursor.parentNode.insertBefore(script, cursor);
       }
 
-      function piwikPush(){
-        var script = dom.createElement("script");
-        var cursor = dom.getElementsByTagName('script', true)[0];
-        dom.setAttribute(script, "type", "text/javascript");
-        script.innerHTML = this._config.paq_push || paq_push_default;
-        cursor.parentNode.insertBefore(script, cursor);
-
-      }
-
       /*
        * setup()
        * Load our program into dom
@@ -136,16 +137,17 @@ CloudFlare.define(
         noScript();
       };
 
+
+      if (!window.jasmine) {
       // does this even work here? 
       console.log("hello piwik");
 
-      //if (!window.jasmine) {
       // activate if not in jasmine
       piwik.activate();
 
       console.log("piwik loaded. probably.");
 
-      //}
+      }
 
       return piwik;
 
