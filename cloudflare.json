@@ -3,7 +3,7 @@
 
   "description": "A Piwik Analytics CloudFlare application that helps speed up things",
 
-  "version": "0.0.1b",
+  "version": "0.0.1c",
 
   "category": "webmaster",
 
@@ -63,7 +63,13 @@
           "./public/images/piwik_analytics.png"
           ]
       },
-
+/*
+ * Lot os things to implement in the interface
+ * just the basics for now.
+ *
+ * http://piwik.org/docs/javascript-tracking/
+ *
+ * */
       "interface": [
       {
         "id": "piwik_js",
@@ -75,7 +81,7 @@
       {
         "id": "piwik_receiver",
         "name": "Receiver URL (REQUIRED)",
-        "description": "A receiver URL 'https://'. Should be using SSL for security purposes. ",
+        "description": "A receiver URL 'https://'. Should be using SSL for security purposes but using '//host.tld' is valid also. ",
         "type": "string"
       },
 
