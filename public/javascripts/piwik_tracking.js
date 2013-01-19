@@ -26,8 +26,8 @@ CloudFlare.define(
     // as you have here in the parameters
     //
     function(config, console, dom, user, _config) {
-
-      "use strict";
+      // re-enable strict someday!
+      //"use strict";
 
 
       var Piwik = function Piwik(config) {
