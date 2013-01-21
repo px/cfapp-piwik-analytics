@@ -3,7 +3,14 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <title>Testing piwik_analytics cfapp</title>
+    <style>
 
+      a:link    {color:blue;}
+      a:visited {color:blue;}
+      a:hover   {color:red;}
+      a:active  {color:yellow;} 
+
+    </style>
     <script type="text/javascript"> var CloudFlare = CloudFlare || []; </script>
     <script type="text/javascript" src="https://ajax.cloudflare.com/cdn-cgi/nexp/cloudflare.js"></script>
     <!-- load up our test config for local testing -->
@@ -26,6 +33,8 @@
 
     </script>
 
+
+    <!-- The goal is to load piwik.js as it would below. Also to utilize the global _paq array to push commands. -->
     <!--
     <script src="https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"></script>
     -->
@@ -33,7 +42,7 @@
   </head>
 
   <body>
-    <h1>Piwik Analytics</h1>
+    <h1>Piwik Analytics CloudFlare Test App</h1>
 
     <div id="timeDiv">&nbsp;</div>
 
@@ -69,11 +78,25 @@
 
     </ul>
 
+    <p>
+    <strong>Testing Link Tracking</strong>
+    </p>
+    <ul>
+      <li><a href='#/no-tracking' target="_blank" class='no-tracking'>Class 'no-tracking' No Tracking Test</a></li>
+      <li><a href='https://github.com/px/cfapp-piwik-analytics/archive/master.zip' class='piwik_ignore'>File I don't want to track as a download</a> Latest master.zip </li>
+      <li><a href='#/piwik_download' class='piwik_download'>Link I want to track as a download</a></li>
+      <li><a href='#/piwik_link' target="_blank" class='piwik_link'>Link I want to track as an outlink</a></li>
+      <li><a href='#/' target="_blank" class='no-tracking'>Class 'no-tracking' No Tracking Test</a></li>
+      <li><a href='#/' target="_blank" class='no-tracking'>Class 'no-tracking' No Tracking Test</a></li>
+    </ul>
+
+
     <h2>Built on top of Cloudflare</h2>
     <p>
     Cloudflare enables one click install, and ensures safe delivery of the javascript
     </p>
 
+    <!-- this loads up the testApp which updates and refreshes the above items when working properly. -->
     <script type="text/javascript" src="./testApp.js"></script>
 
   </body>
