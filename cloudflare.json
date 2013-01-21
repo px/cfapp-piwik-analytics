@@ -1,9 +1,9 @@
 {
   "name": "Piwik Analytics",
 
-  "description": "A Piwik Analytics CloudFlare application that helps speed up things",
+  "description": "Miniature Hipster: A Piwik Analytics CloudFlare application that helps speed up things",
 
-  "version": "0.0.1d",
+  "version": "0.0.1e",
 
   "category": "webmaster",
 
@@ -81,7 +81,7 @@
           ]
       },
       /*
-       * Lot os things to implement in the interface
+       * Lot of things to implement in the interface
        * just the basics for now.
        *
        * http://piwik.org/docs/javascript-tracking/
