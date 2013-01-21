@@ -24,8 +24,8 @@ var pkC = {
   },
   // Stuff to push into the array
   "paq_push" : {
-    "a" : "['setHeartBeatTimer',30,60],['setDoNotTrack',true]",
-    "b" : "['enableLinkTracking']"
+    "a" : "['enableLinkTracking'],['setLinkTrackingTimer',250],['setHeartBeatTimer',30,60],['disableCookies'],['setDoNotTrack',true]",
+    "b" : "['enableLinkTracking'],['setLinkTrackingTimer',250],['trackGoal',1,0],['killFrame']"
   },
   // set the domains to track
   "set_domains" : { 
