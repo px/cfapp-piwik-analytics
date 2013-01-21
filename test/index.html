@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <title>Testing piwik_analytics cfapp</title>
+
+    <script type="text/javascript"> var CloudFlare = CloudFlare || []; </script>
+    <script type="text/javascript" src="https://ajax.cloudflare.com/cdn-cgi/nexp/cloudflare.js"></script>
+    <!-- load up our test config for local testing -->
+    <script type="text/javascript" src="./testConfig.json"></script>
+
+    <script type="text/javascript">
+
+    /* just use a, it's smaller */ 
+
+    var a=window.CloudFlare;
+
+    /* push this local path for use in loading the the app/module   */ 
+
+    a.push({paths:{piwik_analytics:"../public/javascripts/"}});
+
+    /* force load our piwikConfig associative array  */
+    /* load the piwik_analytics module */
+
+    a.push(function(b,c){ c("piwik_analytics/config",function(){ return piwikConfig }); b(["piwik_analytics"]); });
+
+    </script>
+
+    <!--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"></script>
+    -->
+
+  </head>
+
+  <body>
+    <h1>Piwik Analytics</h1>
+
+    <div id="timeDiv">&nbsp;</div>
+
+    <p>
+    <strong>Testing Gets</strong>
+    </p>
+
+    <ul>
+      <li id="app_change">app_change </li>
+      <li id="visitorId" >getVisitorId </li>
+      <li id="getTracker">getTracker </li>
+
+    </ul>
+
+    <p>
+    <strong>Testing options</strong>
+    </p>
+    <ul>
+      <li id="use_cdnjs"> use_cdnjs </li>
+      <li id="piwik_js_default"> piwik_js_default </li>
+      <li id="js_url"> js_url </li>
+      <li id="site_id.a" > site_id.a </li>
+      <li id="site_id.b" > site_id.b </li>
+      <li id="trackerURL.a"> trackerURL </li>
+      <li id="trackerURL.b"> trackerURL </li>
+      <li id="paq_push.a"> paq_push.a </li>
+      <li id="paq_push.b"> paq_push.b </li>
+      <li id="goal1"> goal1 </li>
+      <li id="goal2"> goal2 </li>
+      <li id="goal3"> goal3 </li>
+      <li id="goal4"> goal4 </li>
+      <li id="goal5"> goal5 </li>
+
+    </ul>
+
+    <h2>Built on top of Cloudflare</h2>
+    <p>
+    Cloudflare enables one click install, and ensures safe delivery of the javascript
+    </p>
+
+    <script type="text/javascript" src="./testApp.js"></script>
+
+  </body>
+</html>
