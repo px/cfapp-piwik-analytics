@@ -58,7 +58,7 @@ CloudFlare.define("piwik_analytics",
       //var document = document || [];
 
       // because sometimes a delay is needed. FIXME because I'm sure we can do without.
-      var _delay=100;
+      var _delay=120;
 
       //var _debug = false;
       var _debug = true;
@@ -81,7 +81,7 @@ CloudFlare.define("piwik_analytics",
         /* use configuration version, or use the current default version of piwik */
         this.config.piwik_version = this.config.piwik_version || piwik_version_default;
 
-        /* set some sane defaults  */
+        /* set some 'sane' defaults  */
         this.config.js_host = this.config.js_host || protocol + '//piwik-ssl.ns1.net';
         this.config.js_path = this.config.js_path || '/'; 
         this.config.js_file = this.config.js_file || 'piwik.js';
@@ -93,7 +93,7 @@ CloudFlare.define("piwik_analytics",
 
         if ( _debug ) { 
 
-          consl("DEBUG OUTPUT ENABLED");
+          consl("DEBUG OUTPUT ENABLED -- options follow");
           consl("js_url="+this.config.js_url);
 
           /* iterate through the site_id */
