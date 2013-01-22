@@ -15,32 +15,26 @@ var pkC = {
   "site_id" : "1",
   "site_id" : {
     "a" : "26",
-    "b" : "27"
+    "b" : "27",
+    "c" : "7"
   },
   // Trackers
   "tracker" : {
-    "a": "https://piwik-ssl.ns1.net/piwik.php",
-    "b" : "https://piwik-ssl.ns1.net/piwik.php"
+    "a" : "https://piwik-ssl.ns1.net/piwik.php",
+    "b" : "https://piwik-ssl.ns1.net/piwik.php",
+    "c": "https://demo.piwik.org/piwik.php"
   },
   // Stuff to push into the array
   "paq_push" : {
-    "a" : "['enableLinkTracking'],['setLinkTrackingTimer',250],['setHeartBeatTimer',15,30],['disableCookies'],['setDoNotTrack',true]",
-    "b" : "['enableLinkTracking'],['setLinkTrackingTimer',250],['trackGoal',1,0],['killFrame']"
+    "a" : "['setLinkTrackingTimer',250],['setHeartBeatTimer',15,30],['disableCookies']",
+    "b" : "['setLinkTrackingTimer',250],['trackGoal',1,0],['killFrame']"
   },
-  // set the domains to track
-  "set_domains" : { 
-    "a" : "a",
-    "b" : "b"
-  },
-  // set the cookie domain for each
-  "set_cookie_domain" : {
-    "a" : "a",
-    "b" : "b"
-  },
+ 
+  
   // obey browser do-not-track setting
   "set_do_not_track" : {
     "a" : "true",
-    "b" : "true"
+    "b" : "false"
   },
   // link tracking timer for how long to wait
   "link_tracking_timer" :  {
@@ -53,7 +47,20 @@ var pkC = {
     "b" : "true"
   },
 
-  "goal": {
+/* TODO */
+  
+  // set the domains to track
+  "set_domains" : { 
+    "a" : "a",
+    "b" : "b"
+  },
+  // set the cookie domain for each
+  "set_cookie_domain" : {
+    "a" : "a",
+    "b" : "b"
+  },
+  
+   "goal": {
 
 "a" : { "1" : "", "2" : "", "3" :"" },
 "b" : { "1" : "", "2" : "", "3" :"" },
