@@ -1,12 +1,10 @@
-# Miniature Hipster: A Piwik App for Cloudflare -- cfapp_piwik_analytics
+# Miniature Hipster:
+## A Piwik App for Cloudflare -- cfapp_piwik_analytics
 
-CloudFlare's Apps platform enables developers to create and publish web applications for use by website owners on CloudFlare's network. See the [full list](https://www.cloudflare.com/apps).
+  * [Piwik Analytics](https://www.cloudflare.com/apps/piwik_analytics) CloudFlare App.
 
 Miniature Hipster is the 'random' name provided by Github. I may change it. But it's kind of interesting.
-  [Piwik Analytics App for Cloudflare](https://github.com/px/cfapp-piwik-analytics.git/) git repository.
-
-  [Piwik Analytics](https://www.cloudflare.com/apps/piwik_analytics) CloudFlare App.
-
+  * Repository URL  [Piwik Analytics App for Cloudflare](https://github.com/px/cfapp-piwik-analytics.git/)
 
 This CloudFlare App aims to improve upon the available Analytics &amp; Tracking options available to users.
   * Initially this App aims to:
@@ -21,5 +19,8 @@ This CloudFlare App aims to improve upon the available Analytics &amp; Tracking 
     * Support:
         * multiple versions of piwik, currently only 1.10.1 -- FIXME
         * goals, tracking, 5 per site id, maybe more.
+
+
+CloudFlare's Apps platform enables developers to create and publish web applications for use by website owners on CloudFlare's network. See the [full list](https://www.cloudflare.com/apps).
 
 
