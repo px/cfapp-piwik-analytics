@@ -38,3 +38,6 @@ CloudFlare's Apps platform enables developers to create and publish web applicat
 * [jsonlint](https://github.com/zaach/jsonlint)
       npm install jsonlint -g
 
+
+#### Tracking pixel
+![Tracking Pixel](https://piwik-ssl.ns1.net/piwik.php?idSite=26&rec=1)
