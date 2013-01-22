@@ -4,51 +4,6 @@
  *  Rob Friedman <px@ns1.net>
  *  <http://playerx.net>
  * */
-
-/*
- * A variety of the available options to push into the _paq array for tracking
- * Not a complete list.
- * */
-
-/*
-   var _paq=_paq||[];
-   var pkBaseURL="https://piwik-ssl.ns1.net/";
-   _paq.push(['setSiteId',6]);
-   _paq.push(['setTrackerUrl',pkBaseURL+'piwik.php']);
-   _paq.push(['setRequestMethod'],"GET"); // OR "POST"
-   _paq.push(['setDocumentTitle',d.title]);
-   _paq.push(['setLinkTrackingTimer',500]);
-   _paq.push(['setDomains','*.ns1.net','ns1.net','beta.ns1.net']);
-   _paq.push(['setCookiePath','/user/MyUsername']);
-   _paq.push(['setCookieDomain','*.ns1.net','ns1.net','beta.ns1.net']);
-   _paq.push(['setDoNotTrack',true]);
-   _paq.push(['redirectFile','http://ns1.net']);
-   _paq.push(['setCountPreRendered',true]);
-   _paq.push(['setHeartBeatTimer',30,60]);
-   _paq.push(['setVisitorCookieTimeout',946080000]);
-   _paq.push(['setSessionCookieTimeout',900]);
-   _paq.push(['trackGoal', idGoal, [customRevenue]);
-   _paq.push(['enableLinkTracking',true]);
-   _paq.push(['trackPageView']);
-   */
-
-/*
- * The default javascript code to asynchronously load the piwik.js
- * */
-
-/*
-   try{
-   var g=d.createElement('script'),s=d.getElementsByTagName('script')[0];
-   g.type='text/javascript';
-   g.defer=true;
-   g.async=true;
-   g.src=pkBaseURL+'piwik.js';
-   s.parentNode.insertBefore(g,s);
-   }
-   catch(err){}
-
-*/
-
 CloudFlare.define("piwik_analytics",
     [ "piwik_analytics/config" ],
     function( _config ) {
@@ -82,14 +37,24 @@ CloudFlare.define("piwik_analytics",
         this.config.piwik_version = this.config.piwik_version || piwik_version_default;
 
         /* set some 'sane' defaults  */
-        this.config.js_host = this.config.js_host || protocol + '//piwik-ssl.ns1.net';
-        this.config.js_path = this.config.js_path || '/'; 
-        this.config.js_file = this.config.js_file || 'piwik.js';
+        //       this.config.js_host = this.config.js_host || protocol + '//piwik-ssl.ns1.net';
+        //       this.config.js_path = this.config.js_path || '/'; 
+        //       this.config.js_file = this.config.js_file || 'piwik.js';
 
-        this.config.site_id.a = this.config.site_id.a || '10001';
-        this.config.site_id.b = this.config.site_id.b || '10002';
-        this.config.paq_push.a = this.config.paq_push.a || '';
-        this.config.paq_push.b = this.config.paq_push.b || '';
+        //       this.config.site_id.a = this.config.site_id.a || '10001';
+        //        this.config.site_id.b = this.config.site_id.b || '10002';
+        //        this.config.paq_push.a = this.config.paq_push.a || '';
+        //        this.config.paq_push.b = this.config.paq_push.b || '';
+
+        /* default set_do_not_track to 'true'
+         * This will need work. */
+
+        //        this.config.set_do_not_track = this.config.set_do_not_track.a || this.config.set_do_not_track.b || true;
+
+        /* default to no link_tracking, seto to 'false'
+         * this will need work */
+
+        //        this.config.link_tracking = this.config.link_tracking.a || this.config.link_tracking.b || false;
 
         if ( _debug ) { 
 
@@ -97,11 +62,14 @@ CloudFlare.define("piwik_analytics",
           consl("js_url="+this.config.js_url);
 
           /* iterate through the site_id */
+          consl("set_do_not_track="+this.config.set_do_not_track);
+          consl("link_tracking="+this.config.link_tracking);
 
           for ( var index in this.config.site_id) {
 
             consl("SiteID."+index+"="+this.config.site_id[index]);
             consl("TrackerURL."+index+"="+this.config.tracker[index]);
+
             consl("paq_push."+index+"="+this.config.paq_push[index]);
 
             /* iterate through the configured goals */
@@ -109,8 +77,7 @@ CloudFlare.define("piwik_analytics",
 
               consl("goal."+index+"."+goalIndex+"="+this.config.goal[index][goalIndex]);
 
-
-            }            
+            } 
 
           }
 
@@ -183,9 +150,11 @@ CloudFlare.define("piwik_analytics",
       /* some how we need to wait until the piwik.js is asynchronously loaded to ideally determine the visitor_id */
 
       function app_change () {
+
+        var _paq = _paq || [];
         var visitor_id;   
         _paq.push([ function() { visitor_id = this.getVisitorId(); }]); 
-        document.getElementById("app_change").innerHTML = "app_change getVisitorId="+ visitor_id ;
+        window.document.getElementById("app_change").innerHTML = "app_change getVisitorId="+ visitor_id ;
 
       }
 
@@ -208,13 +177,13 @@ CloudFlare.define("piwik_analytics",
         prog += "_paq.push(['setSiteId', "+piwik.config.site_id[index] + "]);";
         prog += "_paq.push(['setTrackerUrl', '"+piwik.config.tracker[index] + "']);";
 
-        if (piwik.config.link_tracking === true) {
+        if (piwik.config.link_tracking[index] === "true") {
           prog += "_paq.push(['enableLinkTracking',true]);";
         } else {
           prog += "_paq.push(['enableLinkTracking',false]);";
         }
 
-        if (piwik.config.set_do_not_track === true ) {
+        if (piwik.config.set_do_not_track[index] === "true" ) {
           prog += "_paq.push(['setDoNotTrack',true]);";
         } else {
           prog += "_paq.push(['setDoNotTrack',false]);";
