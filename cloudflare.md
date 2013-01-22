@@ -1,80 +1,28 @@
-#cloudflare.md for App detail page
+#Miniature Hipster: A Piwik App for Cloudflare -- cfapp_piwik_analytics
 
-cloudflare.md is your marketing copy, known as the App detail page. Here's one [live example](https://www.cloudflare.com/apps/trumpet) of an App detail page.
+This app will embed the 'piwik.js' code in all your webpages, and then provide your Piwik tracker with analytics about your visitors.
 
-cloudflare.md -- as seen in the source of this example -- must be
-formatted in [Markdown](http://daringfireball.net/projects/markdown/syntax).
+Features
+* Speed
+  * Use [cdnjs](https://cdnjs.com/) to serve up 'piwik.js' quickly to your visitors, or your use your own URL.
 
-This content will be rendered and displayed at
-cloudflare.com/apps/[APP-KEY]
-where [APP-KEY] is your CloudFlare-approved key, used in the
-directory path, among other places.
+* Link tracking.
+  * Easily enable open source analytics tracking for outlinks from your web properties.
 
-##Images
+* Privacy
+  * By default obey visitor's browser option "[Do-Not-Track](https://www.eff.org/issues/do-not-track)" with supported browsers.
+  * Enable serving your own 'piwik.js' so you have more control.
 
-You may put one or more images in your App detail page,
-such as screenshots of how your App appears on a site.
+You turn it on, configure a 'setSiteId', 'setTrackerUrl' and all pages will have Piwik Analytics tracking enabled on them.
 
-For an image to appear, you need to do three things:
+Piwik is used to provide analytics about your visitors. More information can be found on the [Piwik homepage](http://piwik.org/).
 
- 1. Add the image to your repo 
- 2. Reference the image in the "detail_page" section of the cloudflare.json file.
- 3. Link to the image in the cloudflare.md file (this page).
+  * [Online Videos about Piwik](https://piwik.org/blog/category/videos/)
+  
 
-Please limit images on the app detail page to no more than 708 pixels wide.
+  * TODO
+![Screenshot of Piwik](/images/apps/piwik_analytics/piwik_screenshot.png "Screenshot")
 
-###Adding image to your repo
+For comments or support please contact me by <a href="mailto:px+cfapp-piwik-analytics@ns1.net">email</a> or <a href="http://twitter.com/px">Twitter</a>.
 
-Image __must__ be in PNG format and use the .png file extension.
 
-Recommended: place your images within /public/images in your repo. However, you may place images anywhere in your repo.
-
-Make sure that images do not have the same base name.
-
-CloudFlare does not maintain your repo's directory structure
-when processing and referencing the images.
-
-####Versioning
-
-Images don't track versions. Any change to an image that is
-approved will be live right away, even if the new version is
-still in beta. We recommend you change the image filename if you
-change the image.
-
-###Reference image in cloudflare.json
-
-To be included, each image __must__ be referenced in the "assets"
-section, within the "detail_page" area, of the cloudflare.json file.
-
-Example:
-    
-    "assets":{
-        "logos" : {
-        	"200px": "./public/images/logo-200.png",
-        	"132px": "./public/images/logo-132.png"
-            },
-        "detail_page" : [
-        	"./public/images/example.png"
-            ]
-        },
-
-###Include image link in cloudflare.md
-
-When the cloudflare.md markdown is rendered for display on
-cloudflare.com, images used are those that match all three
-conditions:
- * in the repo
- * referenced in the cloudflare.json file
- * linked in the cloudflare.md file
-
-Images will be hosted in /images/apps/[APP-KEY]
-
-The cloudflare.md link must use that reference.
-
-As code, where "sample" is the APP-KEY:
-
-    ![Sample image](/images/apps/sample/example.png "Has to be a png")
-
-An image link like the one below, for example.png, will work on your app page, although it will __not__ work on GitHub.
-
-![Sample image](/images/apps/sample/example.png "Has to be a png")
