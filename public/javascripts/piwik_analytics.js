@@ -207,6 +207,20 @@ CloudFlare.define("piwik_analytics",
         var prog = "_paq = _paq || []; ";
         prog += "_paq.push(['setSiteId', "+piwik.config.site_id[index] + "]);";
         prog += "_paq.push(['setTrackerUrl', '"+piwik.config.tracker[index] + "']);";
+
+        if (piwik.config.link_tracking === true) {
+          prog += "_paq.push(['enableLinkTracking',true]);";
+        } else {
+          prog += "_paq.push(['enableLinkTracking',false]);";
+        }
+
+        if (piwik.config.set_do_not_track === true ) {
+          prog += "_paq.push(['setDoNotTrack',true]);";
+        } else {
+          prog += "_paq.push(['setDoNotTrack',false]);";
+        }
+
+        /* pass the options */
         prog += "_paq.push("+piwik.config.paq_push[index]+");";
 
         // make the magic happen, track the page view, trackPageView
