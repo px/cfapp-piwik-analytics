@@ -22,7 +22,7 @@ Piwik is used to provide analytics about your visitors. More information can be 
   
 
   * TODO
-![Screenshot of Piwik](/images/apps/piwik_analytics/piwik_screenshot.png "Screenshot")
+![Screenshot of Piwik](/images/apps/piwik_analytics/piwik_screenshot_1.png "Screenshot")
 
 For comments or support please contact me by <a href="mailto:px+cfapp-piwik-analytics@ns1.net">email</a> or <a href="http://twitter.com/px">Twitter</a>.
 
