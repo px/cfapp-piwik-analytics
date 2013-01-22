@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <title>Testing Example piwik_analytics.js</title>
+    <style>
+
+      a:link    {color:blue;}
+      a:visited {color:blue;}
+      a:hover   {color:red;}
+      a:active  {color:yellow;} 
+
+    </style>
+    <!-- load up our test config for local testing -->
+    <script type="text/javascript" src="./testConfig.json"></script>
+    <script src="piwik_analytics.js"></script>
+      </head>
+
+  <body>
+    <h1>Piwik Analytics CloudFlare Test App</h1>
+
+    <div id="timeDiv">&nbsp;</div>
+
+    <p>
+    <strong>Testing Gets</strong>
+    </p>
+
+    <ul>
+      <li id="app_change">app_change</li>
+      <li id="app_change_visitor_id">app_change visitor_id</li>
+      <li id="app_change_visitor_info">app_change visitor_info</li>
+      <li id="visitorId" >getVisitorId </li>
+      <li id="getTracker">getTracker </li>
+
+    </ul>
+
+    <p>
+    <strong>Testing configured options</strong>
+    </p>
+    <ul>
+      <li id="use_cdnjs"> use_cdnjs </li>
+      <li id="piwik_js_default"> piwik_js_default </li>
+      <li id="js_url"> js_url </li>
+      <li id="site_id.a" > site_id.a </li>
+      <li id="site_id.b" > site_id.b </li>
+      <li id="trackerURL.a"> trackerURL </li>
+      <li id="trackerURL.b"> trackerURL </li>
+      <li id="paq_push.a"> paq_push.a </li>
+      <li id="paq_push.b"> paq_push.b </li>
+      
+      <!-- no goals yet, seems easier to just _paq.push them -->
+      <!-- 
+      <li id="goal1"> goal1 </li>
+      <li id="goal2"> goal2 </li>
+      <li id="goal3"> goal3 </li>
+      <li id="goal4"> goal4 </li>
+      <li id="goal5"> goal5 </li>
+      -->
+    </ul>
+
+    <p>
+    <strong>Testing Link Tracking</strong>
+    </p>
+    <ul>
+      <li><a href="iframeTest.html">iframe buster test</a></li>
+      <li><a href='#/no-tracking' target="_self" class='no-tracking'>Class 'no-tracking' No Tracking Test</a></li>
+      <li><a href='https://github.com/px/cfapp-piwik-analytics/archive/master.zip' class='piwik_ignore'>File I don't want to track as a download</a> Latest master.zip </li>
+      <li><a href='#/piwik_download' class='piwik_download'>Link I want to track as a download</a></li>
+      <li><a href='#/piwik_link' target="_self" class='piwik_link'>Link I want to track as an outlink</a></li>
+      <li><a href='#/' target="_self" class='no-tracking'>Class 'no-tracking' No Tracking Test</a></li>
+      <li><a href='#/' target="_self" class='no-tracking'>Class 'no-tracking' No Tracking Test</a></li>
+    </ul>
+
+
+    <!-- this loads up the testApp which updates and refreshes the above items when working properly. -->
+    <script type="text/javascript" src="./testApp.js"></script>
+
+  </body>
+</html>
