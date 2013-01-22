@@ -57,32 +57,34 @@ CloudFlare.define("piwik_analytics",
         //        this.config.link_tracking = this.config.link_tracking.a || this.config.link_tracking.b || false;
 
         if ( _debug ) { 
+          try {
+            consl("DEBUG OUTPUT ENABLED -- options follow");
+            consl("js_url="+this.config.js_url);
 
-          consl("DEBUG OUTPUT ENABLED -- options follow");
-          consl("js_url="+this.config.js_url);
+            /* iterate through the site_id */
+            consl("set_do_not_track="+this.config.set_do_not_track);
+            consl("link_tracking="+this.config.link_tracking);
 
-          /* iterate through the site_id */
-          consl("set_do_not_track="+this.config.set_do_not_track);
-          consl("link_tracking="+this.config.link_tracking);
+            for ( var index in this.config.site_id) {
 
-          for ( var index in this.config.site_id) {
+              consl("SiteID."+index+"="+this.config.site_id[index]);
+              consl("TrackerURL."+index+"="+this.config.tracker[index]);
 
-            consl("SiteID."+index+"="+this.config.site_id[index]);
-            consl("TrackerURL."+index+"="+this.config.tracker[index]);
+              consl("paq_push."+index+"="+this.config.paq_push[index]);
 
-            consl("paq_push."+index+"="+this.config.paq_push[index]);
+              /* iterate through the configured goals */
+              for ( var goalIndex in this.config.goal[index] ) {
 
-            /* iterate through the configured goals */
-            for ( var goalIndex in this.config.goal[index] ) {
+                consl("goal."+index+"."+goalIndex+"="+this.config.goal[index][goalIndex]);
 
-              consl("goal."+index+"."+goalIndex+"="+this.config.goal[index][goalIndex]);
+              } 
 
-            } 
+            }
+          } catch (e) {
+            conserr("_debug error in config "+e);
 
           }
-
         }
-
       };
 
 
@@ -116,31 +118,39 @@ CloudFlare.define("piwik_analytics",
         var runSetup = false;
 
         /* iterate through the configured site_id */
+        try {
+          for ( var index in piwik.config.site_id ) {
 
-        for ( var index in piwik.config.site_id ) {
+            /*        // check to see if our configuration is correct, then run the setup.
+            */
+            if (typeof piwik.config.tracker[index] !== "string" || piwik.config.tracker[index] === "") 
+            {
+              conserr("Invalid tracker "+ piwik.config.tracker[index]);
+            }
+            else if (typeof piwik.config.site_id[index] !== "string" || piwik.config.site_id[index] === "" )
+            {
+              conserr("Invalid site_id "+piwik.config.site_id[index]);
+            } else if (typeof piwik.config.paq_push[index] !== "string" || piwik.config.paq_push[index] === "" )
 
-          /*        // check to see if our configuration is correct, then run the setup.
-          */
-          if (typeof piwik.config.tracker[index] !== "string" || piwik.config.tracker[index] === "") 
+            {
+              conserr ("Invalid paq_push "+piwik.config.paq_push[index]);
+            } 
+            else {
+              runSetup=true;
+            }
 
-          {
-            conserr("Invalid tracker "+ piwik.config.tracker[index]);
           }
-          else if (typeof piwik.config.site_id[index] !== "string" || piwik.config.site_id[index] === "" )
-          {
-            conserr("Invalid site_id "+piwik.config.site_id.a);
-
-          } else {
-            runSetup=true;
-          }
+        } catch (e) {
+          conserr("errordd condition met "+e);
 
         }
+
 
         if ( runSetup ) {
           piwik.setup();
         }
         else {
-          conserr("errordd condition met");
+          conserr("prototype.activate errors condition met");
         }
 
       };
@@ -150,12 +160,14 @@ CloudFlare.define("piwik_analytics",
       /* some how we need to wait until the piwik.js is asynchronously loaded to ideally determine the visitor_id */
 
       function app_change () {
-
-        var _paq = _paq || [];
-        var visitor_id;   
-        _paq.push([ function() { visitor_id = this.getVisitorId(); }]); 
-        window.document.getElementById("app_change").innerHTML = "app_change getVisitorId="+ visitor_id ;
-
+        try {
+          var _paq = _paq || [];
+          var visitor_id;   
+          _paq.push([ function() { visitor_id = this.getVisitorId(); }]); 
+          window.document.getElementById("app_change").innerHTML = "app_change getVisitorId="+ visitor_id ;
+        } catch (e) {
+          conserr("app_change() " +e );
+        }
       }
 
       function noScript(){
@@ -169,39 +181,45 @@ CloudFlare.define("piwik_analytics",
         var cursor = d.getElementsByTagName('script', true)[0];
         cursor.parentNode.insertBefore(script, cursor);
       }
-
+      /*
+       * paqPush(index)
+       * function to push information into the _paq global array
+       *
+       * */
       function paqPush(index){
         consl("paqPush");
+        try {
+          var prog = "_paq = _paq || []; ";
+          prog += "_paq.push(['setSiteId', "+piwik.config.site_id[index] + "]);";
+          prog += "_paq.push(['setTrackerUrl', '"+piwik.config.tracker[index] + "']);";
 
-        var prog = "_paq = _paq || []; ";
-        prog += "_paq.push(['setSiteId', "+piwik.config.site_id[index] + "]);";
-        prog += "_paq.push(['setTrackerUrl', '"+piwik.config.tracker[index] + "']);";
+          if (piwik.config.link_tracking[index] === "true") {
+            prog += "_paq.push(['enableLinkTracking',true]);";
+          } else {
+            prog += "_paq.push(['enableLinkTracking',false]);";
+          }
 
-        if (piwik.config.link_tracking[index] === "true") {
-          prog += "_paq.push(['enableLinkTracking',true]);";
-        } else {
-          prog += "_paq.push(['enableLinkTracking',false]);";
+          if (piwik.config.set_do_not_track[index] === "true" ) {
+            prog += "_paq.push(['setDoNotTrack',true]);";
+          } else {
+            prog += "_paq.push(['setDoNotTrack',false]);";
+          }
+
+          /* pass the options */
+          prog += "_paq.push("+piwik.config.paq_push[index]+");";
+
+          // make the magic happen, track the page view, trackPageView
+          prog += "_paq.push(['trackPageView']);";
+
+          consl(prog);
+          var scriptEl = document.createElement("script");
+          scriptEl.type='text/javascript';
+          scriptEl.innerHTML = prog;
+
+          document.getElementsByTagName("head")[0].appendChild(scriptEl);
+        } catch (e) {
+          conserr("paqPush(index) error" +e );
         }
-
-        if (piwik.config.set_do_not_track[index] === "true" ) {
-          prog += "_paq.push(['setDoNotTrack',true]);";
-        } else {
-          prog += "_paq.push(['setDoNotTrack',false]);";
-        }
-
-        /* pass the options */
-        prog += "_paq.push("+piwik.config.paq_push[index]+");";
-
-        // make the magic happen, track the page view, trackPageView
-        prog += "_paq.push(['trackPageView']);";
-
-        consl(prog);
-        var scriptEl = document.createElement("script");
-        scriptEl.type='text/javascript';
-        scriptEl.innerHTML = prog;
-
-        document.getElementsByTagName("head")[0].appendChild(scriptEl);
-
       }
 
       function loadScript(f){
@@ -236,31 +254,35 @@ CloudFlare.define("piwik_analytics",
        * */
       Piwik.prototype.setup = function() {
         consl("Piwik.prototype.setup");
+        try {
+          for ( var index in piwik.config.site_id) {
 
-        for ( var index in piwik.config.site_id) {
+            paqPush(index);
 
-          paqPush(index);
+          }
 
+          /* use the cdnjs piwik if enabled */
+          if ( piwik.config.use_cdnjs === true ) {
+            loader(piwik.config.piwik_js_default);
+
+            //:
+            //loadScript(piwik.config.piwik_js_default);
+          } else {
+            /* use our own js url */
+            loader(piwik.config.js_url);
+            //      
+            //         loadScript(piwik.config.js_url);
+          }
+
+          /* noScript();
+           *
+           *  as Picard would say 'resistence is futile'
+           *  ideally a noscript tag should be embedded within CF proxying FIXME
+           */ 
+        } catch (e) {
+
+          conserr("prototype.setup error "+ e);
         }
-
-        /* use the cdnjs piwik if enabled */
-        if ( piwik.config.use_cdnjs === true ) {
-          loader(piwik.config.piwik_js_default);
-
-          //:
-          //loadScript(piwik.config.piwik_js_default);
-        } else {
-          /* use our own js url */
-          loader(piwik.config.js_url);
-          //      
-          //         loadScript(piwik.config.js_url);
-        }
-
-        /* noScript();
-         *
-         *  as Picard would say 'resistence is futile'
-         *  ideally a noscript tag should be embedded within CF proxying FIXME
-         */ 
       };
 
 
