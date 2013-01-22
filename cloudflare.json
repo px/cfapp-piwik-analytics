@@ -107,17 +107,20 @@
       },
 
       {
-        "id": "piwik_js",
-        "name": "piwik.js location ",
+        "id": "piwik_js_default",
+        "name": "default piwik.js location ",
         "description": "A piwik.js URL 'http://' or 'https://'. Leaving this empty will default to use piwik.js from cdnjs.com ",
-        "type": "string"
+        "type": "string",
+        "value": "https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"
       },
 
       {
-        "id": "piwik_receiver",
+        "id": "piwik_tracker",
         "name": "Receiver URL (REQUIRED)",
         "description": "A receiver URL 'https://'. Should be using SSL for security purposes but using '//host.tld' is valid also. ",
-        "type": "string"
+        "type": "string",
+          "value": "https://path.to.tracker.url/"
+
       },
 
       {
@@ -131,8 +134,36 @@
         "id": "link_tracking",
         "name": "Link Tracking",
         "description": "",
-        "type": "string"
-      }
+        "type": "select",
+        "options" : [
+        {
+          "label":"Link Tracking Enabled",
+          "value": "true"
+        },
+        {
+          "label":"Disable Link Tracking",
+          "value":""
+        }
+        ]
+      },
+
+      {
+        "id":"set_obey_do_not_track",
+        "name": "Whether or not to obey the browser do not track.",
+        "description": "browser do not track enable/disable.",
+        "type":"select",
+        "options": [ 
+        {
+          "label": "Yes, obey the browser!",
+          "value": ""
+        },
+        {
+          "label":"No, track ALL THE VISITORS.",
+          "value": "true"
+        }
+        ]
+      },
+
 
 
       ]
