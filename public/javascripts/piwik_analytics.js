@@ -15,8 +15,8 @@ CloudFlare.define("piwik_analytics",
       // because sometimes a delay is needed. FIXME because I'm sure we can do without.
       var _delay=120;
 
-      //var _debug = false;
-      var _debug = true;
+      var _debug = false;
+//      var _debug = true;
 
       var piwik_version_default = "1.10.1";
       // define it up here
@@ -114,7 +114,7 @@ CloudFlare.define("piwik_analytics",
 
 
       Piwik.prototype.activate = function() {
-        consl("Piwik.prototype.activate");
+        if (_debug) consl("Piwik.prototype.activate");
         var runSetup = false;
 
         /* iterate through the configured site_id */
@@ -133,7 +133,7 @@ CloudFlare.define("piwik_analytics",
             } else if (typeof piwik.config.paq_push[index] !== "string" || piwik.config.paq_push[index] === "" )
 
             {
-              conserr ("Invalid paq_push "+piwik.config.paq_push[index]);
+              conserr ("activate Invalid paq_push "+piwik.config.paq_push[index]);
             } 
             else {
               runSetup=true;
@@ -171,11 +171,11 @@ CloudFlare.define("piwik_analytics",
       }
 
       function noScript(){
-        consl("noScript");
+        if (_debug) consl("noScript");
         var test_site = piwik.config.tracker || "//pikwik-ssl.ns1.net/piwik.php";
         test_site += "?id="+piwik.config.site_id+"&amp;rec=1";
 
-        consl("noScript| test_site="+test_site);
+        if (_debug) consl("noScript| test_site="+test_site);
 
         var script = d.createElement("noscript");
         var cursor = d.getElementsByTagName('script', true)[0];
@@ -187,7 +187,7 @@ CloudFlare.define("piwik_analytics",
        *
        * */
       function paqPush(index){
-        consl("paqPush");
+        if (_debug) consl("paqPush");
         try {
           var prog = "_paq = _paq || []; ";
           prog += "_paq.push(['setSiteId', "+piwik.config.site_id[index] + "]);";
@@ -211,7 +211,7 @@ CloudFlare.define("piwik_analytics",
           // make the magic happen, track the page view, trackPageView
           prog += "_paq.push(['trackPageView']);";
 
-          consl(prog);
+          if (_debug) consl(prog);
           var scriptEl = document.createElement("script");
           scriptEl.type='text/javascript';
           scriptEl.innerHTML = prog;
@@ -223,7 +223,7 @@ CloudFlare.define("piwik_analytics",
       }
 
       function loadScript(f){
-        consl("loadScript '"+f+"'");
+        if (_debug) consl("loadScript '"+f+"'");
         var scriptEl = document.createElement("script");
         scriptEl.type='text/javascript';
         scriptEl.defer=true;
@@ -253,7 +253,7 @@ CloudFlare.define("piwik_analytics",
        * Load our program into dom
        * */
       Piwik.prototype.setup = function() {
-        consl("Piwik.prototype.setup");
+        if (_debug) consl("Piwik.prototype.setup");
         try {
           for ( var index in piwik.config.site_id) {
 
@@ -290,7 +290,7 @@ CloudFlare.define("piwik_analytics",
       if (!window.jasmine) {
         // _paq = _paq || [];
         // does this even work here? 
-        consl("hello Piwik CloudFlare App");
+        if (_debug) consl("hello Piwik CloudFlare App");
 
         // activate if not in jasmine
         piwik.activate();
