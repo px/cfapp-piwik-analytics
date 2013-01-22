@@ -1,46 +1,28 @@
-# Piwik Analytics CloudFlare App
-## Codename: Miniature Hipster
+# Miniature Hipster: A Piwik App for Cloudflare -- cfapp_piwik_analytics
 
 CloudFlare's Apps platform enables developers to create and publish web applications for use by website owners on CloudFlare's network. See the [full list](https://www.cloudflare.com/apps).
 
 Miniature Hipster is the 'random' name provided by Github. I may change it. But it's kind of interesting.
   [Piwik Analytics App for Cloudflare](https://github.com/px/cfapp-piwik-analytics.git/) git repository.
 
-  [Piwik Analytics](https://www.cloudflare.com/apps/TBD) CloudFlare App.
+  [Piwik Analytics](https://www.cloudflare.com/apps/piwik_analytics) CloudFlare App.
 
 
 This CloudFlare App aims to improve upon the available Analytics &amp; Tracking options available to users.
   * Initially this App aims to:
-    * work with Piwik;
+    * Be asynchronous in loading
+    * work with your own Piwik Analytics installation, or maybe a hosted solution.
     * Support a single Piwik Site ID
     * Support a single Piwik tracker/receiver
     * provide &lt;noscript&gt; tag for recording visitors without Javascript using a gif pixel.
-    * utilize [cdnjs](http://cdnjs.com) for serving piwik.js if left unsupplied by the user.
+    * utilize [cdnjs](http://cdnjs.com) for serving piwik.js quickly if emabled, or the parameters left unsupplied by the user.
 
-
+ * TODO
+    * Support:
+        * multiple versions of piwik, currently only 1.10.1 -- FIXME
+        * goals, tracking, 5 per site id, maybe more.
 
 # Remnants from Sample App are still below for now.
-
-#Elements of a CloudFlare App repo
-
-This sample app, and the examples cited above, include most of the elements listed below.
-
- * cloudflare.json (required)
- * cloudflare.md (required)
- * App logo files (required)
- * App JavaScript file (optional)
- * App detail image file(s) (optional)
- * App image file(s) (optional)
- * App CSS file(s) (coming soon; optional)
-
-Descriptions of these elements follow.
-
-##cloudflare.json
-
-The cloudflare.json file contains the packaging information for your application.
-It includes a path to your main JavaScript file, the definition for your configuration
-interface, and the location and nature of your non-JS assets.
-It also contains information on accounts and billing.
 
 ##cloudflare.md
 
@@ -52,7 +34,7 @@ Recommend that you include images, such as screenshots. The max width on the app
 ##App logo files
 
 Suggested directory for your logo files:
-/APP-KEY/public/images/
+/piwik_analytics/public/images/
 
 Required image file names
  * logo-132.png (132 pixels wide; height not constrained)
@@ -106,25 +88,6 @@ CloudFlare does not require you to provide any tests. This repository contains a
 
 To run the sample suite, boot up a webserver with the root of this repository as the document root, and open test/suite.html.
 
-##Modules of interest
-
-CloudFlare has a set of modules that you can use when writing apps
-
-###cloudflare/dom
-
-A dom manipulation library similar to browser methods, but more generic.
-
-###cloudflare/path
-
-Tools for parsing where the page is.
-
-###cloudflare/loader
-
-An AJAX wrapper that behaves similarly to jquery.ajax
-
-###cloudflare/config
-
-General information about the site your module is running on.
 
 ##Interface
 
@@ -132,11 +95,11 @@ The website owner sets up an App in their [CloudFlare Apps dashboard](https://ww
 
 The simplest configuration requires nothing: the App may be turned On or Off, nothing more. Example (from an earlier version): A Better Browser
 
-![On-Off only](./cfapp_sample/raw/master/doc/on-off-no-configuration.png "A Better Browser example - just On and Off")
+![On-Off only](./cfapp_sample/raw/master/doc/.png "example")
 
 More configuration is possible. Example: Trumpet.
 
-![String example](./cfapp_sample/raw/master/doc/string-configuration-example.png "Trumpet example - string config")
+![String example](./cfapp_sample/raw/master/doc/.png "example")
 
 
 You can specify an interface in your cloudflare.json for site owners to use to configure your application. The results of that configuration are available in
