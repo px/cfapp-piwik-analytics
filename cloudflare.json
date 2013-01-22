@@ -3,9 +3,9 @@
 
   "description": "Miniature Hipster: A Piwik Analytics CloudFlare application that helps speed up things",
 
-  "version": "0.0.1f",
+  "version": "0.0.1g",
 
-  "category": "webmaster",
+  "category": "analytics",
 
   "keywords" : [
     "webmaster",
