@@ -14,8 +14,8 @@ var pkC = {
   // Site id's
   "site_id" : "1",
   "site_id" : {
-    "a" : "1",
-    "b" : "24"
+    "a" : "26",
+    "b" : "27"
   },
   // Trackers
   "tracker" : {
@@ -24,7 +24,7 @@ var pkC = {
   },
   // Stuff to push into the array
   "paq_push" : {
-    "a" : "['enableLinkTracking'],['setLinkTrackingTimer',250],['setHeartBeatTimer',30,60],['disableCookies'],['setDoNotTrack',true]",
+    "a" : "['enableLinkTracking'],['setLinkTrackingTimer',250],['setHeartBeatTimer',15,30],['disableCookies'],['setDoNotTrack',true]",
     "b" : "['enableLinkTracking'],['setLinkTrackingTimer',250],['trackGoal',1,0],['killFrame']"
   },
   // set the domains to track
@@ -60,7 +60,10 @@ var pkC = {
 
   }
 }
+
+
 // can't "build" this in the above associative array
 pkC.js_url = pkC.js_prot+pkC.js_schem+pkC.js_host+pkC.js_path+pkC.js_file;
 
+// be lazy, copy it over from the short name to one that makes more sense.
 var piwikConfig = pkC;
