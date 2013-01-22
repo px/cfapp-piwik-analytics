@@ -4,11 +4,13 @@
   "description": "Miniature Hipster: A Piwik Analytics CloudFlare application that helps speed up things",
 
   "version": "0.0.1g",
-
-  "category": "analytics",
+  "category": "webmaster",
 
   "keywords" : [
-  "analytics"
+    "webmaster",
+  "analytics",
+  "tracking",
+  "websites"
     ],
 
   "contributors": [
@@ -116,7 +118,7 @@
         "name": "Receiver URL (REQUIRED)",
         "description": "A receiver URL 'https://'. Should be using SSL for security purposes but using '//host.tld' is valid also. ",
         "type": "string",
-          "value": "https://path.to.tracker.url/"
+        "value": "https://path.to.tracker.url/"
 
       },
 
