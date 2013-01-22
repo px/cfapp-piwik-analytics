@@ -1,12 +1,13 @@
-#Miniature Hipster: A Piwik App for Cloudflare -- cfapp_piwik_analytics
+#Miniature Hipster: 
+## A Piwik App for Cloudflare -- cfapp_piwik_analytics
 
-This app will embed the 'piwik.js' code in all your webpages, and then provide your Piwik tracker with analytics about your visitors.
+This app will embed and include the 'piwik.js' using script elements into all your webpages, and then provide your Piwik tracker with analytics about your visitors.
 
 Features
 * Speed
   * Use [cdnjs](https://cdnjs.com/) to serve up 'piwik.js' quickly to your visitors, or your use your own URL.
 
-* Link tracking.
+* Link Tracking
   * Easily enable open source analytics tracking for outlinks from your web properties.
 
 * Privacy
