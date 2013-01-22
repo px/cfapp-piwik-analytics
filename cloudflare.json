@@ -1,110 +1,89 @@
 {
   "name": "Piwik Analytics",
-
   "description": "Miniature Hipster: A Piwik Analytics CloudFlare application that helps speed up things",
-
   "version": "0.0.1g",
   "category": "webmaster",
-
-  "keywords" : [
+  "keywords": [
     "webmaster",
-  "analytics",
-  "tracking",
-  "websites"
-    ],
-
-  "contributors": [
-  {
-    "name" : "Rob Friedman",
-    "email" : "px@ns1.net"
-  }
+    "analytics",
+    "tracking",
+    "websites"
   ],
-
-    "repository" : {
-      "type" : "git",
-      "url" : "https://github.com/px/cfapp-piwik-analytics.git"
-    },
-
-    "main" : "./public/javascripts/piwik_analytics.js",
-    "dependencies" : {
-    },
-
-    "licenses" : [
+  "contributors": [
+    {
+      "name": "Rob Friedman",
+      "email": "px@ns1.net"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/px/cfapp-piwik-analytics.git"
+  },
+  "main": "./public/javascripts/piwik_analytics.js",
+  "dependencies": {},
+  "licenses": [
     {
       "type": "BSD-2-Clause",
       "url": "http://www.opensource.org/licenses/BSD-2-Clause"
-    }],
-
-    "implements" : "AMD",
-    "scripts" : {
-    },
-    "billing": {
-      "type": "zone",
-      "plans":[
+    }
+  ],
+  "implements": "AMD",
+  "scripts": {},
+  "billing": {
+    "type": "zone",
+    "plans": [
       {
-        "name" : "FREE",
+        "name": "FREE",
         "price": "0.00"
       },
       {
-        "name" : "Some Features",
-        "price" : "4.55"
+        "name": "Some Features",
+        "price": "4.55"
       },
       {
-        "name" : "More than Some Features",
-        "price" : "9.99"
+        "name": "More than Some Features",
+        "price": "9.99"
       }
-
+    ]
+  },
+  "config": {
+    "details": {
+      "Category": "Analytics",
+      "Language": "English",
+      "Price": "Free to start and install, some plans coming soon.",
+      "Restrictions": "None",
+      "playerx.net": "<a href='http://playerx.net/' target='_blank'>Rob Friedman</a>",
+      "NS1.net": "<a href='http://ns1.net/en/legal/' target='_blank'>NS1.net - Terms of use</a>"
+    },
+    "assets": {
+      "logos": {
+        "200px": "./public/images/logo-200.png",
+        "132px": "./public/images/logo-132.png"
+      },
+      "detail_page": [
+        "./public/images/piwik_analytics_screenshoti_1.png"
+      ],
+      "images": [
+        "./public/images/piwik_analytics.png"
       ]
     },
-    "config":{
-
-      "details":{
-        "Category": "Analytics",
-        "Language": "English",
-        "Price": "Free to start and install, some plans coming soon.",
-        "Restrictions": "None",
-        "playerx.net": "<a href='http://playerx.net/' target='_blank'>Rob Friedman</a>",
-        "NS1.net": "<a href='http://ns1.net/en/legal/' target='_blank'>NS1.net - Terms of use</a>"
-      },
-
-      "assets":{
-        "logos" : {
-          "200px": "./public/images/logo-200.png",
-          "132px": "./public/images/logo-132.png"
-        },
-        "detail_page" : [
-          "./public/images/piwik_analytics_screenshot.png"
-          ],
-        "images" : [
-          "./public/images/piwik_analytics.png"
-          ]
-      },
-      /*
-       * Lot of things to implement in the interface
-       * just the basics for now.
-       *
-       * http://piwik.org/docs/javascript-tracking/
-       *
-       * */
-      "interface": [
-
+    "interface": [
       {
         "id": "use_cdnjs",
         "type": "select",
         "name": "Do you want to use cdnjs to serve 'piwik.js' to your visitors?",
         "description": "Choose whether to enable cdnjs.",
         "options": [
-        {
-          "label": "Yes!",
-          "value": "true"
-        },
-        {
-          "label": "No, I am scared.",
-          "value": ""
-        }
+          {
+            "label": "Yes!",
+            "value": "true"
+          },
+          {
+            "label": "No, I am scared.",
+            "value": ""
+          }
         ]
       },
-
       {
         "id": "piwik_js_default",
         "name": "default piwik.js location ",
@@ -112,59 +91,51 @@
         "type": "string",
         "value": "https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"
       },
-
       {
         "id": "piwik_tracker",
         "name": "Receiver URL (REQUIRED)",
         "description": "A receiver URL 'https://'. Should be using SSL for security purposes but using '//host.tld' is valid also. ",
         "type": "string",
         "value": "https://path.to.tracker.url/"
-
       },
-
       {
         "id": "site_id",
         "name": "SiteID ",
         "description": "Site ID to be tracked, otherwise it will default to use '1'.",
         "type": "string"
       },
-
       {
         "id": "link_tracking",
         "name": "Link Tracking",
         "description": "equivalent to \"_paq.push(['enableLinkTracking',true]);\"",
         "type": "select",
-        "options" : [
-        {
-          "label":"Link Tracking Enabled",
-          "value": "true"
-        },
-        {
-          "label":"Disable Link Tracking",
-          "value":""
-        }
+        "options": [
+          {
+            "label": "Link Tracking Enabled",
+            "value": "true"
+          },
+          {
+            "label": "Disable Link Tracking",
+            "value": ""
+          }
         ]
       },
-
       {
-        "id":"set_obey_do_not_track",
+        "id": "set_obey_do_not_track",
         "name": "Whether or not to obey the browser do not track.",
         "description": "browser do not track enable/disable. equivalent to \"_paq.push(['setDoNotTrack',true]);\"",
-        "type":"select",
-        "options": [ 
-        {
-          "label": "Yes, obey the browser!",
-          "value": ""
-        },
-        {
-          "label":"No, track ALL THE VISITORS.",
-          "value": "true"
-        }
+        "type": "select",
+        "options": [
+          {
+            "label": "Yes, obey the browser!",
+            "value": ""
+          },
+          {
+            "label": "No, track ALL THE VISITORS.",
+            "value": "true"
+          }
         ]
-      },
-
-
-
-      ]
-    }
+      }
+    ]
+  }
 }
