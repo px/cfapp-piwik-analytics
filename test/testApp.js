@@ -1,6 +1,6 @@
 document = document || [];
 
-//"use strict;";
+"use strict;";
 
 var _debug = _debug || true;
 
@@ -13,11 +13,16 @@ _paq.push([ function() { visitor_id = this.getVisitorId(); }]);
 // _paq.push([ function() { get_tracker = this.getAsyncTracker(); }]);
 
 function update_status() {
+
+  document.getElementById("visitorId").innerHTML = "getVisitorId="+ visitor_id ;
+  document.getElementById("timeDiv").innerHTML = "Timer update";
+
+  try {
+
   document.getElementById("piwik_js_default").innerHTML = "piwik_js_default="+piwikConfig.piwik_js_default;
   document.getElementById("js_url").innerHTML = "js_url="+piwikConfig.js_url;
   document.getElementById("use_cdnjs").innerHTML = "use_cdnjs="+ piwikConfig.use_cdnjs ;
   
-  document.getElementById("visitorId").innerHTML = "getVisitorId="+ visitor_id ;
   
   document.getElementById("site_id.a").innerHTML = "site_id.a="+piwikConfig.site_id.a;
   document.getElementById("site_id.b").innerHTML = "site_id.b="+piwikConfig.site_id.b;
@@ -29,20 +34,21 @@ function update_status() {
 
   document.getElementById("paq_push.a").innerHTML = "paq_push.a="+piwikConfig.paq_push.a;
   document.getElementById("paq_push.b").innerHTML = "paq_push.b="+piwikConfig.paq_push.b;
+  } catch (e) {
 
-//setTimeout(update_status(),10*60);
+    /* silently ignore the error */
+  }
+
 }
 
 // 
-window.onload=update_status();
-
-var limit="0:10";
+var limit="0:3";
 
 if(document.images){var parselimit=limit.split(":");parselimit=parselimit[0]*60+parselimit[1]*1;}
 
 var saveTime=parselimit;
 
-function beginrefresh(){
+function refresh(){
   if(!document.images){return;}
   if(parselimit==1){
 
@@ -50,7 +56,7 @@ function beginrefresh(){
     update_status();
 
     parselimit=saveTime;
-    setTimeout(beginrefresh,1000);
+    setTimeout(refresh,1000);
 
   } else {
 
@@ -66,11 +72,9 @@ function beginrefresh(){
     document.getElementById('timeDiv').innerHTML = curtime;
 
     // unquoted causes stack error when using arguments ()
-    setTimeout(beginrefresh,1000);
-
+    setTimeout(refresh,1000);
   }
 }
 
-window.onload=beginrefresh();
-
+window.onload=refresh();
 
