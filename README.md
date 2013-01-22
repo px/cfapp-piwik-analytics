@@ -22,6 +22,8 @@ This CloudFlare App aims to improve upon the available Analytics &amp; Tracking 
   * multiple versions of piwik, currently only 1.10.1 -- FIXME
   * goals, tracking, 5 per site id, maybe more.
 
+### Piwik Documentation
+* [Javascript Tracking](http://piwik.org/docs/javascript-tracking/)
 
 CloudFlare's Apps platform enables developers to create and publish web applications for use by website owners on CloudFlare's network. See the [full list](https://www.cloudflare.com/apps).
 
