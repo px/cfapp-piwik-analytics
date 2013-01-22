@@ -1,5 +1,5 @@
 # Miniature Hipster:
-## A Piwik App for Cloudflare -- cfapp_piwik_analytics
+## A Piwik App for CloudFlare -- cfapp_piwik_analytics
 
   * [Piwik Analytics](https://www.cloudflare.com/apps/piwik_analytics) CloudFlare App.
 
@@ -9,6 +9,8 @@ Miniature Hipster is the 'random' name provided by Github. I may change it. But 
 This CloudFlare App aims to improve upon the available Analytics &amp; Tracking options available to users.*
 
 ### Initially this App aims to
+
+* utililse " use stict;" when possible.
 * Be asynchronous in loading
 * work with your own Piwik Analytics installation, or maybe a hosted solution.
 * Support a single Piwik Site ID
@@ -21,10 +23,18 @@ This CloudFlare App aims to improve upon the available Analytics &amp; Tracking 
 * Support:
   * multiple versions of piwik, currently only 1.10.1 -- FIXME
   * goals, tracking, 5 per site id, maybe more.
+  * automatically check .js files
+  * automatically check cloudflare.json and other json files with jsonlint
 
 ### Piwik Documentation
 * [Javascript Tracking](http://piwik.org/docs/javascript-tracking/)
 
 CloudFlare's Apps platform enables developers to create and publish web applications for use by website owners on CloudFlare's network. See the [full list](https://www.cloudflare.com/apps).
 
+
+
+### Other stuff
+
+* [jsonlint](https://github.com/zaach/jsonlint)
+      npm install jsonlint -g
 
