@@ -88,6 +88,24 @@
        *
        * */
       "interface": [
+
+      {
+        "id": "use_cdnjs",
+        "type": "select",
+        "name": "Do you want to use cdnjs to serve 'piwik.js' to your visitors?",
+        "description": "Choose whether to enable cdnjs.",
+        "options": [
+        {
+          "label": "Yes!",
+          "value": "true"
+        },
+        {
+          "label": "No, I am scared.",
+          "value": ""
+        }
+        ]
+      },
+
       {
         "id": "piwik_js",
         "name": "piwik.js location ",
