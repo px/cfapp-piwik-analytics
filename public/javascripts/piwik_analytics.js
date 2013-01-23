@@ -15,8 +15,8 @@ CloudFlare.define("piwik_analytics",
       // because sometimes a delay is needed. FIXME because I'm sure we can do without.
       var _delay=2;
 
-      var _debug = false;
-      //      var _debug = true;
+      // var _debug = false;
+           var _debug = true;
 
       var piwik_version_default = "1.10.1";
       // define it up here
