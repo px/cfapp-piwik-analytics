@@ -1,6 +1,6 @@
 {
   "name": "Piwik Analytics",
-  "description": "Miniature Hipster: A Piwik Analytics CloudFlare application that helps speed up things",
+  "description": "Codename: Miniature Hipster. A Piwik Analytics CloudFlare application that helps speed things up.",
   "version": "0.0.1h",
   "category": "webmaster",
   "keywords": [
@@ -53,7 +53,7 @@
       "Price": "Free to start and install, some plans coming soon.",
       "Restrictions": "None",
       "playerx.net": "<a href='http://playerx.net/' target='_blank'>Rob Friedman</a>",
-      "NS1.net": "<a href='http://ns1.net/en/legal/' target='_blank'>NS1.net - Terms of use</a>"
+      "NS1.net": "<a href='http://ns1.net/en/legal/' target='_blank'>NS1.net</a>"
     },
     "assets": {
       "logos": {
@@ -69,17 +69,30 @@
     },
     "interface": [
       {
+        "id": "site_id",
+        "name": "Site ID ",
+        "description": "Site ID to be tracked, otherwise it will default to use '1'",
+        "type": "string"
+      },
+      {
+        "id": "piwik_tracker",
+        "name": "Tracker URL (REQUIRED)",
+        "description": "A receiver URL 'https://'. Should be using SSL for security purposes but using '//host.tld' is valid also.",
+        "type": "string",
+        "value": "https://path.to.tracker.url/piwik.php"
+      },
+      {
         "id": "use_cdnjs",
         "type": "select",
-        "name": "Do you want to use cdnjs to serve 'piwik.js' to your visitors?",
-        "description": "Choose whether to enable cdnjs.",
+        "name": "Choose whether to enable cdnjs?",
+        "description": "Do you want to use cdnjs for serving 'piwik.js' to your visitors?",
         "options": [
           {
             "label": "Yes!",
             "value": "true"
           },
           {
-            "label": "No, I am scared.",
+            "label": "No.",
             "value": ""
           }
         ]
@@ -92,22 +105,9 @@
         "value": "https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"
       },
       {
-        "id": "piwik_tracker",
-        "name": "Receiver URL (REQUIRED)",
-        "description": "A receiver URL 'https://'. Should be using SSL for security purposes but using '//host.tld' is valid also. ",
-        "type": "string",
-        "value": "https://path.to.tracker.url/"
-      },
-      {
-        "id": "site_id",
-        "name": "SiteID ",
-        "description": "Site ID to be tracked, otherwise it will default to use '1'.",
-        "type": "string"
-      },
-      {
         "id": "link_tracking",
         "name": "Link Tracking",
-        "description": "equivalent to \"_paq.push(['enableLinkTracking',true]);\"",
+        "description": "You should want this to be enabled as it is by default. Equivalent to \"_paq.push(['enableLinkTracking',true]);\"",
         "type": "select",
         "options": [
           {
@@ -123,15 +123,15 @@
       {
         "id": "set_obey_do_not_track",
         "name": "Whether or not to obey the browser do not track.",
-        "description": "browser do not track enable/disable. equivalent to \"_paq.push(['setDoNotTrack',true]);\"",
+        "description": "Enable or disable obeying browser do not track options. Equivalent to \"_paq.push(['setDoNotTrack',true]);\"",
         "type": "select",
         "options": [
           {
-            "label": "Yes, obey the browser!",
+            "label": "Yes, Obey the Browser!",
             "value": ""
           },
           {
-            "label": "No, track ALL THE VISITORS.",
+            "label": "No, Track ALL THE VISITORS.",
             "value": "true"
           }
         ]
