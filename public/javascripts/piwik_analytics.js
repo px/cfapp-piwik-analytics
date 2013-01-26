@@ -250,7 +250,6 @@ CloudFlare.define("piwik_analytics",
         scriptEl.async=true;
         scriptEl.src=f;
         scriptEl.onload="document.getElementById('app_change').innerHTML = 'app_change getVisitorId22222='+ _visitor_id;";
-        var ele = " <script type=\"text/javascript\">(function (w,d) {var loader = function () {var s = d.createElement(\"script\"), tag = d.getElementsByTagName(\"script\")[0]; s.src = \""+f+"\"; tag.parentNode.insertBefore(s,tag);}; loader();})(window, document);</script>";
         document.getElementsByTagName("head")[0].appendChild(scriptEl);
       }
 
