@@ -1,36 +1,5 @@
 {
-  "name": "Piwik Analytics",
-  "description": "Codename: Miniature Hipster. A Piwik Analytics CloudFlare application that helps speed things up.",
-  "version": "0.0.7",
-  "category": "webmaster",
-  "keywords": [
-    "webmaster",
-    "analytics",
-    "tracking",
-    "websites"
-  ],
-  "contributors": [
-    {
-      "name": "Rob Friedman",
-      "email": "px@ns1.net"
-    }
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/px/cfapp-piwik-analytics.git"
-  },
-  "main": "./public/javascripts/piwik_analytics.js",
-  "dependencies": {},
-  "licenses": [
-    {
-      "type": "BSD-2-Clause",
-      "url": "http://www.opensource.org/licenses/BSD-2-Clause"
-    }
-  ],
-  "implements": "AMD",
-  "scripts": {},
   "billing": {
-    "type": "zone",
     "plans": [
       {
         "name": "FREE",
@@ -44,28 +13,30 @@
         "name": "More than Some Features",
         "price": "9.99"
       }
-    ]
+    ],
+    "type": "zone"
   },
+  "category": "webmaster",
   "config": {
-    "details": {
-      "Category": "Analytics",
-      "Language": "English",
-      "Price": "Free to start and install, some plans coming soon.",
-      "Restrictions": "None",
-      "playerx.net": "<a href='http://playerx.net/' target='_blank'>Rob Friedman</a>",
-      "NS1.net": "<a href='http://ns1.net/en/legal/' target='_blank'>NS1.net</a>"
-    },
     "assets": {
-      "logos": {
-        "200px": "./public/images/logo-200.png",
-        "132px": "./public/images/logo-132.png"
-      },
       "detail_page": [
         "./public/images/piwik_analytics_screenshot_1.png"
       ],
       "images": [
         "./public/images/piwik_analytics.png"
-      ]
+      ],
+      "logos": {
+        "132px": "./public/images/logo-132.png",
+        "200px": "./public/images/logo-200.png"
+      }
+    },
+    "details": {
+      "Category": "Analytics",
+      "Language": "English",
+      "NS1.net": "<a href='http://ns1.net/en/legal/' target='_blank'>NS1.net</a>",
+      "Price": "Free to start and install, some plans coming soon.",
+      "Restrictions": "None",
+      "playerx.net": "<a href='http://playerx.net/' target='_blank'>Rob Friedman</a>"
     },
     "interface": [
       {
@@ -137,5 +108,34 @@
         ]
       }
     ]
-  }
+  },
+  "contributors": [
+    {
+      "name": "Rob Friedman",
+      "email": "px@ns1.net"
+    }
+  ],
+  "dependencies": {},
+  "description": "Codename: Miniature Hipster. A Piwik Analytics CloudFlare application that helps speed things up.",
+  "implements": "AMD",
+  "keywords": [
+    "webmaster",
+    "analytics",
+    "tracking",
+    "websites"
+  ],
+  "licenses": [
+    {
+      "type": "BSD-2-Clause",
+      "url": "http://www.opensource.org/licenses/BSD-2-Clause"
+    }
+  ],
+  "main": "./public/javascripts/piwik_analytics.js",
+  "name": "Piwik Analytics",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/px/cfapp-piwik-analytics.git"
+  },
+  "scripts": {},
+  "version": "0.0.8"
 }
