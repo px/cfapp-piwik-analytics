@@ -7,6 +7,9 @@ var _debug = _debug || true;
 
 
 var _paq = _paq || []; 
+var piwikConfig = piwikConfig || {};
+
+
 var visitor_id="default id";
 var get_tracker="default tracker";
 
@@ -24,18 +27,18 @@ function update_status(document, piwikConfig) {
     document.getElementById("use_cdnjs").innerHTML = "use_cdnjs="+ piwikConfig.use_cdnjs ;
 
 
-    document.getElementById("site_id.a").innerHTML = "site_id.a="+piwikConfig.site_id.a;
-    document.getElementById("site_id.b").innerHTML = "site_id.b="+piwikConfig.site_id.b;
+    document.getElementById("site_id.a").innerHTML = "site_id.a="+(piwikConfig.site_id.a|| piwikConfig.site_id);
+    document.getElementById("site_id.b").innerHTML = "site_id.b="+(piwikConfig.site_id.b || piwikConfig.site_id);
 
-    document.getElementById("trackerURL.a").innerHTML = "trackerURL.a="+piwikConfig.tracker.a;
-    document.getElementById("trackerURL.b").innerHTML = "trackerURL.b="+piwikConfig.tracker.b;
+    document.getElementById("trackerURL.a").innerHTML = "trackerURL.a="+(piwikConfig.tracker.a||piwikConfig.tracker);
+    document.getElementById("trackerURL.b").innerHTML = "trackerURL.b="+(piwikConfig.tracker.b||piwikConfig.tracker);
 
-    document.getElementById("getTracker").innerHTML = "getTracker="+get_tracker;
+    document.getElementById("getTracker").innerHTML = "getTracker="+(get_tracker || get_tracker);
 
-    document.getElementById("paq_push.a").innerHTML = "paq_push.a="+piwikConfig.paq_push.a;
-    document.getElementById("paq_push.b").innerHTML = "paq_push.b="+piwikConfig.paq_push.b;
+    document.getElementById("paq_push.a").innerHTML = "paq_push.a="+(piwikConfig.paq_push.a || piwikConfig.paq_push);
+    document.getElementById("paq_push.b").innerHTML = "paq_push.b="+(piwikConfig.paq_push.b||piwikConfig.paq.push);
   } catch (e) {
-
+console.error('Testing console '+e);
     /* silently ignore the error */
   }
 
