@@ -2,7 +2,8 @@
 set -x
 
 _FILE=public/javascripts/piwik_analytics.js
-jsl -stdin <$_FILE
+
+find . -type f -name \*.js -exec jsl -process {} \;
 
 
 echo copy over in place cloudflare.json
