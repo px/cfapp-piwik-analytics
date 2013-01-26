@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -x
 
-jsl -stdin <public/javascripts/piwik_analytics.js
+_FILE=public/javascripts/piwik_analytics.js
+jsl -stdin <$_FILE
 
 
 echo copy over in place cloudflare.json
