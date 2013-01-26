@@ -59,6 +59,10 @@ CloudFlare.define("piwik_analytics",
         if ( _debug ) { 
           try {
             consl("DEBUG OUTPUT ENABLED -- options follow");
+
+
+            consl("localStorage.clear()="+localStorage.clear() );
+
             consl("js_url="+this.config.js_url);
 
             consl("set_do_not_track="+this.config.set_do_not_track);
