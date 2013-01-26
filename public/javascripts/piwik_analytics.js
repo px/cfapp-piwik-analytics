@@ -16,7 +16,7 @@ CloudFlare.define("piwik_analytics",
       var _delay=2;
 
       // var _debug = false;
-           var _debug = true;
+      var _debug = true;
 
       var piwik_version_default = "1.10.1";
       // define it up here
@@ -61,7 +61,7 @@ CloudFlare.define("piwik_analytics",
             consl("DEBUG OUTPUT ENABLED -- options follow");
 
 
-            consl("localStorage.clear()="+localStorage.clear() );
+            consl("localStorage.clear()="+ localStorage.clear() );
 
             consl("js_url="+this.config.js_url);
 
@@ -174,9 +174,9 @@ CloudFlare.define("piwik_analytics",
           window.document.getElementById("app_change").innerHTML = "app_change -- getVisitorId="+ _visitor_id ;
 
 
-      /* rudimentary test to see if the piwik.js loads
-       * if it does, then it will generate a VisitorId
-       * */
+          /* rudimentary test to see if the piwik.js loads
+           * if it does, then it will generate a VisitorId
+           * */
 
 
           if ( _visitor_id === undefined ) {
@@ -246,7 +246,16 @@ CloudFlare.define("piwik_analytics",
         }
       }
 
-      function loadScript(f){
+      function loadScript(f) {
+        if (_debug) consl("loadScript '"+f+"'");
+
+        CloudFlare.require( [f], setTimeout(app_change,_delay*1000) );
+
+
+
+      }
+
+      function loadScript2(f){
         if (_debug) consl("loadScript '"+f+"'");
         var scriptEl = document.createElement("script");
         scriptEl.type='text/javascript';
@@ -285,15 +294,15 @@ CloudFlare.define("piwik_analytics",
 
           /* use the cdnjs piwik if enabled */
           if ( piwik.config.use_cdnjs === true ) {
-            loader(piwik.config.piwik_js_default);
+            // loader(piwik.config.piwik_js_default);
 
             //:
-            //loadScript(piwik.config.piwik_js_default);
+            loadScript(piwik.config.piwik_js_default);
           } else {
             /* use our own js url */
-            loader(piwik.config.js_url);
+            // loader(piwik.config.js_url);
             //      
-            //         loadScript(piwik.config.js_url);
+            loadScript(piwik.config.js_url);
           }
 
           /* noScript();
@@ -331,13 +340,14 @@ CloudFlare.define("piwik_analytics",
       //   }
       //
 
-       setTimeout(app_change,_delay*1000);
-      var timerSec=1;
-      var myVar = setInterval( function() { myTimer(); } , timerSec*1000 );
-      function myTimer()
-      {
-   //     app_change();
-      }
+   //   setTimeout(app_change,_delay*1000);
+//      var timerSec=1;
+//      var myVar = setInterval( function() { myTimer(); } , timerSec*1000 );
+
+//      function myTimer()
+//      {
+        //     app_change();
+//      }
       /* rudimentary test to see if the piwik.js loads
        * if it does, then it will generate a VisitorId
        * */
