@@ -12,7 +12,6 @@ var pkC = {
   "js_url" : "",
 //  "js_url" : js_host+js_path+js_file,
   // Site id's
-  "site_id" : "1",
   "site_id" : {
     "a" : "26",
     "b" : "27" //,
@@ -58,15 +57,15 @@ var pkC = {
   "set_cookie_domain" : {
     "a" : "a",
     "b" : "b"
-  },
- /* 
+  }/* 
+  ,
    "goal": {
 
 "a" : { "1" : "", "2" : "", "3" :"" },
 "b" : { "1" : "", "2" : "", "3" :"" },
 
   } */
-}
+};
 
 
 // can't "build" this in the above associative array
