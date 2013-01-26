@@ -1,7 +1,7 @@
 {
   "name": "Piwik Analytics",
   "description": "Codename: Miniature Hipster. A Piwik Analytics CloudFlare application that helps speed things up.",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "category": "webmaster",
   "keywords": [
     "webmaster",
