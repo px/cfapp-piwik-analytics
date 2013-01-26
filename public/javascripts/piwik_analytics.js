@@ -7,7 +7,6 @@
 CloudFlare.define("piwik_analytics", [ "piwik_analytics/config" ], function( _config ) {
   "use strict";
   /* because sometimes a delay is needed. FIXME because I'm sure we can do without. */
-
   var _delay=3;
 
   // var _debug = false;
@@ -16,11 +15,11 @@ CloudFlare.define("piwik_analytics", [ "piwik_analytics/config" ], function( _co
   var piwik_version_default = "1.10.1";
 
   // define it up here
-  var _visitor_id;
+  var _visitor_id = _visitor_id || '';
 
+  var Piwik = {};
 
-
-  var Piwik = function Piwik(config) {
+  Piwik = function Piwik(config) {
 
     this.config = config;
 
@@ -30,12 +29,12 @@ CloudFlare.define("piwik_analytics", [ "piwik_analytics/config" ], function( _co
     /* default set_do_not_track to 'true'
      * This will need work. */
 
-    this.config.set_do_not_track = this.config.set_do_not_track.a || this.config.set_do_not_track.b || true;
+    this.config.set_do_not_track = config.set_do_not_track.a || config.set_do_not_track.b || true;
 
     /* default to no link_tracking, seto to 'false'
      * this will need work */
 
-    this.config.link_tracking = this.config.link_tracking.a || this.config.link_tracking.b || false;
+    this.config.link_tracking = config.link_tracking.a || config.link_tracking.b || false;
 
     if ( _debug ) { 
 
@@ -87,24 +86,25 @@ CloudFlare.define("piwik_analytics", [ "piwik_analytics/config" ], function( _co
         }      catch (e)  {
           this.conserr("_debug error in config "+e);
         }
+        // diable goals
+        /*
+           try {
+        //    iterate through the configured goals 
+        for ( var goalIndex in this.config.goal[index] ) {
 
 
         try {
-          /* iterate through the configured goals */
-          for ( var goalIndex in this.config.goal[index] ) {
-
-
-            try {
-              this.consl("goal."+index+"."+goalIndex+"="+this.config.goal[index][goalIndex]);
-            }       catch (e)  {
-              this.conserr("_debug error in config "+e);
-            }
-
-
-          }
-        } catch (e) {
-          this.conserr("_debug error in config "+e);
+        this.consl("goal."+index+"."+goalIndex+"="+this.config.goal[index][goalIndex]);
+        }       catch (e)  {
+        this.conserr("_debug error in config "+e);
         }
+
+
+        }
+        } catch (e) {
+        this.conserr("_debug error in config "+e);
+        }
+        */
 
       }
     } 
@@ -162,9 +162,14 @@ CloudFlare.define("piwik_analytics", [ "piwik_analytics/config" ], function( _co
   /* some how we need to wait until the piwik.js is asynchronously loaded to ideally determine the _visitor_id */
 
   Piwik.prototype.app_change = function() {
+
+    piwik.consl("app_change()");
     try {
       var _paq = _paq || [];
-      //    var _visitor_id;   
+      var _visitor_id = _visitor_id || '';   
+
+      //      _paq.push([ function() { window.document.getElementById("app_change").innerHTML = "app_change -- getVisitorId="+this.getVisitorId(); } ]);
+
       _paq.push([ function() { _visitor_id = this.getVisitorId(); }]); 
       window.document.getElementById("app_change").innerHTML = "app_change -- getVisitorId="+ _visitor_id ;
 
@@ -238,7 +243,7 @@ CloudFlare.define("piwik_analytics", [ "piwik_analytics/config" ], function( _co
   Piwik.prototype.loadScript = function(f) {
     if (_debug) piwik.consl("loadScript '"+f+"'");
     // needs a delay
-    CloudFlare.require( [f], function() { return piwik.app_change ;} );
+    CloudFlare.require( [f], function() { piwik.app_change() ;} );
   };
 
   /*
