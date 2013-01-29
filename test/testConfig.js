@@ -25,7 +25,8 @@ var pkC = {
   },
   // Stuff to push into the array
   "paq_push" : {
-    "a" : "['setLinkTrackingTimer',250],['setHeartBeatTimer',15,30],['disableCookies']",
+    "a" : "['setLinkTrackingTimer',250],['disableCookies']",
+    //"a" : "['setLinkTrackingTimer',250],['setHeartBeatTimer',15,30],['disableCookies']",
     "b" : "['setLinkTrackingTimer',250],['trackGoal',1,0],['killFrame']"
   },
  
@@ -72,4 +73,4 @@ var pkC = {
 pkC.js_url = pkC.js_prot+pkC.js_schem+pkC.js_host+pkC.js_path+pkC.js_file;
 
 // be lazy, copy it over from the short name to one that makes more sense.
-var piwikConfig = pkC;
+window.piwikConfig = pkC;
