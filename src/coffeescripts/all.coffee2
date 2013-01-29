@@ -1,0 +1,188 @@
+
+###
+@name      Miniature Hipster
+@author    Rob Friedman
+@url       http://playerx.net
+@version   #{ _mh_version }
+@license   https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt
+This is Miniature Hipster:
+A Piwik Analytics CloudFlare Application Example demonstrating how to execute JavaScript in Ajax response text
+###
+
+_mh_version = "0.0.7"
+
+CloudFlare.define("piwik_analytics",
+
+  [ "piwik_analytics/config" ],
+
+(_config) ->
+  "use strict"
+
+  exports ? this
+
+  window._paq = window._paq || []
+
+  Piwik = Piwik || {}
+
+  _debug = true
+
+  window._visitor_id = window._visitor_id || ''
+
+  Piwik = (config) ->
+    this.config = config
+
+    this.config.set_do_not_track = config_set_do_not_track.a || config.set_no_not_track.b || true
+    
+    this.config.link_tracking = config.link_tracking.a || config.link_tracking.b || false
+
+    if ( _debug )
+
+      show = (opt)->
+        try
+          consl "_debug="+opt+"="+this
+        catch _error
+          conserr "_debug e=" + _error
+
+      this.consl "DEBUG CONFIG OUTPUT ENABLED -- options follow"
+
+      this.consl "localStorage.clear()" + localStorage.clear()
+      
+      show opt for opt in this.config
+      
+      try
+        this.consl "js_url=" + this.config.js_url
+      catch _error
+        this.conserr "_debug e="+_error
+
+      try
+        this.consl "set_do_not_track=" + this.config.set_do_not_track
+      catch _error
+        this.conserr "_debug error in set_do_not_track e=" + error
+
+      try
+        this.consl "link_tracking=" +this.config.link_tracking
+      catch _error
+        this.conserr "_debug error in link_tracking e=" +error
+
+    
+
+
+
+   ## Console logging
+   this.consl = (m) ->
+      console.log "px_> "+m
+
+
+
+
+   ## Console Error logging
+   this.conserr = (m) ->
+     console.error "px**> "+m
+
+   ## Piwik.prototype.activate
+   Piwik.prototype.activate ->
+     if this.config._debug then piwik.consl "Piwik.prototype.activate"
+     runSet = false
+     
+     try
+       ## iterate through site_id
+       for id in  this.config.site_id
+
+         if typeof this.config.site_id[id] isnt "string" or this.config.site_id[id] is ""
+           piwik.conserr "Invalid site_id, id="+id+", site_id="+this.confg.site_id[id]
+
+
+         ## check for valid tracker on site_id
+         else if typeof this.config.tracker[id] isnt "string" or this.config.tracker[id] is ""
+        
+           piwik.conserr "Invalid tracker id=" +id+ ", tracker="+ this.config.tracker[id]
+     
+         else if typeof this.config.paq_push[id] isnt "string" or this.config.paq_push is ""
+           piwik.conserr "Invalid push data id=" +id+ ", paq_push="+this.confis.paq_push[id]
+
+         else
+           runSeup=yes
+
+
+
+     catch _error
+      piwik.conserr "errors -- conditions met=" +_error
+
+
+     if runSetup then piwik.setup()
+     else piwik.conserr "prototype.activate else condition met"
+
+   Piwik.prototype.app_change -> 
+     piwik.consl "app_change()"
+
+     try
+       window._paq = window._paq || []
+       window._visitor_id = _visitor_id || ''
+       
+       window._paq.push [ -> 
+         window._visitor_id = this.getVisitorId()
+         this
+       ]
+
+       window.document.getElementById("app_change").innerHTML = "app_change -- getVisitorId="+window._visitor_id
+       
+       if window._visitor_id is undefined
+         piwik.conserr " no _visitor_id piwik maybe failed to load!!! Oh Noe :( :( :( ): ): ): "
+         no
+
+       else if typeof window._visitor_id is "string" and window._visitor_id isnt ""
+         piwik.consl("piwik loaded... probably maybe. check for valid _visitor_id, & tracker hit.")
+         yes 
+
+     catch _error
+       piwik.conserr "app_change() e="+_error
+
+   Piwik.prototype.paqPush = (index) ->
+     if (_debug) then piwik.consl "paqPush" + index
+
+     try
+       prog =  "_paq = _paq || []; "
+       prog += "_paq.push(['setSiteId'," + piwik.config.site_id[index] + " ]); "
+       ##prog += "_paq.push(['setTrackerUrl', '" + piwik.config.tracker.[index] + " ]); "
+
+       if piwik.config.link_tracking[index] is "true"
+        prog += "_paq.push(['enableLinkTracking',true]);" 
+       else
+        prog += "_paq.push(['enableLinkTracking',false]);"
+
+       if piwik.config.set_do_not_track[index] is "true"
+         prog += "_paq.push(['setDoNotTrack',true]);"
+       else
+         prog += "_paq.push(['setDoNotTrack',false]);"
+
+       ###
+       # pass the options
+       ###
+       prog += "_paq.push("+piwik.config.paq_push[index]+");"
+       ###
+       # make the magic happen, track the page view, trackPageView
+       ###
+       prog += "_paq.push(['trackPageView']);"
+       if (_debug ) then piwik.consl(prog)
+       scriptEl = document.createElement("script")
+       scriptEl.type='text/javascript'
+       scriptEl.innerHTML = prog
+
+       document.getElementsByTagName("head")[0].appendChild(scriptEl)
+
+       prog
+     
+     catch _error
+       piwik.conserr "paqPush(index) error index="+index+", e="+_error
+
+   Piwik.prototype.loadScript = (f) ->
+     if _debug then piwik.consl "loadScript '"+f+"'"
+
+     CloudFlare.require( [f], ->
+      piwik.app_change()
+     )
+     true
+
+ piwik.activate()
+ piwik
+)
