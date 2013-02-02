@@ -34,8 +34,7 @@ _pk_loaded = CloudFlare.define("piwik_analytics", ["piwik_analytics/config"], fu
     return console.error("*px**> " + m);
   };
   if (_debug) {
-    consl("Hello from the Piwik CloudFlare App!");
-    consl("window.localStorage.clear()=" + window.localStorage.clear());
+    consl("Hello from the Piwik CloudFlare App!" + config.consl("window.localStorage.clear()=" + window.localStorage.clear()));
   }
   /*
   * loadScript(f)
