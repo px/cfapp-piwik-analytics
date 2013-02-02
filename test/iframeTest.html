@@ -3,9 +3,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <title>Testing piwik_analytics cfapp iframe buster</title>
-    <iframe src="./index.html"></iframe>
   </head>
   <body>
+    <iframe src="./index.html"></iframe>
+
+    <script>
+      window._paq = window._paq || [];
+      window._paq.push(['killFrame']);
+    </script>
+
   </body>
 </html>
 
