@@ -34,7 +34,7 @@ _pk_loaded = CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], (_
       console.error "*px**> " + m
 
     if _debug
-      consl "Hello from the Piwik CloudFlare App!"
+      consl "Hello from the Piwik CloudFlare App!" + config.
       # clear localStorage is we're debuging 
       consl "window.localStorage.clear()=" + window.localStorage.clear()
 
