@@ -25,18 +25,18 @@ loaded = CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], (_conf
     console.error "px**> " + m
 
   loadScript = (f) ->
-    consl "loadScript '" + f + "'"  if _debug
+    consl "loadScript via CloudFlare.require '" + f + "'"  if _debug
     # maybe needs a delay
     CloudFlare.require [f], ->
       app_change()
 
   #loadScript(_config.piwik_js_default)
 
-      #  script_url = _config.piwik_js_default;;
+  script_url = _config.piwik_js_default;;
 
-      #  CloudFlare.require([script_url], -> {
-    #  // code here will execute after the script has been loaded
-    #  })
+  CloudFlare.require([script_url], -> {
+    # // code here will execute after the script has been loaded
+  })
 
   loadScript2 = (f) ->
    consl "loadScript2 '" + f + "'"  if _debug
@@ -51,7 +51,7 @@ loaded = CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], (_conf
      window._visitor_id = @getVisitorId()
    ]
   
-   # app_change()
+   app_change()
    ##  loadScript2(_config.piwik_js_default)
 
   # update an element on our test page with the visitor id 
@@ -74,7 +74,7 @@ loaded = CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], (_conf
       #       * 
       if window._visitor_id is undefined or window._visitor_id is ""
         conserr " no window._visitor_id piwik maybe failed to load!!! Oh Noe :( :( :(  ): ): ): "
-      else consl "piwik loaded... probably maybe. check for valid window._visitor_id='"+window._visitor_id+"', and tracker hit."  if typeof window._visitor_id is "string" and window._visitor_id isnt ""
+      else consl "piwik loaded... probably maybe. window._visitor_id='"+window._visitor_id+"', and tracker hit."  if typeof window._visitor_id is "string" and window._visitor_id isnt ""
     catch e
       conserr "app_change() " + e
 
@@ -160,9 +160,9 @@ loaded = CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], (_conf
       
       # use the cdnjs piwik if enabled 
       if _config.use_cdnjs is true
-        loadScript2 _config.piwik_js_default
+        loadScript _config.piwik_js_default
       else
-        loadScript2 _config.js_url
+        loadScript _config.js_url
     
     # noScript();
     #       *
@@ -252,7 +252,7 @@ loaded = CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], (_conf
   consl "stuff"
   
   
-  app_change()
+  #app_change()
   yes
 
 
