@@ -1,30 +1,13 @@
 {
-  "billing": {
-    "plans": [
-      {
-        "name": "FREE",
-        "price": "0.00"
-      },
-      {
-        "name": "Some Features",
-        "price": "4.55"
-      },
-      {
-        "name": "More than Some Features",
-        "price": "9.99"
-      }
-    ],
-    "type": "zone"
-  },
   "category": "webmaster",
   "config": {
     "assets": {
       "detail_page": [
         "./public/images/piwik_analytics_screenshot_1.png"
-      ],
+        ],
       "images": [
         "./public/images/piwik_analytics.png"
-      ],
+        ],
       "logos": {
         "132px": "./public/images/logo-132.png",
         "200px": "./public/images/logo-200.png"
@@ -39,103 +22,103 @@
       "playerx.net": "<a href='http://playerx.net/' target='_blank'>Rob Friedman</a>"
     },
     "interface": [
+    {
+      "id": "site_id",
+      "name": "Site ID ",
+      "description": "Site ID to be tracked, otherwise it will default to use '1'",
+      "type": "string"
+    },
+    {
+      "id": "piwik_tracker",
+      "name": "Tracker URL (REQUIRED)",
+      "description": "A receiver URL 'https://'. Should be using SSL for security purposes but using '//host.tld' is valid also.",
+      "type": "string",
+      "value": "https://path.to.tracker.url/piwik.php"
+    },
+    {
+      "id": "use_cdnjs",
+      "type": "select",
+      "name": "Choose whether to enable cdnjs?",
+      "description": "Do you want to use cdnjs for serving 'piwik.js' to your visitors?",
+      "options": [
       {
-        "id": "site_id",
-        "name": "Site ID ",
-        "description": "Site ID to be tracked, otherwise it will default to use '1'",
-        "type": "string"
+        "label": "Yes!",
+        "value": "true"
       },
       {
-        "id": "piwik_tracker",
-        "name": "Tracker URL (REQUIRED)",
-        "description": "A receiver URL 'https://'. Should be using SSL for security purposes but using '//host.tld' is valid also.",
-        "type": "string",
-        "value": "https://path.to.tracker.url/piwik.php"
-      },
-      {
-        "id": "use_cdnjs",
-        "type": "select",
-        "name": "Choose whether to enable cdnjs?",
-        "description": "Do you want to use cdnjs for serving 'piwik.js' to your visitors?",
-        "options": [
-          {
-            "label": "Yes!",
-            "value": "true"
-          },
-          {
-            "label": "No.",
-            "value": ""
-          }
-        ]
-      },
-      {
-        "id": "piwik_js_default",
-        "name": "default piwik.js location ",
-        "description": "A piwik.js URL 'http://' or 'https://'. Leaving this empty will default to use piwik.js from cdnjs.com ",
-        "type": "string",
-        "value": "https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"
-      },
-      {
-        "id": "link_tracking",
-        "name": "Link Tracking",
-        "description": "You should want this to be enabled as it is by default. Equivalent to \"_paq.push(['enableLinkTracking',true]);\"",
-        "type": "select",
-        "options": [
-          {
-            "label": "Link Tracking Enabled",
-            "value": "true"
-          },
-          {
-            "label": "Disable Link Tracking",
-            "value": ""
-          }
-        ]
-      },
-      {
-        "id": "set_obey_do_not_track",
-        "name": "Whether or not to obey the browser do not track.",
-        "description": "Enable or disable obeying browser do not track options. Equivalent to \"_paq.push(['setDoNotTrack',true]);\"",
-        "type": "select",
-        "options": [
-          {
-            "label": "Yes, Obey the Browser!",
-            "value": ""
-          },
-          {
-            "label": "No, Track ALL THE VISITORS.",
-            "value": "true"
-          }
-        ]
+        "label": "No.",
+        "value": ""
       }
+      ]
+    },
+    {
+      "id": "default_piwik_js",
+      "name": "default piwik.js location ",
+      "description": "A piwik.js URL 'http://' or 'https://'. Leaving this empty will default to use piwik.js from cdnjs.com ",
+      "type": "string",
+      "value": "https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"
+    },
+    {
+      "id": "link_tracking",
+      "name": "Link Tracking",
+      "description": "You should want this to be enabled as it is by default. Equivalent to \"_paq.push(['enableLinkTracking',true]);\"",
+      "type": "select",
+      "options": [
+      {
+        "label": "Link Tracking Enabled",
+        "value": "true"
+      },
+      {
+        "label": "Disable Link Tracking",
+        "value": ""
+      }
+      ]
+    },
+    {
+      "id": "set_obey_do_not_track",
+      "name": "Whether or not to obey the browser do not track.",
+      "description": "Enable or disable obeying browser do not track options. Equivalent to \"_paq.push(['setDoNotTrack',true]);\"",
+      "type": "select",
+      "options": [
+      {
+        "label": "Yes, Obey the Browser!",
+        "value": ""
+      },
+      {
+        "label": "No, Track ALL THE VISITORS.",
+        "value": "true"
+      }
+      ]
+    }
     ]
   },
   "contributors": [
-    {
-      "name": "Rob Friedman",
-      "email": "px@ns1.net"
-    }
+  {
+    "name": "Rob Friedman",
+    "email": "px@ns1.net"
+  }
   ],
-  "dependencies": {},
-  "description": "Codename: Miniature Hipster. A Piwik Analytics CloudFlare application that helps speed things up.",
-  "implements": "AMD",
-  "keywords": [
-    "webmaster",
+    "dependencies": {},
+    "description": "Codename: Miniature Hipster. A Piwik Analytics CloudFlare application that helps speed things up.",
+    "implements": "AMD",
+    "keywords": [
+      "webmaster",
     "analytics",
     "tracking",
     "websites"
-  ],
-  "licenses": [
+      ],
+    "licenses": [
     {
       "type": "BSD-2-Clause",
-      "url": "http://www.opensource.org/licenses/BSD-2-Clause"
+      "url": "https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt"
     }
   ],
-  "main": "./public/javascripts/piwik_analytics.js",
-  "name": "Piwik Analytics",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/px/cfapp-piwik-analytics.git"
-  },
-  "scripts": {},
-  "version": "0.0.8"
+    "main": "./public/javascripts/piwik_analytics.js",
+    "name": "Piwik Analytics",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/px/cfapp-piwik-analytics.git"
+    },
+    "scripts": {},
+    "version": "0.0.9"
 }
