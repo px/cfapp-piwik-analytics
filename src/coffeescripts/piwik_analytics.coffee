@@ -9,259 +9,193 @@
 
 # stick with commas
 loaded = CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], (_config) ->
-  "use strict"
-  
-  # because sometimes a minor delay is needed, in seconds. FIXME because I'm sure we can do without. 
-  _delay = 0.11
-  
-  # var _debug = false;
-  _debug = true
-  piwik_version_default = "1.10.1"
+    "use strict"
+    
 
-  consl = (m) ->
-    console.log "px_> " + m
-
-  conserr= (m) ->
-    console.error "px**> " + m
-
-  loadScript = (f) ->
-    consl "loadScript via CloudFlare.require '" + f + "'"  if _debug
-    # maybe needs a delay
-    CloudFlare.require [f], ->
-      app_change()
-
-  #loadScript(_config.piwik_js_default)
-
-  script_url = _config.piwik_js_default;;
-
-  CloudFlare.require([script_url], -> {
-    # // code here will execute after the script has been loaded
-  })
-
-  loadScript2 = (f) ->
-   consl "loadScript2 '" + f + "'"  if _debug
-   scriptEl = document.createElement("script")
-   scriptEl.type = "text/javascript"
-   scriptEl.defer = true
-   scriptEl.async = true
-   scriptEl.src = f
-   scriptEl.onload = ""
-   document.getElementsByTagName("head")[0].appendChild scriptEl
-   window._paq.push [->
-     window._visitor_id = @getVisitorId()
-   ]
-  
-   app_change()
-   ##  loadScript2(_config.piwik_js_default)
-
-  # update an element on our test page with the visitor id 
-  
-  # some how we need to wait until the piwik.js is asynchronously loaded to ideally determine the _visitor_id 
-  app_change = ->
-    consl "app_change()"
-    setTimeout( ->
-       ( document.getElementById("app_change").innerHTML = "app_change -- getVisitorId=" + window._visitor_id)
-      1000*_delay)
     try
-      ##window._paq = window._paq or []
-      ##window._visitor_id = window._visitor_id or ""
-      
-      #      _paq.push([ function() { window.document.getElementById("app_change").innerHTML = "app_change -- getVisitorId="+this.getVisitorId(); } ]);
+      @config = _config
+    catch e
+      console.error "the _config is broken"
+
+    # because sometimes a minor delay is needed, in seconds. FIXME because I'm sure we can do without. 
+    _delay = 0.11
+    
+    # var _debug = false;
+    _debug = true
+    _default_piwik_version = "1.10.1"
+
+    consl = (m) ->
+      console.log "_px_> " + m
+
+    conserr= (m) ->
+      console.error "*px**> " + m
+
+    consl "Hello from the Piwik CloudFlare App!"  if _debug
+    # clear localStorage is we're debuging 
+    consl "window.localStorage.clear()=" + window.localStorage.clear() if _debug
+
+    # use CloudFlare.require to load the javascript requested
+    loadScript = (f) ->
+      consl "loadScript via CloudFlare.require [" + f + "]"  if _debug
+      # maybe needs a delay
+      CloudFlare.require [f], ->
+        app_change()
+        is_piwik()
+        yes
+
+    # javascript append an element to head    
+    loadScript2 = (f) ->
+      # output to console if _debug
+      consl "loadScript2 '" + f + "'"  if _debug
+      # create a script element to place our script into
+      scriptEl = document.createElement("script")
+      # set the type and other features for the element
+      scriptEl.type = "text/javascript"
+      scriptEl.defer = true
+      scriptEl.async = true
+      scriptEl.src = f
+      scriptEl.onload = ""
+      # append the element to the bottom of the head element
+      document.getElementsByTagName("head")[0].appendChild scriptEl
+      # push a command on to the global window._paq array, and
+      # set the global window._pk_visitor_id variable
+      window._paq.push [
+        ->
+         window._pk_visitor_id = @getVisitorId()
+
+        ->
+         window._pk_visitor_info = @getVisitorInfo()
+
+        ->
+         window._pk_visitor_attr_info = @getAttributionInfo()
+      ]
+      window._pk_visitor_id
    
-      
-      # rudimentary test to see if the piwik.js loads
-      #       * if it does, then it will generate a VisitorId
-      #       * 
-      if window._visitor_id is undefined or window._visitor_id is ""
-        conserr " no window._visitor_id piwik maybe failed to load!!! Oh Noe :( :( :(  ): ): ): "
-      else consl "piwik loaded... probably maybe. window._visitor_id='"+window._visitor_id+"', and tracker hit."  if typeof window._visitor_id is "string" and window._visitor_id isnt ""
-    catch e
-      conserr "app_change() " + e
+    # some how we need to wait until the piwik.js is asynchronously loaded to ideally determine the _pk_visitor_id 
+    app_change = ->
+      consl "app_change()" if _debug
+      setTimeout( ->
+         ( document.getElementById("app_change").innerHTML = "app_change -- getVisitorId=" + window._pk_visitor_id)
+        1000*_delay)
+        is_piwik
 
-
-
-  consl "hello Piwik CloudFlare App"  if _debug
-  
-  # define it up here
-  ##window._visitor_id = window._visitor_id or "xxxxxxxxxxxx"
-  Piwik = {}
-  Piwik = (config) ->
-    @config = config
-    
-    # default set_do_not_track to 'true'
-    #     * This will need work. 
-    @config.set_do_not_track = @config.set_do_not_track.a or @config.set_do_not_track.b or true
-    
-    # default to no link_tracking, seto to 'false'
-    #     * this will need work 
-    @config.link_tracking = @config.link_tracking.a or @config.link_tracking.b or false
-
-    if _debug
-       
-      consl "DEBUG CONFIG OUTPUT ENABLED -- options follow"
-      consl "localStorage.clear()=" + localStorage.clear()
+    # rudimentary test to see if the piwik.js loads
+    #       * if it does, then it will generate a VisitorId
+    #       * 
+    is_piwik = ->
+      consl "is_piwik() loaded?"
+      # push a command on to the global window._paq array, and
+      # set the global window._pk_visitor_id variable
+      window._paq.push [->
+        window._pk_visitor_id = @getVisitorId()
+      ]
       try
-        consl "js_url=" + @config.js_url
+       if window._pk_visitor_id is undefined or window._pk_visitor_id is ""
+          conserr " no window._pk_visitor_id piwik maybe failed to load!!! Oh Noe :( :( :(  ): ): ): "
+        else consl "piwik loaded... probably maybe. window._pk_visitor_id='"+window._pk_visitor_id+"', and tracker hit."  if typeof window._pk_visitor_id is "string" and window._pk_visitor_id isnt ""
       catch e
-        conserr "_debug error in config " + e
-      try
-        consl "set_do_not_track=" + @config.set_do_not_track
-      catch e
-        conserr "_debug error in config " + e
-      try
-        consl "link_tracking=" + @config.link_tracking
-      catch e
-        conserr "_debug error in config " + e
-      
-      # iterate through the site_id 
-      for index of @config.site_id
-        try
-          consl "SiteID." + index + "=" + @config.site_id[index]
-        catch e
-          conserr "_debug error in config " + e
-        try
-          consl "TrackerURL." + index + "=" + @config.tracker[index]
-        catch e
-          conserr "_debug error in config " + e
-        try
-          consl "paq_push." + index + "=" + @config.paq_push[index]
-        catch e
-          conserr "_debug error in config " + e
-  
-  # disable goals
-  #
-  #           try {
-  #        //    iterate through the configured goals
-  #        for ( var goalIndex in this.config.goal[index] ) {
-  #
-  #
-  #        try {
-  #        this.consl("goal."+index+"."+goalIndex+"="+this.config.goal[index][goalIndex]);
-  #        }       catch (e)  {
-  #        this.conserr("_debug error in config "+e);
-  #        }
-  #
-  #
-  #        }
-  #        } catch (e) {
-  #        this.conserr("_debug error in config "+e);
-  #        }
-  #        
-  
-  #
-  #   * setup()
-  #   * Load our program into dom
-  #   * 
-  setup = ->
-    consl "Piwik.prototype.setup"  if _debug
-    try
-      for index of _config.site_id
-        paqPush index
-      
-      # use the cdnjs piwik if enabled 
-      if _config.use_cdnjs is true
-        loadScript _config.piwik_js_default
+        conserr "is_piwik() " + e
+
+    # fix_scheme(url) fix the file:// url to use https:// url
+    #  useful for tracker url fixing schemeless url
+    fix_scheme = (url) ->
+      consl "fix_scheme(" + url + ")" if _debug
+
+      #consl "window.location.protocol" + window.location.protocol if _debug
+
+      if /^(http).*/.test(url)
+        # return the url as it stands
+        return url
       else
-        loadScript _config.js_url
-    
-    # noScript();
-    #       *
-    #       *  as Picard would say 'resistence is futile'
-    #       *  ideally a noscript tag should be embedded within CF proxying FIXME
-    #       
-    catch e
-      conserr "prototype.setup error " + e
+        # url does not have http rewrite it to be what we want.
+        return "https:"+url
 
 
-  
-   activate = ->
-    consl "Piwik.prototype.activate"  if _debug
-    runSetup = false
-    try
-      
-      # iterate through the configured site_id 
-      for index of _config.site_id
-        
-        # check to see if our configuration is correct, then run the setup.
-        #        
-        if typeof _config.tracker[index] isnt "string" or _config.tracker[index] is ""
-          conserr "Invalid tracker " + _config.tracker[index]
-        else if typeof _config.site_id[index] isnt "string" or _config.site_id[index] is ""
-          conserr "Invalid site_id " + _config.site_id[index]
-        else if typeof _config.paq_push[index] isnt "string" or _config.paq_push[index] is ""
-          conserr "site id \"" + index + "\" has Invalid paq_push \"" + _config.paq_push[index] + "\""
-          config.paq_push[index] = ""
+
+    # define it up here
+    Piwik = {}
+    Piwik = (config) ->
+      # apply the config
+      @config = config
+
+      # fixup the tracker url for missing scheme on file:// url locations
+      #
+      if @config.use_cdnjs
+        # loadScript the @config.default_piwik_js for now
+        loadScript fix_scheme @config.default_piwik_js
+      else if @config.js_url
+        loadScript fix_scheme @config.js_url
+
+    #
+    #   * paqPush(index)
+    #   * function to push information into the window._paq global array
+    #   *
+    #   * 
+      paqPush = () ->
+        consl "paqPush()"  if _debug
+        # start building the window._paq array for configuration and commands
+        prog = "window._paq = window._paq || []; "
+        # set the site_id
+        prog += "window._paq.push(['setSiteId', " + config.site_id + "]);"
+        # set the tracker url
+        prog += "window._paq.push(['setTrackerUrl', '" + fix_scheme( config.tracker )+ "']);"
+        # select if link_tracking is enabled
+        if config.link_tracking is "true"
+          prog += "window._paq.push(['enableLinkTracking',true]);"
         else
-          runSetup = true
-    catch e
-      conserr "errors -- condition met " + e
-    if runSetup
-      setup()
-    else
-      conserr "prototype.activate else condition met"
+          prog += "window._paq.push(['enableLinkTracking',false]);"
 
-
-
-  Piwik::noScript = ->
-    consl "noScript"  if _debug
-    test_site = piwik.config.tracker or "//pikwik-ssl.ns1.net/piwik.php"
-    test_site += "?id=" + piwik.config.site_id + "&amp;rec=1"
-    consl "noScript| test_site=" + test_site  if _debug
-    script = document.createElement("noscript")
-    cursor = document.getElementsByTagName("script", true)[0]
-    cursor.parentNode.insertBefore script, cursor
-
-  
-  #
-  #   * paqPush(index)
-  #   * function to push information into the _paq global array
-  #   *
-  #   * 
-  paqPush = (index) ->
-    consl "paqPush"  if _debug
-    try
-      prog = "window._paq = window._paq || []; "
-      prog += "window._paq.push(['setSiteId', " + _config.site_id[index] + "]);"
-      prog += "window._paq.push(['setTrackerUrl', '" + _config.tracker[index] + "']);"
-      if _config.link_tracking[index] is "true"
-        prog += "window._paq.push(['enableLinkTracking',true]);"
-      else
-        prog += "window._paq.push(['enableLinkTracking',false]);"
-      if _config.set_do_not_track[index] is "true"
-        prog += "window._paq.push(['setDoNotTrack',true]);"
-      else
-        prog += "window._paq.push(['setDoNotTrack',false]);"
+        # select if do_not_tack is enabled
+        if config.set_do_not_track is "true"
+          prog += "window._paq.push(['setDoNotTrack',true]);"
+        else
+          prog += "window._paq.push(['setDoNotTrack',false]);"
       
       # pass the options 
-      prog += "window._paq.push(" + _config.paq_push[index] + ");"
-      
+        prog += "window._paq.push(" + config.paq_push + ");"
+        
       # make the magic happen, track the page view, trackPageView
-      prog += "window._paq.push(['trackPageView']);"
-      consl prog  if _debug
-      scriptEl = document.createElement("script")
-      scriptEl.type = "text/javascript"
-      scriptEl.innerHTML = prog
-      document.getElementsByTagName("head")[0].appendChild scriptEl
-    catch e
-      conserr "paqPush(index) error" + e
- 
+        prog += "window._paq.push(['trackPageView']);"
+   
+        consl "prog=("+prog+")"  if _debug
+
+        scriptEl = document.createElement("script")
+        scriptEl.type = "text/javascript"
+        scriptEl.innerHTML = prog
+        document.getElementsByTagName("head")[0].appendChild scriptEl
+        consl "paqPush() finished ok!" if _debug 
+
+      noScript = ->
+        consl "noScript"  if _debug
+        test_site = piwik.config.tracker or "https://pikwik-ssl.ns1.net/piwik.php"
+        test_site += "?id=" + piwik.config.site_id + "&amp;rec=1"
+        consl "noScript| test_site=" + test_site  if _debug
+        script = document.createElement("noscript")
+        cursor = document.getElementsByTagName("script", true)[0]
+        cursor.parentNode.insertBefore script, cursor
       
-      # instantiate and configure a new instance of the piwik
-  piwik = new Piwik(_config)
-  activate()
-  consl "stuff"
-  
-  
+        #activate()
+        #setup()
+      paqPush()
+
+
+  # instantiate and configure a new instance of the piwik
+    piwik = new Piwik(_config)
+    
   #app_change()
-  yes
+    yes
 
 
-loaded.then( ->
-      (modules)
-     ->
-      (error) {
+loaded.then(
+      ->
+        (modules) {
+         modules
 
-        #          // Handle errors here..
-              }
+        }
+      ->
+        (error) {
+          console
+              #          // Handle errors here..
+        }
      )
 
