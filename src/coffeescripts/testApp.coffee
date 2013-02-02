@@ -9,6 +9,25 @@ get_tracker = "default tracker"
 
 _delay = 1.0
 
+class TestApp 
+
+  constructor: (config) ->
+
+
+    buildPage: ->
+    
+    bootstrap: ->
+    
+
+
+
+
+
+
+
+
+
+
 window.onload = document.getElementById("timeDiv").innerHTML = "Timer update in " + _delay+ " seconds, or async onload."
 
 window._paq = window._paq || []
