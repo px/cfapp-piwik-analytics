@@ -1,16 +1,15 @@
+# have to keep "use strict"; disabled for overloading functions
 #"use strict"
+#
 
 # document = document || [];
 window._paq = window._paq || []
 #_paq.push([ function() { get_tracker = this.getAsyncTracker(); }]);
 
 _debug = _debug or true
+_delay = 0.1
 
-get_tracker = "default tracker"
-
-
-_delay = 1.0
-
+window.piwikConfig = window.piwikConfig or {}
 
 links = """
 <!-- convert to some other file of links to utilize between the other test files. -->
@@ -28,66 +27,68 @@ links = """
 
 
 myLinks = {
-  link1:
+  link:
     title: "iframe buster test"
     url: "iframeTest.html"
-  link2:
+  link:
     title: "class 'no-tracking' no tracking test"
     url: "#/no-tracking"
-  link3:
+  link:
     title: "Latest master.zip"
     url: "https://github.com/px/cfapp-piwik-analytics/archive/master.zip"
-  link4:
+  link:
     title: "File I don't want to track as a download"
     url: "https://github.com/px/cfapp-piwik-analytics/archive/master.zip"
-  link5:
+  link:
     title:"Class 'no-tracking' example_piwik_ajax.html"
     url:"example_piwik_ajax.html#/"
-  link6:
+  link:
     url:"#/"
     title:"Class 'no-tracking' No Tracking Test"
-  link7:
+  link:
     url:"javascript:window.location.reload(true)"
     title:"javascript:window.location.reload(true)"
 }
+
+### 
+#* just be sure we have a visitor id
+###
+window._paq.push [->
+  window._pk_visitor_id = @getVisitorId()
+]
 
 
 class TestApp
  console.log "TestApp"
 
+ bootstrap : ->
+     console.log "bootstrap"
+     # check for loaded libraries
+     yes
+ 
+
  buildPage: ->
-   # build page header
-   # page brief
-   # output page links
-   document.getElementById('testing.links').innerHTML=links
-   # display visitor id
-   # display visitor information
+     console.log "buildPage"
+     # build page header
+     # page brief
+     # output page links
+     document.getElementById('testing.links').innerHTML=links
+     # display visitor id
+     # display visitor information
+     yes
+ 
 
-
- bootstrap: ->
-  # check for loaded libraries
-  yes
 
  aLink: (url,title)->
-   aLink(url,title,'testing.links')
+     aLink(url,title,'testing.links')
 
  aLink: (url,title,element)->
-    a = document.createElement('a')
-    a.title = title
-    a.innerHTML = title
-    a.href = url
-    document.getElementById(element).appendChild(a)
-
-window.onload=document.getElementById("timeDiv").innerHTML = "Timer update in " + _delay+ " sec, or async onload."
-
-window.piwikConfig = window.piwikConfig or {}
-window._paq.push [->
-  window._pk_visitor_id = @getVisitorId()
-]
-
-#myVar = setTimeout ->
-#  update_status()
-#  1000*_delay
+     console.log "aLink " + url
+     a = document.createElement('a')
+     a.title = title
+     a.innerHTML = title
+     a.href = url
+     document.getElementById(element).appendChild(a)
 
 
 ###
@@ -96,10 +97,12 @@ window._paq.push [->
 #
 ###
 update_status = ->
+  console.log "update_status() started"
   try
-    document.getElementById("timeDiv").innerHTML = "Timer updated, " + _delay
+    document.getElementById("app_change").innerHTML = "_pk_visitor_id=" + window._pk_visitor_id
   catch e
     console.error "ERR: " + e
+
   try
     document.getElementById("default_piwik_js").innerHTML = "default_piwik_js=" + window.piwikConfig.default_piwik_js
   catch e
@@ -136,6 +139,12 @@ update_status = ->
   catch e
     console.error "ERR: " + e
 
+timer_updated = ->
+  try
+    document.getElementById("timeDiv").innerHTML = "Timer updated, " + _delay
+    update_status()
+  catch e
+    console.error "ERR: " + e
 
 testApp = new TestApp()
 
@@ -143,5 +152,9 @@ testApp.bootstrap()
 testApp.buildPage()
 
 
+window.onload=document.getElementById("timeDiv").innerHTML = "Timer update in " + _delay+ " sec, or async onload."
+
 window.onload=update_status()
+
+setTimeout timer_updated, 1000*_delay
 
