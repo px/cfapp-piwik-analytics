@@ -15,7 +15,7 @@
 
     <script type="text/javascript" src="https://ajax.cloudflare.com/cdn-cgi/nexp/cloudflare.js"></script>
     <!-- load up our test config for local testing -->
- <script type="text/javascript" src="../public/javascripts/piwik_analytics/config.js"></script>
+    <script type="text/javascript" src="../public/javascripts/piwik_analytics/config.js"></script>
 
     <script type="text/javascript">
       /* just use a, it's smaller */ 
@@ -27,69 +27,49 @@
     a.push(function(b,c){ c("piwik_analytics/config",function(){ return piwikConfig }); b(["piwik_analytics"]); });
 
     a.push(function(b){ b(["piwik_analytics"]); });
-  </script>
+    </script>
 
 
-  <!-- The goal is to load piwik.js as it would below. Also to utilize the global window._paq array to push commands onto for setting or retrieving information from Piwik:w
-  . -->
-  <!--
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"></script>
-  -->
+    <!-- The goal is to load piwik.js as it would below. Also to utilize the global window._paq array to push commands onto for setting or retrieving information from Piwik:w
+    . -->
+    <!--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"></script>
+    -->
 
-</head>
+  </head>
 
-<body>
-  <h1>Piwik Analytics CloudFlare Test App</h1>
+  <body>
+    <h1>Piwik Analytics CloudFlare Test App</h1>
 
-  <div id="timeDiv">&nbsp;</div>
+    <div id="timeDiv">&nbsp;</div>
 
-  <div id="testing.zone">
-
-    <div id="testing.gets">
-      <p>
-      <strong>Testing Gets</strong>
-      </p>
-    </div>
-    <ul>
-      <li id="app_change">app_change</li>
-    </ul>
-    <div id="testing.config">
-      <p>
-      <strong>Testing configured options</strong>
-      </p>
+    <div id="testing.zone">
+      <h2>Testing Gets</h2>
+      <div id="testing.gets">
+      </div>
       <ul>
-        <li id="site_id" > site_id </li>
-        <li id="trackerURL"> trackerURL </li>
-        <li id="paq_push"> paq_push </li>
-
-        <li id="use_cdnjs"> use_cdnjs </li>
-        <li id="js_url"> js_url </li>
-        <li id="default_piwik_js"> default_piwik_js </li>
-
+        <li id="app_change">app_change</li>
       </ul>
+      <h2>Testing configured options</h2>
+      <div id="testing.config">
+        <ul>
+          <li id="site_id" > site_id </li>
+          <li id="trackerURL"> trackerURL </li>
+          <li id="paq_push"> paq_push </li>
+
+          <li id="use_cdnjs"> use_cdnjs </li>
+          <li id="js_url"> js_url </li>
+          <li id="default_piwik_js"> default_piwik_js </li>
+
+        </ul>
+      </div>
+      <h2>Testing Link Tracking</h2>
+      <div id="testing.links">
+      </div>
+
     </div>
+    <!-- this loads up testApp which updates and refreshes above items from configuration when working properly. -->
+    <script type="text/javascript" src="../public/javascripts/testApp.js"></script>
 
-    <div id="testing.links">
-      <!-- convert to some other file of links to utilize between the other test files. -->
-      <p>
-      <strong>Testing Link Tracking</strong>
-      </p>
-      <ul>
-        <li><a href="iframeTest.html">iframe buster test</a></li>
-        <li><a href='#/no-tracking' target="_self" class='no-tracking'>Class 'no-tracking' No Tracking Test</a></li>
-        <li><a href='https://github.com/px/cfapp-piwik-analytics/archive/master.zip' class='piwik_ignore'>File I don't want to track as a download</a> Latest master.zip </li>
-        <li><a href='#/piwik_download' class='piwik_download'>Link I want to track as a download</a></li>
-        <li><a href='#/piwik_link' target="_self" class='piwik_link'>Link I want to track as an outlink</a></li>
-        <li><a href='example_piwik_ajax.html#/' target="_self" class='no-tracking'>Class 'no-tracking' example_piwik_ajax.html</a></li>
-        <li><a href='#/' target="_self" class='no-tracking'>Class 'no-tracking' No Tracking Test</a></li>
-        <li><a href="javascript:window.location.reload(true)">window.location.reload(true)</a></li>
-      </ul>
-    </div>
-
-
-  </div>
-  <!-- this loads up testApp which updates and refreshes above items from configuration when working properly. -->
-  <script type="text/javascript" src="../public/javascripts/testApp.js"></script>
-
-</body>
+  </body>
 </html>
