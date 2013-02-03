@@ -11,69 +11,50 @@
       a:active  {color:yellow;} 
 
     </style>
-    <!-- <script type="text/javascript"> var CloudFlare = CloudFlare || []; </script>
-    -->
-    <!-- script type="text/javascript" src="https://ajax.cloudflare.com/cdn-cgi/nexp/cloudflare.js"></script>
-  -->
-    <!--  load up our test config for local testing -->
-    <!-- <script type="text/javascript" src="../public/javascripts/piwik_analytics/config.js"></script>
-    -->
-  <!--  <script type="text/javascript">
-      /* just use a, it's smaller */ 
-    var a=window.CloudFlare;
-    /* push this local path for use in loading the the app/module   */ 
-    a.push({paths:{piwik_analytics:"../public/javascripts/"}});
-    /* force load our piwikConfig associative array  */
-    /* load the piwik_analytics module */
-    a.push(function(b,c){ c("piwik_analytics/config",function(){ return piwikConfig }); b(["piwik_analytics"]); });
+    <!-- The goal is to load piwik.js as it would below. Also to utilize the global window._paq array to push commands onto for setting or retrieving information from Piwik:w
+    . -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"></script>
 
-    a.push(function(b){ b(["piwik_analytics"]); });
-  </script>
-  -->
-  <!-- The goal is to load piwik.js as it would below. Also to utilize the global window._paq array to push commands onto for setting or retrieving information from Piwik:w
-  . -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"></script>
+  </head>
 
-</head>
+  <body>
+    <h1>Piwik Analytics CloudFlare Test App</h1>
 
-<body>
-  <h1>Piwik Analytics CloudFlare Test App</h1>
+    <div id="timeDiv">&nbsp;</div>
 
-  <div id="timeDiv">&nbsp;</div>
+    <div id="testing.zone">
 
-  <div id="testing.zone">
-
-    <div id="testing.gets">
-      <p>
-      <strong>Testing Gets</strong>
-      </p>
-    </div>
-    <ul>
-      <li id="app_change">app_change</li>
-    </ul>
-    <div id="testing.config">
-      <p>
-      <strong>Testing configured options</strong>
-      </p>
+      <div id="testing.gets">
+        <p>
+        <strong>Testing Gets</strong>
+        </p>
+      </div>
       <ul>
-        <li id="site_id" > site_id </li>
-        <li id="trackerURL"> trackerURL </li>
-        <li id="paq_push"> paq_push </li>
-
-        <li id="use_cdnjs"> use_cdnjs </li>
-        <li id="js_url"> js_url </li>
-        <li id="default_piwik_js"> default_piwik_js </li>
-
+        <li id="app_change">app_change</li>
       </ul>
+      <div id="testing.config">
+        <p>
+        <strong>Testing configured options</strong>
+        </p>
+        <ul>
+          <li id="site_id" > site_id </li>
+          <li id="trackerURL"> trackerURL </li>
+          <li id="paq_push"> paq_push </li>
+
+          <li id="use_cdnjs"> use_cdnjs </li>
+          <li id="js_url"> js_url </li>
+          <li id="default_piwik_js"> default_piwik_js </li>
+
+        </ul>
+      </div>
+
+      <div id="testing.links">
+      </div>
+
+
     </div>
+    <!-- this loads up testApp which updates and refreshes above items from configuration when working properly. -->
+    <script type="text/javascript" src="../public/javascripts/testApp.js"></script>
 
-    <div id="testing.links">
-   </div>
-
-
-  </div>
-  <!-- this loads up testApp which updates and refreshes above items from configuration when working properly. -->
-  <script type="text/javascript" src="../public/javascripts/testApp.js"></script>
-
-</body>
+  </body>
 </html>
