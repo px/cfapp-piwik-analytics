@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-    <title>Testing plain piwik_analytics cfapp</title>
+    <title>Testing piwik_analytics cfapp</title>
     <style>
 
       a:link    {color:blue;}
@@ -11,9 +11,8 @@
       a:active  {color:yellow;} 
 
     </style>
-    <!-- load up our test config for local testing -->
-
-    <!-- The goal is to load piwik.js as it would below. Also to utilize the global _paq array to push commands. -->
+    <!-- The goal is to load piwik.js as it would below. Also to utilize the global window._paq array to push commands onto for setting or retrieving information from Piwik:w
+    . -->
     <!--
     <script src="https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"></script>
     -->
@@ -21,47 +20,36 @@
   </head>
 
   <body>
-    <h1>plain Piwik Analytics CloudFlare Test App</h1>
+    <h1>Piwik Analytics CloudFlare Test App</h1>
 
     <div id="timeDiv">&nbsp;</div>
 
-    <p>
-    <strong>Testing Gets</strong>
-    </p>
+    <div id="testing.zone">
+      <h2>Testing Gets</h2>
+      <div id="testing.gets">
+      </div>
+      <ul>
+        <li id="app_change">app_change</li>
+      </ul>
+      <h2>Testing configured options</h2>
+      <div id="testing.config">
+        <ul>
+          <li id="site_id" > site_id </li>
+          <li id="trackerURL"> trackerURL </li>
+          <li id="paq_push"> paq_push </li>
 
-    <ul>
-      <li id="app_change">app_change</li>
-      <li id="visitorId" >getVisitorId </li>
-    </ul>
+          <li id="use_cdnjs"> use_cdnjs </li>
+          <li id="js_url"> js_url </li>
+          <li id="default_piwik_js"> default_piwik_js </li>
 
-    <p>
-    <strong>Testing configured options</strong>
-    </p>
-    <ul>
-      <li id="use_cdnjs"> use_cdnjs </li>
-      <li id="default_piwik"> piwik_js_default </li>
-      <li id="js_url"> js_url </li>
-      <li id="site_id" > site_id </li>
-      <li id="trackerURL"> trackerURL </li>
-      <li id="paq_push"> paq_push </li>
+        </ul>
+      </div>
+      <h2>Testing Link Tracking</h2>
+      <div id="testing.links">
+      </div>
 
-    </ul>
-
-    <p>
-    <strong>Testing Link Tracking</strong>
-    </p>
-    <ul>
-      <li><a href="iframeTest.html">iframe buster test</a></li>
-      <li><a href='#/no-tracking' target="_self" class='no-tracking'>Class 'no-tracking' No Tracking Test</a></li>
-      <li><a href='https://github.com/px/cfapp-piwik-analytics/archive/master.zip' class='piwik_ignore'>File I don't want to track as a download</a> Latest master.zip </li>
-      <li><a href='#/piwik_download' class='piwik_download'>Link I want to track as a download</a></li>
-      <li><a href='#/piwik_link' target="_self" class='piwik_link'>Link I want to track as an outlink</a></li>
-      <li><a href='example_piwik_ajax.html#/' target="_self" class='no-tracking'>Class 'no-tracking' example_piwik_ajax.html</a></li>
-      <li><a href='#/' target="_self" class='no-tracking'>Class 'no-tracking' No Tracking Test</a></li>
-    </ul>
-
-
-    <!-- this loads up the testApp which updates and refreshes the above items when working properly. -->
+    </div>
+    <!-- this loads up testApp which updates and refreshes above items from configuration when working properly. -->
     <script type="text/javascript" src="../public/javascripts/testApp.js"></script>
 
   </body>
