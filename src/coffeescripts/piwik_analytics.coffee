@@ -7,9 +7,10 @@
 *  @license   https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt
 *
 ###
-
+p=window._pk_loaded={stuff:"stuff"}
 # stick with commas
-_pk_loaded = CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], (_config) ->
+#_pk_loaded = CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], (_config) ->
+CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], (_config) ->
     "use strict"
     
     try
@@ -246,7 +247,7 @@ _pk_loaded = CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], (_
     
     yes
 
-
+###
 _pk_loaded.then(
       ->
         (modules) {
@@ -259,4 +260,4 @@ _pk_loaded.then(
               #          // Handle errors here..
         }
      )
-
+###
