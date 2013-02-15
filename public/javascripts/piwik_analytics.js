@@ -9,9 +9,13 @@
 *
 */
 
-var _pk_loaded;
+var p;
 
-_pk_loaded = CloudFlare.define("piwik_analytics", ["piwik_analytics/config"], function(_config) {
+p = window._pk_loaded = {
+  stuff: "stuff"
+};
+
+CloudFlare.define("piwik_analytics", ["piwik_analytics/config"], function(_config) {
   "use strict";
 
   var Piwik, app_change, conserr, consl, fix_scheme, is_piwik, loadScript, loadScript2, piwik, _debug, _default_piwik_version, _delay;
@@ -229,12 +233,18 @@ _pk_loaded = CloudFlare.define("piwik_analytics", ["piwik_analytics/config"], fu
   return true;
 });
 
-_pk_loaded.then(function() {
-  return modules({
-    modules: modules
-  });
-}, function() {
-  return error({
-    console: console
-  });
-});
+/*
+_pk_loaded.then(
+      ->
+        (modules) {
+         modules
+
+        }
+      ->
+        (error) {
+          console
+              #          // Handle errors here..
+        }
+     )
+*/
+

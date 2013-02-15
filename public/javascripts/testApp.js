@@ -7,7 +7,7 @@ _debug = _debug || true;
 
 _delay = 0.1;
 
-window.piwikConfig = window.piwikConfig || {};
+window.__piwikConfig = window.__CF.AJS.piwik_analytics || window.__piwikConfig || {};
 
 links = "<!-- convert to some other file of links to utilize between the other test files. -->\n  <ul>\n    <li><a href=\"iframeTest.html\">iframe buster test</a></li>\n<li><a href='#/no-tracking' target=\"_self\" class='no-tracking'>Class 'no-tracking' No Tracking Test</a></li>\n<li><a href='https://github.com/px/cfapp-piwik-analytics/archive/master.zip' class='piwik_ignore'>File I don't want to track as a download</a> Latest master.zip </li>\n<li><a href='#/piwik_download' class='piwik_download'>Link I want to track as a download</a></li>\n<li><a href='#/piwik_link' target=\"_self\" class='piwik_link'>Link I want to track as an outlink</a></li>\n<li><a href='example_piwik_ajax.html#/' target=\"_self\" class='no-tracking'>Class 'no-tracking' example_piwik_ajax.html</a></li>\n<li><a href='#/' target=\"_self\" class='no-tracking'>Class 'no-tracking' No Tracking Test</a></li>\n<li><a href=\"javascript:window.location.reload(true)\">window.location.reload(true)</a></li>\n</ul>";
 
@@ -103,35 +103,36 @@ update_status = function() {
     console.error("ERR: " + e);
   }
   try {
-    document.getElementById("default_piwik_js").innerHTML = "default_piwik_js=" + window.piwikConfig.default_piwik_js;
+    document.getElementById("default_piwik_js").innerHTML = "default_piwik_js=" + window.__CF.AJS.piwik_analytics.default_piwik_js;
   } catch (e) {
     console.error("ERR: " + e);
   }
   try {
-    document.getElementById("js_url").innerHTML = "js_url=" + window.piwikConfig.js_url;
+    document.getElementById("js_url").innerHTML = "js_url=" + window.__CF.AJS.piwik_analytics.js_url;
   } catch (e) {
     console.error("ERR: " + e);
   }
   try {
-    document.getElementById("use_cdnjs").innerHTML = "use_cdnjs=" + window.piwikConfig.use_cdnjs;
+    document.getElementById("use_cdnjs").innerHTML = "use_cdnjs=" + window.__CF.AJS.piwik_analytics.use_cdnjs;
   } catch (e) {
     console.error("ERR: " + e);
   }
   try {
-    document.getElementById("site_id").innerHTML = "site_id=" + window.piwikConfig.site_id;
+    document.getElementById("site_id").innerHTML = "site_id=" + window.__CF.AJS.piwik_analytics.site_id;
   } catch (e) {
     console.error("ERR: " + e);
   }
   try {
-    document.getElementById("trackerURL").innerHTML = "trackerURL=" + window.piwikConfig.tracker;
+    document.getElementById("trackerURL").innerHTML = "trackerURL=" + window.__CF.AJS.piwik_analytics.piwik_tracker;
   } catch (e) {
     console.error("ERR: " + e);
   }
   try {
-    return document.getElementById("paq_push").innerHTML = "paq_push=" + window.piwikConfig.paq_push;
+    document.getElementById("paq_push").innerHTML = "paq_push=" + window.__CF.AJS.piwik_analytics.paq_push;
   } catch (e) {
-    return console.error("ERR: " + e);
+    console.error("ERR: " + e);
   }
+  return true;
 };
 
 timer_updated = function() {
