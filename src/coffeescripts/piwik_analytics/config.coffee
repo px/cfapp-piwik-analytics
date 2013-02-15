@@ -1,4 +1,4 @@
-pkC =
+__pkC =
   default_piwik_version: "1.10.1"
   use_cdnjs: true
   default_piwik_js: "https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"
@@ -50,7 +50,7 @@ pkC =
 #  } 
 
 # can't "build" this in the above associative array
-pkC.js_url = pkC.js_prot + pkC.js_schem + pkC.js_host + pkC.js_path + pkC.js_file
+__pkC.js_url = __pkC.js_prot + __pkC.js_schem + __pkC.js_host + __pkC.js_path + __pkC.js_file
 #console.log pkC.default_piwik_js
 # be lazy, copy it over from the short name to one that makes more sense.
-window.piwikConfig = pkC
+window.__piwikConfig = __pkC
