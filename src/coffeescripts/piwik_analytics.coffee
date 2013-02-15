@@ -1,7 +1,7 @@
 ###
 * This is Miniature Hipster
 *  @name      Miniature Hipster
-*  @version   0.0.9
+*  @version   0.0.11
 *  @author    Rob Friedman <px@ns1.net>
 *  @url       <http://playerx.net>
 *  @license   https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt
