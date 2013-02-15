@@ -9,7 +9,10 @@ window._paq = window._paq || []
 _debug = _debug or true
 _delay = 0.1
 
-window.piwikConfig = window.piwikConfig or {}
+#window.piwikConfig = window.CloudFlare[{apps.piwik_analytics}] or window.piwikConfig or 
+
+window.__piwikConfig = window.__CF.AJS.piwik_analytics or window.__piwikConfig or {}
+
 
 links = """
 <!-- convert to some other file of links to utilize between the other test files. -->
@@ -104,27 +107,27 @@ update_status = ->
     console.error "ERR: " + e
 
   try
-    document.getElementById("default_piwik_js").innerHTML = "default_piwik_js=" + window.piwikConfig.default_piwik_js
+    document.getElementById("default_piwik_js").innerHTML = "default_piwik_js=" + window.__CF.AJS.piwik_analytics.default_piwik_js
   catch e
     console.error "ERR: " + e
 
   try
-    document.getElementById("js_url").innerHTML = "js_url=" + window.piwikConfig.js_url
+    document.getElementById("js_url").innerHTML = "js_url=" + window.__CF.AJS.piwik_analytics.js_url
   catch e
     console.error "ERR: " + e
 
   try
-    document.getElementById("use_cdnjs").innerHTML = "use_cdnjs=" + window.piwikConfig.use_cdnjs
+    document.getElementById("use_cdnjs").innerHTML = "use_cdnjs="  + window.__CF.AJS.piwik_analytics.use_cdnjs
   catch e
     console.error "ERR: " + e
 
   try
-    document.getElementById("site_id").innerHTML = "site_id=" + (window.piwikConfig.site_id)
+    document.getElementById("site_id").innerHTML = "site_id=" + (window.__CF.AJS.piwik_analytics.site_id)
   catch e
     console.error "ERR: " + e
 
   try
-    document.getElementById("trackerURL").innerHTML = "trackerURL=" + (window.piwikConfig.tracker)
+    document.getElementById("trackerURL").innerHTML = "trackerURL=" + (window.__CF.AJS.piwik_analytics.piwik_tracker)
   catch e
     console.error "ERR: " + e
 
@@ -135,9 +138,10 @@ update_status = ->
   #      }
   #      
   try
-    document.getElementById("paq_push").innerHTML = "paq_push=" + (window.piwikConfig.paq_push)
+    document.getElementById("paq_push").innerHTML = "paq_push=" + (window.__CF.AJS.piwik_analytics.paq_push)
   catch e
     console.error "ERR: " + e
+  yes
 
 timer_updated = ->
   try
