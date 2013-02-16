@@ -1,3 +1,8 @@
+
+
+CloudFlare.define "piwik_analytics/config", [], (_config) ->
+
+
 __pkC =
   default_piwik_version: "1.10.1"
   use_cdnjs: true
