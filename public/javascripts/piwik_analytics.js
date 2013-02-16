@@ -2,7 +2,7 @@
 /*
 * This is Miniature Hipster
 *  @name      Miniature Hipster
-*  @version   0.0.15
+*  @version   0.0.16
 *  @author    Rob Friedman <px@ns1.net>
 *  @url       <http://playerx.net>
 *  @license   https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt
@@ -54,7 +54,7 @@ loadScript = function(f, callback) {
   return CloudFlare.require([f], callback);
 };
 
-CloudFlare.define("piwik_analytics", [""], function(_config) {
+CloudFlare.define("piwik_analytics", ["piwik_analytics/config"], function(_config) {
   "use strict";
 
   var myPiwik, _default_piwik_version, _delay;
@@ -90,13 +90,15 @@ CloudFlare.define("piwik_analytics", [""], function(_config) {
     try {
       if (window._pk_visitor_id === undefined || window._pk_visitor_id === "") {
         conserr(" no window._pk_visitor_id piwik maybe failed to load!!! Oh Noe :( :( :(  ): ): ): ");
+        return false;
       } else if (typeof window._pk_visitor_id === "string" && window._pk_visitor_id !== "") {
         consl("piwik loaded... probably maybe. window._pk_visitor_id='" + window._pk_visitor_id + "', and tracker hit.");
+        return true;
       }
     } catch (e) {
       conserr("isPiwik() " + e);
     }
-    return true;
+    return false;
   };
   myPiwik.appChange = function() {
     if (_debug) {
@@ -112,10 +114,6 @@ CloudFlare.define("piwik_analytics", [""], function(_config) {
     return true;
   };
   /*
-  * define it up here
-  */
-
-  /*
   * activate()
   * this will load and activate the piwik.js from desired location
   * fixup the tracker url for missing scheme on file:// url locations
@@ -130,9 +128,9 @@ CloudFlare.define("piwik_analytics", [""], function(_config) {
     } else {
       conserr("_config.use_cdnjs=" + _config.use_cdnjs);
     }
-    if (!_config.use_cdnjs && _config.js_url !== undefined && _config.js_url !== "") {
-      consl("attempting to use configurered js_url=" + _config.js_url);
-      _js = _config.js_url;
+    if (!_config.use_cdnjs && _config.piwik_js !== undefined && _config.piwik_js !== "") {
+      consl("attempting to use configurered piwik_js=" + _config.piwik_js);
+      _js = _config.piwik_js;
     } else {
       consl("use_cdnjs is enabled");
       _js = _config.default_piwik_js;
