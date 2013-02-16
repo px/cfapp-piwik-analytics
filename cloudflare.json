@@ -29,7 +29,7 @@
       "type": "string"
     },
     {
-      "id": "tracker",
+      "id": "piwik_tracker",
       "name": "Tracker URL (REQUIRED)",
       "description": "A receiver URL 'https://'. Should be using SSL for security purposes but using '//host.tld' is valid also.",
       "type": "string",
