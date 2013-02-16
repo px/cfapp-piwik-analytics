@@ -29,7 +29,7 @@ conserr= (m) ->
 fixScheme = (url) ->
 
   consl( "fixScheme(" + url + ")" ) if _debug
-  consl( "window.location.protocol" + window.location.protocol ) if _debug
+  consl( "window.location.protocol=" + window.location.protocol ) if _debug
 
   url2=url
 
@@ -84,19 +84,21 @@ loadScript2 = (f) ->
   # push a command on to the global window._paq array, and
   # set the global window._pk_visitor_id variable
 
-#window.__CF.AJS.piwik_analytics.use_cdnjs
+#_config = window.__CF.AJS.piwik_analytics
 
 
 # stick with commas
-CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], (_config) ->
+CloudFlare.define "piwik_analytics", [""], ( _config ) ->
 
   "use strict"
 
   ## Piwik
   myPiwik = {}
+  _config = _config || {}
 
   try
-    myPiwik.config = _config
+    #   myPiwik.config = _config
+    _config = window.__CF.AJS.piwik_analytics || {}
   catch e
     conserr "the _config is broken"
 
@@ -108,10 +110,10 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], (_config) ->
 
   _default_piwik_version = "1.10.1"
 
-  if _debug
-    consl "Hello from the Piwik CloudFlare App!" + config
+  if ( _debug )
+    consl( "Hello from the Piwik CloudFlare App!" + _config )
     # clear localStorage is we're debuging
-    consl "window.localStorage.clear()=" + window.localStorage.clear()
+    consl( "window.localStorage.clear()=" + window.localStorage.clear() )
   # end
 
 
@@ -120,7 +122,7 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], (_config) ->
     # loaded to ideally determine the _pk_visitor_id
 
     myPiwik.appChange = ->
-      consl "appChange()" if _debug
+      consl( "appChange()" ) if _debug
       setTimeout( ->
         document.getElementById("app_change").innerHTML = "app_change -- getVisitorId=" + window._pk_visitor_id)              1000*_delay
       isPiwik
@@ -163,35 +165,35 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], (_config) ->
     myPiwik.activate = () ->
       consl "activate() started"
 
-    if config.use_cdnjs
-      consl "config.use_cdnjs="+config.use_cdnjs
+    if ( _config.use_cdnjs )
+      consl( "_config.use_cdnjs=" + _config.use_cdnjs )
     else
-      conserr "config.use_cdnjs="+config.use_cdnjs
+      conserr( "_config.use_cdnjs=" + _config.use_cdnjs )
 
     ## if we aren't loading from cdnjs and js_url has ben set
-    if ( !config.use_cdnjs and config.js_url isnt `undefined` and config.js_url isnt "" )
-      consl( "attempting to use configurered js_url="+config.js_url )
-      loadScript( fixScheme( unescape( config.js_url)))
+    if ( ! _config.use_cdnjs and _config.js_url isnt `undefined` and _config.js_url isnt "" )
+      consl( "attempting to use configurered js_url=" + _config.js_url )
+      loadScript( fixScheme( unescape( _config.js_url )))
     else
       consl( "use_cdnjs is enabled" )
-      # loadScript the config.default_piwik_js for now
-      loadScript( fixScheme( unescape( config.default_piwik_js)))
+      # loadScript the _config.default_piwik_js for now
+      loadScript( fixScheme( unescape( _config.default_piwik_js )))
 
     # works
     # config.site_id = 'a'
     ## choose the site_id if unset
-    if ( config.site_id is `undefined` or isNaN(config.site_id) or config.site_id is "" )
+    if ( _config.site_id is `undefined` or isNaN( _config.site_id ) or ( _config.site_id is "" ) )
       conserr( "Invalid site_id; defaulting to '1'" )
       ## default to site_id 1
-      config.site_id = 1
+      _config.site_id = 1
     else
-      consl( "regular site_id from config "+ config.site_id )
+      consl( "regular site_id from _config "+ _config.site_id )
 
 
-    if ( config.tracker is `undefined` or config.tracker is "" )
-      config.tracker = "FIXME"
+    if ( _config.tracker is `undefined` or _config.tracker is "" )
+      _config.tracker = "FIXME"
     else
-      config.tracker = fixScheme(unescape(config.tracker))
+      _config.tracker = fixScheme( unescape( _config.tracker ))
 
     consl( "activate() completed")
 
@@ -203,23 +205,23 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], (_config) ->
     consl("paqPush()") if _debug
 
     window._paq = window._paq || []
-    window._paq.push(['setSiteId', " + ( unescape config.site_id ) + "])
-    window._paq.push(['setTrackerUrl', '" + ( unescape config.tracker ) + "'])
+    window._paq.push(['setSiteId', " + ( unescape _config.site_id ) + "])
+    window._paq.push(['setTrackerUrl', '" + ( unescape _config.tracker ) + "'])
 
     # select if link_tracking is enabled
-    if ( config.link_tracking is "true" )
+    if ( _config.link_tracking is "true" )
       window._paq.push(['enableLinkTracking',true])
     else
       window._paq.push(['enableLinkTracking',false])
     #
-    if ( config.set_do_not_track is "true" )
+    if ( _config.set_do_not_track is "true" )
       window._paq.push(['setDoNotTrack',true])
     else
       window._paq.push(['setDoNotTrack',false])
     #
     # pass the options
-    window._paq.push(" + config.paq_push + ")
-    consl("paqPush2() finished ok!") if _debug
+    window._paq.push(" + _config.paq_push + ")
+    consl("paqPush() finished ok!") if _debug
 
   ###
 *  paqPush2(index)
@@ -231,28 +233,28 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], (_config) ->
     # start building the window._paq array for configuration and commands
     prog = "window._paq = window._paq || []; "
     # set the site_id
-    prog += "window._paq.push(['setSiteId', " + ( unescape config.site_id ) + "]);"
+    prog += "window._paq.push(['setSiteId', " + ( unescape _config.site_id ) + "]);"
     # set the tracker url
-    prog += "window._paq.push(['setTrackerUrl', '" + ( unescape config.tracker ) + "']);"
+    prog += "window._paq.push(['setTrackerUrl', '" + ( unescape _config.tracker ) + "']);"
     # select if link_tracking is enabled
-    if config.link_tracking is "true"
+    if ( _config.link_tracking is "true" )
       prog += "window._paq.push(['enableLinkTracking',true]);"
     else
       prog += "window._paq.push(['enableLinkTracking',false]);"
 
     # select if do_not_tack is enabled
-    if config.set_do_not_track is "true"
+    if ( _config.set_do_not_track is "true" )
       prog += "window._paq.push(['setDoNotTrack',true]);"
     else
       prog += "window._paq.push(['setDoNotTrack',false]);"
 
     # pass the options
-    prog += "window._paq.push(" + config.paq_push + ");"
+    prog += "window._paq.push(" + _config.paq_push + ");"
 
     # make the magic happen, track the page view, trackPageView
     prog += "window._paq.push(['trackPageView']);"
 
-    consl "prog=("+prog+")"  if _debug
+    consl( "prog=("+prog+")" ) if _debug
 
     scriptEl = document.createElement("script")
     scriptEl.type = "text/javascript"
@@ -260,9 +262,9 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], (_config) ->
     try
       document.getElementsByTagName("head")[0].appendChild scriptEl
     catch e
-      conserr "failed to appendChild! -- unable to paqPush2"
+      conserr( "failed to appendChild! -- unable to paqPush2")
 
-    consl "paqPush2() finished ok!" if _debug
+    consl( "paqPush2() finished ok!" ) if _debug
 
 
   ###
@@ -270,9 +272,9 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], (_config) ->
 * this is kind of a waste as it will never get run if javascript is not enabled
   ###
   myPiwik.noScript = ->
-    consl "noScript()"  if _debug
-    test_site = fixScheme( unescape( config.tracker ))
-    test_site += "?id=" + config.site_id + "&amp;rec=1"
+    consl( "noScript()" ) if _debug
+    test_site = fixScheme( unescape( _config.tracker ))
+    test_site += "?id=" + _config.site_id + "&amp;rec=1"
     consl( "noScript| test_site=" + test_site ) if _debug
     script = document.createElement("noscript")
     cursor = document.getElementsByTagName("script", true)[0]
