@@ -121,33 +121,38 @@ CloudFlare.define "piwik_analytics", [""], ( _config ) ->
     # some how we need to wait until the piwik.js is asynchronously
     # loaded to ideally determine the _pk_visitor_id
 
-    myPiwik.appChange = ->
-      consl( "appChange()" ) if _debug
-      setTimeout( ->
-        document.getElementById("app_change").innerHTML = "app_change -- getVisitorId=" + window._pk_visitor_id)              1000*_delay
-      isPiwik
+  myPiwik.appChange = ->
+    consl( "appChange()" ) if _debug
+    try 
+      window.setTimeout(
+          window.document.getElementById("app_change").innerHTML = "app_change -- getVisitorId=" + window._pk_visitor_id , 1000*_delay,
+      isPiwik )
 
-    # rudimentary test to see if the piwik.js loads
-    #       * if it does, then it will generate a VisitorId
-    #       *
-    myPiwik.isPiwik = ->
-      consl "isPiwik() loaded?"
-      # push a command on to the global window._paq array, and
-      # set the global window._pk_visitor_id variable
-      window._paq.push [->
-        window._pk_visitor_id = @getVisitorId()
-      ]
-      try
-        if window._pk_visitor_id is `undefined` or window._pk_visitor_id is ""
-          conserr " no window._pk_visitor_id piwik maybe failed to load!!! Oh Noe :( :( :(  ): ): ): "
-        else if typeof window._pk_visitor_id is "string" and window._pk_visitor_id isnt ""
-          consl "piwik loaded... probably maybe. window._pk_visitor_id='"+window._pk_visitor_id+"', and tracker hit."
-      catch e
-        conserr "isPiwik() " + e
+    catch e
+      conserr("appChange " + e)
 
-    ###
+  # rudimentary test to see if the piwik.js loads
+  #       * if it does, then it will generate a VisitorId
+  #       *
+  myPiwik.isPiwik = ->
+    consl "isPiwik() loaded?"
+    # push a command on to the global window._paq array, and
+    # set the global window._pk_visitor_id variable
+    window._paq = window._paq || []
+    window._paq.push [->
+      window._pk_visitor_id = @getVisitorId()
+    ]
+    try
+      if window._pk_visitor_id is `undefined` or window._pk_visitor_id is ""
+        conserr " no window._pk_visitor_id piwik maybe failed to load!!! Oh Noe :( :( :(  ): ): ): "
+      else if typeof window._pk_visitor_id is "string" and window._pk_visitor_id isnt ""
+        consl "piwik loaded... probably maybe. window._pk_visitor_id='"+window._pk_visitor_id+"', and tracker hit."
+    catch e
+      conserr "isPiwik() " + e
+
+  ###
 * define it up here
-    ###
+  ###
 
 #  myPiwik.config = (config) ->
 #    # apply the config
@@ -157,27 +162,28 @@ CloudFlare.define "piwik_analytics", [""], ( _config ) ->
 #      conserr "config error!" + e
 
 
-    ###
+  ###
 * activate()
 * this will load and activate the piwik.js from desired location
 * fixup the tracker url for missing scheme on file:// url locations
-    ###
-    myPiwik.activate = () ->
-      consl "activate() started"
+  ###
+  myPiwik.activate = () ->
+    consl "activate() started"
 
+    c = ( myPiwik.isPiwik() ; myPiwik.appChange() )
     if ( _config.use_cdnjs )
       consl( "_config.use_cdnjs=" + _config.use_cdnjs )
     else
       conserr( "_config.use_cdnjs=" + _config.use_cdnjs )
 
-    ## if we aren't loading from cdnjs and js_url has ben set
+      ## if we aren't loading from cdnjs and js_url has ben set
     if ( ! _config.use_cdnjs and _config.js_url isnt `undefined` and _config.js_url isnt "" )
       consl( "attempting to use configurered js_url=" + _config.js_url )
-      loadScript( fixScheme( unescape( _config.js_url )))
+      loadScript( fixScheme( unescape( _config.js_url )), c )
     else
       consl( "use_cdnjs is enabled" )
       # loadScript the _config.default_piwik_js for now
-      loadScript( fixScheme( unescape( _config.default_piwik_js )))
+      loadScript( fixScheme( unescape( _config.default_piwik_js )), c )
 
     # works
     # config.site_id = 'a'
@@ -291,8 +297,10 @@ CloudFlare.define "piwik_analytics", [""], ( _config ) ->
   # do noScript()
   myPiwik.noScript()
 
-# instantiate and configure a new instance of the Piwik
+  ###
+#instantiate and configure a new instance of the Piwik when it is returned
 #  myPiwik = new Piwik(_config)
+  ###
   myPiwik
 
 
