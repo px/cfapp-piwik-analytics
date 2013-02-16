@@ -29,7 +29,7 @@
       "type": "string"
     },
     {
-      "id": "piwik_tracker",
+      "id": "tracker",
       "name": "Tracker URL (REQUIRED)",
       "description": "A receiver URL 'https://'. Should be using SSL for security purposes but using '//host.tld' is valid also.",
       "type": "string",
@@ -120,5 +120,5 @@
       "url": "https://github.com/px/cfapp-piwik-analytics.git"
     },
     "scripts": {},
-    "version": "0.0.12"
+    "version": "0.0.13"
 }
