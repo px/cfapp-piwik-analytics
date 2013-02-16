@@ -11,6 +11,7 @@
 # vim: set tabstop=2:softtabstop=2:shiftwidth=2:noexpandtab
 
 
+#_config = window.__CF.AJS.piwik_analytics
 p=window._pk_loaded={stuff:"stuff"}
 
 # var _debug = false;
@@ -60,33 +61,6 @@ loadScript = (f,c) ->
 
 
 
-
-###
-* loadScript2(f)
-* javascript append an element to head
-###
-loadScript2 = (f) ->
-  # output to console if _debug
-  consl("loadScript2 '" + f + "'")  if _debug
-  # create a script element to place our script into
-  scriptEl = document.createElement("script")
-  # set the type and other features for the element
-  scriptEl.type = "text/javascript"
-  scriptEl.defer = true
-  scriptEl.async = true
-  scriptEl.src = fixScheme(f)
-  scriptEl.onload = ""
-  # append the element to the bottom of the head element
-  try
-    document.getElementsByTagName("head")[0].appendChild scriptEl
-  catch e
-    conserr "unable to append scriptEl to head"
-  # push a command on to the global window._paq array, and
-  # set the global window._pk_visitor_id variable
-
-#_config = window.__CF.AJS.piwik_analytics
-
-
 # stick with commas
 CloudFlare.define "piwik_analytics", [""], ( _config ) ->
 
@@ -123,9 +97,9 @@ CloudFlare.define "piwik_analytics", [""], ( _config ) ->
 
   myPiwik.appChange = ->
     consl( "appChange()" ) if _debug
-    try 
+    try
       window.setTimeout(
-          window.document.getElementById("app_change").innerHTML = "app_change -- getVisitorId=" + window._pk_visitor_id , 1000*_delay,
+        window.document.getElementById("app_change").innerHTML = "app_change -- getVisitorId=" + window._pk_visitor_id , 1000*_delay,
       isPiwik )
 
     catch e
@@ -139,9 +113,13 @@ CloudFlare.define "piwik_analytics", [""], ( _config ) ->
     # push a command on to the global window._paq array, and
     # set the global window._pk_visitor_id variable
     window._paq = window._paq || []
-    window._paq.push [->
-      window._pk_visitor_id = @getVisitorId()
-    ]
+    try
+      window._paq.push [->
+        window._pk_visitor_id = @getVisitorId()
+      ]
+    catch e
+      conserr ("issue with window._paq is "+e)
+
     try
       if window._pk_visitor_id is `undefined` or window._pk_visitor_id is ""
         conserr " no window._pk_visitor_id piwik maybe failed to load!!! Oh Noe :( :( :(  ): ): ): "
@@ -230,50 +208,6 @@ CloudFlare.define "piwik_analytics", [""], ( _config ) ->
     consl("paqPush() finished ok!") if _debug
 
   ###
-*  paqPush2(index)
-* function to push information into the window._paq global array
-*
-  ###
-  myPiwik.paqPush2 = () ->
-    consl "paqPush2()"  if _debug
-    # start building the window._paq array for configuration and commands
-    prog = "window._paq = window._paq || []; "
-    # set the site_id
-    prog += "window._paq.push(['setSiteId', " + ( unescape _config.site_id ) + "]);"
-    # set the tracker url
-    prog += "window._paq.push(['setTrackerUrl', '" + ( unescape _config.tracker ) + "']);"
-    # select if link_tracking is enabled
-    if ( _config.link_tracking is "true" )
-      prog += "window._paq.push(['enableLinkTracking',true]);"
-    else
-      prog += "window._paq.push(['enableLinkTracking',false]);"
-
-    # select if do_not_tack is enabled
-    if ( _config.set_do_not_track is "true" )
-      prog += "window._paq.push(['setDoNotTrack',true]);"
-    else
-      prog += "window._paq.push(['setDoNotTrack',false]);"
-
-    # pass the options
-    prog += "window._paq.push(" + _config.paq_push + ");"
-
-    # make the magic happen, track the page view, trackPageView
-    prog += "window._paq.push(['trackPageView']);"
-
-    consl( "prog=("+prog+")" ) if _debug
-
-    scriptEl = document.createElement("script")
-    scriptEl.type = "text/javascript"
-    scriptEl.innerHTML = prog
-    try
-      document.getElementsByTagName("head")[0].appendChild scriptEl
-    catch e
-      conserr( "failed to appendChild! -- unable to paqPush2")
-
-    consl( "paqPush2() finished ok!" ) if _debug
-
-
-  ###
 * noScript()
 * this is kind of a waste as it will never get run if javascript is not enabled
   ###
@@ -285,6 +219,8 @@ CloudFlare.define "piwik_analytics", [""], ( _config ) ->
     script = document.createElement("noscript")
     cursor = document.getElementsByTagName("script", true)[0]
     cursor.parentNode.insertBefore( script, cursor )
+
+
 
   ###
 * do stuff to get the party started
@@ -298,8 +234,8 @@ CloudFlare.define "piwik_analytics", [""], ( _config ) ->
   myPiwik.noScript()
 
   ###
-#instantiate and configure a new instance of the Piwik when it is returned
-#  myPiwik = new Piwik(_config)
+* instantiate and configure a new instance of the Piwik when it is returned
+*  myPiwik = new Piwik(_config)
   ###
   myPiwik
 
