@@ -1,7 +1,7 @@
 ###
 * This is Miniature Hipster
 *  @name      Miniature Hipster
-*  @version   0.0.15
+*  @version   0.0.16
 *  @author    Rob Friedman <px@ns1.net>
 *  @url       <http://playerx.net>
 *  @license   https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt
@@ -63,7 +63,7 @@ loadScript = (f,callback) ->
 
 
 # stick with commas
-CloudFlare.define "piwik_analytics", [""], ( _config ) ->
+CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
 
   "use strict"
 
@@ -110,12 +110,14 @@ CloudFlare.define "piwik_analytics", [""], ( _config ) ->
     try
       if ( window._pk_visitor_id is `undefined` or window._pk_visitor_id is "" )
         conserr( " no window._pk_visitor_id piwik maybe failed to load!!! Oh Noe :( :( :(  ): ): ): " )
+        return no
       else if ( typeof window._pk_visitor_id is "string" and window._pk_visitor_id isnt "" )
         consl( "piwik loaded... probably maybe. window._pk_visitor_id='"+window._pk_visitor_id+"', and tracker hit." )
+        return yes
     catch e
       conserr( "isPiwik() " + e )
 
-    yes
+    no
 
 
     # some how we need to wait until the piwik.js is asynchronously
@@ -135,16 +137,7 @@ CloudFlare.define "piwik_analytics", [""], ( _config ) ->
 
     yes
 
-  ###
-* define it up here
-  ###
 
-#  myPiwik.config = (config) ->
-#    # apply the config
-#    try
-#      @config = config
-#    catch e
-#      conserr "config error!" + e
 
 
   ###
@@ -161,11 +154,11 @@ CloudFlare.define "piwik_analytics", [""], ( _config ) ->
     else
       conserr( "_config.use_cdnjs=" + _config.use_cdnjs )
 
-      ## if we aren't loading from cdnjs and js_url has ben set
-    if ( ! _config.use_cdnjs and _config.js_url isnt `undefined` and _config.js_url isnt "" )
-      consl( "attempting to use configurered js_url=" + _config.js_url )
-      _js = _config.js_url
-      #loadScript( fixScheme( unescape( _config.js_url )))
+      ## if we aren't loading from cdnjs and piwik_js has ben set
+    if ( ! _config.use_cdnjs and _config.piwik_js isnt `undefined` and _config.piwik_js isnt "" )
+      consl( "attempting to use configurered piwik_js=" + _config.piwik_js )
+      _js = _config.piwik_js
+      #loadScript( fixScheme( unescape( _config.piwik_js )))
 
     else
       consl( "use_cdnjs is enabled" )
