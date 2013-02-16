@@ -1,7 +1,7 @@
 ###
 * This is Miniature Hipster
 *  @name      Miniature Hipster
-*  @version   0.0.12
+*  @version   0.0.13
 *  @author    Rob Friedman <px@ns1.net>
 *  @url       <http://playerx.net>
 *  @license   https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt
@@ -51,12 +51,13 @@ fixScheme = (url) ->
 * use CloudFlare.require to load the javascript f requested
 * and then execute the callback c
 ###
-loadScript = (f,c) ->
+loadScript = (f,callback) ->
 
-  consl "loadScript via CloudFlare.require [" + f + "]," + c+""
+  consl( "loadScript via CloudFlare.require [" + f + "], "+ callback )
 
   # maybe needs a delay
-  CloudFlare.require [f], c
+  CloudFlare.require( [f], callback )
+
 
 
 
@@ -91,20 +92,6 @@ CloudFlare.define "piwik_analytics", [""], ( _config ) ->
   # end
 
 
-
-    # some how we need to wait until the piwik.js is asynchronously
-    # loaded to ideally determine the _pk_visitor_id
-
-  myPiwik.appChange = ->
-    consl( "appChange()" ) if _debug
-    try
-      window.setTimeout(
-        window.document.getElementById("app_change").innerHTML = "app_change -- getVisitorId=" + window._pk_visitor_id , 1000*_delay,
-      isPiwik )
-
-    catch e
-      conserr("appChange " + e)
-
   # rudimentary test to see if the piwik.js loads
   #       * if it does, then it will generate a VisitorId
   #       *
@@ -121,12 +108,32 @@ CloudFlare.define "piwik_analytics", [""], ( _config ) ->
       conserr ("issue with window._paq is "+e)
 
     try
-      if window._pk_visitor_id is `undefined` or window._pk_visitor_id is ""
-        conserr " no window._pk_visitor_id piwik maybe failed to load!!! Oh Noe :( :( :(  ): ): ): "
-      else if typeof window._pk_visitor_id is "string" and window._pk_visitor_id isnt ""
-        consl "piwik loaded... probably maybe. window._pk_visitor_id='"+window._pk_visitor_id+"', and tracker hit."
+      if ( window._pk_visitor_id is `undefined` or window._pk_visitor_id is "" )
+        conserr( " no window._pk_visitor_id piwik maybe failed to load!!! Oh Noe :( :( :(  ): ): ): " )
+      else if ( typeof window._pk_visitor_id is "string" and window._pk_visitor_id isnt "" )
+        consl( "piwik loaded... probably maybe. window._pk_visitor_id='"+window._pk_visitor_id+"', and tracker hit." )
     catch e
-      conserr "isPiwik() " + e
+      conserr( "isPiwik() " + e )
+
+    yes
+
+
+    # some how we need to wait until the piwik.js is asynchronously
+    # loaded to ideally determine the _pk_visitor_id
+
+  myPiwik.appChange = ->
+    consl( "appChange()" ) if _debug
+
+    try
+      #window.setTimeout(
+      window.document.getElementById("app_change").innerHTML = ("appChange -- getVisitorId=" + window._pk_visitor_id ) #, 1000*_delay
+      consl("_pk_visitor_id="+window._pk_visitor_id)
+      myPiwik.isPiwik #)
+
+    catch e
+      conserr("appChange " + e)
+
+    yes
 
   ###
 * define it up here
@@ -147,8 +154,8 @@ CloudFlare.define "piwik_analytics", [""], ( _config ) ->
   ###
   myPiwik.activate = () ->
     consl "activate() started"
+    _js = ""
 
-    c = ( myPiwik.isPiwik() ; myPiwik.appChange() )
     if ( _config.use_cdnjs )
       consl( "_config.use_cdnjs=" + _config.use_cdnjs )
     else
@@ -157,11 +164,20 @@ CloudFlare.define "piwik_analytics", [""], ( _config ) ->
       ## if we aren't loading from cdnjs and js_url has ben set
     if ( ! _config.use_cdnjs and _config.js_url isnt `undefined` and _config.js_url isnt "" )
       consl( "attempting to use configurered js_url=" + _config.js_url )
-      loadScript( fixScheme( unescape( _config.js_url )), c )
+      _js = _config.js_url
+      #loadScript( fixScheme( unescape( _config.js_url )))
+
     else
       consl( "use_cdnjs is enabled" )
       # loadScript the _config.default_piwik_js for now
-      loadScript( fixScheme( unescape( _config.default_piwik_js )), c )
+      #loadScript( fixScheme( unescape( _config.default_piwik_js )))
+      _js = _config.default_piwik_js
+
+    #loadScript( fixScheme( unescape( _js )))
+    #CloudFlare.require([_js])
+    loadScript( unescape(_js), "myPiwik.isPiwik()" )
+    #myPiwik.isPiwik()
+    #myPiwik.appChange()
 
     # works
     # config.site_id = 'a'
@@ -174,10 +190,10 @@ CloudFlare.define "piwik_analytics", [""], ( _config ) ->
       consl( "regular site_id from _config "+ _config.site_id )
 
 
-    if ( _config.tracker is `undefined` or _config.tracker is "" )
-      _config.tracker = "FIXME"
+    if ( _config.piwik_tracker is `undefined` or _config.piwik_tracker is "" )
+      _config.piwik_tracker = "FIXME"
     else
-      _config.tracker = fixScheme( unescape( _config.tracker ))
+      _config.piwik_tracker = fixScheme( unescape( _config.piwik_tracker ))
 
     consl( "activate() completed")
 
@@ -189,8 +205,8 @@ CloudFlare.define "piwik_analytics", [""], ( _config ) ->
     consl("paqPush()") if _debug
 
     window._paq = window._paq || []
-    window._paq.push(['setSiteId', " + ( unescape _config.site_id ) + "])
-    window._paq.push(['setTrackerUrl', '" + ( unescape _config.tracker ) + "'])
+    window._paq.push(['setSiteId', unescape ( _config.site_id ) ])
+    window._paq.push(['setTrackerUrl', unescape ( _config.piwik_tracker ) ])
 
     # select if link_tracking is enabled
     if ( _config.link_tracking is "true" )
@@ -204,8 +220,9 @@ CloudFlare.define "piwik_analytics", [""], ( _config ) ->
       window._paq.push(['setDoNotTrack',false])
     #
     # pass the options
-    window._paq.push(" + _config.paq_push + ")
+    window._paq.push( _config.paq_push ) if ! _config.paq_push and _config.paq_push isnt `undefined` and _config.paq_push isnt ""
     consl("paqPush() finished ok!") if _debug
+    _config.paq_push
 
   ###
 * noScript()
@@ -213,7 +230,7 @@ CloudFlare.define "piwik_analytics", [""], ( _config ) ->
   ###
   myPiwik.noScript = ->
     consl( "noScript()" ) if _debug
-    test_site = fixScheme( unescape( _config.tracker ))
+    test_site = fixScheme( unescape( _config.piwik_tracker ))
     test_site += "?id=" + _config.site_id + "&amp;rec=1"
     consl( "noScript| test_site=" + test_site ) if _debug
     script = document.createElement("noscript")
