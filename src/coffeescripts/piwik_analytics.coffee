@@ -117,7 +117,7 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
         window._pk_visitor_id = @getVisitorId()
       ]
     catch e
-      conserr ("issue with window._paq is "+e)
+      conserr ("There is an issue with window._paq; "+e) if _debug
 
     # This really needs a delay before attempting to read _pk_visitor_id; FIXME
     # some how we need to wait until the piwik.js is asynchronously
@@ -125,14 +125,17 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
     try
       if ( window._pk_visitor_id is `undefined` or window._pk_visitor_id is "" )
         conserr( " no window._pk_visitor_id piwik maybe failed to load!!! Oh Noe :*( :*( :(  )*: )*: )*: " ) if _debug
+        # return a no, not loaded
         return no
       else if ( typeof window._pk_visitor_id is "string" and window._pk_visitor_id isnt "" )
         consl( "Piwik loaded... probably maybe. window._pk_visitor_id='"+window._pk_visitor_id+"', and tracker hit." ) if _debug
+        # return a yes, piwik.js has been loaded
         return yes
     catch e
       conserr( "isPiwik() " + e )
-
+    # return a no
     no
+    # end myPiwik.isPiwik()
 
 
   # leftover bit to change my test app from initial development phase; FIXME; remove soon
@@ -205,7 +208,10 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
       # using fixscheme here with the url will break what the user requests in their configuration
       _config.piwik_tracker = unescape( _config.piwik_tracker )
 
-    consl( "myPiwik.activate() completed")
+    consl( "myPiwik.activate() completed") if _debug
+    # return a yes
+    yes
+    # end myPiwik.activated
 
   ###
 * myPiwik.paqPush()
@@ -219,6 +225,11 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
     consl("paqPush()") if _debug
     # read in or create the _paq array if undefined
     window._paq = window._paq || []
+    # send request for VisitorId, we can do this anytime
+    #   and it will be assigned once piwik.js is executed
+    window._paq.push [->
+       window._pk_visitor_id = @getVisitorId()
+    ]
     # push the SiteId
     window._paq.push(['setSiteId', unescape ( _config.site_id ) ])
     # push the TrackerUrl
@@ -244,6 +255,7 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
     consl("paqPush() finished ok! _paq=" + window._paq ) if _debug
     #return the _paq array
     window._paq
+    # end myPiwik.paqPush
 
   ###
 * noScript()
@@ -257,7 +269,9 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
     script = document.createElement("noscript")
     cursor = document.getElementsByTagName("script", true)[0]
     cursor.parentNode.insertBefore( script, cursor )
-
+    # just return a yes
+    yes
+    # end myPiwik.noScript
 
 
   ###
@@ -298,7 +312,7 @@ window._pk_loaded.then(
       ->
         (error) {
           console
-        #          // Handle errors here..
+        # // Handle errors here..
         }
 )
 
