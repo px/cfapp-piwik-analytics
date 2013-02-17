@@ -54,7 +54,7 @@
     {
       "id": "default_piwik_js",
       "name": "default piwik.js location ",
-      "description": "A piwik.js URL schemeless '//' or 'http://' or 'https://'. Leaving this empty will default to use piwik.js from cdnjs.com ",
+      "description": "A piwik.js URL schemeless '//' or 'http://' or 'https://'. Leaving this empty will default to use latest piwik.js from cdnjs.com, you're welcome.",
       "type": "hidden",
       "value": "//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"
     },
