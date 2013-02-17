@@ -71,15 +71,19 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
 
   "use strict"
 
-  ## Piwik
+  ## myPiwik module; to be passed into a "return" later which will cause loading
   myPiwik = {}
+  ## find our configuration, or just create the storage
   _config = _config || {}
 
+  ## Try reading the piwik_analytics configuration from embedded CDATA; FIXME
+  # there is a better way to do this through the parameter above I'm sure
+  # but I haven't gotten it to work yet.
   try
     #   myPiwik.config = _config
     _config = window.__CF.AJS.piwik_analytics || {}
   catch e
-    conserr "the _config is broken"
+    conserr( "The _config is broken!!!")
 
 
   ### because sometimes a minor delay is needed, in seconds.
@@ -89,18 +93,22 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
 
   _default_piwik_version = "1.10.1"
 
+  ## If we're debugging, say Hello, and clear localStorage
   if ( _debug )
     consl( "Hello from the Piwik CloudFlare App!" + _config )
     # clear localStorage is we're debuging
     consl( "window.localStorage.clear()=" + window.localStorage.clear() )
   # end
 
-
-  # rudimentary test to see if the piwik.js loads
-  #       * if it does, then it will generate a VisitorId
-  #       *
+  ###
+  # myPiwik.isPiwik()
+  * pushes a request for the Piwik VisitorId generated once piwik.js executes
+  * performs a rudimentary test to see if the piwik.js loads
+  * if it does, then it will create a global variable with VisitorId
+  *
+  ###
   myPiwik.isPiwik = ->
-    consl "isPiwik() loaded?"
+    consl( "isPiwik() loaded?") if _debug
     # push a command on to the global window._paq array, and
     # set the global window._pk_visitor_id variable
     window._paq = window._paq || []
@@ -114,10 +122,10 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
     # This really needs a delay before attempting to read _pk_visitor_id; FIXME
     try
       if ( window._pk_visitor_id is `undefined` or window._pk_visitor_id is "" )
-        conserr( " no window._pk_visitor_id piwik maybe failed to load!!! Oh Noe :( :( :(  ): ): ): " )
+        conserr( " no window._pk_visitor_id piwik maybe failed to load!!! Oh Noe :*( :*( :(  )*: )*: )*: " ) if _debug
         return no
       else if ( typeof window._pk_visitor_id is "string" and window._pk_visitor_id isnt "" )
-        consl( "piwik loaded... probably maybe. window._pk_visitor_id='"+window._pk_visitor_id+"', and tracker hit." )
+        consl( "Piwik loaded... probably maybe. window._pk_visitor_id='"+window._pk_visitor_id+"', and tracker hit." ) if _debug
         return yes
     catch e
       conserr( "isPiwik() " + e )
