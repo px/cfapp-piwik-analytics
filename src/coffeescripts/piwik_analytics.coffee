@@ -152,6 +152,7 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
   ###
   myPiwik.activate = () ->
     consl( "myPiwik.activate() started") if _debug
+    # temp value to store the javascript library url
     _js = ""
 
     if ( _debug )
@@ -173,8 +174,8 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
     loadScript( unescape(_js), "myPiwik.isPiwik()" )
     #myPiwik.isPiwik()
 
+    # check for null, undefined, not a number, or empty site_id values
     # works
-    # config.site_id = 'a'
     ## choose the site_id if unset
     if ( ( ! _config.site_id ) or ( _config.site_id is undefined ) or ( isNaN( _config.site_id ) ) or ( _config.site_id is "" ) )
       conserr( "Invalid site_id; defaulting to '1'" ) if _debug
