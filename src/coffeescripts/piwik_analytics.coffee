@@ -274,15 +274,21 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
   myPiwik.noScript()
 
   ###
-* instantiate and configure a new instance of the Piwik when it is returned
+* instantiate and configure a new instance of Piwik module when it is returned
 *  myPiwik = new Piwik(_config)
   ###
   myPiwik
 
-
-window._pk_loaded = CloudFlare.require ["piwik_analytics"], (_config) ->
+###
+* Require our piwik_analytics module to be loaded, and our configuration.
+###
+window._pk_loaded = CloudFlare.require ["piwik_analytics","piwik_analytics/config"], (_config) ->
   yes
 
+###
+* CloudFlare has .then methods for performing other actions once a module has been required.
+* We're not using them, but they're here.
+###
 window._pk_loaded.then(
   ->
     (modules) {
