@@ -106,7 +106,7 @@
   }
   ],
     "dependencies": {},
-    "description": "Codename: Miniature Hipster. A Piwik Analytics CloudFlare application that helps speed things up.<br/> <a href=\"javascript:void(0);\">Edit Tracking Options</a>,
+    "description": "Codename: Miniature Hipster. A Piwik Analytics CloudFlare application that helps speed things up.<br/> <a href=\"javascript:void(0);\">Edit Tracking Options</a>",
     "implements": "AMD",
     "keywords": [
       "webmaster",
