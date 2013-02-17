@@ -151,21 +151,19 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
     consl "activate() started"
     _js = ""
 
-    if ( _config.use_cdnjs )
-      consl( "_config.use_cdnjs=" + _config.use_cdnjs )
-    else
-      conserr( "_config.use_cdnjs=" + _config.use_cdnjs )
+    if ( _debug )
+      if ( _config.use_cdnjs )
+        consl( "_config.use_cdnjs=" + _config.use_cdnjs )
+      else
+        conserr( "_config.use_cdnjs=" + _config.use_cdnjs )
 
-      ## if we aren't loading from cdnjs and piwik_js has ben set
-    if ( ! _config.use_cdnjs and _config.piwik_js isnt `undefined` and _config.piwik_js isnt "" )
-      consl( "attempting to use configurered piwik_js=" + _config.piwik_js )
+    ## if we aren't loading from cdnjs and piwik_js has ben set
+    if ( ( ! _config.use_cdnjs ) and ( _config.piwik_js isnt undefined ) and ( _config.piwik_js isnt "" ) )
+      consl( "attempting to use configurered piwik_js=" + _config.piwik_js ) if _debug
       _js = _config.piwik_js
-      #loadScript( fixScheme( unescape( _config.piwik_js )))
 
     else
-      consl( "use_cdnjs is enabled" )
-      # loadScript the _config.default_piwik_js for now
-      #loadScript( fixScheme( unescape( _config.default_piwik_js )))
+      consl( "use_cdnjs is enabled" ) if _debug
       _js = _config.default_piwik_js
 
     #loadScript( fixScheme( unescape( _js )))
@@ -177,15 +175,15 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
     # works
     # config.site_id = 'a'
     ## choose the site_id if unset
-    if ( _config.site_id is `undefined` or isNaN( _config.site_id ) or ( _config.site_id is "" ) )
-      conserr( "Invalid site_id; defaulting to '1'" )
+    if ( ( ! _config.site_id ) or ( _config.site_id is undefined ) or ( isNaN( _config.site_id ) ) or ( _config.site_id is "" ) )
+      conserr( "Invalid site_id; defaulting to '1'" ) if _debug
       ## default to site_id 1
       _config.site_id = 1
     else
-      consl( "regular site_id from _config "+ _config.site_id )
+      consl( "regular site_id from _config "+ _config.site_id ) if _debug
 
 
-    if ( _config.piwik_tracker is `undefined` or _config.piwik_tracker is "" )
+    if ( _config.piwik_tracker is undefined or _config.piwik_tracker is "" )
       _config.piwik_tracker = "FIXME"
     else
       # using fixscheme here with the url will break what the user requests in their configuration
