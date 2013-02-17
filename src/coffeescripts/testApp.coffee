@@ -112,7 +112,7 @@ update_status = ->
     console.error "ERR: " + e
 
   try
-    document.getElementById("js_url").innerHTML = "js_url=" + window.__CF.AJS.piwik_analytics.js_url
+    document.getElementById("piwik_js").innerHTML = "piwik_js=" + window.__CF.AJS.piwik_analytics.piwik_js
   catch e
     console.error "ERR: " + e
 
@@ -130,6 +130,18 @@ update_status = ->
     document.getElementById("trackerURL").innerHTML = "trackerURL=" + (window.__CF.AJS.piwik_analytics.piwik_tracker)
   catch e
     console.error "ERR: " + e
+
+
+  try
+    document.getElementById("link_tracking").innerHTML = "link_tracking="  + window.__CF.AJS.piwik_analytics.link_tracking
+  catch e
+    console.error "ERR: " + e
+
+  try
+    document.getElementById("set_obey_do_not_track").innerHTML = "set_obey_do_not_track="  + window.__CF.AJS.piwik_analytics.set_obey_do_not_track
+  catch e
+    console.error "ERR: " + e
+
 
   #  try {
   #      document.getElementById("getTracker").innerHTML = "getTracker="+(get_tracker);
@@ -162,3 +174,4 @@ window.onload=update_status()
 
 setTimeout timer_updated, 1000*_delay
 
+setTimeout( "update_status()", 10000*_delay*4)
