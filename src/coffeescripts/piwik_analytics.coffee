@@ -142,9 +142,9 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
   ###
 * myPiwik.activate()
 * This will:
-*     fixup missing siteId to be id=1
+*     fixup a missing siteId to be id=1
 *     determine how to load and activate the piwik.js from desired location
-*     fixup the tracker url for missing scheme on file:// url locations
+*     FIXME; will not fixup the tracker url for missing scheme on file:// url locations
   ###
   myPiwik.activate = () ->
     consl( "myPiwik.activate() started") if _debug
