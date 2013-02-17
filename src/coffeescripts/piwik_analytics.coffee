@@ -120,6 +120,8 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
       conserr ("issue with window._paq is "+e)
 
     # This really needs a delay before attempting to read _pk_visitor_id; FIXME
+    # some how we need to wait until the piwik.js is asynchronously
+    # loaded to ideally determine the _pk_visitor_id
     try
       if ( window._pk_visitor_id is `undefined` or window._pk_visitor_id is "" )
         conserr( " no window._pk_visitor_id piwik maybe failed to load!!! Oh Noe :*( :*( :(  )*: )*: )*: " ) if _debug
@@ -133,9 +135,7 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
     no
 
 
-    # some how we need to wait until the piwik.js is asynchronously
-    # loaded to ideally determine the _pk_visitor_id
-
+  # leftover bit to change my test app from initial development phase; FIXME; remove soon
   myPiwik.appChange = ->
     consl( "appChange()" ) if _debug
 
@@ -154,9 +154,11 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
 
 
   ###
-* activate()
-* this will load and activate the piwik.js from desired location
-* fixup the tracker url for missing scheme on file:// url locations
+* myPiwik.activate()
+* This will:
+*     fixup missing siteId to be id=1
+*     determine how to load and activate the piwik.js from desired location
+*     fixup the tracker url for missing scheme on file:// url locations
   ###
   myPiwik.activate = () ->
     consl( "myPiwik.activate() started") if _debug
@@ -190,42 +192,53 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
       _config.site_id = 1
     else
       consl( "regular site_id from _config "+ _config.site_id ) if _debug
+      # do nothing, the site_id is ok
 
 
-    if ( _config.piwik_tracker is undefined or _config.piwik_tracker is "" )
+    if ( ( ! _config.piwik_tracker ) and ( _config.piwik_tracker is undefined ) or ( _config.piwik_tracker is "") )
+      # FIXME; there should be a better resort than this;
+      #   maybe determine the zone from CloudFlare CDATA;
+      #   or use "example.com" but that would leak more data
       _config.piwik_tracker = "FIXME"
     else
+      # just unescape the tracker url
       # using fixscheme here with the url will break what the user requests in their configuration
       _config.piwik_tracker = unescape( _config.piwik_tracker )
 
-    consl( "activate() completed")
+    consl( "myPiwik.activate() completed")
 
   ###
-* paqPush()
+* myPiwik.paqPush()
+*   take options from a Piwik configuration
+*     We could have multiple trackers someday! TODO
+*     It's easy, just not supported in this App.
 *   push our Piwik options into the window._paq array
+*   send a trackPageView to the TrackerUrl
   ###
   myPiwik.paqPush = () ->
     consl("paqPush()") if _debug
-
+    # read in or create the _paq array if undefined
     window._paq = window._paq || []
+    # push the SiteId
     window._paq.push(['setSiteId', unescape ( _config.site_id ) ])
+    # push the TrackerUrl
     window._paq.push(['setTrackerUrl', unescape ( _config.piwik_tracker ) ])
 
-    # select if link_tracking is enabled
+    # determine if LinkTracking is enabled
     if ( _config.link_tracking is "true" )
       window._paq.push(['enableLinkTracking',true])
     else
       window._paq.push(['enableLinkTracking',false])
-    #
+    # determine if DoNotTrack is enabled
     if ( _config.set_do_not_track is "true" )
       window._paq.push(['setDoNotTrack',true])
     else
       window._paq.push(['setDoNotTrack',false])
     
     # pass the extra options if any
-    window._paq.push( _config.paq_push ) if ! _config.paq_push and _config.paq_push isnt `undefined` and _config.paq_push isnt ""
+    window._paq.push( _config.paq_push ) if ( ( ! _config.paq_push ) and ( _config.paq_push isnt undefined ) and (_config.paq_push isnt "") )
     
-    # Send a trackPageView request
+    # Send a trackPageView request to the TrackerUrl
     window._paq.push(['trackPageView'])
     
     consl("paqPush() finished ok! _paq=" + window._paq ) if _debug
