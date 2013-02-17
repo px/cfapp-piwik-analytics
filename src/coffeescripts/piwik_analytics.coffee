@@ -229,12 +229,15 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
       window._paq.push(['enableLinkTracking',true])
     else
       window._paq.push(['enableLinkTracking',false])
+    # end if link_tracking
+
     # determine if DoNotTrack is enabled
     if ( _config.set_do_not_track is "true" )
       window._paq.push(['setDoNotTrack',true])
     else
       window._paq.push(['setDoNotTrack',false])
-    
+    # end if do_not_track
+
     # pass the extra options if any
     window._paq.push( _config.paq_push ) if ( ( ! _config.paq_push ) and ( _config.paq_push isnt undefined ) and (_config.paq_push isnt "") )
     
@@ -251,7 +254,7 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
 * this is kind of a waste as it will never get run if javascript is not enabled
   ###
   myPiwik.noScript = ->
-    consl( "noScript()" ) if _debug
+    consl( "myPiwik.noScript()" ) if _debug
     test_site = fixScheme( unescape( _config.piwik_tracker ))
     test_site += "?id=" + _config.site_id + "&amp;rec=1"
     consl( "noScript| test_site=" + test_site ) if _debug
@@ -273,8 +276,9 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
   # push the commands into the global array
   myPiwik.paqPush()
 
-  # do noScript()
-  myPiwik.noScript()
+  # do noScript() FIXME; need to have "first class" access 
+  #   to page contents in order to embed elements via CloudFlare proxy
+  # myPiwik.noScript()
 
   ###
 * instantiate and configure a new instance of Piwik module when it is returned
