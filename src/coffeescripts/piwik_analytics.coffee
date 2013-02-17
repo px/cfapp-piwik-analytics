@@ -184,7 +184,7 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
     else
       consl( "Using valid site_id from _config "+ _config.site_id ) if _debug
       # do nothing, the site_id is ok
-
+    # end if site_id
 
     if ( ( ! _config.piwik_tracker ) and ( _config.piwik_tracker is undefined ) or ( _config.piwik_tracker is "") )
       # FIXME; there should be a better resort than this;
@@ -195,9 +195,10 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
       # just unescape the tracker url
       # using fixscheme here with the url will break what the user requests in their configuration
       _config.piwik_tracker = unescape( _config.piwik_tracker )
+    # end if piwik_tracker
 
     consl( "myPiwik.activate() completed") if _debug
-    # return a yes
+    # return a yes, it's mostly a lie, but who cares >:)
     yes
     # end myPiwik.activated
 
@@ -210,8 +211,8 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
 *   send a trackPageView to the TrackerUrl
   ###
   myPiwik.paqPush = () ->
-    consl("paqPush()") if _debug
-    # read in or create the _paq array if undefined
+    consl("myPiwik.paqPush()") if _debug
+    # read in or create the _paq array if undefined; FIXME probably do not have to do this everywhere.
     window._paq = window._paq || []
     # send request for VisitorId, we can do this anytime
     #   and it will be assigned once piwik.js is executed
