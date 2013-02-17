@@ -182,7 +182,7 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
       ## default to site_id 1
       _config.site_id = 1
     else
-      consl( "regular site_id from _config "+ _config.site_id ) if _debug
+      consl( "Using valid site_id from _config "+ _config.site_id ) if _debug
       # do nothing, the site_id is ok
 
 
