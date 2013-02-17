@@ -289,7 +289,8 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
 
   ###
 * instantiate and configure a new instance of Piwik module when it is returned
-*  myPiwik = new Piwik(_config)
+* Something like below
+* # myPiwik = new Piwik(_config)
   ###
   myPiwik
   # end myPiwik module
