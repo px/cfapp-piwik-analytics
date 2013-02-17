@@ -53,17 +53,20 @@ fixScheme = (url) ->
 * and then execute the callback c
 ###
 loadScript = (f,callback) ->
-
-  consl( "loadScript via CloudFlare.require [" + f + "], "+ callback )
-
-  # maybe needs a delay
+  consl( "loadScript via CloudFlare.require( [" + f + "], "+ callback +")") if _debug
   CloudFlare.require( [f], callback )
 
 
-
-
-
-# stick with commas
+###
+# piwik_analytics module definition
+#
+# Requires piwik_analytics/config FIXME not true, reads from embedded
+#     CDATA from CloudFlare currently; Hopefully will fix to use param arguments
+# 
+# TODO: Debating putting logic to call for piwik.js above so that way it can be loaded
+#     sooner most likely.
+# stick with commas for sep
+###
 CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
 
   "use strict"
@@ -148,7 +151,7 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
 * fixup the tracker url for missing scheme on file:// url locations
   ###
   myPiwik.activate = () ->
-    consl "activate() started"
+    consl( "myPiwik.activate() started") if _debug
     _js = ""
 
     if ( _debug )
@@ -166,11 +169,9 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
       consl( "use_cdnjs is enabled" ) if _debug
       _js = _config.default_piwik_js
 
-    #loadScript( fixScheme( unescape( _js )))
     #CloudFlare.require([_js])
     loadScript( unescape(_js), "myPiwik.isPiwik()" )
     #myPiwik.isPiwik()
-    #myPiwik.appChange()
 
     # works
     # config.site_id = 'a'
