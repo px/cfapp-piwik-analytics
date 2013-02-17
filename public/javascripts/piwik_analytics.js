@@ -2,7 +2,7 @@
 /*
 * This is Miniature Hipster
 *  @name      Miniature Hipster
-*  @version   0.0.16
+*  @version   0.0.17
 *  @author    Rob Friedman <px@ns1.net>
 *  @url       <http://playerx.net>
 *  @license   https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt
@@ -24,6 +24,8 @@ consl = function(m) {
 conserr = function(m) {
   return window.console.error("*px**> " + m);
 };
+
+window._paq = window._paq || [];
 
 fixScheme = function(url) {
   var url2;
@@ -145,7 +147,7 @@ CloudFlare.define("piwik_analytics", ["piwik_analytics/config"], function(_confi
     if (_config.piwik_tracker === undefined || _config.piwik_tracker === "") {
       _config.piwik_tracker = "FIXME";
     } else {
-      _config.piwik_tracker = fixScheme(unescape(_config.piwik_tracker));
+      _config.piwik_tracker = unescape(_config.piwik_tracker);
     }
     return consl("activate() completed");
   };
@@ -174,10 +176,11 @@ CloudFlare.define("piwik_analytics", ["piwik_analytics/config"], function(_confi
     if (!_config.paq_push && _config.paq_push !== undefined && _config.paq_push !== "") {
       window._paq.push(_config.paq_push);
     }
+    window._paq.push(['trackPageView']);
     if (_debug) {
-      consl("paqPush() finished ok!");
+      consl("paqPush() finished ok! _paq=" + window._paq);
     }
-    return _config.paq_push;
+    return window._paq;
   };
   /*
   * noScript()
