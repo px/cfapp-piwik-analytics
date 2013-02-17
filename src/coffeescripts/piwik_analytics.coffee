@@ -138,23 +138,6 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
     # end myPiwik.isPiwik()
 
 
-  # leftover bit to change my test app from initial development phase; FIXME; remove soon
-  myPiwik.appChange = ->
-    consl( "appChange()" ) if _debug
-
-    try
-      #window.setTimeout(
-      window.document.getElementById("app_change").innerHTML = ("appChange -- getVisitorId=" + window._pk_visitor_id ) #, 1000*_delay
-      consl("_pk_visitor_id="+window._pk_visitor_id)
-      myPiwik.isPiwik #)
-
-    catch e
-      conserr("appChange " + e)
-
-    yes
-
-
-
 
   ###
 * myPiwik.activate()
