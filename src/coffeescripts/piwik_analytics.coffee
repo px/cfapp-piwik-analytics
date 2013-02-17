@@ -1,7 +1,7 @@
 ###
 * This is Miniature Hipster
 *  @name      Miniature Hipster
-*  @version   0.0.16
+*  @version   0.0.17
 *  @author    Rob Friedman <px@ns1.net>
 *  @url       <http://playerx.net>
 *  @license   https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt
@@ -23,7 +23,8 @@ consl = (m) ->
 conserr= (m) ->
   window.console.error( "*px**> " + m )
 
-
+# just so it isnt lost.
+window._paq = window._paq || []
 
 # fixScheme(url) fix the file:// url to use https:// url
 #  useful for tracker url fixing schemeless url
@@ -38,7 +39,7 @@ fixScheme = (url) ->
     # return the url as it stands
     url2= url
   else
-    # url does not have http rewrite it to be what we want.
+    # url does not have "http[s]" rewrite it to be what we want, "https:".
     url2= "https:"+url
 
   # return the fixed-up url2
@@ -107,6 +108,7 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
     catch e
       conserr ("issue with window._paq is "+e)
 
+    # This really needs a delay before attempting to read _pk_visitor_id; FIXME
     try
       if ( window._pk_visitor_id is `undefined` or window._pk_visitor_id is "" )
         conserr( " no window._pk_visitor_id piwik maybe failed to load!!! Oh Noe :( :( :(  ): ): ): " )
@@ -186,7 +188,8 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
     if ( _config.piwik_tracker is `undefined` or _config.piwik_tracker is "" )
       _config.piwik_tracker = "FIXME"
     else
-      _config.piwik_tracker = fixScheme( unescape( _config.piwik_tracker ))
+      # using fixscheme here with the url will break what the user requests in their configuration
+      _config.piwik_tracker = unescape( _config.piwik_tracker )
 
     consl( "activate() completed")
 
@@ -211,11 +214,16 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
       window._paq.push(['setDoNotTrack',true])
     else
       window._paq.push(['setDoNotTrack',false])
-    #
-    # pass the options
+    
+    # pass the extra options if any
     window._paq.push( _config.paq_push ) if ! _config.paq_push and _config.paq_push isnt `undefined` and _config.paq_push isnt ""
-    consl("paqPush() finished ok!") if _debug
-    _config.paq_push
+    
+    # Send a trackPageView request
+    window._paq.push(['trackPageView'])
+    
+    consl("paqPush() finished ok! _paq=" + window._paq ) if _debug
+    #return the _paq array
+    window._paq
 
   ###
 * noScript()
@@ -235,11 +243,13 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
   ###
 * do stuff to get the party started
   ###
-
+  
   # run the activation
   myPiwik.activate()
+  
   # push the commands into the global array
   myPiwik.paqPush()
+
   # do noScript()
   myPiwik.noScript()
 
