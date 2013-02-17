@@ -104,7 +104,7 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
   # myPiwik.isPiwik()
   * pushes a request for the Piwik VisitorId generated once piwik.js executes
   * performs a rudimentary test to see if the piwik.js loads
-  * if it does, then it will create a global variable with VisitorId
+  * if it does, then it will return a yes, other no
   *
   ###
   myPiwik.isPiwik = ->
