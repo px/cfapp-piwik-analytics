@@ -29,6 +29,13 @@
       "type": "string"
     },
     {
+      "id": "default_site_id",
+      "name": "default site_id ",
+      "description": "set a possibly sane default SiteId",
+      "type": "hidden",
+      "value": 1
+    },
+     {
       "id": "piwik_tracker",
       "name": "Tracker URL (REQUIRED)",
       "description": "A receiver URL 'https://'. Should be utilizing SSL for security purposes but using a schemeless URL '//host.tld' is valid also.",
