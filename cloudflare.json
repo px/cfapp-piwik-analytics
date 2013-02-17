@@ -43,7 +43,7 @@
       "options": [
       {
         "label": "No.",
-        "value": "false"
+        "value": ""
       },
       {
         "label": "Yes!",
@@ -73,7 +73,7 @@
       "options": [
       {
         "label": "Disable Link Tracking",
-        "value": "false"
+        "value": ""
       },
       {
         "label": "Link Tracking Enabled",
@@ -89,7 +89,7 @@
       "options": [
       {
         "label": "Yes, Obey the Browser!",
-        "value": "false"
+        "value": ""
       },
       {
         "label": "No, Track ALL THE VISITORS.",
