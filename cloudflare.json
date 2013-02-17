@@ -31,9 +31,9 @@
     {
       "id": "piwik_tracker",
       "name": "Tracker URL (REQUIRED)",
-      "description": "A receiver URL 'https://'. Should be using SSL for security purposes but using '//host.tld' is valid also.",
+      "description": "A receiver URL 'https://'. Should be utilizing SSL for security purposes but using a schemeless URL '//host.tld' is valid also.",
       "type": "string",
-      "value": "https://path.to.tracker.url/piwik.php"
+      "value": "https://path.to.your.tracker.url/piwik.php"
     },
     {
       "id": "use_cdnjs",
@@ -43,7 +43,7 @@
       "options": [
       {
         "label": "No.",
-        "value": ""
+        "value": "false"
       },
       {
         "label": "Yes!",
@@ -54,14 +54,14 @@
     {
       "id": "default_piwik_js",
       "name": "default piwik.js location ",
-      "description": "A piwik.js URL 'http://' or 'https://'. Leaving this empty will default to use piwik.js from cdnjs.com ",
-      "type": "string",
-      "value": "https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"
+      "description": "A piwik.js URL schemeless '//' or 'http://' or 'https://'. Leaving this empty will default to use piwik.js from cdnjs.com ",
+      "type": "hidden",
+      "value": "//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"
     },
     {
       "id": "piwik_js",
       "name": "piwik.js location ",
-      "description": "A piwik.js URL 'http://' or 'https://'. Leaving this empty will default to use piwik.js from cdnjs.com ",
+      "description": "A piwik.js URL schemeless '//' or 'http://' or 'https://'. Leaving this empty will default to use piwik.js from cdnjs.com ",
       "type": "string",
       "value": "https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"
     },
@@ -73,7 +73,7 @@
       "options": [
       {
         "label": "Disable Link Tracking",
-        "value": ""
+        "value": "false"
       },
       {
         "label": "Link Tracking Enabled",
@@ -89,7 +89,7 @@
       "options": [
       {
         "label": "Yes, Obey the Browser!",
-        "value": ""
+        "value": "false"
       },
       {
         "label": "No, Track ALL THE VISITORS.",
@@ -127,5 +127,5 @@
       "url": "https://github.com/px/cfapp-piwik-analytics.git"
     },
     "scripts": {},
-    "version": "0.0.16"
+    "version": "0.0.17"
 }
