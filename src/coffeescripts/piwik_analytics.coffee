@@ -184,8 +184,8 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
     ## choose the site_id if unset
     if ( ( ! _config.site_id ) or ( _config.site_id is undefined ) or ( isNaN( _config.site_id ) ) or ( _config.site_id is "" ) )
       conserr( "Invalid site_id; defaulting to '1'" ) if _debug
-      ## default to site_id 1
-      _config.site_id = 1
+      ## default to default_site_id from cloudflare.json
+      _config.site_id = _config.default_site_id
     else
       consl( "Using valid site_id from _config "+ _config.site_id ) if _debug
       # do nothing, the site_id is ok
