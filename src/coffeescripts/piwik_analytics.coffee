@@ -1,7 +1,7 @@
 ###
 * This is Miniature Hipster
 *  @name      Miniature Hipster
-*  @version   0.0.17
+*  @version   0.0.18
 *  @author    Rob Friedman <px@ns1.net>
 *  @url       <http://playerx.net>
 *  @license   https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt
@@ -17,9 +17,14 @@ p=window._pk_loaded={stuff:"stuff"}
 # var _debug = false;
 _debug = true
 
+###
+* simple stylized console output for my app
+###
 consl = (m) ->
   window.console.log( "_px_> " + m )
-
+###
+* simple stylized console error output for my app
+###
 conserr= (m) ->
   window.console.error( "*px**> " + m )
 
@@ -29,7 +34,6 @@ window._paq = window._paq || []
 # fixScheme(url) fix the file:// url to use https:// url
 #  useful for tracker url fixing schemeless url
 fixScheme = (url) ->
-
   consl( "fixScheme(" + url + ")" ) if _debug
   consl( "window.location.protocol=" + window.location.protocol ) if _debug
 
