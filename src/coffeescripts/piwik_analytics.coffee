@@ -15,8 +15,8 @@
 p=window._pk_loaded={stuff:"stuff"}
 
 # var _debug = false;
-#_debug = true
-_debug = no
+_debug = true
+#_debug = no
 
 ###
 * simple stylized console output for my app
