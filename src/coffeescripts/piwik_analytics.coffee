@@ -167,12 +167,12 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
         conserr( "_config.use_cdnjs=" + _config.use_cdnjs )
 
     ## if we aren't loading from cdnjs and piwik_js has ben set
-    if ( ( ! _config.use_cdnjs ) and ( _config.piwik_js isnt undefined ) and ( _config.piwik_js isnt "" ) )
-      consl( "attempting to use configurered piwik_js=" + _config.piwik_js ) if _debug
+    if ( (! _config.use_cdnjs ) and ( ! _config.piwik_js ) and ( _config.piwik_js isnt "" ) )
+      consl( "attempting to use configured piwik_js=" + _config.piwik_js ) if _debug
       _js = _config.piwik_js
 
     else
-      consl( "use_cdnjs is enabled" ) if _debug
+      consl( "use_cdnjs is enabled; " + _config.default_piwik_js ) if _debug
       _js = _config.default_piwik_js
 
     #CloudFlare.require([_js])
