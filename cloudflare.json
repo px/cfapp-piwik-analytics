@@ -50,11 +50,11 @@
       "options": [
       {
         "label": "No.",
-        "value": ""
+        "value": null
       },
       {
         "label": "Yes!",
-        "value": "true"
+        "value": true
       }
       ]
     },
@@ -80,11 +80,11 @@
       "options": [
       {
         "label": "Disable Link Tracking",
-        "value": ""
+        "value": null
       },
       {
         "label": "Link Tracking Enabled",
-        "value": "true"
+        "value": true
       }
       ]
     },
@@ -96,11 +96,11 @@
       "options": [
       {
         "label": "Yes, Obey the Browser!",
-        "value": ""
+        "value": null
       },
       {
         "label": "No, Track ALL THE VISITORS.",
-        "value": "true"
+        "value": true
       }
       ]
     }
