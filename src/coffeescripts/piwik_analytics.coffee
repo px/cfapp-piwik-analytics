@@ -278,6 +278,7 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
 *  myPiwik = new Piwik(_config)
   ###
   myPiwik
+  # end myPiwik module
 
 ###
 * Require our piwik_analytics module to be loaded, and our configuration.
