@@ -122,12 +122,12 @@ update_status = ->
     console.error "ERR: " + e
 
   try
-    document.getElementById("site_id").innerHTML = "site_id=" + (window.__CF.AJS.piwik_analytics.site_id)
+    document.getElementById("site_id").innerHTML = "site_id=" + window.__CF.AJS.piwik_analytics.site_id
   catch e
     console.error "ERR: " + e
 
   try
-    document.getElementById("trackerURL").innerHTML = "trackerURL=" + (window.__CF.AJS.piwik_analytics.piwik_tracker)
+    document.getElementById("trackerURL").innerHTML = "trackerURL=" + window.__CF.AJS.piwik_analytics.piwik_tracker
   catch e
     console.error "ERR: " + e
 
@@ -150,7 +150,7 @@ update_status = ->
   #      }
   #      
   try
-    document.getElementById("paq_push").innerHTML = "paq_push=" + (window.__CF.AJS.piwik_analytics.paq_push)
+    document.getElementById("paq_push").innerHTML = "paq_push=" + window.__CF.AJS.piwik_analytics.paq_push
   catch e
     console.error "ERR: " + e
   yes
