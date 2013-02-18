@@ -35,21 +35,21 @@
       "type": "hidden",
       "value": 1
     },
-     {
+    {
       "id": "piwik_tracker",
       "name": "Tracker URL (REQUIRED)",
       "description": "A receiver URL 'https://'. Should be utilizing SSL for security purposes but using a schemeless URL '//host.tld' is valid also.",
       "type": "string",
       "value": "https://path.to.your.tracker.url/piwik.php"
     },
-     {
+    {
       "id": "default_piwik_tracker",
       "name": "Tracker URL (REQUIRED)",
       "description": "A default receiver URL 'https://'. Should be utilizing SSL for security purposes but using a schemeless URL '//host.tld' is valid also.",
       "type": "hidden",
       "value": "/piwik/piwik.php"
     },
-     {
+    {
       "id": "use_cdnjs",
       "type": "select",
       "name": "Choose whether to enable cdnjs?",
@@ -68,7 +68,7 @@
     {
       "id": "default_piwik_js",
       "name": "default piwik.js location ",
-      "description": "A piwik.js URL schemeless '//' or 'http://' or 'https://'. Leaving this empty will default to use latest piwik.js from cdnjs.com, you're welcome.",
+      "description": "A piwik.js URL schemeless '//' or 'http://' or 'https://'. Leaving this empty will possibly break stuff so be sure this url is valid! Prefer to use latest piwik.js from cdnjs.com, you're welcome.",
       "type": "hidden",
       "value": "//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"
     },
@@ -110,9 +110,24 @@
         "value": true
       }
       ]
+    },
+    {
+      "id": "_debug",
+      "name": "Debugger",
+      "description": "Enable or disable the debug output.",
+      "type": "select",
+      "options": [
+      {
+        "label": "No",
+        "value": null
+      },
+      {
+        "label": "Yes",
+        "value": true
+      }
+      ]
     }
-    ]
-  },
+  ]},
   "contributors": [
   {
     "name": "Rob Friedman",
