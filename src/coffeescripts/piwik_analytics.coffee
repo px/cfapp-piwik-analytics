@@ -161,13 +161,13 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
     _js = ""
 
     if ( _debug )
-      if ( _config.use_cdnjs )
+      if ( ( _config.use_cdnjs is yes ) and ( _config.use_cdnjs isnt null ) )
         consl( "_config.use_cdnjs=" + _config.use_cdnjs )
       else
         conserr( "_config.use_cdnjs=" + _config.use_cdnjs )
 
     ## if we aren't loading from cdnjs and piwik_js has ben set
-    if ( (! _config.use_cdnjs ) and ( ! _config.piwik_js ) and ( _config.piwik_js isnt "" ) )
+    if ( ( _config.use_cdnjs is null or _config.use_cdnjs is "false" ) and ( _config.piwik_js isnt null ) )
       consl( "attempting to use configured piwik_js=" + _config.piwik_js ) if _debug
       _js = _config.piwik_js
 
@@ -182,7 +182,7 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
     # check for null, undefined, not a number, or empty site_id values
     # works
     ## choose the site_id if unset
-    if ( ( ! _config.site_id ) or ( isNaN( _config.site_id ) ) or ( _config.site_id is "" ) )
+    if ( ( _config.site_id is null ) or ( ! _config.site_id ) or ( isNaN( _config.site_id ) ) or ( _config.site_id is "" ) )
       conserr( "Invalid site_id; defaulting to '1'" ) if _debug
       ## default to default_site_id from cloudflare.json
       _config.site_id = _config.default_site_id
@@ -201,7 +201,6 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
       # using fixscheme here with the url will break what the user requests in their configuration
       _config.piwik_tracker = unescape( _config.piwik_tracker )
     # end if piwik_tracker
-
     consl( "myPiwik.activate() completed") if _debug
     # return a yes, it's mostly a lie, but who cares >:)
     yes
