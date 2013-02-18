@@ -14,9 +14,6 @@
 #_config = window.__CF.AJS.piwik_analytics
 p=window._pk_loaded={stuff:"stuff"}
 
-# var _debug = false;
-_debug = true
-#_debug = no
 
 ###
 * simple stylized console output for my app
@@ -28,6 +25,16 @@ consl = (m) ->
 ###
 conserr= (m) ->
   window.console.error( "*px**> " + m )
+
+
+#_debug = true
+#_debug = no
+try 
+  _debug = window.__CF.AJS.piwik_analytics._debug
+catch e
+  conserr("Where is CloudFlare?")
+  _debug = true
+
 
 # just so it isnt lost.
 window._paq = window._paq || []
@@ -191,11 +198,11 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
       # do nothing, the site_id is ok
     # end if site_id
 
-    if ( ( ! _config.piwik_tracker ) and ( _config.piwik_tracker is undefined ) or ( _config.piwik_tracker is "") )
+    if ( ( _config.piwik_tracker is null ) or ( _config.piwik_tracker is undefined ) )
       # FIXME; there should be a better resort than this;
       #   maybe determine the zone from CloudFlare CDATA;
       #   or use "example.com" but that would leak more data
-      _config.piwik_tracker = "FIXME"
+      _config.piwik_tracker = _config.default_piwik_tracker
     else
       # just unescape the tracker url
       # using fixscheme here with the url will break what the user requests in their configuration
