@@ -1,11 +1,15 @@
 ###
 * This is Miniature Hipster
 *  @name      Miniature Hipster
-*  @version   0.0.18
+*  @version   0.0.18a
 *  @author    Rob Friedman <px@ns1.net>
 *  @url       <http://playerx.net>
 *  @license   https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt
-*
+*  @todo      TODO: this is probably from my testapp. meh
+*               there is a weird difference between Chrome and Safari with
+*                null in Cloudflare is undefined on Chrome
+*                null in CloudFlare is null on Safari
+*                null in CloufFlare is undefined in Firefox
 ###
 
 # vim: set tabstop=2:softtabstop=2:shiftwidth=2:noexpandtab
@@ -35,6 +39,7 @@ catch e
   conserr("Where is CloudFlare?")
   _debug = true
 
+_debug = true
 
 # just so it isnt lost.
 window._paq = window._paq || []
@@ -170,40 +175,56 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
   ###
   myPiwik.activate = () ->
     consl( "myPiwik.activate() started") if _debug
+
     # temp value to store the javascript library url
-    _js = ""
+    _js = _config.default_piwik_js
+    #_js = ""
+
+
 
     if ( _debug )
-      if ( ( _config.use_cdnjs is yes ) and ( _config.use_cdnjs isnt null ) )
+      if ( ( _config.use_cdnjs is yes ) and ( _config.use_cdnjs isnt null or _config.use_cdnjs isnt undefined ) )
         consl( "_config.use_cdnjs=" + _config.use_cdnjs )
       else
         conserr( "_config.use_cdnjs=" + _config.use_cdnjs )
 
-    ## if we aren't loading from cdnjs and piwik_js has ben set
-    if ( ( _config.use_cdnjs is null or _config.use_cdnjs is "false" ) and ( _config.piwik_js isnt null ) )
+
+
+
+    ## if we are not loading from cdnjs and piwik_js has been set
+    if ( _config.piwik_js isnt null and _config.piwik_js isnt undefined and _config.use_cdnjs is null or _config.use_cdnjs is undefined )
       consl( "attempting to use configured piwik_js=" + _config.piwik_js ) if _debug
       _js = _config.piwik_js
 
-    else
+    else if ( _config.use_cdnjs is yes )
       consl( "use_cdnjs is enabled; " + _config.default_piwik_js ) if _debug
       _js = _config.default_piwik_js
+
+    else
+      consl("failsafe default to cdnjs " + _config.default_piwik_js ) if _debug
 
     ## load the determined _js library, then execute isPiwik() callback
     loadScript( unescape( _js ), "myPiwik.isPiwik()" )
 
+
+
+
+
+
+
     # check for null, undefined, not a number, or empty site_id values
+    _site_id = _config.default_site_id
     # works
     ## choose the site_id if unset
-    if ( ( _config.site_id is null ) or ( isNaN( _config.site_id ) ) or ( _config.site_id is "" ) )
-      conserr( "Invalid site_id; defaulting to "+ _config.default_site_id ) if _debug
-      ## default to default_site_id from cloudflare.json
-      _config.site_id = _config.default_site_id
-    else
+    if ( _config.site_id isnt null or _config.site_id isnt undefined and ! isNaN( _config.site_id ) and  _config.site_id isnt "" )
       consl( "Using valid site_id from _config "+ _config.site_id ) if _debug
-      # do nothing, the site_id is ok
+      _site_id = _config.site_id
+    else
+      ## default to default_site_id from cloudflare.json
+      conserr( "Invalid site_id; defaulting to "+ _config.default_site_id ) if _debug
     # end if site_id
 
-    if ( _config.piwik_tracker is null )
+    if ( _config.piwik_tracker is null or _config.piwik_tracker is undefined )
       # FIXME; there should be a better resort than this;
       #   maybe determine the zone from CloudFlare CDATA;
       #   or use "example.com" but that would leak more data
@@ -212,11 +233,17 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
       # just unescape the tracker url
       # using fixscheme here with the url will break what the user requests in their configuration
       #_config.piwik_tracker = unescape( _config.piwik_tracker )
-    # end if piwik_tracker
-    consl( "myPiwik.activate() completed") if _debug
+      # end if piwik_tracker
+      consl( "myPiwik.activate() completed") if _debug
     # return a yes, it's mostly a lie, but who cares >:)
     yes
     # end myPiwik.activated
+
+
+
+
+
+
 
   ###
 * myPiwik.paqPush()
@@ -241,14 +268,14 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
     window._paq.push(['setTrackerUrl', unescape ( _config.piwik_tracker ) ])
 
     # determine if LinkTracking is enabled
-    if ( _config.link_tracking is "true" )
+    if ( _config.link_tracking is yes )
       window._paq.push(['enableLinkTracking',true])
     else
       window._paq.push(['enableLinkTracking',false])
     # end if link_tracking
 
     # determine if DoNotTrack is enabled
-    if ( _config.set_do_not_track is "true" )
+    if ( _config.set_do_not_track is yes )
       window._paq.push(['setDoNotTrack',true])
     else
       window._paq.push(['setDoNotTrack',false])
@@ -307,7 +334,7 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
 ###
 * Require our piwik_analytics module to be loaded, and our configuration.
 ###
-window._pk_loaded = CloudFlare.require ["piwik_analytics","piwik_analytics/config"], (_config) ->
+window._pk_loaded = CloudFlare.require ["piwik_analytics"], (_config) ->
   yes
 
 ###
