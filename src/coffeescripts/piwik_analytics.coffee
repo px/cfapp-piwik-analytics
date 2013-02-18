@@ -1,7 +1,7 @@
 ###
 * This is Miniature Hipster
 *  @name      Miniature Hipster
-*  @version   0.0.18a
+*  @version   0.0.19a
 *  @author    Rob Friedman <px@ns1.net>
 *  @url       <http://playerx.net>
 *  @license   https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt
@@ -30,7 +30,7 @@ consl = (m) ->
 conserr= (m) ->
   window.console.error( "*px**> " + m )
 
-
+_debug = null
 #_debug = true
 #_debug = no
 try
@@ -120,7 +120,7 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
   if ( _debug )
     consl( "Hello from the Piwik CloudFlare App! Object?->" + _config )
     # clear localStorage is we're debuging
-    consl( "window.localStorage.clear() === undefined? " + window.localStorage.clear() )
+    consl( "window.localStorage.clear() === undefined? " + ( window.localStorage.clear() is undefined ) )
   # end
 
   ###
@@ -146,11 +146,11 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
     # some how we need to wait until the piwik.js is asynchronously
     # loaded to ideally determine the _pk_visitor_id
     try
-      if ( window._pk_visitor_id is undefined or window._pk_visitor_id is "" )
+      if ( window._pk_visitor_id == undefined or window._pk_visitor_id == "" )
         conserr( " no window._pk_visitor_id piwik maybe failed to load!!! Oh Noe. " ) if _debug
         # return a no, not loaded
         return no
-      else if ( typeof window._pk_visitor_id is "string" and window._pk_visitor_id isnt "" )
+      else if ( typeof window._pk_visitor_id is "string" and window._pk_visitor_id != "" )
         consl( "Piwik loaded... probably maybe. window._pk_visitor_id='"+window._pk_visitor_id+"', and tracker hit." ) if _debug
         # return a yes, piwik.js has been loaded
         return yes
@@ -180,10 +180,8 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
     _js = _config.default_piwik_js
     #_js = ""
 
-
-
     if ( _debug )
-      if ( ( _config.use_cdnjs is yes ) and ( _config.use_cdnjs isnt null or _config.use_cdnjs isnt undefined ) )
+      if ( _config.use_cdnjs is "true" )
         consl( "_config.use_cdnjs=" + _config.use_cdnjs )
       else
         conserr( "_config.use_cdnjs=" + _config.use_cdnjs )
@@ -192,20 +190,20 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
 
 
     ## if we are not loading from cdnjs and piwik_js has been set
-    if ( _config.piwik_js isnt null and _config.piwik_js isnt undefined and _config.use_cdnjs is null or _config.use_cdnjs is undefined )
+    if ( ( _config.piwik_js isnt null and _config.piwik_js isnt undefined ) and ( _config.use_cdnjs is null or _config.use_cdnjs is undefined ) )
       consl( "attempting to use configured piwik_js=" + _config.piwik_js ) if _debug
       _js = _config.piwik_js
 
-    else if ( _config.use_cdnjs is yes )
+    else if ( _config.use_cdnjs is "true" or _config.piwik_js == "" )
       consl( "use_cdnjs is enabled; " + _config.default_piwik_js ) if _debug
       _js = _config.default_piwik_js
 
     else
       consl("failsafe default to cdnjs " + _config.default_piwik_js ) if _debug
-
+      _js = _config.default_piwik_js
     ## load the determined _js library, then execute isPiwik() callback
-    loadScript( unescape( _js ), "myPiwik.isPiwik()" )
-
+    loadScript( unescape( _js ), myPiwik.isPiwik )
+    alert("past loadScript") if _debug
 
 
 
@@ -216,25 +214,30 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
     _site_id = _config.default_site_id
     # works
     ## choose the site_id if unset
-    if ( _config.site_id isnt null or _config.site_id isnt undefined and ! isNaN( _config.site_id ) and  _config.site_id isnt "" )
-      consl( "Using valid site_id from _config "+ _config.site_id ) if _debug
-      _site_id = _config.site_id
-    else
+    if ( ( _config.site_id == null or _config.site_id is null ) or isNaN( _config.site_id ) or  _config.site_id is "" )
       ## default to default_site_id from cloudflare.json
       conserr( "Invalid site_id; defaulting to "+ _config.default_site_id ) if _debug
+    else
+      consl( "Using valid site_id from _config "+ _config.site_id ) if _debug
+      _site_id = _config.site_id
     # end if site_id
+    _config.site_id = _site_id
 
-    if ( _config.piwik_tracker is null or _config.piwik_tracker is undefined )
+
+    if ( _config.piwik_tracker == null or _config.piwik_tracker is null )
       # FIXME; there should be a better resort than this;
       #   maybe determine the zone from CloudFlare CDATA;
       #   or use "example.com" but that would leak more data
-      _config.piwik_tracker = _config.default_piwik_tracker
+      _config.piwik_tracker = unescape( _config.default_piwik_tracker)
     else
       # just unescape the tracker url
       # using fixscheme here with the url will break what the user requests in their configuration
-      #_config.piwik_tracker = unescape( _config.piwik_tracker )
-      # end if piwik_tracker
-      consl( "myPiwik.activate() completed") if _debug
+      _config.piwik_tracker = unescape( _config.piwik_tracker )
+      #_config.piwik_tracker = _config.piwik_tracker
+
+    # end if piwik_tracker
+
+    consl( "myPiwik.activate() completed") if _debug
     # return a yes, it's mostly a lie, but who cares >:)
     yes
     # end myPiwik.activated
@@ -268,14 +271,14 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config"], ( _config ) ->
     window._paq.push(['setTrackerUrl', unescape ( _config.piwik_tracker ) ])
 
     # determine if LinkTracking is enabled
-    if ( _config.link_tracking is yes )
+    if ( _config.link_tracking is "true" )
       window._paq.push(['enableLinkTracking',true])
     else
       window._paq.push(['enableLinkTracking',false])
     # end if link_tracking
 
     # determine if DoNotTrack is enabled
-    if ( _config.set_do_not_track is yes )
+    if ( _config.set_do_not_track is "true" )
       window._paq.push(['setDoNotTrack',true])
     else
       window._paq.push(['setDoNotTrack',false])
