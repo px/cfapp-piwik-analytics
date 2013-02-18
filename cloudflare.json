@@ -102,11 +102,11 @@
       "type": "select",
       "options": [
       {
-        "label": "Yes, Obey the Browser!",
+        "label": "No, Track ALL THE VISITORS.",
         "value": null
       },
       {
-        "label": "No, Track ALL THE VISITORS.",
+        "label": "Yes, Obey the Browser!",
         "value": true
       }
       ]
