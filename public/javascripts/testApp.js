@@ -166,4 +166,13 @@ window.onload = update_status();
 
 setTimeout(timer_updated, 1000 * _delay);
 
+/*
+# the visitor id should be displayed by at least this mark, anything slower is not really acceptable
+*/
+
+
+setTimeout("update_status()", 10000 * _delay * 1);
+
+setTimeout("update_status()", 10000 * _delay * 2);
+
 setTimeout("update_status()", 10000 * _delay * 4);
