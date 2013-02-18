@@ -23,12 +23,23 @@ try{if (!window.CloudFlare) { var CloudFlare=[{verbose:0,p:1361138286,byc:1,owli
 //]]>
 </script>
 
+<script type="text/javascript">
+/* just use a, it's smaller */
+var a=window.CloudFlare;
+/* push this local path for use in loading the the app/module   */
+a.push({paths:{piwik_analytics:"../public/javascripts/"}});
+/* force load our piwikConfig associative array  */
+/* load the piwik_analytics module, and pass the path for the config.js also  */
+a.push(function(b,c){ c("piwik_analytics/config.js",function(){ return window.__piwikConfig }); b(["piwik_analyt    ics"]); });
 
-  <!-- The goal is to load piwik.js as it would below. Also to utilize the global window._paq array to push commands onto for setting or retrieving information from Piwik:w
-  . -->
-  <!--
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"></script>
-  -->
+a.push(function(b){ b(["piwik_analytics"]); });
+</script>
+
+<!-- The goal is to load piwik.js as it would below. Also to utilize the global window._paq array to push commands onto for setting or retrieving information from Piwik:w
+. -->
+<!--
+<script src="https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"></script>
+-->
 
 </head>
 
@@ -63,7 +74,7 @@ try{if (!window.CloudFlare) { var CloudFlare=[{verbose:0,p:1361138286,byc:1,owli
         <li id="use_cdnjs"> use_cdnjs </li>
         <li id="piwik_js"> piwik_js </li>
         <li id="default_piwik_js"> default_piwik_js </li>
-        
+
         <li id="link_tracking"> link_tracking </li>
         <li id="set_obey_do_not_track"> set_obey_do_not_track </li>
 
@@ -72,7 +83,7 @@ try{if (!window.CloudFlare) { var CloudFlare=[{verbose:0,p:1361138286,byc:1,owli
     </div>
 
     <div id="testing.links">
-   </div>
+    </div>
 
 
   </div>
