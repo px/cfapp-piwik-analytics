@@ -1,7 +1,7 @@
 ###
 * This is Miniature Hipster
 *  @name      Miniature Hipster
-*  @version   0.0.20b
+*  @version   0.0.21b
 *  @author    Rob Friedman <px@ns1.net>
 *  @url       <http://playerx.net>
 *  @license   https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt
@@ -20,23 +20,16 @@ p=window._pk_loaded={stuff:"stuff"}
 * simple stylized console output for my app
 ###
 consl = (m) ->
+  m=""if m is undefined
   window.console.log( "_px_> " + m )
 ###
 * simple stylized console error output for my app
 ###
 conserr= (m) ->
+  m=""if m is undefined
   window.console.error( "*px**> " + m )
 
 _debug = null
-#_debug = true
-#_debug = no
-try
-  _debug = window.__CF.AJS.piwik_analytics._debug
-catch e
-  conserr("Where is CloudFlare?")
-  _debug = true
-
-#_debug = true
 
 # just so it isnt lost.
 window._paq = window._paq || []
@@ -94,17 +87,23 @@ CloudFlare.define "piwik_analytics", ( _config ) ->
   ## myPiwik module; to be passed into a "return" later which will cause loading
   myPiwik = {}
   ## find our configuration, or just create the storage
-  _config = _config || {}
+  _config = _config
 
   ## Try reading the piwik_analytics configuration from embedded CDATA; FIXME
   # there is a better way to do this through the parameter above I'm sure
   # but I haven't gotten it to work yet.
   try
-    #   myPiwik.config = _config
-    _config = window.__CF.AJS.piwik_analytics || {}
+    _config = window.__CF.AJS.piwik_analytics
+    _debug = _config._debug
   catch e
-    conserr( "The CloudFlare _config is broken!!!")
-
+    conserr(e)
+    conserr("Where is CloudFlare? window.__CF.AJS.piwik_analytics --  Enabling Debugger, and testing defaults! ")
+    _config = {}
+    _debug = _config._debug = true
+    _config.default_site_id="1"
+    _config.default_piwik_js="/piwik/piwik.js"
+    _config.default_piwik_tracker="/piwik/piwik.php"
+   
 
   ### because sometimes a minor delay is needed, in seconds.
 * FIXME because I'm sure we can do without.
@@ -176,16 +175,6 @@ CloudFlare.define "piwik_analytics", ( _config ) ->
 
     # temp value to store the javascript library url
     _js = "" # _config.default_piwik_js
-    #_js = ""
-
-    #if ( _debug )
-    #  if ( _config.use_cdnjs is "true" )
-    #    consl( "_config.use_cdnjs=" + _config.use_cdnjs )
-    #  else
-    #    conserr( "_config.use_cdnjs=" + _config.use_cdnjs )
-
-
-
 
     ## if we are not loading from cdnjs and piwik_js has been set
     if ( ( _config.piwik_js isnt null and _config.piwik_js isnt undefined ) and ( _config.use_cdnjs is null or _config.use_cdnjs is undefined ) )
@@ -197,7 +186,7 @@ CloudFlare.define "piwik_analytics", ( _config ) ->
       _js = _config.default_piwik_js
 
     else
-      conserr("Using Failsafe to cdnjs " + _config.default_piwik_js ) if _debug
+      conserr("Using Failsafe _js=" + _config.default_piwik_js ) if _debug
       _js = _config.default_piwik_js
 
     ## load the determined _js library, then execute isPiwik() callback
@@ -210,7 +199,7 @@ CloudFlare.define "piwik_analytics", ( _config ) ->
 
 
     # check for null, undefined, not a number, or empty site_id values
-    _site_id = "1" # _config.default_site_id
+    _site_id = _config.default_site_id
     # works
     ## choose the site_id if unset
     if ( ( _config.site_id == null or _config.site_id is null ) or isNaN( _config.site_id ) or  _config.site_id is "" )
@@ -225,8 +214,8 @@ CloudFlare.define "piwik_analytics", ( _config ) ->
 
 
     ## poorly placed default
-    _piwik_tracker = "/piwik/piwik.php"
-    if ( _config.piwik_tracker == null or _config.piwik_tracker is null )
+    _piwik_tracker = _config.default_piwik_tracker
+    if ( _config.piwik_tracker == null or _config.piwik_tracker is null or _config.piwik_tracker is undefined )
       conserr("Invalid piwik_tracker using default=" + _piwik_tracker ) if _debug
       # FIXME; there should be a better resort than this;
       #   maybe determine the zone from CloudFlare CDATA;
@@ -277,14 +266,14 @@ CloudFlare.define "piwik_analytics", ( _config ) ->
     window._paq.push(['setTrackerUrl', unescape ( _config.piwik_tracker ) ])
 
     # determine if LinkTracking is enabled
-    if ( _config.link_tracking == "true" )
+    if ( _config.link_tracking == "true" or _config.link_tracking is undefined )
       window._paq.push(['enableLinkTracking',true])
     else
       window._paq.push(['enableLinkTracking',false])
     # end if link_tracking
 
     # determine if DoNotTrack is enabled
-    if ( _config.set_obey_do_not_track == "true" )
+    if ( _config.set_obey_do_not_track == "true" or _config.set_obey_do_not_track is undefined )
       window._paq.push(['setDoNotTrack',true])
     else
       window._paq.push(['setDoNotTrack',false])
