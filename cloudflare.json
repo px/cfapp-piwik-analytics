@@ -33,7 +33,7 @@
       "name": "default site_id ",
       "description": "set a possibly sane default SiteId",
       "type": "hidden",
-      "value": 1
+      "value": "1"
     },
     {
       "id": "piwik_tracker",
