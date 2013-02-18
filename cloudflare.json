@@ -42,7 +42,14 @@
       "type": "string",
       "value": "https://path.to.your.tracker.url/piwik.php"
     },
-    {
+     {
+      "id": "default_piwik_tracker",
+      "name": "Tracker URL (REQUIRED)",
+      "description": "A default receiver URL 'https://'. Should be utilizing SSL for security purposes but using a schemeless URL '//host.tld' is valid also.",
+      "type": "hidden",
+      "value": "/piwik/piwik.php"
+    },
+     {
       "id": "use_cdnjs",
       "type": "select",
       "name": "Choose whether to enable cdnjs?",
