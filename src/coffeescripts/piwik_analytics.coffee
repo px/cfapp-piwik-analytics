@@ -34,9 +34,10 @@ _debug = null
 # just so it isnt lost.
 window._paq = window._paq || []
 # send our request for VisitorId
-window._paq.push [->
-  window._pk_visitor_id = @getVisitorId()
-]
+#window._paq.push [->
+#  window._pk_visitor_id = @getVisitorId()
+#  consl( "Piwik Loaded, window._pk_visitor_id="+ window._pk_visitor_id ) if _debug
+#]
 
 
 # fixScheme(url) fix the file:// url to use https:// url
@@ -81,6 +82,7 @@ loadScript = (f,callback) ->
 # stick with commas for sep
 ###
 CloudFlare.define "piwik_analytics", ( _config ) ->
+  #CloudFlare.define "piwik_analytics",["piwik_analytics/config","//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"], ( _config ) ->
 
   "use strict"
 
@@ -105,6 +107,15 @@ CloudFlare.define "piwik_analytics", ( _config ) ->
     _config.default_piwik_tracker="/piwik/piwik.php"
    
 
+  if _config.default_site_id == undefined or _config.default_site_id == null
+    _config.default_site_id = "1"
+
+  if _config.default_piwik_js == undefined or _config.default_piwik_js == null
+    _config.default_piwik_js = "/piwik/piwik.js"
+  
+  if _config.default_piwik_tracker == undefined or _config.default_piwik_tracker == null
+    _config.default_piwik_tracker = "/piwik/piwik.php"
+
   ### because sometimes a minor delay is needed, in seconds.
 * FIXME because I'm sure we can do without.
   ###
@@ -112,6 +123,12 @@ CloudFlare.define "piwik_analytics", ( _config ) ->
 
   ## likely not needed FIXME
   _default_piwik_version = "1.10.1"
+
+  # send our request for VisitorId
+  window._paq.push [->
+    window._pk_visitor_id = @getVisitorId()
+    consl( "piwik.js executed, window._pk_visitor_id="+ window._pk_visitor_id ) if _debug
+  ]
 
   ## If we're debugging, say Hello, and clear localStorage
   if ( _debug )
@@ -174,7 +191,7 @@ CloudFlare.define "piwik_analytics", ( _config ) ->
     consl( "myPiwik.activate() started") if _debug
 
     # temp value to store the javascript library url
-    _js = "" # _config.default_piwik_js
+    _js = _config.default_piwik_js || "/piwik/piwik.js"
 
     ## if we are not loading from cdnjs and piwik_js has been set
     if ( ( _config.piwik_js isnt null and _config.piwik_js isnt undefined ) and ( _config.use_cdnjs is null or _config.use_cdnjs is undefined ) )
@@ -190,16 +207,17 @@ CloudFlare.define "piwik_analytics", ( _config ) ->
       _js = _config.default_piwik_js
 
     ## load the determined _js library, then execute isPiwik() callback
-    loadScript( unescape( _js ), myPiwik.isPiwik )
+    #loadScript( unescape( _js ), myPiwik.isPiwik )
+    #loadScript( unescape( _js ), null )
     #alert("past loadScript") if _debug
-
+    CloudFlare.require([_js])
 
 
 
 
 
     # check for null, undefined, not a number, or empty site_id values
-    _site_id = _config.default_site_id
+    _site_id = _config.default_site_id || "1"
     # works
     ## choose the site_id if unset
     if ( ( _config.site_id == null or _config.site_id is null ) or isNaN( _config.site_id ) or  _config.site_id is "" )
@@ -214,7 +232,7 @@ CloudFlare.define "piwik_analytics", ( _config ) ->
 
 
     ## poorly placed default
-    _piwik_tracker = _config.default_piwik_tracker
+    _piwik_tracker = _config.default_piwik_tracker || "/piwik/piwik.php"
     if ( _config.piwik_tracker == null or _config.piwik_tracker is null or _config.piwik_tracker is undefined )
       conserr("Invalid piwik_tracker using default=" + _piwik_tracker ) if _debug
       # FIXME; there should be a better resort than this;
