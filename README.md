@@ -30,12 +30,12 @@ This CloudFlare App aims to improve upon the available Analytics &amp; Tracking 
 Contributing
 ------------
 
-1. [Fork it on Github](./fork_select).
-2. Clone to your local machine. SSH: ('git clone git@github.com:px/cfapp-piwik-analytics.git') HTTPS: ('git clone https://github.com/px/cfapp-piwik-analytics.git')
+1. Fork it on Github.
+2. Clone to your local machine. SSH: (`git clone "git@github.com:px/cfapp-piwik-analytics.git"`) HTTPS: (`git clone "https://github.com/px/cfapp-piwik-analytics.git"`)
 3. Checkout and create a new branch (`git checkout -b my_new_feature`)
 4. Commit your changes, preferably one commit per file. (`git commit -am "Added my new feature"`)
 5. Push to the branch (`git push origin my_new_feature`)
-6. Open a [Pull Request](./pulls/)
+6. Open a Pull Request
 7. Enjoy a refreshing glass of water and wait
 
 
