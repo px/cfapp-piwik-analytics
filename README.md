@@ -3,31 +3,46 @@
 
   * [Piwik Analytics](https://www.cloudflare.com/apps/piwik_analytics) CloudFlare App.
 
-Miniature Hipster is the 'random' name provided by Github. I enjoy it, although may change it. But it's kind of interesting.
-  * Repository URL  [Piwik Analytics App for Cloudflare](https://github.com/px/cfapp-piwik-analytics.git/)
+**Miniature Hipster** is the 'random' new project name provided by [Github](https://github.com/new). I enjoy it, although may change it. But it's kind of interesting.
 
-This CloudFlare App aims to improve upon the available Analytics &amp; Tracking options available to users.
+  * HTTPS Repository URL  [Piwik Analytics App for Cloudflare](https://github.com/px/cfapp-piwik-analytics.git/)
+
+This CloudFlare App aims to improve upon the available Analytics &amp; Tracking options available to users. It is written primarily in [CoffeeScript](http://coffeescript.org/), and compiled into Javascript.
 
 ### Initially this App aims to
-  * utililse " use stict;" when possible
+  * Utililse " use stict;" when possible
   * Be asynchronous in loading
-  * work with your own Piwik Analytics installation, or maybe a hosted solution
+  * Work with your own Piwik Analytics installation, or maybe a hosted solution,
   * Support a single Piwik Site ID
   * Support a single Piwik tracker/receiver
-  * provide &lt;noscript&gt; tag for recording visitors without Javascript using a 1x1 gif pixel
-  * utilize [cdnjs](http://cdnjs.com) for serving piwik.js quickly if emabled, or the parameters left unsupplied by the user.
+  * Utilise [cdnjs](http://cdnjs.com/#piwik) for serving piwik.js quickly if enabled, or the parameters are left unsupplied by the user.
 
 
 ### TODO
 * Support:
-  * multiple versions of piwik, currently only 1.10.1 is loaded into cdnjs. * cdnjs/cdnjs#794: cdnjs/cdnjs/god#794
-    * Perhaps the piwik.js is backwards compatible with the tracker, and somehow we can instate a 'trunk' copy. -- FIXME
+  * provide &lt;noscript&gt; tag for recording visitors without Javascript using a 1x1 gif pixel
   * goals, tracking, 5 per site id, maybe more.
   * automatically validate and check .js files
   * automatically validate and check cloudflare.json &amp; other json files with jsonlint
+* Describe the [test app](./tree/master/test) better, and it's individual files.
+
+
+Contributing
+------------
+
+1. [Fork it on Github](./fork_select).
+2. Clone to your local machine. SSH: ('git clone git@github.com:px/cfapp-piwik-analytics.git') HTTPS: ('git clone https://github.com/px/cfapp-piwik-analytics.git')
+3. Checkout and create a new branch (`git checkout -b my_new_feature`)
+4. Commit your changes, preferably one commit per file. (`git commit -am "Added my new feature"`)
+5. Push to the branch (`git push origin my_new_feature`)
+6. Open a [Pull Request](./pulls/)
+7. Enjoy a refreshing glass of water and wait
+
+
 
 ### Piwik Documentation
-* [Javascript Tracking](http://piwik.org/docs/javascript-tracking/)
+ * [Online Videos about Piwik](https://piwik.org/blog/category/videos/)
+ * [Piwik Javascript Tracking](http://piwik.org/docs/javascript-tracking/)
 
 CloudFlare's Apps platform enables developers to create and publish web applications for use by website owners on CloudFlare's network. See the [full list](https://www.cloudflare.com/apps).
 
@@ -39,6 +54,6 @@ CloudFlare's Apps platform enables developers to create and publish web applicat
     npm install jsonlint -g
 
 
-#### Tracking pixel
+#### My tracking pixels
 ![Tracking Pixel](https://piwik-ssl.ns1.net/piwik.php?idSite=26&rec=1)
 ![Tracking Pixel](https://piwik-ssl.ns1.net/piwik.php?idSite=27&rec=1)
