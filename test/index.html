@@ -15,8 +15,8 @@
 
     <script type="text/javascript" src="https://ajax.cloudflare.com/cdn-cgi/nexp/cloudflare.js"></script>
     <!-- load up our test config for local testing -->
-    <script type="text/javascript" src="../public/javascripts/piwik_analytics/config.js"></script>
-
+    <!-- <script type="text/javascript" src="../public/javascripts/piwik_analytics/config.js"></script>
+    -->
     <script type="text/javascript">
       /* just use a, it's smaller */ 
     var a=window.CloudFlare;
@@ -24,7 +24,8 @@
     a.push({paths:{piwik_analytics:"../public/javascripts/"}});
     /* force load our piwikConfig associative array  */
     /* load the piwik_analytics module, and pass the path for the config.js also  */
-    a.push(function(b,c){ c("piwik_analytics/config.js",function(){ return window.__piwikConfig }); b(["piwik_analytics"]); });
+/*    a.push(function(b,c){ c("piwik_analytics/config.js",function(){ return window.__piwikConfig }); b(["piwik_analytics"]); });
+ */
 
     a.push(function(b){ b(["piwik_analytics"]); });
     </script>

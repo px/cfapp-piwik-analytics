@@ -14,26 +14,33 @@
 
     <script type="text/javascript">
       //<![CDATA[
-    window.__CF=window.__CF||{};window.__CF.AJS={"piwik_analytics":{"site_id":null,"piwik_js":null,"use_cdnjs":"false","link_tracking":"true","piwik_tracker":null,"default_piwik_js":"\/\/cdnjs.cloudflare.com\/ajax\/libs\/piwik\/1.10.1\/piwik.js","set_obey_do_not_track":"true"},"ga_key":{"ua":"UA-37963393-1","ga_bs":"2"}};
+    window.__CF=window.__CF||{};window.__CF.AJS={"piwik_analytics":{"_debug":"true","site_id":null,"piwik_js":null,"use_cdnjs":"true","link_tracking":"true","piwik_tracker":null,"default_site_id":null,"default_piwik_js":"\/\/cdnjs.cloudflare.com\/ajax\/libs\/piwik\/1.10.1\/piwik.js","default_piwik_tracker":null,"set_obey_do_not_track":null}};
 //]]>
 </script>
-
 <script type="text/javascript">
   //<![CDATA[
-try{if (!window.CloudFlare) { var CloudFlare=[{verbose:1,p:1361138286,byc:1,owlid:"cf",mirage:{responsive:0,lazy:0},oracle:0,paths:{cloudflare:"/cdn-cgi/nexp/abv=1870252173/"},atok:"8b1fae02ab3ff295be39d01c8d4fbcf7",zone:"variablesoftware.com",rocket:"0",apps:{"piwik_analytics":{"site_id":null,"piwik_js":null,"use_cdnjs":"false","link_tracking":"true","piwik_tracker":null,"default_piwik_js":"\/\/cdnjs.cloudflare.com\/ajax\/libs\/piwik\/1.10.1\/piwik.js","set_obey_do_not_track":"true"},"ga_key":{"ua":"UA-37963393-1","ga_bs":"2"}}}];var a=document.createElement("script"),b=document.getElementsByTagName("script")[0];a.async=!0;a.src="//ajax.cloudflare.com/cdn-cgi/nexp/abv=4114775854/cloudflare.min.js";b.parentNode.insertBefore(a,b);}}catch(e){};
+try{if (!window.CloudFlare) { var CloudFlare=[{verbose:1,p:1361214280,byc:2,owlid:"cf",mirage:{responsive:0,lazy:0},oracle:0,paths:{cloudflare:"/cdn-cgi/nexp/abv=1870252173/",piwik_analytics:"../public/javascripts/",piwik:"//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/"},zone:"",rocket:"0",apps:{}}];var a=document.createElement("script"),b=document.getElementsByTagName("script")[0];a.async=!0;a.src="//ajax.cloudflare.com/cdn-cgi/nexp/abv=4114775854/cloudflare.min.js";b.parentNode.insertBefore(a,b);}}catch(e){};
 //]]>
 </script>
 
+
 <script type="text/javascript">
-/* just use a, it's smaller */
+  /* just use a, it's smaller */
 var a=window.CloudFlare;
 /* push this local path for use in loading the the app/module   */
 a.push({paths:{piwik_analytics:"../public/javascripts/"}});
 /* force load our piwikConfig associative array  */
 /* load the piwik_analytics module, and pass the path for the config.js also  */
-a.push(function(b,c){ c("piwik_analytics/config.js",function(){ return window.__piwikConfig }); b(["piwik_analyt    ics"]); });
+/* a.push(function(b,c){ c("piwik_analytics/config.js",function(){ return window.__piwikConfig }); b(["piwik_analyt    ics"]); });
+ */
+/*
+   This is the quickest way I have found to load the piwik.js library and the piwik_analytics application which
+   has the configuration on page. window.__CF.AJS.piwik_analytics
+   */
+a.push(function(b){ b(["//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js","piwik_analytics"]); });
 
-a.push(function(b){ b(["piwik_analytics"]); });
+
+
 </script>
 
 
