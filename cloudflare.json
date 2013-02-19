@@ -15,22 +15,23 @@
     },
     "details": {
       "Category": "Analytics",
-      "Language": "English",
-      "NS1.net": "<a href='http://ns1.net/en/legal/' target='_blank'>NS1.net</a>",
-      "Price": "Free to start and install, some plans coming soon.",
-      "Restrictions": "None",
+      "Language": "English, <a href='#languages'>more coming soon</a>.",
+      "Restrictions": "This application is open source licensed, <a href='https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt'>BSD-2 Clause</a>.",
+      "Price":"Free",
+      "Piwik":"",
       "playerx.net": "<a href='http://playerx.net/' target='_blank'>Rob Friedman</a>"
     },
     "interface": [
     {
       "id": "site_id",
-      "name": "Site ID ",
-      "description": "Site ID to be tracked, otherwise it will default to use '1'",
-      "type": "string"
+      "name": "SiteId ",
+      "description": "SiteId to be tracked, otherwise it will default to use <b>'1'</b>",
+      "type": "string",
+      "value": "1"
     },
     {
       "id": "default_site_id",
-      "name": "default site_id ",
+      "name": "default SiteId ",
       "description": "set a possibly sane default SiteId",
       "type": "hidden",
       "value": "1"
@@ -38,13 +39,13 @@
     {
       "id": "piwik_tracker",
       "name": "Tracker URL (REQUIRED)",
-      "description": "A receiver URL 'https://'. Should be utilizing SSL for security purposes but using a schemeless URL '//host.tld' is valid also.",
+      "description": "A receiver URL 'https://'. Should be utilizing SSL for security purposes but using a schemeless URL '//host.tld' is valid also. Leaving empty will use '/piwik/piwik.php' ",
       "type": "string",
-      "value": "https://path.to.your.tracker.url/piwik.php"
+      "value": "/piwik/piwik.php"
     },
     {
       "id": "default_piwik_tracker",
-      "name": "Tracker URL (REQUIRED)",
+      "name": "Default Tracker URL (REQUIRED)",
       "description": "A default receiver URL 'https://'. Should be utilizing SSL for security purposes but using a schemeless URL '//host.tld' is valid also.",
       "type": "hidden",
       "value": "/piwik/piwik.php"
@@ -52,8 +53,8 @@
     {
       "id": "use_cdnjs",
       "type": "select",
-      "name": "Choose whether to enable cdnjs?",
-      "description": "Do you want to use cdnjs for serving 'piwik.js' to your visitors?",
+      "name": "Use cdnjs?",
+      "description": "Try using <a href=\"https://cdnjs.com/#piwik\">cdnjs</a> for quickly serving the latest 'piwik.js' library to your visitors?",
       "options": [
       {
         "label": "No.",
@@ -68,21 +69,21 @@
     {
       "id": "default_piwik_js",
       "name": "default piwik.js location ",
-      "description": "A piwik.js URL schemeless '//' or 'http://' or 'https://'. Leaving this empty will possibly break stuff so be sure this url is valid! Prefer to use latest piwik.js from cdnjs.com, you're welcome.",
+      "description": "A piwik.js URL schemeless '//' or 'http://' or 'https://'.<br/> Leaving this empty will possibly break stuff so be sure this url is valid! Prefer to use latest piwik.js from cdnjs.com, you're welcome.",
       "type": "hidden",
       "value": "//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"
     },
     {
       "id": "piwik_js",
       "name": "piwik.js location ",
-      "description": "A piwik.js URL schemeless '//' or 'http://' or 'https://'. Leaving this empty will default to use piwik.js from cdnjs.com ",
+      "description": "A piwik.js URL schemeless '//' or 'http://' or 'https://'.<br/> Leaving this empty will default to use piwik.js from cdnjs.com or from '/piwik/piwik.js'",
       "type": "string",
       "value": "https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"
     },
     {
       "id": "link_tracking",
       "name": "Link Tracking",
-      "description": "You should want this to be enabled as it is by default. Equivalent to \"_paq.push(['enableLinkTracking',true]);\"",
+      "description": "You should want this to be enabled as it is by default.<br/> Equivalent to \"_paq.push(['enableLinkTracking',true]);\"",
       "type": "select",
       "options": [
       {
@@ -90,7 +91,7 @@
         "value": null
       },
       {
-        "label": "Link Tracking Enabled",
+        "label": "Enable Link Tracking",
         "value": true
       }
       ]
@@ -114,15 +115,15 @@
     {
       "id": "_debug",
       "name": "Debugger",
-      "description": "Enable or disable the debug output.",
+      "description": "Enable or disable the logging, and errors debug output to the Javascript console. Leave this disabled unless you are having issues and would like to know more.",
       "type": "select",
       "options": [
       {
-        "label": "No",
+        "label": "Disable",
         "value": null
       },
       {
-        "label": "Yes",
+        "label": "Enable",
         "value": true
       }
       ]
@@ -135,7 +136,7 @@
   }
   ],
     "dependencies": {},
-    "description": "Codename: Miniature Hipster. A Piwik Analytics CloudFlare application that helps speed things up.<br/> Click \"Setup\" to modify tracking options</a>",
+    "description": "Codename: Miniature Hipster. A Piwik Analytics CloudFlare application that helps speed things up. Click <b>\"Setup\"</b> to modify your tracking options</a>",
     "implements": "AMD",
     "keywords": [
       "webmaster",
