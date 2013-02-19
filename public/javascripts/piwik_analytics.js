@@ -44,12 +44,6 @@ _debug = null;
 
 window._paq = window._paq || [];
 
-window._paq.push([
-  function() {
-    return window._pk_visitor_id = this.getVisitorId();
-  }
-]);
-
 fixScheme = function(url) {
   var url2;
   if (_debug) {
@@ -112,12 +106,29 @@ CloudFlare.define("piwik_analytics", function(_config) {
     _config.default_piwik_js = "/piwik/piwik.js";
     _config.default_piwik_tracker = "/piwik/piwik.php";
   }
+  if (_config.default_site_id === void 0 || _config.default_site_id === null) {
+    _config.default_site_id = "1";
+  }
+  if (_config.default_piwik_js === void 0 || _config.default_piwik_js === null) {
+    _config.default_piwik_js = "/piwik/piwik.js";
+  }
+  if (_config.default_piwik_tracker === void 0 || _config.default_piwik_tracker === null) {
+    _config.default_piwik_tracker = "/piwik/piwik.php";
+  }
   /* because sometimes a minor delay is needed, in seconds.
   * FIXME because I'm sure we can do without.
   */
 
   _delay = 0.11;
   _default_piwik_version = "1.10.1";
+  window._paq.push([
+    function() {
+      window._pk_visitor_id = this.getVisitorId();
+      if (_debug) {
+        return consl("piwik.js executed, window._pk_visitor_id=" + window._pk_visitor_id);
+      }
+    }
+  ]);
   if (_debug) {
     consl("Hello from the Piwik CloudFlare App! Object?->" + _config);
     consl("window.localStorage.clear() === undefined? " + (window.localStorage.clear() === void 0));
@@ -168,7 +179,7 @@ CloudFlare.define("piwik_analytics", function(_config) {
     if (_debug) {
       consl("myPiwik.activate() started");
     }
-    _js = "";
+    _js = _config.default_piwik_js || "/piwik/piwik.js";
     if ((_config.piwik_js !== null && _config.piwik_js !== void 0) && (_config.use_cdnjs === null || _config.use_cdnjs === void 0)) {
       if (_debug) {
         consl("Using configured piwik_js=" + _config.piwik_js);
@@ -185,8 +196,8 @@ CloudFlare.define("piwik_analytics", function(_config) {
       }
       _js = _config.default_piwik_js;
     }
-    loadScript(unescape(_js), myPiwik.isPiwik);
-    _site_id = _config.default_site_id;
+    CloudFlare.require([_js]);
+    _site_id = _config.default_site_id || "1";
     if ((_config.site_id === null || _config.site_id === null) || isNaN(_config.site_id) || _config.site_id === "") {
       if (_debug) {
         conserr("Invalid site_id; defaulting to " + _site_id);
@@ -198,7 +209,7 @@ CloudFlare.define("piwik_analytics", function(_config) {
       _site_id = _config.site_id;
     }
     _config.site_id = _site_id;
-    _piwik_tracker = _config.default_piwik_tracker;
+    _piwik_tracker = _config.default_piwik_tracker || "/piwik/piwik.php";
     if (_config.piwik_tracker === null || _config.piwik_tracker === null || _config.piwik_tracker === void 0) {
       if (_debug) {
         conserr("Invalid piwik_tracker using default=" + _piwik_tracker);
