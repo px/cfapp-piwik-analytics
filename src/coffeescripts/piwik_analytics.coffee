@@ -233,7 +233,7 @@ CloudFlare.define "piwik_analytics", ( _config ) ->
 
     ## poorly placed default
     _piwik_tracker = _config.default_piwik_tracker || "/piwik/piwik.php"
-    if ( _config.piwik_tracker is null or _config.piwik_tracker is null or _config.piwik_tracker is undefined )
+    if ( _config.piwik_tracker is null or _config.piwik_tracker is undefined )
       conserr("Invalid piwik_tracker using default=" + _piwik_tracker ) if _debug?
       # FIXME; there should be a better resort than this;
       #   maybe determine the zone from CloudFlare CDATA;
