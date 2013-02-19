@@ -21,10 +21,13 @@ This CloudFlare App aims to improve upon the available Analytics &amp; Tracking 
 ### TODO
 * Support:
   * provide &lt;noscript&gt; tag for recording visitors without Javascript using a 1x1 gif pixel
+  * [cookie configuration for domains and sub-domains](http://piwik.org/docs/javascript-tracking/#toc-cookie-configuration-for-domains-and-subdomains)
   * goals, tracking, 5 per site id, maybe more.
-  * automatically validate and check .js files
+  * eventually support [all methods available in the Tracking API](http://piwik.org/docs/javascript-tracking/#toc-list-of-all-methods-available-in-the-tracking-api)
+* Validation:
+  * automatically validate, check, and minify .js files
   * automatically validate and check cloudflare.json &amp; other json files with jsonlint
-* Describe the [test app](./tree/master/test) better, and it's individual files.
+* Describe the [test app](./test) better, and it's individual files.
 
 
 Contributing
