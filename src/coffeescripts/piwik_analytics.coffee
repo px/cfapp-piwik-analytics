@@ -19,14 +19,14 @@ p=window._pk_loaded={stuff:"stuff"}
 ###
 * simple stylized console output for my app
 ###
-consl = (msg) ->
-  msg=""if msg is undefined
+consl = ( msg = "" ) ->
+  #msg = "" if msg is undefined
   window.console.log( "_px_> " + msg )
 ###
 * simple stylized console error output for my app
 ###
-conserr= (msg) ->
-  msg=""if msg is undefined
+conserr= ( msg = "" ) ->
+  #msg = msg if msg is undefined
   window.console.error( "*px**> " + msg )
 
 _debug = null
@@ -127,6 +127,7 @@ CloudFlare.define "piwik_analytics", ( _config ) ->
   # send our request for VisitorId
   window._paq.push [->
     window._pk_visitor_id = @getVisitorId()
+    # output console message with VisitorId once piwik.js is loaded
     consl( "piwik.js is loaded, window._pk_visitor_id="+ window._pk_visitor_id ) if _debug?
   ]
 
