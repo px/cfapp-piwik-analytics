@@ -1,7 +1,7 @@
 # Codename: Miniature Hipster 
 ## A Piwik App for Cloudflare
 
-This open source CloudFlare app will embed and include the 'piwik.js' using script elements, into all of your webpages with minimal effort, and will then provide your Piwik tracker with analytics about visitors to [your configured domains](https://www.cloudflare.com/my-websites).
+This open source CloudFlare app will load 'piwik.js' into all of your webpages with minimal effort, it will then provide your Piwik tracker with analytics about visitors to [your configured domains](https://www.cloudflare.com/my-websites).
 
 ### App Features
 
@@ -21,31 +21,31 @@ This open source CloudFlare app will embed and include the 'piwik.js' using scri
   * Enable serving your own 'piwik.js' for more control over traffic handling, or sensitive logging needs.
 
 
-#### Open Source
-
-This CloudFlare app is an <a href="">open source project</a> hosted on Github. If you are feeling comfortable, look under the covers, and feel free to fork &amp; submit pull requests.
-
-
 #### Simple
 
-You turn it ON. 
-Configure a 'Site ID' for the domain.
-Input your tracker URL.
-Now all pages will have Piwik Analytics tracking enabled on them.
+1. Turn it ON.
+2. Configure a 'Site ID' for the domain. Or it will use SiteId '1'
+3. Configure where 'piwik.js' is loaded. By default it will attempt to use cdnjs, otherwise '/piwik/piwik.js' will be tried.
+4. Input a tracker URL. By default it will use '/piwik/piwik.php' as the tracker url. 
+5. Click **UPDATE**, if configured properly all pages should have Piwik Analytics tracking enabled on them.
 
 
 ##### About Piwik
 Piwik is used to provide analytics about your visitors. More information can be found on the [Piwik homepage](http://piwik.org/).
 
   * [Online Videos about Piwik](https://piwik.org/blog/category/videos/)
+  * [Piwik Javascript Tracking](http://piwik.org/docs/javascript-tracking/)
   
 
   * TODO
 ![Screenshot of Piwik](/images/apps/piwik_analytics/piwik_screenshot_1.png "Screenshot")
+![Screenshot of Piwik CloudFlare App](/images/apps/piwik_analytics/piwik_screenshot_2.png "Screenshot")
 
-For comments or support please contact me by <a href="mailto:px+cfapp-piwik-analytics@ns1.net">email</a> or <a href="http://twitter.com/px">Twitter</a>.
+For application comments or support please contact me by <a href="mailto:px+cfapp-piwik-analytics@ns1.net">email</a> or <a href="http://twitter.com/px">Twitter</a>.
+
+
 #### Open Source
-This CloudFlare app is an <a href="">open source project</a> hosted on Github. If you are feeling comfortable, please feel free to fork and submit pull requests.
+This CloudFlare app is an [open source project](https://github.com/px/cfapp-piwik-analytics/#readme) hosted on [Github](https://github.com/). If you are feeling comfortable, please feel free to [contribute](https://github.com/px/cfapp-piwik-analytics/#contribute), fork and submit pull requests for consideration.
 
 
 
