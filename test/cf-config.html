@@ -33,6 +33,7 @@ a.push({paths:{piwik_analytics:"../public/javascripts/"}});
 /* load the piwik_analytics module, and pass the path for the config.js also  */
 /* a.push(function(b,c){ c("piwik_analytics/config.js",function(){ return window.__piwikConfig }); b(["piwik_analyt    ics"]); });
  */
+CloudFlare.push({verbose:1});
 /*
    This is the quickest way I have found to load the piwik.js library and the piwik_analytics application which
    has the configuration on page. window.__CF.AJS.piwik_analytics
