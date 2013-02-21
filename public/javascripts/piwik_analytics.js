@@ -10,7 +10,7 @@
 *
 */
 
-var conserr, consl, fixScheme, loadScript, p, _debug;
+var conserr, consl, loadScript, p, _debug;
 
 p = window._pk_loaded = {
   stuff: "stuff"
@@ -21,11 +21,11 @@ p = window._pk_loaded = {
 */
 
 
-consl = function(m) {
-  if (m === void 0) {
-    m = "";
+consl = function(msg) {
+  if (msg == null) {
+    msg = "";
   }
-  return window.console.log("_px_> " + m);
+  return window.console.log("_px_> " + msg);
 };
 
 /*
@@ -33,33 +33,14 @@ consl = function(m) {
 */
 
 
-conserr = function(m) {
-  if (m === void 0) {
-    m = "";
+conserr = function(msg) {
+  if (msg == null) {
+    msg = "";
   }
-  return window.console.error("*px**> " + m);
+  return window.console.error("*px**> " + msg);
 };
 
 _debug = null;
-
-window._paq = window._paq || [];
-
-fixScheme = function(url) {
-  var url2;
-  if (_debug) {
-    consl("fixScheme(" + url + ")");
-  }
-  if (_debug) {
-    consl("window.location.protocol=" + window.location.protocol);
-  }
-  url2 = url;
-  if (/^(http).*/.test(url)) {
-    url2 = url;
-  } else {
-    url2 = "https:" + url;
-  }
-  return url2;
-};
 
 /*
 * loadScript(f)
@@ -69,7 +50,10 @@ fixScheme = function(url) {
 
 
 loadScript = function(f, callback) {
-  if (_debug) {
+  if (callback == null) {
+    callback = "";
+  }
+  if (_debug != null) {
     consl("loadScript via CloudFlare.require( [" + f + "], " + callback(+")"));
   }
   return CloudFlare.require([f], callback);
@@ -89,49 +73,41 @@ loadScript = function(f, callback) {
 
 
 CloudFlare.define("piwik_analytics", function(_config) {
+  var myPiwik, _TrackerUrl, _defaultTrackerUrl;
+  if (_config == null) {
+    _config = {};
+  }
   "use strict";
 
-  var myPiwik, _default_piwik_version, _delay;
   myPiwik = {};
-  _config = _config;
+  this._config = _config;
   try {
-    _config = window.__CF.AJS.piwik_analytics;
-    _debug = _config._debug;
+    this._config = window.__CF.AJS.piwik_analytics;
+    this._debug = this._config._debug;
   } catch (e) {
     conserr(e);
     conserr("Where is CloudFlare? window.__CF.AJS.piwik_analytics --  Enabling Debugger, and testing defaults! ");
-    _config = {};
-    _debug = _config._debug = true;
-    _config.default_site_id = "1";
-    _config.default_piwik_js = "/piwik/piwik.js";
-    _config.default_piwik_tracker = "/piwik/piwik.php";
+    this._debug = this._config._debug = true;
+    this._config.default_site_id = "1";
+    this._config.default_piwik_js = "/piwik/piwik.js";
+    this._config.default_piwik_tracker = "/piwik/piwik.php";
   }
-  if (_config.default_site_id === void 0 || _config.default_site_id === null) {
-    _config.default_site_id = "1";
+  if (this._config.default_site_id === void 0 || this._config.default_site_id === null) {
+    this._config.default_site_id = "1";
   }
-  if (_config.default_piwik_js === void 0 || _config.default_piwik_js === null) {
-    _config.default_piwik_js = "/piwik/piwik.js";
+  if (this._config.default_piwik_js === void 0 || this._config.default_piwik_js === null) {
+    this._config.default_piwik_js = "/piwik/piwik.js";
   }
-  if (_config.default_piwik_tracker === void 0 || _config.default_piwik_tracker === null) {
-    _config.default_piwik_tracker = "/piwik/piwik.php";
+  if (this._config.default_piwik_tracker === void 0 || this._config.default_piwik_tracker === null) {
+    this._config.default_piwik_tracker = "/piwik/piwik.php";
   }
   /* because sometimes a minor delay is needed, in seconds.
   * FIXME because I'm sure we can do without.
   */
 
-  _delay = 0.11;
-  _default_piwik_version = "1.10.1";
-  window._paq.push([
-    function() {
-      window._pk_visitor_id = this.getVisitorId();
-      if (_debug) {
-        return consl("piwik.js executed, window._pk_visitor_id=" + window._pk_visitor_id);
-      }
-    }
-  ]);
-  if (_debug) {
-    consl("Hello from the Piwik CloudFlare App! Object?->" + _config);
-    consl("window.localStorage.clear() === undefined? " + (window.localStorage.clear() === void 0));
+  if ((this._debug != null)) {
+    consl("Hello from the Piwik CloudFlare App! Object?->" + this._config);
+    consl("window.localStorage.clear() === undefined? " + (window.localStorage.clear() != null));
   }
   /*
     # myPiwik.isPiwik()
@@ -142,28 +118,26 @@ CloudFlare.define("piwik_analytics", function(_config) {
   */
 
   myPiwik.isPiwik = function() {
-    if (_debug) {
-      consl("myPiwik.isPiwik() loaded?");
-    }
-    try {
-      if (window._pk_visitor_id === void 0 || window._pk_visitor_id === "") {
-        if (_debug) {
-          conserr(" no window._pk_visitor_id piwik maybe failed to load!!! Oh Noe. ");
-        }
-        return false;
-      } else if (typeof window._pk_visitor_id === "string" && window._pk_visitor_id !== "") {
-        if (_debug) {
-          consl("Piwik loaded... probably maybe. window._pk_visitor_id='" + window._pk_visitor_id + "', and tracker hit.");
-        }
-        return true;
+    window._paq.push([
+      function() {
+        return window._isPiwik = true;
       }
-    } catch (e) {
-      conserr("isPiwik() " + e);
-    }
-    return false;
+    ]);
+    return window._isPiwik;
+  };
+  myPiwik.getVisitorId = function() {
+    window._paq.push([
+      function() {
+        window._pk_visitor_id = this.getVisitorId();
+        if (_debug != null) {
+          return consl("piwik.js is loaded, window._pk_visitor_id=" + window._pk_visitor_id);
+        }
+      }
+    ]);
+    return window._pk_visitor_id;
   };
   /*
-  * myPiwik.activate()
+  * myPiwik.activate( _config = {} )
   * TODO: break this into three different methods
   *         one; which determines the tracking library URL to load
   *         two; determines a valid SiteId
@@ -174,58 +148,110 @@ CloudFlare.define("piwik_analytics", function(_config) {
   *     FIXME; will not fixup the tracker url for missing scheme on file:// url locations
   */
 
-  myPiwik.activate = function() {
-    var _js, _piwik_tracker, _site_id;
-    if (_debug) {
+  myPiwik.activate = function(_config) {
+    if (_config == null) {
+      _config = {};
+    }
+    if (_debug != null) {
       consl("myPiwik.activate() started");
     }
-    _js = _config.default_piwik_js || "/piwik/piwik.js";
-    if ((_config.piwik_js !== null && _config.piwik_js !== void 0) && (_config.use_cdnjs === null || _config.use_cdnjs === void 0)) {
-      if (_debug) {
-        consl("Using configured piwik_js=" + _config.piwik_js);
-      }
-      _js = _config.piwik_js;
-    } else if (_config.use_cdnjs === "true" || _config.piwik_js === "") {
-      if (_debug) {
-        consl("Using use_cdnjs is enabled; " + _config.default_piwik_js);
-      }
-      _js = _config.default_piwik_js;
-    } else {
-      if (_debug) {
-        conserr("Using Failsafe _js=" + _config.default_piwik_js);
-      }
-      _js = _config.default_piwik_js;
+    window._paq = window._paq || [];
+    activate.__super__.constructor.apply(this, arguments).getVisitorId();
+    try {
+      this._config = window.__CF.AJS.piwik_analytics;
+      _debug = _config._debug;
+    } catch (e) {
+      conserr(e);
+      conserr("Where is CloudFlare? window.__CF.AJS.piwik_analytics --  Enabling Debugger, and testing defaults! ");
+      this._config = {};
+      _debug = this._config._debug = true;
+      this._config.default_site_id = "1";
+      this._config.default_piwik_js = "/piwik/piwik.js";
+      this._config.default_piwik_tracker = "/piwik/piwik.php";
     }
-    CloudFlare.require([_js]);
-    _site_id = _config.default_site_id || "1";
-    if ((_config.site_id === null || _config.site_id === null) || isNaN(_config.site_id) || _config.site_id === "") {
-      if (_debug) {
-        conserr("Invalid site_id; defaulting to " + _site_id);
-      }
-    } else {
-      if (_debug) {
-        consl("Using site_id from _config " + _config.site_id);
-      }
-      _site_id = _config.site_id;
+    if (this._config.default_site_id === void 0 || this._config.default_site_id === null) {
+      this._config.default_site_id = "1";
     }
-    _config.site_id = _site_id;
-    _piwik_tracker = _config.default_piwik_tracker || "/piwik/piwik.php";
-    if (_config.piwik_tracker === null || _config.piwik_tracker === null || _config.piwik_tracker === void 0) {
-      if (_debug) {
-        conserr("Invalid piwik_tracker using default=" + _piwik_tracker);
-      }
-    } else {
-      if (_debug) {
-        consl("Using configured piwik_tracker=" + _config.piwik_tracker);
-      }
-      _piwik_tracker = _config.piwik_tracker;
+    if (this._config.default_piwik_js === void 0 || this._config.default_piwik_js === null) {
+      this._config.default_piwik_js = "/piwik/piwik.js";
     }
-    _config.piwik_tracker = unescape(_piwik_tracker);
-    if (_debug) {
+    if (this._config.default_piwik_tracker === void 0 || this._config.default_piwik_tracker === null) {
+      this._config.default_piwik_tracker = "/piwik/piwik.php";
+    }
+    if (_debug != null) {
       consl("myPiwik.activate() completed");
     }
     return true;
   };
+  myPiwik.library(function(_js, use_cdnjs) {
+    var cdnjs_pk, default_js;
+    if (_js == null) {
+      _js = "";
+    }
+    if (use_cdnjs == null) {
+      use_cdnjs = null;
+    }
+    use_cdnjs = use_cdnjs != null ? use_cdnjs : null;
+    default_js = "/piwik/piwik.js";
+    cdnjs_pk = "//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js";
+    if ((_js !== "") && (use_cdnjs === null)) {
+      if (_debug != null) {
+        consl("Using configured _js=" + _js);
+      }
+    } else if (use_cdnjs === "true" || _js === "") {
+      if (_debug != null) {
+        consl("Using use_cdnjs is enabled; " + cdnjs_pk);
+      }
+      _js = cdnjs_pk;
+    } else {
+      if (_debug != null) {
+        conserr("Using Failsafe _js=" + _js);
+      }
+      _js = default_js;
+    }
+    CloudFlare.require([_js]);
+    return _js;
+  });
+  /*
+  * myPiwik.setSiteId() 
+  *   checks for a null value, not a number, and assign's SiteId to default
+  */
+
+  myPiwik.setSiteId(function(_SiteId, _defaultSiteId) {
+    if (_SiteId == null) {
+      _SiteId = "1";
+    }
+    if (_defaultSiteId == null) {
+      _defaultSiteId = "1";
+    }
+    if (!isNaN(_SiteId)) {
+      if (_debug != null) {
+        consl("Using _SiteId=" + _SiteId);
+      }
+    } else if (_debug != null) {
+      _SiteId = _defaultSiteId;
+      conserr("Invalid SiteId=" + _SiteId + " ; defaulting to " + _defaultSiteId);
+    }
+    return _defaultSiteId;
+  });
+  myPiwik.setTrackerUrl(_TrackerUrl = "", _defaultTrackerUrl = "/piwik/piwik.php")(function() {
+    var _piwik_tracker;
+    if (!(_TrackerUrl === "")) {
+      return _TrackerUrl;
+    }
+    _piwik_tracker = _config.default_piwik_tracker || "/piwik/piwik.php";
+    if (_config.piwik_tracker === null || _config.piwik_tracker === void 0) {
+      if (_debug != null) {
+        conserr("Invalid piwik_tracker using default=" + _piwik_tracker);
+      }
+    } else {
+      if (_debug != null) {
+        consl("Using configured piwik_tracker=" + _config.piwik_tracker);
+      }
+      _piwik_tracker = _config.piwik_tracker;
+    }
+    return _config.piwik_tracker = unescape(_piwik_tracker);
+  });
   /*
   * myPiwik.paqPush()
   *   take options from a Piwik configuration
@@ -235,8 +261,8 @@ CloudFlare.define("piwik_analytics", function(_config) {
   *   send a trackPageView to the TrackerUrl
   */
 
-  myPiwik.paqPush = function() {
-    if (_debug) {
+  myPiwik.paqPush = function(_config) {
+    if (_debug != null) {
       consl("myPiwik.paqPush()");
     }
     window._paq = window._paq || [];
