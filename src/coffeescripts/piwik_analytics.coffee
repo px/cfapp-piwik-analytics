@@ -176,16 +176,17 @@ CloudFlare.define "piwik_analytics", ( _config = {} ) ->
 
   myPiwik.isPiwik = () ->
     window._paq.push [->
-      return window._isPiwik = yes
+      window._isPiwik = yes
     ]
     window._isPiwik
 
   myPiwik.getVisitorId = () ->
-     window._paq.push [->
-       window._pk_visitor_id = @getVisitorId()
-       # output console message with VisitorId once piwik.js is loaded
-       consl( "piwik.js is loaded, window._pk_visitor_id="+ window._pk_visitor_id ) if _debug?
-     ]
+   window._paq.push [->
+     window._pk_visitor_id = @getVisitorId()
+     # output console message with VisitorId once piwik.js is loaded
+     consl( "piwik.js is loaded, window._pk_visitor_id="+ window._pk_visitor_id ) if _debug?
+   ]
+   window._pk_visitor_id
 
 
   ###
@@ -204,7 +205,7 @@ CloudFlare.define "piwik_analytics", ( _config = {} ) ->
     # just so it isnt lost.
     window._paq = window._paq || []
     
-    myPiwik.getVisitorId()
+    super.getVisitorId()
 
     ## Try reading the piwik_analytics configuration from embedded CDATA; FIXME
     # there is a better way to do this through the parameter above I'm sure
@@ -241,29 +242,30 @@ CloudFlare.define "piwik_analytics", ( _config = {} ) ->
     
     
     
-    
-    
-    
-    
+  myPiwik.library ( _js = "", use_cdnjs = null ) ->
+    use_cdnjs = use_cdnjs ? null
+
+    default_js="/piwik/piwik.js"
+    cdnjs_pk="//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"
     # temp value to store the javascript library url
-    _js = _config.default_piwik_js || "/piwik/piwik.js"
 
     ## if we are not loading from cdnjs and piwik_js has been set
-    if ( ( _config.piwik_js isnt null and _config.piwik_js isnt undefined ) and ( _config.use_cdnjs is null or _config.use_cdnjs is undefined ) )
-      consl( "Using configured piwik_js=" + _config.piwik_js ) if _debug?
-      _js = _config.piwik_js
+    if ( ( _js isnt "" ) and ( use_cdnjs is null ) )
+      consl( "Using configured _js=" + _js ) if _debug?
+      #_js = _config.piwik_js
 
-    else if ( _config.use_cdnjs is "true" or _config.piwik_js is "" )
-      consl( "Using use_cdnjs is enabled; " + _config.default_piwik_js ) if _debug?
-      _js = _config.default_piwik_js
+    else if ( use_cdnjs is "true" or _js is "" )
+      consl( "Using use_cdnjs is enabled; " + cdnjs_pk ) if _debug?
+      _js = cdnjs_pk
 
     else
-      conserr("Using Failsafe _js=" + _config.default_piwik_js ) if _debug?
-      _js = _config.default_piwik_js
+      conserr("Using Failsafe _js=" + _js ) if _debug?
+      _js = default_js
 
     ## load the determined _js library, then execute isPiwik() callback
     #loadScript( unescape( _js ), myPiwik.isPiwik )
     CloudFlare.require([_js])
+    _js
 
 
   ###
