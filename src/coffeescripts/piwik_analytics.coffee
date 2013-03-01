@@ -26,7 +26,7 @@ p=window._pk_loaded={stuff:"stuff"}
 #     Figure out why ["piwik_analytics/config"] is not working
 # stick with commas for sep
 ###
-CloudFlare.define "piwik_analytics", ( _config = {} ) ->
+CloudFlare.define "piwik_analytics", ["piwik_analytics/config", "cloudflare/console", "//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"] ( _config, console ) ->
   #CloudFlare.define "piwik_analytics",["piwik_analytics/config","//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"], ( _config ) ->
 
   "use strict"
@@ -36,53 +36,18 @@ CloudFlare.define "piwik_analytics", ( _config = {} ) ->
   ## find our configuration, or just create the storage
   @_config = _config
 
-
   _debug = null
-
-
-
-  ## Try reading the piwik_analytics configuration from embedded CDATA; FIXME
-  # there is a better way to do this through the parameter above I'm sure
-  # but I haven't gotten it to work yet.
-  try
-    @_config = window.__CF.AJS.piwik_analytics
-    @_debug = @_config._debug
-  catch e
-    conserr(e)
-    conserr("Where is CloudFlare? window.__CF.AJS.piwik_analytics --  Enabling Debugger, and testing defaults! ")
-    #@_config = {}
-    @_debug = @_config._debug = true
-    @_config.default_site_id="1"
-    @_config.default_piwik_js="/piwik/piwik.js"
-    @_config.default_piwik_tracker="/piwik/piwik.php"
-   
-
-  if @_config.default_site_id is undefined or @_config.default_site_id is null
-    @_config.default_site_id = "1"
-
-  if @_config.default_piwik_js is undefined or @_config.default_piwik_js is null
-    @_config.default_piwik_js = "/piwik/piwik.js"
-  
-  if @_config.default_piwik_tracker is undefined or @_config.default_piwik_tracker is null
-    @_config.default_piwik_tracker = "/piwik/piwik.php"
 
   ### because sometimes a minor delay is needed, in seconds.
 * FIXME because I'm sure we can do without.
   ###
   #_delay = 0.11
 
-  ## likely not needed FIXME
-  #_default_piwik_version = "1.10.1"
-
-  # send our request for VisitorId
-  # There are many others available:
-  #     getVisitorInfo getAttributionInfo getAttributionCampaignName getAttributionCampaignKeyword getAttributionReferrerTimestamp getAttributionReferrerUrl
-
   ## If we're debugging, say Hello, and clear localStorage
   if ( @_debug? )
-    consl( "Hello from the Piwik CloudFlare App! Object?->" + @_config )
+    console( "Hello from the Piwik CloudFlare App! Object?->" + @_config )
     # clear localStorage is we're debuging
-    consl( "window.localStorage.clear() === undefined? " + ( window.localStorage.clear()? ) )
+    console( "window.localStorage.clear() === undefined? " + ( window.localStorage.clear()? ) )
   # end
 
   ###
@@ -92,36 +57,6 @@ CloudFlare.define "piwik_analytics", ( _config = {} ) ->
   * if it does, then it will return a yes, other no
   *
   ###
-  #myPiwik.isPiwik = =>
-  #  consl( "myPiwik.isPiwik() loaded?") if _debug?
-    # push a command on to the global window._paq array, and
-    # set the global window._pk_visitor_id variable
-    #window._paq = window._paq || []
-    #try
-    #  window._paq.push [->
-    #    window._pk_visitor_id = @getVisitorId()
-    #  ]
-    #catch e
-    #  conserr ("There is an issue with window._paq; "+e) if _debug
-
-    # This really needs a delay before attempting to read _pk_visitor_id; FIXME
-    # some how we need to wait until the piwik.js is asynchronously
-    # loaded to ideally determine the _pk_visitor_id
-  #  try
-   #   if ( window._pk_visitor_id is undefined or window._pk_visitor_id is "" )
-    #    conserr( " no window._pk_visitor_id piwik maybe failed to load!!! Oh Noe. " ) if _debug?
-        # return a no, not loaded
-     #   return no
-#      else if ( typeof window._pk_visitor_id is "string" and window._pk_visitor_id != "" )
- #       consl( "Piwik loaded... probably maybe. window._pk_visitor_id='"+window._pk_visitor_id+"', and tracker hit." ) if _debug?
-        # return a yes, piwik.js has been loaded
-  #      return yes
-  #  catch e
-  #    conserr( "isPiwik() " + e )
-    # return a no
- #   no
-    # end myPiwik.isPiwik()
-
   myPiwik.isPiwik = () ->
     window._paq.push [->
       window._isPiwik = yes
@@ -132,7 +67,8 @@ CloudFlare.define "piwik_analytics", ( _config = {} ) ->
    window._paq.push [->
      window._pk_visitor_id = @getVisitorId()
      # output console message with VisitorId once piwik.js is loaded
-     consl( "piwik.js is loaded, window._pk_visitor_id="+ window._pk_visitor_id ) if _debug?
+     console( "piwik.js is loaded, window._pk_visitor_id="+ window._pk_visitor_id ) if _debug?
+
    ]
    window._pk_visitor_id
 
@@ -149,7 +85,7 @@ CloudFlare.define "piwik_analytics", ( _config = {} ) ->
 *     FIXME; will not fixup the tracker url for missing scheme on file:// url locations
   ###
   myPiwik.activate = ( _config = {} ) ->
-    consl( "myPiwik.activate() started") if _debug?
+    console( "myPiwik.activate() started") if _debug?
     # just so it isnt lost.
     window._paq = window._paq || []
     
@@ -159,11 +95,11 @@ CloudFlare.define "piwik_analytics", ( _config = {} ) ->
     # there is a better way to do this through the parameter above I'm sure
     # but I haven't gotten it to work yet.
     try
-      @_config = window.__CF.AJS.piwik_analytics
+      #     @_config = window.__CF.AJS.piwik_analytics
       _debug = _config._debug
     catch e
-      conserr(e)
-      conserr("Where is CloudFlare? window.__CF.AJS.piwik_analytics --  Enabling Debugger, and testing defaults! ")
+      console(e)
+      console("Where is CloudFlare? window.__CF.AJS.piwik_analytics --  Enabling Debugger, and testing defaults! ")
       @_config = {}
       _debug = @_config._debug = true
       @_config.default_site_id="1"
@@ -181,7 +117,7 @@ CloudFlare.define "piwik_analytics", ( _config = {} ) ->
       @_config.default_piwik_tracker = "/piwik/piwik.php"
 
 
-    consl( "myPiwik.activate() completed" ) if _debug?
+    console( "myPiwik.activate() completed" ) if _debug?
     # return a yes, it's mostly a lie, but who cares >:)
     yes
     # end myPiwik.activated
@@ -199,15 +135,15 @@ CloudFlare.define "piwik_analytics", ( _config = {} ) ->
 
     ## if we are not loading from cdnjs and piwik_js has been set
     if ( ( _js isnt "" ) and ( use_cdnjs is null ) )
-      consl( "Using configured _js=" + _js ) if _debug?
+      console( "Using configured _js=" + _js ) if _debug?
       #_js = _config.piwik_js
 
     else if ( use_cdnjs is "true" or _js is "" )
-      consl( "Using use_cdnjs is enabled; " + cdnjs_pk ) if _debug?
+      console( "Using use_cdnjs is enabled; " + cdnjs_pk ) if _debug?
       _js = cdnjs_pk
 
     else
-      conserr("Using Failsafe _js=" + _js ) if _debug?
+      console("Using Failsafe _js=" + _js ) if _debug?
       _js = default_js
 
     ## load the determined _js library, then execute isPiwik() callback
@@ -233,7 +169,7 @@ CloudFlare.define "piwik_analytics", ( _config = {} ) ->
     else if _debug?
       ## default to default_site_id from cloudflare.json
       _SiteId = _defaultSiteId
-      conserr( "Invalid SiteId="+ _SiteId + " ; defaulting to " + _defaultSiteId )
+      console( "Invalid SiteId="+ _SiteId + " ; defaulting to " + _defaultSiteId )
     # end if site_id
     _defaultSiteId
 
@@ -244,13 +180,13 @@ CloudFlare.define "piwik_analytics", ( _config = {} ) ->
     ## poorly placed default
     _piwik_tracker = _config.default_piwik_tracker || "/piwik/piwik.php"
     if ( _config.piwik_tracker is null or _config.piwik_tracker is undefined )
-      conserr("Invalid piwik_tracker using default=" + _piwik_tracker ) if _debug?
+      console("Invalid piwik_tracker using default=" + _piwik_tracker ) if _debug?
       # FIXME; there should be a better resort than this;
       #   maybe determine the zone from CloudFlare CDATA;
       #   or use "example.com" but that would leak more data
       #_piwik_tracker = _piwik_tracker
     else
-      consl("Using configured piwik_tracker=" + _config.piwik_tracker ) if _debug?
+      console("Using configured piwik_tracker=" + _config.piwik_tracker ) if _debug?
       # just unescape the tracker url
       # using fixscheme here with the url will
       # break what the user requests in their configuration
@@ -274,7 +210,7 @@ CloudFlare.define "piwik_analytics", ( _config = {} ) ->
 *   send a trackPageView to the TrackerUrl
   ###
   myPiwik.paqPush = ( _config ) ->
-    consl( "myPiwik.paqPush()" ) if _debug?
+    console( "myPiwik.paqPush()" ) if _debug?
     # read in or create the _paq array if undefined; FIXME probably do not have to do this everywhere.
     window._paq = window._paq || []
     # send request for VisitorId, we can do this anytime
@@ -307,7 +243,7 @@ CloudFlare.define "piwik_analytics", ( _config = {} ) ->
     # Send a trackPageView request to the TrackerUrl
     window._paq.push(['trackPageView'])
 
-    consl("paqPush() finished ok! _paq=" + window._paq ) if _debug
+    console("paqPush() finished ok! _paq=" + window._paq ) if _debug
     #return the _paq array
     window._paq
     # end myPiwik.paqPush
@@ -317,10 +253,10 @@ CloudFlare.define "piwik_analytics", ( _config = {} ) ->
 * this is kind of a waste as it will never get run if javascript is not enabled
   ###
   myPiwik.noScript = ->
-    consl( "myPiwik.noScript()" ) if _debug
+    console( "myPiwik.noScript()" ) if _debug
     test_site = fixScheme( unescape( _config.piwik_tracker ))
     test_site += "?id=" + _config.site_id + "&amp;rec=1"
-    consl( "noScript| test_site=" + test_site ) if _debug
+    console( "noScript| test_site=" + test_site ) if _debug
     script = document.createElement("noscript")
     cursor = document.getElementsByTagName("script", true)[0]
     cursor.parentNode.insertBefore( script, cursor )
@@ -354,22 +290,22 @@ CloudFlare.define "piwik_analytics", ( _config = {} ) ->
 ###
 * Require our piwik_analytics module to be loaded, and our configuration.
 ###
-window._pk_loaded = CloudFlare.require ["piwik_analytics"], (_config) ->
-  yes
+#window._pk_loaded = CloudFlare.require ["piwik_analytics"], (_config) ->
+#  yes
 
 ###
 * CloudFlare has .then methods for performing other actions once a module has been required.
 * We're not using them, but they're here.
 ###
-window._pk_loaded.then(
-  ->
-    (modules) {
-      modules
-    },
-      ->
-        (error) {
-          console
-        # // Handle errors here..
-        }
-)
+#window._pk_loaded.then(
+#  ->
+#    (modules) {
+#      modules
+#    },
+#      ->
+#        (error) {
+#          console
+#        # // Handle errors here..
+#        }
+#)
 
