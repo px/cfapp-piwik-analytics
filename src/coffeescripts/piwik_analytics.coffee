@@ -15,60 +15,6 @@
 #_config = window.__CF.AJS.piwik_analytics
 p=window._pk_loaded={stuff:"stuff"}
 
-
-###
-* simple stylized console output for my app
-###
-consl = ( msg = "" ) ->
-  #msg = "" if msg is undefined
-  window.console.log( "_px_> " + msg )
-###
-* simple stylized console error output for my app
-###
-conserr= ( msg = "" ) ->
-  #msg = msg if msg is undefined
-  window.console.error( "*px**> " + msg )
-
-_debug = null
-
-# send our request for VisitorId
-#window._paq.push [->
-#  window._pk_visitor_id = @getVisitorId()
-#  consl( "Piwik Loaded, window._pk_visitor_id="+ window._pk_visitor_id ) if _debug
-#]
-
-##
-# fixScheme(url) fix the file:// url to use https:// url
-#  useful for tracker url fixing schemeless url
-#fixScheme = (url) ->
-#  if _debug? 
-#    consl( "fixScheme(" + url + ")" ) 
-#    consl( "window.location.protocol=" + window.location.protocol )
-
-#  url2=url
-
-#  if /^(http).*/.test(url)
-    # return the url as it stands
-#    url2= url
-#  else
-    # url does not have "http[s]" rewrite it to be what we want, "https:".
-#    url2= "https:"+url
-
-  # return the fixed-up url2
-#  url2
-
-
-
-###
-* loadScript(f)
-* use CloudFlare.require to load the javascript f requested
-* and then execute the callback c
-###
-loadScript = (f,callback = "") ->
-  consl( "loadScript via CloudFlare.require( [" + f + "], "+ callback +")") if _debug?
-  CloudFlare.require( [f], callback )
-
-
 ###
 # piwik_analytics module definition
 #
@@ -90,6 +36,8 @@ CloudFlare.define "piwik_analytics", ( _config = {} ) ->
   ## find our configuration, or just create the storage
   @_config = _config
 
+
+  _debug = null
 
 
 
@@ -290,9 +238,9 @@ CloudFlare.define "piwik_analytics", ( _config = {} ) ->
     _defaultSiteId
 
 
-  myPiwik.setTrackerUrl(_TrackerUrl ="", _defaultTrackerUrl="/piwik/piwik.php") ->
+  myPiwik.setTrackerUrl( _TrackerUrl = "/piwik/piwik.php" ) ->
 
-    return _TrackerUrl unless (_TrackerUrl is "")
+    #return _TrackerUrl unless (_TrackerUrl is "")
     ## poorly placed default
     _piwik_tracker = _config.default_piwik_tracker || "/piwik/piwik.php"
     if ( _config.piwik_tracker is null or _config.piwik_tracker is undefined )
