@@ -13,7 +13,7 @@
 
 
 #_config = window.__CF.AJS.piwik_analytics
-p=window._pk_loaded={stuff:"stuff"}
+#p=window._pk_loaded={stuff:"stuff"}
 
 ###
 # piwik_analytics module definition
@@ -36,7 +36,13 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config", "cloudflare/cons
   ## find our configuration, or just create the storage
   @_config = _config
 
-  _debug = null
+  _debug = @_config.debug || null
+  
+  # piwik.js library is not loaded
+  _isPiwik = no
+
+  # store the visitor id
+  _visitorId = no
 
   ### because sometimes a minor delay is needed, in seconds.
 * FIXME because I'm sure we can do without.
@@ -59,18 +65,18 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config", "cloudflare/cons
   ###
   myPiwik.isPiwik = () ->
     window._paq.push [->
-      window._isPiwik = yes
+      _isPiwik = yes
     ]
-    window._isPiwik
+    _isPiwik
 
   myPiwik.getVisitorId = () ->
    window._paq.push [->
-     window._pk_visitor_id = @getVisitorId()
+     _visitorId = @getVisitorId()
      # output console message with VisitorId once piwik.js is loaded
-     console( "piwik.js is loaded, window._pk_visitor_id="+ window._pk_visitor_id ) if _debug?
+     console( "piwik.js is loaded, window._pk_visitor_id="+ _visitorId ) if _debug?
 
    ]
-   window._pk_visitor_id
+   _visitorId
 
 
   ###
@@ -243,7 +249,7 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config", "cloudflare/cons
     # Send a trackPageView request to the TrackerUrl
     window._paq.push(['trackPageView'])
 
-    console("paqPush() finished ok! _paq=" + window._paq ) if _debug
+    console("paqPush() finished ok! _paq=" + window._paq ) if _debug?
     #return the _paq array
     window._paq
     # end myPiwik.paqPush
@@ -253,10 +259,10 @@ CloudFlare.define "piwik_analytics", ["piwik_analytics/config", "cloudflare/cons
 * this is kind of a waste as it will never get run if javascript is not enabled
   ###
   myPiwik.noScript = ->
-    console( "myPiwik.noScript()" ) if _debug
+    console( "myPiwik.noScript()" ) if _debug?
     test_site = fixScheme( unescape( _config.piwik_tracker ))
     test_site += "?id=" + _config.site_id + "&amp;rec=1"
-    console( "noScript| test_site=" + test_site ) if _debug
+    console( "noScript| test_site=" + test_site ) if _debug?
     script = document.createElement("noscript")
     cursor = document.getElementsByTagName("script", true)[0]
     cursor.parentNode.insertBefore( script, cursor )
