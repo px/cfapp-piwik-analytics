@@ -5,14 +5,13 @@
 *  @author    Rob Friedman <px@ns1.net>
 *  @url       <http://playerx.net>
 *  @license   https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt
-*  @todo      TODO:
+*  @todo      TODO: look for the lines in the coffeescript source file
 *
 * vim: set tabstop=2:softtabstop=2:shiftwidth=2:noexpandtab
 ###
 
 ###
 # CloudFlare.push( { paths: {'piwik_analytics': 'http://labs.variablesoftware.com/test/miniature-hipster/public/javascripts/' } } );
-# CloudFlare.push( { paths: {'piwik_analytics/config': 'http://labs.variablesoftware.com/test/miniature-hipster/public/' } } );
 ###
 
 ###
@@ -24,35 +23,25 @@
 # stick with commas for sep
 # REQUIRE:
 #  piwik.js library
-#
 #  piwik_analytics/config
+#   -- defaults to {} and will assign test defaults
 #  cloudflare/console for output to console
 ###
 
 CloudFlare.define 'piwik_analytics', [
-    '//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js',
+  '//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js',
     'piwik_analytics/config',
     'cloudflare/console'
 ],
   ( __piwik_js, __config = {}, __console ) ->
-
+    # use strict javascript
     "use strict"
 
     # create or copy so as to not destroy the window._paq for piwik to utilize
     window._paq = window._paq || []
-   
-    if __config._debug?
-    # If we're debugging, say Hello, and clear localStorage
-      __console.log( "Hello from the Piwik CloudFlare App!" )
-    # clear localStorage is we're debuging
-      __console.log(
-        "localStorage.clear() === undefined? " +
-        ( window.localStorage.clear()? )
-      )
-    # end
 
-    # myPiwik module
-    #to be passed into a "return" later which will cause loading
+    # define myPiwik module
+    # -- to be passed into a "return" later which will cause loading
     myPiwik = {  }
 
     # piwik.js library is not loaded
@@ -64,10 +53,14 @@ CloudFlare.define 'piwik_analytics', [
     # link tracking enabled by default
     _linkTracking = yes
 
-    default_debug = null
+    # _debug must be either true or null
+    default_debug = true || null
+    # default piwik tracker URL
     default_piwik_tracker = "/piwik/piwik.php"
+    # default piwik tracker id
     default_piwik_site_id = "1"
 
+    # try to read the _debug, otherwise set to default
     try
       if __config._debug is undefined
         __config._debug = default_debug
@@ -76,6 +69,7 @@ CloudFlare.define 'piwik_analytics', [
       __config._debug = default_debug
       __console.error(e)
 
+    # try to read the piwik_tracker otherwise set to default
     try
       if __config.piwik_tracker is undefined
         __config.piwik_tracker = default_piwik_tracker
@@ -84,6 +78,7 @@ CloudFlare.define 'piwik_analytics', [
       __config.piwik_tracker = default_piwik_tracker
       __console.error(e)
 
+    # try to read the site_id otherwise set to default id   
     try
       if __config.site_id is undefined
         __config.site_id = default_piwik_site_id
@@ -91,6 +86,22 @@ CloudFlare.define 'piwik_analytics', [
     catch e
       __config.site_id = default_piwik_site_id
       __console.error (e)
+
+
+    # if debug is enabled do stuff
+    if __config._debug?
+      # turn on verbose with CloudFlare
+      CloudFlare.push( { verbose:1 } )
+
+    # If we're debugging, say Hello, and clear localStorage
+      __console.log( "Hello from the Piwik Analytics CloudFlare App!" )
+
+    # clear localStorage is we're debuging, works next reload
+      __console.log(
+        "localStorage.clear() === undefined? " +
+        ( window.localStorage.clear()? )
+      )
+    # end
 
 #
 # myPiwik.isPiwik()
@@ -127,7 +138,7 @@ CloudFlare.define 'piwik_analytics', [
 #
 #   checks for a null value, not a number, and assign's SiteId to default
     #
-    myPiwik.setSiteId = ( _SiteId = "1",  _defaultSiteId = "1" ) ->
+    myPiwik.setSiteId = ( _SiteId = default_piwik_site_id ,  _defaultSiteId = default_piwik_site_id ) ->
       __console.log("myPiwik.setSiteId") if __config._debug?
       # if it's a number use it. Double Negative,
       # will catch, alpha, and use the default above
@@ -147,7 +158,7 @@ CloudFlare.define 'piwik_analytics', [
     # mypiwik.setTracker
     # sets the tracker for the client to use
     #
-    myPiwik.setTracker = ( _tracker ="/piwik/piwik.php" ) ->
+    myPiwik.setTracker = ( _tracker = default_piwik_tracker ) ->
       __console.log("myPiwik.setTracker") if __config._debug?
       window._paq.push(['setTrackerUrl', unescape ( _tracker ) ])
       __console.log("end myPiwik.setTracker") if __config._debug?
@@ -176,6 +187,7 @@ CloudFlare.define 'piwik_analytics', [
         window._paq.push(['setDoNotTrack',false])
       # end if do_not_track
       __console.log("end myPiwik.menuOpts") if __config._debug?
+
       yes
 
     #
@@ -217,7 +229,7 @@ CloudFlare.define 'piwik_analytics', [
     # paqPush 
     #  all the configured options into the window._paq array for processing
     myPiwik.paqPush()
-    
+
     #
     # return myPiwik
     #
