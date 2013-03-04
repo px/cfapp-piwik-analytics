@@ -159,7 +159,7 @@ CloudFlare.define 'piwik_analytics', [
     # sets the tracker for the client to use
     #
     myPiwik.setTracker = ( _tracker = default_piwik_tracker ) ->
-      __console.log("myPiwik.setTracker") if __config._debug?
+      __console.log("myPiwik.setTracker="+_tracker) if __config._debug?
       window._paq.push(['setTrackerUrl', unescape ( _tracker ) ])
       __console.log("end myPiwik.setTracker") if __config._debug?
       ###
