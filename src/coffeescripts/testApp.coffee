@@ -11,7 +11,7 @@ _delay = 0.1
 
 #window.piwikConfig = window.CloudFlare[{apps.piwik_analytics}] or window.piwikConfig or 
 
-window.__piwikConfig = window.__CF.AJS.piwik_analytics or window.__piwikConfig or {}
+#window.__piwikConfig = window.__CF.AJS.piwik_analytics or window.__piwikConfig or {}
 
 
 links = """
