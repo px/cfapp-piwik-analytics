@@ -7,8 +7,6 @@ _debug = _debug || true;
 
 _delay = 0.1;
 
-window.__piwikConfig = window.__CF.AJS.piwik_analytics || window.__piwikConfig || {};
-
 links = "<!-- convert to some other file of links to utilize between the other test files. -->\n  <ul>\n    <li><a href=\"iframeTest.html\">iframe buster test</a></li>\n<li><a href='#/no-tracking' target=\"_self\" class='no-tracking'>Class 'no-tracking' No Tracking Test</a></li>\n<li><a href='https://github.com/px/cfapp-piwik-analytics/archive/master.zip' class='piwik_ignore'>File I don't want to track as a download</a> Latest master.zip </li>\n<li><a href='#/piwik_download' class='piwik_download'>Link I want to track as a download</a></li>\n<li><a href='#/piwik_link' target=\"_self\" class='piwik_link'>Link I want to track as an outlink</a></li>\n<li><a href='example_piwik_ajax.html#/' target=\"_self\" class='no-tracking'>Class 'no-tracking' example_piwik_ajax.html</a></li>\n<li><a href='#/' target=\"_self\" class='no-tracking'>Class 'no-tracking' No Tracking Test</a></li>\n<li><a href=\"javascript:window.location.reload(true)\">window.location.reload(true)</a></li>\n</ul>";
 
 myLinks = {

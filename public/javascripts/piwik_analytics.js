@@ -2,347 +2,185 @@
 /*
 * This is Miniature Hipster
 *  @name      Miniature Hipster
-*  @version   0.0.21b
+*  @version   0.0.22b
 *  @author    Rob Friedman <px@ns1.net>
 *  @url       <http://playerx.net>
 *  @license   https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt
-*  @todo      TODO: 
+*  @todo      TODO:
 *
+* vim: set tabstop=2:softtabstop=2:shiftwidth=2:noexpandtab
 */
-
-var conserr, consl, loadScript, p, _debug;
-
-p = window._pk_loaded = {
-  stuff: "stuff"
-};
 
 /*
-* simple stylized console output for my app
+# CloudFlare.push( { paths: {'piwik_analytics': 'http://labs.variablesoftware.com/test/miniature-hipster/public/javascripts/' } } );
+# CloudFlare.push( { paths: {'piwik_analytics/config': 'http://labs.variablesoftware.com/test/miniature-hipster/public/' } } );
 */
-
-
-consl = function(msg) {
-  if (msg == null) {
-    msg = "";
-  }
-  return window.console.log("_px_> " + msg);
-};
 
 /*
-* simple stylized console error output for my app
+# CloudFlare.push( { verbose:1 } );
 */
-
-
-conserr = function(msg) {
-  if (msg == null) {
-    msg = "";
-  }
-  return window.console.error("*px**> " + msg);
-};
-
-_debug = null;
-
-/*
-* loadScript(f)
-* use CloudFlare.require to load the javascript f requested
-* and then execute the callback c
-*/
-
-
-loadScript = function(f, callback) {
-  if (callback == null) {
-    callback = "";
-  }
-  if (_debug != null) {
-    consl("loadScript via CloudFlare.require( [" + f + "], " + callback(+")"));
-  }
-  return CloudFlare.require([f], callback);
-};
 
 /*
 # piwik_analytics module definition
-#
-# Requires piwik_analytics/config FIXME not true, reads from embedded
-#     CDATA from CloudFlare currently; Hopefully will fix to use param arguments
-# 
-# TODO: Debating putting logic to call for piwik.js above so that way it can be loaded
-#     sooner most likely.
-#     Figure out why ["piwik_analytics/config"] is not working
 # stick with commas for sep
+# REQUIRE:
+#  piwik.js library
+#
+#  piwik_analytics/config
+#  cloudflare/console for output to console
 */
 
-
-CloudFlare.define("piwik_analytics", function(_config) {
-  var myPiwik, _TrackerUrl, _defaultTrackerUrl;
-  if (_config == null) {
-    _config = {};
+CloudFlare.define('piwik_analytics', ['//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js', 'piwik_analytics/config', 'cloudflare/console'], function(__piwik_js, __config, __console) {
+  var default_debug, default_piwik_site_id, default_piwik_tracker, myPiwik, _isPiwik, _linkTracking, _visitorId;
+  if (__config == null) {
+    __config = {};
   }
   "use strict";
 
+  window._paq = window._paq || [];
+  if (__config._debug != null) {
+    __console.log("Hello from the Piwik CloudFlare App!");
+    __console.log("localStorage.clear() === undefined? " + (window.localStorage.clear() != null));
+  }
   myPiwik = {};
-  this._config = _config;
+  _isPiwik = false;
+  _visitorId = false;
+  _linkTracking = true;
+  default_debug = null;
+  default_piwik_tracker = "/piwik/piwik.php";
+  default_piwik_site_id = "1";
   try {
-    this._config = window.__CF.AJS.piwik_analytics;
-    this._debug = this._config._debug;
+    if (__config._debug === void 0) {
+      __config._debug = default_debug;
+      __console.log("Using test default _debug=" + default_debug);
+    }
   } catch (e) {
-    conserr(e);
-    conserr("Where is CloudFlare? window.__CF.AJS.piwik_analytics --  Enabling Debugger, and testing defaults! ");
-    this._debug = this._config._debug = true;
-    this._config.default_site_id = "1";
-    this._config.default_piwik_js = "/piwik/piwik.js";
-    this._config.default_piwik_tracker = "/piwik/piwik.php";
+    __config._debug = default_debug;
+    __console.error(e);
   }
-  if (this._config.default_site_id === void 0 || this._config.default_site_id === null) {
-    this._config.default_site_id = "1";
+  try {
+    if (__config.piwik_tracker === void 0) {
+      __config.piwik_tracker = default_piwik_tracker;
+      __console.log("Using test default TrackerUrl=" + default_piwik_tracker);
+    }
+  } catch (e) {
+    __config.piwik_tracker = default_piwik_tracker;
+    __console.error(e);
   }
-  if (this._config.default_piwik_js === void 0 || this._config.default_piwik_js === null) {
-    this._config.default_piwik_js = "/piwik/piwik.js";
+  try {
+    if (__config.site_id === void 0) {
+      __config.site_id = default_piwik_site_id;
+      __console.log("Using test default SiteId=" + default_piwik_site_id);
+    }
+  } catch (e) {
+    __config.site_id = default_piwik_site_id;
+    __console.error(e);
   }
-  if (this._config.default_piwik_tracker === void 0 || this._config.default_piwik_tracker === null) {
-    this._config.default_piwik_tracker = "/piwik/piwik.php";
-  }
-  /* because sometimes a minor delay is needed, in seconds.
-  * FIXME because I'm sure we can do without.
-  */
-
-  if ((this._debug != null)) {
-    consl("Hello from the Piwik CloudFlare App! Object?->" + this._config);
-    consl("window.localStorage.clear() === undefined? " + (window.localStorage.clear() != null));
-  }
-  /*
-    # myPiwik.isPiwik()
-    * pushes a request for the Piwik VisitorId generated once piwik.js executes
-    * performs a rudimentary test to see if the piwik.js loads
-    * if it does, then it will return a yes, other no
-    *
-  */
-
   myPiwik.isPiwik = function() {
     window._paq.push([
       function() {
-        return window._isPiwik = true;
+        return _isPiwik = true;
       }
     ]);
-    return window._isPiwik;
+    return _isPiwik;
   };
   myPiwik.getVisitorId = function() {
     window._paq.push([
       function() {
-        window._pk_visitor_id = this.getVisitorId();
-        if (_debug != null) {
-          return consl("piwik.js is loaded, window._pk_visitor_id=" + window._pk_visitor_id);
+        _visitorId = this.getVisitorId();
+        if (__config._debug != null) {
+          __console.log("_visitorId=" + _visitorId);
         }
+        return _visitorId;
       }
     ]);
-    return window._pk_visitor_id;
+    return _visitorId;
   };
-  /*
-  * myPiwik.activate( _config = {} )
-  * TODO: break this into three different methods
-  *         one; which determines the tracking library URL to load
-  *         two; determines a valid SiteId
-  *         three; another which determines a valid TrackerURL
-  * This will currently:
-  *     fixup a missing siteId to be id=1
-  *     determine how to load and activate the piwik.js from desired location
-  *     FIXME; will not fixup the tracker url for missing scheme on file:// url locations
-  */
-
-  myPiwik.activate = function(_config) {
-    if (_config == null) {
-      _config = {};
-    }
-    if (_debug != null) {
-      consl("myPiwik.activate() started");
-    }
-    window._paq = window._paq || [];
-    activate.__super__.constructor.apply(this, arguments).getVisitorId();
-    try {
-      this._config = window.__CF.AJS.piwik_analytics;
-      _debug = _config._debug;
-    } catch (e) {
-      conserr(e);
-      conserr("Where is CloudFlare? window.__CF.AJS.piwik_analytics --  Enabling Debugger, and testing defaults! ");
-      this._config = {};
-      _debug = this._config._debug = true;
-      this._config.default_site_id = "1";
-      this._config.default_piwik_js = "/piwik/piwik.js";
-      this._config.default_piwik_tracker = "/piwik/piwik.php";
-    }
-    if (this._config.default_site_id === void 0 || this._config.default_site_id === null) {
-      this._config.default_site_id = "1";
-    }
-    if (this._config.default_piwik_js === void 0 || this._config.default_piwik_js === null) {
-      this._config.default_piwik_js = "/piwik/piwik.js";
-    }
-    if (this._config.default_piwik_tracker === void 0 || this._config.default_piwik_tracker === null) {
-      this._config.default_piwik_tracker = "/piwik/piwik.php";
-    }
-    if (_debug != null) {
-      consl("myPiwik.activate() completed");
-    }
-    return true;
-  };
-  myPiwik.library(function(_js, use_cdnjs) {
-    var cdnjs_pk, default_js;
-    if (_js == null) {
-      _js = "";
-    }
-    if (use_cdnjs == null) {
-      use_cdnjs = null;
-    }
-    use_cdnjs = use_cdnjs != null ? use_cdnjs : null;
-    default_js = "/piwik/piwik.js";
-    cdnjs_pk = "//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js";
-    if ((_js !== "") && (use_cdnjs === null)) {
-      if (_debug != null) {
-        consl("Using configured _js=" + _js);
-      }
-    } else if (use_cdnjs === "true" || _js === "") {
-      if (_debug != null) {
-        consl("Using use_cdnjs is enabled; " + cdnjs_pk);
-      }
-      _js = cdnjs_pk;
-    } else {
-      if (_debug != null) {
-        conserr("Using Failsafe _js=" + _js);
-      }
-      _js = default_js;
-    }
-    CloudFlare.require([_js]);
-    return _js;
-  });
-  /*
-  * myPiwik.setSiteId() 
-  *   checks for a null value, not a number, and assign's SiteId to default
-  */
-
-  myPiwik.setSiteId(function(_SiteId, _defaultSiteId) {
+  myPiwik.setSiteId = function(_SiteId, _defaultSiteId) {
     if (_SiteId == null) {
       _SiteId = "1";
     }
     if (_defaultSiteId == null) {
       _defaultSiteId = "1";
     }
+    if (__config._debug != null) {
+      __console.log("myPiwik.setSiteId");
+    }
     if (!isNaN(_SiteId)) {
-      if (_debug != null) {
-        consl("Using _SiteId=" + _SiteId);
-      }
-    } else if (_debug != null) {
-      _SiteId = _defaultSiteId;
-      conserr("Invalid SiteId=" + _SiteId + " ; defaulting to " + _defaultSiteId);
-    }
-    return _defaultSiteId;
-  });
-  myPiwik.setTrackerUrl(_TrackerUrl = "", _defaultTrackerUrl = "/piwik/piwik.php")(function() {
-    var _piwik_tracker;
-    if (!(_TrackerUrl === "")) {
-      return _TrackerUrl;
-    }
-    _piwik_tracker = _config.default_piwik_tracker || "/piwik/piwik.php";
-    if (_config.piwik_tracker === null || _config.piwik_tracker === void 0) {
-      if (_debug != null) {
-        conserr("Invalid piwik_tracker using default=" + _piwik_tracker);
+      if (__config._debug != null) {
+        __console.log("Using _SiteId=" + _SiteId);
       }
     } else {
-      if (_debug != null) {
-        consl("Using configured piwik_tracker=" + _config.piwik_tracker);
+      if (__config._debug != null) {
+        __console.error("Invalid SiteId=" + _SiteId + " ; defaulting to " + _defaultSiteId);
       }
-      _piwik_tracker = _config.piwik_tracker;
+      _SiteId = _defaultSideId;
     }
-    return _config.piwik_tracker = unescape(_piwik_tracker);
-  });
-  /*
-  * myPiwik.paqPush()
-  *   take options from a Piwik configuration
-  *     We could have multiple trackers someday! TODO
-  *     It's easy, just not supported in this App.
-  *   push our Piwik options into the window._paq array
-  *   send a trackPageView to the TrackerUrl
-  */
+    window._paq.push(['setSiteId', unescape(_SiteId)]);
+    if (__config._debug != null) {
+      __console.log("end myPiwik.setSiteId");
+    }
+    return _SiteId;
+  };
+  myPiwik.setTracker = function(_tracker) {
+    if (_tracker == null) {
+      _tracker = "/piwik/piwik.php";
+    }
+    if (__config._debug != null) {
+      __console.log("myPiwik.setTracker");
+    }
+    window._paq.push(['setTrackerUrl', unescape(_tracker)]);
+    if (__config._debug != null) {
+      __console.log("end myPiwik.setTracker");
+    }
+    /*
+          #return _tracker
+    */
 
-  myPiwik.paqPush = function(_config) {
-    if (_debug != null) {
-      consl("myPiwik.paqPush()");
+    return _tracker;
+  };
+  myPiwik.menuOpts = function() {
+    if (__config._debug != null) {
+      __console.log("myPiwik.menuOpts");
     }
-    window._paq = window._paq || [];
-    window._paq.push(['setSiteId', unescape(_config.site_id)]);
-    window._paq.push(['setTrackerUrl', unescape(_config.piwik_tracker)]);
-    if (_config.link_tracking === "true" || _config.link_tracking === void 0) {
+    if (__config.link_tracking === "true" || __config.link_tracking === void 0) {
       window._paq.push(['enableLinkTracking', true]);
     } else {
       window._paq.push(['enableLinkTracking', false]);
     }
-    if (_config.set_obey_do_not_track === "true" || _config.set_obey_do_not_track === void 0) {
+    if (__config.set_obey_do_not_track === "true" || __config.set_obey_do_not_track === void 0) {
       window._paq.push(['setDoNotTrack', true]);
     } else {
       window._paq.push(['setDoNotTrack', false]);
     }
-    if ((!_config.paq_push) && (_config.paq_push !== void 0) && (_config.paq_push !== "")) {
-      window._paq.push(_config.paq_push);
+    if (__config._debug != null) {
+      __console.log("end myPiwik.menuOpts");
+    }
+    return true;
+  };
+  myPiwik.paqPush = function() {
+    if (__config._debug != null) {
+      __console.log("myPiwik.paqPush()");
+    }
+    window._paq = window._paq || [];
+    myPiwik.setSiteId(__config.site_id, __config.default_site_id);
+    myPiwik.setTracker(__config.piwik_tracker);
+    myPiwik.menuOpts();
+    if ((!__config.paq_push) && (__config.paq_push !== void 0) && (__config.paq_push !== "")) {
+      window._paq.push(__config.paq_push);
     }
     window._paq.push(['trackPageView']);
-    if (_debug) {
-      consl("paqPush() finished ok! _paq=" + window._paq);
+    if (__config._debug != null) {
+      __console.log("paqPush() finished ok! _paq=" + window._paq);
     }
     return window._paq;
   };
-  /*
-  * noScript()
-  * this is kind of a waste as it will never get run if javascript is not enabled
-  */
-
-  myPiwik.noScript = function() {
-    var cursor, script, test_site;
-    if (_debug) {
-      consl("myPiwik.noScript()");
-    }
-    test_site = fixScheme(unescape(_config.piwik_tracker));
-    test_site += "?id=" + _config.site_id + "&amp;rec=1";
-    if (_debug) {
-      consl("noScript| test_site=" + test_site);
-    }
-    script = document.createElement("noscript");
-    cursor = document.getElementsByTagName("script", true)[0];
-    cursor.parentNode.insertBefore(script, cursor);
-    return true;
-  };
-  /*
-  * do stuff to get the party started
-  */
-
-  myPiwik.activate();
+  myPiwik.getVisitorId();
   myPiwik.paqPush();
-  /*
-  * instantiate and configure a new instance of Piwik module when it is returned
-  * Something like below
-  * # myPiwik = new Piwik(_config)
-  */
-
   return myPiwik;
 });
 
 /*
-* Require our piwik_analytics module to be loaded, and our configuration.
+#end myPiwik module
 */
 
-
-window._pk_loaded = CloudFlare.require(["piwik_analytics"], function(_config) {
-  return true;
-});
-
-/*
-* CloudFlare has .then methods for performing other actions once a module has been required.
-* We're not using them, but they're here.
-*/
-
-
-window._pk_loaded.then(function() {
-  return modules({
-    modules: modules
-  }, function() {
-    return error({
-      console: console
-    });
-  });
-});
