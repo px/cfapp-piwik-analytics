@@ -1,7 +1,7 @@
 ###
 * This is Miniature Hipster
 *  @name      Miniature Hipster
-*  @version   0.0.22b
+*  @version   0.0.23b
 *  @author    Rob Friedman <px@ns1.net>
 *  @url       <http://playerx.net>
 *  @license   https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt
@@ -176,7 +176,7 @@ CloudFlare.define 'piwik_analytics', [
 
       # determine if tracking-all-subdomains is enabled -- FIXME
       if ( __config.tracking-all-subdomains is "true" or __.tracking-all-subdomains is undefined )
-        wildcardZone="*"+".example.com"
+        wildcardZone="*"+".example.com" ## FIXME
         window._paq.push(["setCookieDomain", wildcardZone])
       # end if tracking all subdomains
       
@@ -193,6 +193,7 @@ CloudFlare.define 'piwik_analytics', [
       else
         window._paq.push(['setDoNotTrack',false])
       # end if do_not_track
+
       __console.log("end myPiwik.menuOpts") if __config._debug?
 
       yes
