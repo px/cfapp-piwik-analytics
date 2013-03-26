@@ -29,7 +29,7 @@
 ###
 
 CloudFlare.define 'piwik_analytics', [
-  '//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js',
+  '//cdnjs.cloudflare.com/ajax/libs/piwik/1.11.1/piwik.js',
     'piwik_analytics/config',
     'cloudflare/console'
 ],
@@ -174,7 +174,7 @@ CloudFlare.define 'piwik_analytics', [
     myPiwik.menuOpts = ->
       __console.log("myPiwik.menuOpts") if __config._debug?
 
-      # determine if tracking-all-subdomains is enabled
+      # determine if tracking-all-subdomains is enabled -- FIXME
       if ( __config.tracking-all-subdomains is "true" or __.tracking-all-subdomains is undefined )
         wildcardZone="*"+".example.com"
         window._paq.push(["setCookieDomain", wildcardZone])
