@@ -173,6 +173,13 @@ CloudFlare.define 'piwik_analytics', [
     #
     myPiwik.menuOpts = ->
       __console.log("myPiwik.menuOpts") if __config._debug?
+
+      # determine if tracking-all-subdomains is enabled
+      if ( __config.tracking-all-subdomains is "true" or __.tracking-all-subdomains is undefined )
+        wildcardZone="*"+".example.com"
+        window._paq.push(["setCookieDomain", wildcardZone])
+      # end if tracking all subdomains
+      
       # determine if LinkTracking is enabled, default to enable if undefined
       if ( __config.link_tracking is "true" or __config.link_tracking is undefined )
         window._paq.push(['enableLinkTracking',true])
@@ -181,7 +188,7 @@ CloudFlare.define 'piwik_analytics', [
       # end if link_tracking
 
       # determine if DoNotTrack is enabled, default to obey if undefined
-      if ( __config.set_obey_do_not_track is "true" or __config.set_obey_do_not_track is undefined )
+      if ( __config.tracking-do-not-track is "true" or __config.tracking-do-not-track is undefined )
         window._paq.push(['setDoNotTrack',true])
       else
         window._paq.push(['setDoNotTrack',false])
