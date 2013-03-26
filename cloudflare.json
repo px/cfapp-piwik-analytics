@@ -1,5 +1,5 @@
 {
-  "category": "webmaster",
+  "category": "analytics",
   "config": {
     "assets": {
       "detail_page": [
@@ -71,14 +71,14 @@
         "name": "default piwik.js location ",
         "description": "A piwik.js URL schemeless '//' or 'http://' or 'https://'.<br/> Leaving this empty will possibly break stuff so be sure this url is valid! Prefer to use latest piwik.js from cdnjs.com, you're welcome.",
         "type": "hidden",
-        "value": "//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"
+        "value": "//cdnjs.cloudflare.com/ajax/libs/piwik/1.11.1/piwik.js"
       },
       {
         "id": "piwik_js",
         "name": "piwik.js location ",
         "description": "A piwik.js URL schemeless '//' or 'http://' or 'https://'.<br/> Leaving this empty will default to use piwik.js from cdnjs.com or from '/piwik/piwik.js'",
         "type": "string",
-        "value": "https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"
+        "value": "https://cdnjs.cloudflare.com/ajax/libs/piwik/1.11.1/piwik.js"
       },
       {
         "id": "link_tracking",
