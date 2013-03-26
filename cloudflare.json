@@ -188,5 +188,5 @@
     "url": "https://github.com/px/cfapp-piwik-analytics.git"
   },
   "scripts": {"./public/javascripts/piwik.js"},
-  "version": "0.0.22b"
+  "version": "0.0.23b"
 }
