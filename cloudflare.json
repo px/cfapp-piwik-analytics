@@ -4,10 +4,10 @@
     "assets": {
       "detail_page": [
         "./public/images/piwik_analytics_screenshot_1.png"
-        ],
+      ],
       "images": [
         "./public/images/piwik_analytics.png"
-        ],
+      ],
       "logos": {
         "132px": "./public/images/logo-132.png",
         "200px": "./public/images/logo-200.png"
@@ -16,146 +16,177 @@
     "details": {
       "Category": "Analytics",
       "Language": "English, <a href='#languages'>more coming soon</a>.",
+      "Piwik": "",
+      "Price": "Free",
       "Restrictions": "This application is open source licensed, <a href='https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt'>BSD-2 Clause</a>.",
-      "Price":"Free",
-      "Piwik":"",
       "playerx.net": "<a href='http://playerx.net/' target='_blank'>Rob Friedman</a>"
     },
     "interface": [
-    {
-      "id": "site_id",
-      "name": "SiteId ",
-      "description": "SiteId to be tracked, otherwise it will default to use <b>'1'</b>",
-      "type": "string",
-      "value": "1"
-    },
-    {
-      "id": "default_site_id",
-      "name": "default SiteId ",
-      "description": "set a possibly sane default SiteId",
-      "type": "hidden",
-      "value": "1"
-    },
-    {
-      "id": "piwik_tracker",
-      "name": "Tracker URL (REQUIRED)",
-      "description": "A receiver URL 'https://'. Should be utilizing SSL for security purposes but using a schemeless URL '//host.tld' is valid also. Leaving empty will use '/piwik/piwik.php' ",
-      "type": "string",
-      "value": "/piwik/piwik.php"
-    },
-    {
-      "id": "default_piwik_tracker",
-      "name": "Default Tracker URL (REQUIRED)",
-      "description": "A default receiver URL 'https://'. Should be utilizing SSL for security purposes but using a schemeless URL '//host.tld' is valid also.",
-      "type": "hidden",
-      "value": "/piwik/piwik.php"
-    },
-    {
-      "id": "use_cdnjs",
-      "type": "select",
-      "name": "Use cdnjs?",
-      "description": "Try using <a href=\"https://cdnjs.com/#piwik\">cdnjs</a> for quickly serving the latest 'piwik.js' library to your visitors?",
-      "options": [
       {
-        "label": "No.",
-        "value": null
+        "id": "site_id",
+        "name": "SiteId ",
+        "description": "SiteId to be tracked, otherwise it will default to use <b>'1'</b>",
+        "type": "string",
+        "value": "1"
       },
       {
-        "label": "Yes!",
-        "value": true
-      }
-      ]
-    },
-    {
-      "id": "default_piwik_js",
-      "name": "default piwik.js location ",
-      "description": "A piwik.js URL schemeless '//' or 'http://' or 'https://'.<br/> Leaving this empty will possibly break stuff so be sure this url is valid! Prefer to use latest piwik.js from cdnjs.com, you're welcome.",
-      "type": "hidden",
-      "value": "//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"
-    },
-    {
-      "id": "piwik_js",
-      "name": "piwik.js location ",
-      "description": "A piwik.js URL schemeless '//' or 'http://' or 'https://'.<br/> Leaving this empty will default to use piwik.js from cdnjs.com or from '/piwik/piwik.js'",
-      "type": "string",
-      "value": "https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"
-    },
-    {
-      "id": "link_tracking",
-      "name": "Link Tracking",
-      "description": "You should want this to be enabled as it is by default.<br/> Equivalent to \"_paq.push(['enableLinkTracking',true]);\"",
-      "type": "select",
-      "options": [
-      {
-        "label": "Disable Link Tracking",
-        "value": null
+        "id": "default_site_id",
+        "name": "default SiteId ",
+        "description": "set a possibly sane default SiteId",
+        "type": "hidden",
+        "value": "1"
       },
       {
-        "label": "Enable Link Tracking",
-        "value": true
-      }
-      ]
-    },
-    {
-      "id": "set_obey_do_not_track",
-      "name": "Whether or not to obey the browser do not track.",
-      "description": "Enable or disable obeying browser do not track options. Equivalent to \"_paq.push(['setDoNotTrack',true]);\"",
-      "type": "select",
-      "options": [
-      {
-        "label": "No, Track ALL THE VISITORS.",
-        "value": null
+        "id": "piwik_tracker",
+        "name": "Tracker URL (REQUIRED)",
+        "description": "A receiver URL 'https://'. Should be utilizing SSL for security purposes but using a schemeless URL '//host.tld' is valid also. Leaving empty will use '/piwik/piwik.php' ",
+        "type": "string",
+        "value": "/piwik/piwik.php"
       },
       {
-        "label": "Yes, Obey the Browser!",
-        "value": true
-      }
-      ]
-    },
-    {
-      "id": "_debug",
-      "name": "Debugger",
-      "description": "Enable or disable the logging, and errors debug output to the Javascript console. Leave this disabled unless you are having issues and would like to know more.",
-      "type": "select",
-      "options": [
-      {
-        "label": "Disable",
-        "value": null
+        "id": "default_piwik_tracker",
+        "name": "Default Tracker URL (REQUIRED)",
+        "description": "A default receiver URL 'https://'. Should be utilizing SSL for security purposes but using a schemeless URL '//host.tld' is valid also.",
+        "type": "hidden",
+        "value": "/piwik/piwik.php"
       },
       {
-        "label": "Enable",
-        "value": true
+        "id": "use_cdnjs",
+        "type": "select",
+        "name": "Use cdnjs?",
+        "description": "Try using <a href=\"https://cdnjs.com/#piwik\">cdnjs</a> for quickly serving the latest 'piwik.js' library to your visitors?",
+        "options": [
+          {
+            "label": "No.",
+            "value": null
+          },
+          {
+            "label": "Yes!",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "default_piwik_js",
+        "name": "default piwik.js location ",
+        "description": "A piwik.js URL schemeless '//' or 'http://' or 'https://'.<br/> Leaving this empty will possibly break stuff so be sure this url is valid! Prefer to use latest piwik.js from cdnjs.com, you're welcome.",
+        "type": "hidden",
+        "value": "//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"
+      },
+      {
+        "id": "piwik_js",
+        "name": "piwik.js location ",
+        "description": "A piwik.js URL schemeless '//' or 'http://' or 'https://'.<br/> Leaving this empty will default to use piwik.js from cdnjs.com or from '/piwik/piwik.js'",
+        "type": "string",
+        "value": "https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"
+      },
+      {
+        "id": "link_tracking",
+        "name": "Link Tracking",
+        "description": "You should want this to be enabled as it is by default.<br/> Equivalent to \"_paq.push(['enableLinkTracking',true]);\"",
+        "type": "select",
+        "options": [
+          {
+            "label": "Disable Link Tracking",
+            "value": null
+          },
+          {
+            "label": "Enable Link Tracking",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "tracking-all-subdomains",
+        "name": "Track visitors across all subdomains",
+        "description": "So if one visitor visits x.example.com and y.example.com, they will be counted as a unique visitor.<br/> Equivalent to \"_paq.push([\"setCookieDomain\", \"*.example.com\"]);\"",
+        "type": "select",
+        "options": [
+          {
+            "label": "Disable",
+            "value": null
+          },
+          {
+            "label": "Enable",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "tracking-group-by-domain",
+        "name": "Prepend the site domain to the page title when tracking",
+        "description": "So if someone visits the 'About' page on blog.<span class='current-site-host'>example.com</span> it will be recorded as 'blog / About'. This is the easiest way to get an overview of your traffic by sub-domain.",
+        "type": "string",
+        "value": "document.domain + '/' + document.title"
+      },
+      {
+        "id": "tracking-all-aliases",
+        "name": "In the \"Outlinks\" report, hide clicks to known alias URLs",
+        "description": "So clicks on links to Alias URLs (eg. http://*.example.com) will not be counted as \"Outlink\".",
+        "type": "string",
+        "value": " [\"*.piwik.example.com\",\"*.p-ssl.example.com\",\"*.p.example.com\",\"*.piwik-ssl.example.com\"]"
+      },
+      {
+        "id": "tracking-do-not-track",
+        "name": "Enable client side DoNotTrack detection.",
+        "description": "So tracking requests will not be sent if visitors do not wish to be tracked. Note: Server side DoNotTrack support has been enabled, so this option will have no effect.",
+        "type": "select",
+        "options": [
+          {
+            "label": "Disable",
+            "value": null
+          },
+          {
+            "label": "Enable",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "_debug",
+        "name": "Debugger",
+        "description": "Enable or disable the logging, and errors debug output to the Javascript console. Leave this disabled unless you are having issues and would like to know more.",
+        "type": "select",
+        "options": [
+          {
+            "label": "Disable",
+            "value": null
+          },
+          {
+            "label": "Enable",
+            "value": true
+          }
+        ]
       }
-      ]
-    }
-  ]},
+    ]
+  },
   "contributors": [
-  {
-    "name": "Rob Friedman",
-    "email": "px@ns1.net"
-  }
+    {
+      "name": "Rob Friedman",
+      "email": "px@ns1.net"
+    }
   ],
-    "dependencies": {},
-    "description": "Codename: Miniature Hipster. A Piwik Analytics CloudFlare application that helps speed things up. Click <b>\"Setup\"</b> to modify your tracking options</a>",
-    "implements": "AMD",
-    "keywords": [
-      "webmaster",
+  "dependencies": {},
+  "description": "Codename: Miniature Hipster. A Piwik Analytics CloudFlare application that helps speed things up. Click <b>\"Setup\"</b> to modify your tracking options</a>",
+  "implements": "AMD",
+  "keywords": [
+    "webmaster",
     "analytics",
     "tracking",
     "websites"
-      ],
-    "licenses": [
+  ],
+  "licenses": [
     {
       "type": "BSD-2-Clause",
       "url": "https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt"
     }
   ],
-    "main": "./public/javascripts/piwik_analytics.js",
-    "name": "Piwik Analytics",
-    "repository": {
-      "type": "git",
-      "url": "https://github.com/px/cfapp-piwik-analytics.git"
-    },
-    "scripts": {},
-    "version": "0.0.22b"
+  "main": "./public/javascripts/piwik_analytics.js",
+  "name": "Piwik Analytics",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/px/cfapp-piwik-analytics.git"
+  },
+  "scripts": {},
+  "version": "0.0.22b"
 }
