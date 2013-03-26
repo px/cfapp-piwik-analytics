@@ -2,7 +2,7 @@
 /*
 * This is Miniature Hipster
 *  @name      Miniature Hipster
-*  @version   0.0.22b
+*  @version   0.0.24b
 *  @author    Rob Friedman <px@ns1.net>
 *  @url       <http://playerx.net>
 *  @license   https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt
@@ -29,7 +29,7 @@
 #  cloudflare/console for output to console
 */
 
-CloudFlare.define('piwik_analytics', ['//cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js', 'piwik_analytics/config', 'cloudflare/console'], function(__piwik_js, __config, __console) {
+CloudFlare.define('piwik_analytics', ['//cdnjs.cloudflare.com/ajax/libs/piwik/1.11.1/piwik.js', 'piwik_analytics/config', 'cloudflare/console'], function(__piwik_js, __config, __console) {
   var default_debug, default_piwik_site_id, default_piwik_tracker, myPiwik, _isPiwik, _linkTracking, _visitorId;
   if (__config == null) {
     __config = {};
@@ -142,15 +142,20 @@ CloudFlare.define('piwik_analytics', ['//cdnjs.cloudflare.com/ajax/libs/piwik/1.
     return _tracker;
   };
   myPiwik.menuOpts = function() {
+    var wildcardZone;
     if (__config._debug != null) {
       __console.log("myPiwik.menuOpts");
+    }
+    if (__config.tracking - all - subdomains === "true" || __.tracking - all - subdomains === void 0) {
+      wildcardZone = "*" + ".example.com";
+      window._paq.push(["setCookieDomain", wildcardZone]);
     }
     if (__config.link_tracking === "true" || __config.link_tracking === void 0) {
       window._paq.push(['enableLinkTracking', true]);
     } else {
       window._paq.push(['enableLinkTracking', false]);
     }
-    if (__config.set_obey_do_not_track === "true" || __config.set_obey_do_not_track === void 0) {
+    if (__config.tracking - (-(!-track))() === "true" || __config.tracking - (-(!-track))() === void 0) {
       window._paq.push(['setDoNotTrack', true]);
     } else {
       window._paq.push(['setDoNotTrack', false]);
