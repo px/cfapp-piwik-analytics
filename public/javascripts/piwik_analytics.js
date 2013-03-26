@@ -129,7 +129,7 @@ CloudFlare.define('piwik_analytics', ['//cdnjs.cloudflare.com/ajax/libs/piwik/1.
       _tracker = default_piwik_tracker;
     }
     if (__config._debug != null) {
-      __console.log("myPiwik.setTracker");
+      __console.log("myPiwik.setTracker=" + _tracker);
     }
     window._paq.push(['setTrackerUrl', unescape(_tracker)]);
     if (__config._debug != null) {
