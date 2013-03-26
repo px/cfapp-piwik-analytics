@@ -25,7 +25,7 @@
       {
         "id": "site_id",
         "name": "SiteId ",
-        "description": "SiteId to be tracked, otherwise it will default to use <b>'1'</b>",
+        "description": "SiteId to be tracked, otherwise it will default to use '1'.",
         "type": "string",
         "value": "1"
       },
@@ -77,7 +77,7 @@
         "id": "piwik_js",
         "name": "piwik.js location ",
         "description": "A piwik.js URL schemeless '//' or 'http://' or 'https://'.<br/> Leaving this empty will default to use piwik.js from cdnjs.com or from '/piwik/piwik.js'",
-        "type": "string",
+        "type": "hidden",
         "value": "https://cdnjs.cloudflare.com/ajax/libs/piwik/1.11.1/piwik.js"
       },
       {
@@ -167,7 +167,7 @@
     }
   ],
   "dependencies": {},
-  "description": "Codename: Miniature Hipster. A Piwik Analytics CloudFlare application that helps speed things up. Click <b>\"Setup\"</b> to modify your tracking options</a>",
+  "description": "Codename: Miniature Hipster. A Piwik Analytics CloudFlare application that helps speed things up. Click <b>\"Setup\"</b> to modify your tracking options</a>. Be sure to click <b>\"Update\"</b> to save after modifying.",
   "implements": "AMD",
   "keywords": [
     "webmaster",
