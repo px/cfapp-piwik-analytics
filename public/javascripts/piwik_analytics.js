@@ -2,7 +2,7 @@
 /*
 * This is Miniature Hipster
 *  @name      Miniature Hipster
-*  @version   0.0.24b
+*  @version   0.0.25b
 *  @author    Rob Friedman <px@ns1.net>
 *  @url       <http://playerx.net>
 *  @license   https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt
@@ -28,6 +28,10 @@
 #   -- defaults to {} and will assign test defaults
 #  cloudflare/console for output to console
 */
+
+var perfNow;
+
+perfNow = window.performance.now();
 
 CloudFlare.define('piwik_analytics', ['//cdnjs.cloudflare.com/ajax/libs/piwik/1.11.1/piwik.js', 'piwik_analytics/config', 'cloudflare/console'], function(__piwik_js, __config, __console) {
   var default_debug, default_piwik_site_id, default_piwik_tracker, myPiwik, _isPiwik, _linkTracking, _visitorId;
@@ -184,6 +188,8 @@ CloudFlare.define('piwik_analytics', ['//cdnjs.cloudflare.com/ajax/libs/piwik/1.
   };
   myPiwik.getVisitorId();
   myPiwik.paqPush();
+  window.console.log("Load time in milliseconds =");
+  window.console.log(window.performance.now() - perfNow);
   return myPiwik;
 });
 
