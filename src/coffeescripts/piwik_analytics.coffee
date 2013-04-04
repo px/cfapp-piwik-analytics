@@ -1,7 +1,7 @@
 ###
 * This is Miniature Hipster
 *  @name      Miniature Hipster
-*  @version   0.0.24b
+*  @version   0.0.25b
 *  @author    Rob Friedman <px@ns1.net>
 *  @url       <http://playerx.net>
 *  @license   https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt
@@ -27,6 +27,10 @@
 #   -- defaults to {} and will assign test defaults
 #  cloudflare/console for output to console
 ###
+#
+
+# set the performance timer
+perfNow=window.performance.now()
 
 CloudFlare.define 'piwik_analytics', [
   '//cdnjs.cloudflare.com/ajax/libs/piwik/1.11.1/piwik.js',
@@ -78,7 +82,7 @@ CloudFlare.define 'piwik_analytics', [
       __config.piwik_tracker = default_piwik_tracker
       __console.error(e)
 
-    # try to read the site_id otherwise set to default id   
+    # try to read the site_id otherwise set to default id
     try
       if __config.site_id is undefined
         __config.site_id = default_piwik_site_id
@@ -237,6 +241,9 @@ CloudFlare.define 'piwik_analytics', [
     # paqPush 
     #  all the configured options into the window._paq array for processing
     myPiwik.paqPush()
+
+    window.console.log("Load time in milliseconds =")
+    window.console.log(window.performance.now() - perfNow)
 
     #
     # return myPiwik
