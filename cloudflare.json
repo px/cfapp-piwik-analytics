@@ -24,8 +24,8 @@
     "interface": [
       {
         "id": "site_id",
-        "name": "SiteId ",
-        "description": "SiteId to be tracked, otherwise it will default to use '1'.",
+        "name": "Website Id",
+        "description": "Website Id to be tracked, otherwise it will default to use '1'.",
         "type": "string",
         "value": "1"
       },
@@ -53,7 +53,7 @@
       {
         "id": "use_cdnjs",
         "type": "select",
-        "name": "Use cdnjs?",
+        "name": "*DISABLED* Use cdnjs?",
         "description": "Try using <a href=\"https://cdnjs.com/#piwik\">cdnjs</a> for quickly serving the latest 'piwik.js' library to your visitors?",
         "options": [
           {
@@ -190,5 +190,5 @@
   "scripts": {
     "piwik_js": "./public/javascripts/piwik.js"
   },
-  "version": "0.0.24b"
+  "version": "0.0.25b"
 }
