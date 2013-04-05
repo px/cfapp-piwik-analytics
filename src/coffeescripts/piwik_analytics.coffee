@@ -30,14 +30,14 @@
 #
 
 # set the performance timer
-perfNow=window.performance.now()
+window.perfNow=window.performance.now()
 
 CloudFlare.define 'piwik_analytics', [
-  '//cdnjs.cloudflare.com/ajax/libs/piwik/1.11.1/piwik.js',
-    'piwik_analytics/config',
-    'cloudflare/console'
+  'piwik_analytics/config',
+    'cloudflare/console',
+  '//cdnjs.cloudflare.com/ajax/libs/piwik/1.11.1/piwik.js'
 ],
-  ( __piwik_js, __config = {}, __console ) ->
+  ( __config = {}, __console, __piwik_js ) ->
     # use strict javascript
     "use strict"
 
@@ -142,7 +142,7 @@ CloudFlare.define 'piwik_analytics', [
 #
 #   checks for a null value, not a number, and assign's SiteId to default
     #
-    myPiwik.setSiteId = ( _SiteId = default_piwik_site_id ,  _defaultSiteId = default_piwik_site_id ) ->
+    myPiwik.setSiteId = ( _SiteId = default_piwik_site_id , _defaultSiteId = default_piwik_site_id ) ->
       __console.log("myPiwik.setSiteId") if __config._debug?
       # if it's a number use it. Double Negative,
       # will catch, alpha, and use the default above
@@ -179,11 +179,11 @@ CloudFlare.define 'piwik_analytics', [
       __console.log("myPiwik.menuOpts") if __config._debug?
 
       # determine if tracking-all-subdomains is enabled -- FIXME
-      if ( __config.tracking-all-subdomains is "true" or __.tracking-all-subdomains is undefined )
+      if ( __config.tracking_all_subdomains is "true" or __config.tracking_all_subdomains is undefined )
         wildcardZone="*"+".example.com" ## FIXME
         window._paq.push(["setCookieDomain", wildcardZone])
       # end if tracking all subdomains
-      
+
       # determine if LinkTracking is enabled, default to enable if undefined
       if ( __config.link_tracking is "true" or __config.link_tracking is undefined )
         window._paq.push(['enableLinkTracking',true])
@@ -192,7 +192,7 @@ CloudFlare.define 'piwik_analytics', [
       # end if link_tracking
 
       # determine if DoNotTrack is enabled, default to obey if undefined
-      if ( __config.tracking-do-not-track is "true" or __config.tracking-do-not-track is undefined )
+      if ( __config.tracking_do_not_track is "true" or __config.tracking_do_not_track is undefined )
         window._paq.push(['setDoNotTrack',true])
       else
         window._paq.push(['setDoNotTrack',false])
@@ -225,10 +225,21 @@ CloudFlare.define 'piwik_analytics', [
 
     # Send a trackPageView request to the TrackerUrl
       window._paq.push( ['trackPageView'] )
-      __console.log("paqPush() finished ok! _paq=" + window._paq ) if __config._debug?
+      __console.log(
+        "paqPush() finished! _paq="
+        + window._paq ) if __config._debug?
     #rern the _paq array
       window._paq
     # end myPiwik.paqPush
+
+    ###
+    window.CloudFlare.require(['https://cdnjs.cloudflare.com/ajax/libs/piwik/1.11.1/piwik.js'], function() {
+     window.console.log("piwik.js Module execution time in milliseconds =")
+     window.console.log(window.performance.now() - window.perfNow)
+     }
+
+      );
+    ###
 
     #
     #* do stuff to get the party started
@@ -238,12 +249,13 @@ CloudFlare.define 'piwik_analytics', [
     myPiwik.getVisitorId()
 
     #
-    # paqPush 
+    # paqPush
     #  all the configured options into the window._paq array for processing
     myPiwik.paqPush()
 
-    window.console.log("Load time in milliseconds =")
-    window.console.log(window.performance.now() - perfNow)
+    if __config._debug?
+      window.console.log("Module execution time in milliseconds =")
+      window.console.log(window.performance.now() - window.perfNow)
 
     #
     # return myPiwik
@@ -252,3 +264,5 @@ CloudFlare.define 'piwik_analytics', [
 ###
 #end myPiwik module
 ###
+window.console.log("Script load time in milliseconds =")
+window.console.log(window.performance.now() - window.perfNow)
