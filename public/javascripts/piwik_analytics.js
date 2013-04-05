@@ -29,11 +29,9 @@
 #  cloudflare/console for output to console
 */
 
-var perfNow;
+window.perfNow = window.performance.now();
 
-perfNow = window.performance.now();
-
-CloudFlare.define('piwik_analytics', ['//cdnjs.cloudflare.com/ajax/libs/piwik/1.11.1/piwik.js', 'piwik_analytics/config', 'cloudflare/console'], function(__piwik_js, __config, __console) {
+CloudFlare.define('piwik_analytics', ['piwik_analytics/config', 'cloudflare/console', '//cdnjs.cloudflare.com/ajax/libs/piwik/1.11.1/piwik.js'], function(__config, __console, __piwik_js) {
   var default_debug, default_piwik_site_id, default_piwik_tracker, myPiwik, _isPiwik, _linkTracking, _visitorId;
   if (__config == null) {
     __config = {};
@@ -150,7 +148,7 @@ CloudFlare.define('piwik_analytics', ['//cdnjs.cloudflare.com/ajax/libs/piwik/1.
     if (__config._debug != null) {
       __console.log("myPiwik.menuOpts");
     }
-    if (__config.tracking - all - subdomains === "true" || __.tracking - all - subdomains === void 0) {
+    if (__config.tracking_all_subdomains === "true" || __config.tracking_all_subdomains === void 0) {
       wildcardZone = "*" + ".example.com";
       window._paq.push(["setCookieDomain", wildcardZone]);
     }
@@ -159,7 +157,7 @@ CloudFlare.define('piwik_analytics', ['//cdnjs.cloudflare.com/ajax/libs/piwik/1.
     } else {
       window._paq.push(['enableLinkTracking', false]);
     }
-    if (__config.tracking - (-(!-track))() === "true" || __config.tracking - (-(!-track))() === void 0) {
+    if (__config.tracking_do_not_track === "true" || __config.tracking_do_not_track === void 0) {
       window._paq.push(['setDoNotTrack', true]);
     } else {
       window._paq.push(['setDoNotTrack', false]);
@@ -182,14 +180,25 @@ CloudFlare.define('piwik_analytics', ['//cdnjs.cloudflare.com/ajax/libs/piwik/1.
     }
     window._paq.push(['trackPageView']);
     if (__config._debug != null) {
-      __console.log("paqPush() finished ok! _paq=" + window._paq);
+      __console.log("paqPush() finished! _paq=", +window._paq);
     }
     return window._paq;
   };
+  /*
+      window.CloudFlare.require(['https://cdnjs.cloudflare.com/ajax/libs/piwik/1.11.1/piwik.js'], function() {
+       window.console.log("piwik.js Module execution time in milliseconds =")
+       window.console.log(window.performance.now() - window.perfNow)
+       }
+  
+        );
+  */
+
   myPiwik.getVisitorId();
   myPiwik.paqPush();
-  window.console.log("Load time in milliseconds =");
-  window.console.log(window.performance.now() - perfNow);
+  if (__config._debug != null) {
+    window.console.log("Module execution time in milliseconds =");
+    window.console.log(window.performance.now() - window.perfNow);
+  }
   return myPiwik;
 });
 
@@ -197,3 +206,7 @@ CloudFlare.define('piwik_analytics', ['//cdnjs.cloudflare.com/ajax/libs/piwik/1.
 #end myPiwik module
 */
 
+
+window.console.log("Script load time in milliseconds =");
+
+window.console.log(window.performance.now() - window.perfNow);
