@@ -97,7 +97,7 @@
         ]
       },
       {
-        "id": "tracking-all-subdomains",
+        "id": "tracking_all_subdomains",
         "name": "Track visitors across all subdomains",
         "description": "So if one visitor visits x.example.com and y.example.com, they will be counted as a unique visitor.<br/> Equivalent to \"_paq.push([\"setCookieDomain\", \"*.example.com\"]);\"",
         "type": "select",
@@ -113,21 +113,21 @@
         ]
       },
       {
-        "id": "tracking-group-by-domain",
+        "id": "tracking_group_by_domain",
         "name": "Prepend the site domain to the page title when tracking",
         "description": "So if someone visits the 'About' page on blog.<span class='current-site-host'>example.com</span> it will be recorded as 'blog / About'. This is the easiest way to get an overview of your traffic by sub-domain.",
         "type": "string",
         "value": "document.domain + '/' + document.title"
       },
       {
-        "id": "tracking-all-aliases",
+        "id": "tracking_all_aliases",
         "name": "In the \"Outlinks\" report, hide clicks to known alias URLs",
         "description": "So clicks on links to Alias URLs (eg. http://*.example.com) will not be counted as \"Outlink\".",
         "type": "string",
         "value": " [\"*.piwik.example.com\",\"*.p-ssl.example.com\",\"*.p.example.com\",\"*.piwik-ssl.example.com\"]"
       },
       {
-        "id": "tracking-do-not-track",
+        "id": "tracking_do_not_track",
         "name": "Enable client side DoNotTrack detection.",
         "description": "So tracking requests will not be sent if visitors do not wish to be tracked. Note: Server side DoNotTrack support has been enabled, so this option will have no effect.",
         "type": "select",
