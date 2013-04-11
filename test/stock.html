@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <title>Testing piwik_analytics cfapp</title>
+    <style>
+
+      a:link    {color:blue;}
+      a:visited {color:blue;}
+      a:hover   {color:red;}
+      a:active  {color:yellow;} 
+
+    </style>
+
+    <script type='text/javascript' src='https://ajax.cloudflare.com/cdn-cgi/nexp/cloudflare.js' async></script>
+    <script type='text/javascript'>
+        window.CloudFlare = window.CloudFlare || [];
+          CloudFlare.push(function(require, define) {
+                  CloudFlare.push({paths: {'piwik_analytics': './javascript/'}, verbose: 1});
+                      define('piwik_analytics', function(return {/* key-values for your configuration */});
+                            require(['piwik_analytics']);
+                              });
+                            </script>
+
+
+    <!-- The goal is to load piwik.js as it would below. Also to utilize the global window._paq array to push commands onto for setting or retrieving information from Piwik:w
+    . -->
+    <!--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"></script>
+    -->
+
+  </head>
+
+  <body>
+    <h1>Piwik Analytics CloudFlare Test App</h1>
+
+    <div id="timeDiv">&nbsp;</div>
+
+    <div id="testing.zone">
+      <h2>Testing Gets</h2>
+      <div id="testing.gets">
+      </div>
+      <ul>
+        <li id="app_change">app_change</li>
+      </ul>
+      <h2>Testing configured options</h2>
+      <div id="testing.config">
+        <ul>
+          <li id="site_id" > site_id </li>
+          <li id="trackerURL"> trackerURL </li>
+          <li id="paq_push"> paq_push </li>
+
+          <li id="use_cdnjs"> use_cdnjs </li>
+          <li id="piwik_js"> piwik_js </li>
+          <li id="default_piwik_js"> default_piwik_js </li>
+
+          <li id="link_tracking"> link_tracking </li>
+          <li id="set_obey_do_not_track"> set_obey_do_not_track </li>
+
+        </ul>
+      </div>
+      <h2>Testing Link Tracking</h2>
+      <div id="testing.links">
+      </div>
+
+    </div>
+    <!-- this loads up testApp which updates and refreshes above items from configuration when working properly. -->
+    <script type="text/javascript" src="../public/javascripts/testApp.js"></script>
+
+  </body>
+</html>
