@@ -144,5 +144,5 @@
   "scripts": {
     "piwik_js": "./public/javascripts/piwik.js"
   },
-  "version": "0.0.25b"
+  "version": "0.0.26b"
 }
