@@ -34,10 +34,9 @@ window.perfNow=window.performance.now()
 
 CloudFlare.define 'piwik_analytics', [
   'piwik_analytics/config',
-    'cloudflare/console',
-  '//cdnjs.cloudflare.com/ajax/libs/piwik/1.11.1/piwik.js'
+    'cloudflare/console'
 ],
-  ( __config = {}, __console, __piwik_js ) ->
+  ( __config = {}, __console) ->
     # use strict javascript
     "use strict"
 
@@ -58,9 +57,9 @@ CloudFlare.define 'piwik_analytics', [
     _linkTracking = yes
 
     # _debug must be either true or null
-    default_debug = true || null
+    default_debug = true # || null
     # default piwik tracker URL
-    default_piwik_tracker = "/piwik/piwik.php"
+    default_piwik_install = "/piwik"
     # default piwik tracker id
     default_piwik_site_id = "1"
 
@@ -69,31 +68,33 @@ CloudFlare.define 'piwik_analytics', [
       if __config._debug is undefined
         __config._debug = default_debug
         __console.log("Using test default _debug=" + default_debug )
-    catch e
+    catch e1
       __config._debug = default_debug
-      __console.error(e)
+      __console.error(e1)
 
-    # try to read the piwik_tracker otherwise set to default
+    # try to read the piwik_install otherwise set to default
     try
-      if __config.piwik_tracker is undefined
-        __config.piwik_tracker = default_piwik_tracker
-        __console.log("Using test default TrackerUrl=" + default_piwik_tracker )
-    catch e
-      __config.piwik_tracker = default_piwik_tracker
-      __console.error(e)
+      if __config.piwik_install is undefined
+        __config.piwik_install = default_piwik_install
+        __console.log("Using test default installation Url=\"" + default_piwik_install+"\"" )
+    catch e2
+      __config.piwik_install = default_piwik_install
+      __console.error(e2)
 
     # try to read the site_id otherwise set to default id
     try
       if __config.site_id is undefined
         __config.site_id = default_piwik_site_id
         __console.log("Using test default SiteId="+ default_piwik_site_id )
-    catch e
+    catch e3
       __config.site_id = default_piwik_site_id
-      __console.error (e)
+      __console.error (e3)
 
 
     # if debug is enabled do stuff
     if __config._debug?
+      t=window.performance.now() - window.perfNow
+      __console.log("Module begin time in milliseconds ="+t)
       # turn on verbose with CloudFlare
       CloudFlare.push( { verbose:1 } )
 
@@ -107,12 +108,20 @@ CloudFlare.define 'piwik_analytics', [
       )
     # end
 
-#
+    ###
+# myPiwik.fetch
+#   uses CloudFlare.require to fetch files specified 
+#   by a passed array
+    ###
+    myPiwik.fetch = (u) ->
+      CloudFlare.require(u)
+
+    ###
 # myPiwik.isPiwik()
 #   pushes a request for piwik to set _isPiwik true once piwik.js executes
 #   if it does, then it will return a yes, other no
 #
-    #
+    ###
     myPiwik.isPiwik = () ->
       window._paq.push [->
         _isPiwik = yes
@@ -120,13 +129,13 @@ CloudFlare.define 'piwik_analytics', [
       _isPiwik
 
 
-    #
+    ###
 # myPiwik.getVisitorId
 # pushes a request for the Piwik VisitorId generated once piwik.js executes
 # sets the _visitorId to be the id, and returns it's value
 # will return the visitorId or false if piwik.js is still not loaded.
 #
-    #
+    ###
     myPiwik.getVisitorId = () ->
       window._paq.push [ ->
         _visitorId = @getVisitorId()
@@ -137,13 +146,25 @@ CloudFlare.define 'piwik_analytics', [
       _visitorId
       #end getVisitorId
 
-    #
+    ###
+# myPiwik.
+    ###
+    myPiwik.perf = () ->
+      window.perfNow_piwik_js=window.performance.now()
+      window._paq.push [ ->
+        t=window.performance.now() - window.perfNow_piwik_js
+        __console.log("Piwik library load time in milliseconds = "+t)
+        t=window.performance.now() - window.perfNow
+        __console.log("Total execution time in milliseconds = "+t)
+      ]
+
+    ###
 # myPiwik.setSiteId()
 #
 #   checks for a null value, not a number, and assign's SiteId to default
-    #
+    ###
     myPiwik.setSiteId = ( _SiteId = default_piwik_site_id , _defaultSiteId = default_piwik_site_id ) ->
-      __console.log("myPiwik.setSiteId") if __config._debug?
+
       # if it's a number use it. Double Negative,
       # will catch, alpha, and use the default above
       if ( not isNaN( _SiteId ) )
@@ -155,28 +176,34 @@ CloudFlare.define 'piwik_analytics', [
         _SiteId = _defaultSideId
       # end if site_id
       window._paq.push(['setSiteId', unescape ( _SiteId ) ])
-      __console.log("end myPiwik.setSiteId") if __config._debug?
       _SiteId
 
     #
-    # mypiwik.setTracker
+    # mypiwik.setInstall
     # sets the tracker for the client to use
     #
-    myPiwik.setTracker = ( _tracker = default_piwik_tracker ) ->
-      __console.log("myPiwik.setTracker="+_tracker) if __config._debug?
-      window._paq.push(['setTrackerUrl', unescape ( _tracker ) ])
-      __console.log("end myPiwik.setTracker") if __config._debug?
+    myPiwik.setInstall = ( _install = default_piwik_install ) ->
+      if __config._debug?
+        __console.log("myPiwik.setInstall = \""+_install+"\"")
+        myPiwik.perf()
+
+      window._paq.push(['setTrackerlUrl', unescape ( _install ) + "/piwik.php" ])
+      # fetch the piwik library
+      myPiwik.fetch([ unescape( _install + "/piwik.js" ) ])
+      __console.log("end myPiwik.setInstall") if __config._debug?
       ###
-      #return _tracker
+      #return _install
       ###
-      _tracker
+      _install
 
 
-    #
-    # myPiwik.menuOpts
-    #
+    ###
+# myPiwik.menuOpts
+    ###
     myPiwik.menuOpts = ->
-      __console.log("myPiwik.menuOpts") if __config._debug?
+      if __config._debug?
+        __console.log("myPiwik.menuOpts")
+        perfNow=window.performance.now()
 
       # determine if tracking-all-subdomains is enabled -- FIXME
       if ( __config.tracking_all_subdomains is "true" or __config.tracking_all_subdomains is undefined )
@@ -184,12 +211,6 @@ CloudFlare.define 'piwik_analytics', [
         window._paq.push(["setCookieDomain", wildcardZone])
       # end if tracking all subdomains
 
-      # determine if LinkTracking is enabled, default to enable if undefined
-      if ( __config.link_tracking is "true" or __config.link_tracking is undefined )
-        window._paq.push(['enableLinkTracking',true])
-      else
-        window._paq.push(['enableLinkTracking',false])
-      # end if link_tracking
 
       # determine if DoNotTrack is enabled, default to obey if undefined
       if ( __config.tracking_do_not_track is "true" or __config.tracking_do_not_track is undefined )
@@ -198,36 +219,45 @@ CloudFlare.define 'piwik_analytics', [
         window._paq.push(['setDoNotTrack',false])
       # end if do_not_track
 
-      __console.log("end myPiwik.menuOpts") if __config._debug?
+      if __config._debug?
+        t=window.performance.now() - perfNow
+        __console.log("end myPiwik.menuOpts " + "time in milliseconds ="+t)
 
       yes
 
-    #
+    ###
 # myPiwik.paqPush()
 #     take options from a Piwik configuration
 #       We could have multiple trackers someday! TODO
 #      It's easy, just not supported in this App.
 #    push our Piwik options into the window._paq array
 #     send a trackPageView to the TrackerUrl
-    #
+    ###
     myPiwik.paqPush = ( ) ->
-      __console.log( "myPiwik.paqPush()" ) if __config._debug?
+      if __config._debug?
+        __console.log("myPiwik.paqPush")
+        perfNow=window.performance.now()
+
       window._paq = window._paq || []
-    # setSiteId
+      # setSiteId
       myPiwik.setSiteId( __config.site_id, __config.default_site_id )
-    # setTracker
-      myPiwik.setTracker( __config.piwik_tracker )
-    # menuOpts
+      # setInstall
+      myPiwik.setInstall( __config.piwik_install )
+      # menuOpts
       myPiwik.menuOpts()
-    # pass the extra options if any are configured or allowed
+      # pass the extra options if any are configured or allowed
       if (( ! __config.paq_push ) and ( __config.paq_push isnt undefined ) and ( __config.paq_push isnt ""))
         window._paq.push( __config.paq_push )
 
-    # Send a trackPageView request to the TrackerUrl
+      # enable link tracking
+      window._paq.push(['enableLinkTracking',true])
+
+      # Send a trackPageView request to the TrackerUrl
       window._paq.push( ['trackPageView'] )
-      __console.log(
-        "paqPush() finished! _paq="
-        + window._paq ) if __config._debug?
+
+      if __config._debug?
+        t=window.performance.now() - perfNow
+        __console.log("end myPiwik.paqPush "+"time in milliseconds ="+t)
     #rern the _paq array
       window._paq
     # end myPiwik.paqPush
@@ -246,7 +276,11 @@ CloudFlare.define 'piwik_analytics', [
     #
     #window._paq = window._paq || []
 
-    myPiwik.getVisitorId()
+    if __config._debug?
+      myPiwik.getVisitorId()
+      
+    #myPiwik.fetch(unescape ( _install ) + "/piwik.js")
+    #CloudFlare.require([unescape ( default_piwik_install ) + "/piwik.js"])
 
     #
     # paqPush
@@ -254,8 +288,8 @@ CloudFlare.define 'piwik_analytics', [
     myPiwik.paqPush()
 
     if __config._debug?
-      window.console.log("Module execution time in milliseconds =")
-      window.console.log(window.performance.now() - window.perfNow)
+      t=window.performance.now() - window.perfNow
+      __console.log("Module execution time in milliseconds ="+t)
 
     #
     # return myPiwik
