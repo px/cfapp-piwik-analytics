@@ -94,7 +94,7 @@ CloudFlare.define 'piwik_analytics', [
     # if debug is enabled do stuff
     if __config._debug?
       t=window.performance.now() - window.perfNow
-      __console.log("Module begin time in milliseconds ="+t)
+      __console.log("Module begin time in ms ="+t)
       # turn on verbose with CloudFlare
       CloudFlare.push( { verbose:1 } )
 
@@ -153,9 +153,9 @@ CloudFlare.define 'piwik_analytics', [
       window.perfNow_piwik_js=window.performance.now()
       window._paq.push [ ->
         t=window.performance.now() - window.perfNow_piwik_js
-        __console.log("Piwik library load time in milliseconds = "+t)
+        __console.log("Piwik library load time in ms = "+t)
         t=window.performance.now() - window.perfNow
-        __console.log("Total execution time in milliseconds = "+t)
+        __console.log("Total execution time in ms = "+t)
       ]
 
     ###
@@ -221,7 +221,7 @@ CloudFlare.define 'piwik_analytics', [
 
       if __config._debug?
         t=window.performance.now() - perfNow
-        __console.log("end myPiwik.menuOpts " + "time in milliseconds ="+t)
+        __console.log("end myPiwik.menuOpts " + "time in ms ="+t)
 
       yes
 
@@ -257,14 +257,14 @@ CloudFlare.define 'piwik_analytics', [
 
       if __config._debug?
         t=window.performance.now() - perfNow
-        __console.log("end myPiwik.paqPush "+"time in milliseconds ="+t)
+        __console.log("end myPiwik.paqPush "+"time in ms ="+t)
     #rern the _paq array
       window._paq
     # end myPiwik.paqPush
 
     ###
     window.CloudFlare.require(['https://cdnjs.cloudflare.com/ajax/libs/piwik/1.11.1/piwik.js'], function() {
-     window.console.log("piwik.js Module execution time in milliseconds =")
+     window.console.log("piwik.js Module execution time in ms =")
      window.console.log(window.performance.now() - window.perfNow)
      }
 
@@ -289,7 +289,7 @@ CloudFlare.define 'piwik_analytics', [
 
     if __config._debug?
       t=window.performance.now() - window.perfNow
-      __console.log("Module execution time in milliseconds ="+t)
+      __console.log("Module execution time in ms ="+t)
 
     #
     # return myPiwik
@@ -298,5 +298,5 @@ CloudFlare.define 'piwik_analytics', [
 ###
 #end myPiwik module
 ###
-window.console.log("Script load time in milliseconds =")
+window.console.log("Script load time in ms =")
 window.console.log(window.performance.now() - window.perfNow)
