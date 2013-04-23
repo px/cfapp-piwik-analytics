@@ -37,6 +37,7 @@ CloudFlare.define 'piwik_analytics', [
     'cloudflare/console'
 ],
   ( __config = {}, __console) ->
+    # move to functions http://stackoverflow.com/questions/4462478/jslint-is-suddenly-reporting-use-the-function-form-of-use-strict
     # use strict javascript
     "use strict"
 
