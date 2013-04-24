@@ -11,7 +11,11 @@
 ###
 
 ###
-# CloudFlare.push( { paths: {'piwik_analytics': 'http://labs.variablesoftware.com/test/miniature-hipster/public/javascripts/' } } );
+ CloudFlare.push( {
+  paths: {
+   'piwik_analytics':
+   '//labs.variablesoftware.com/test/miniature-hipster/public/javascripts/'
+    } } );
 ###
 
 ###
@@ -27,9 +31,9 @@
 #   -- defaults to {} and will assign test defaults
 #  cloudflare/console for output to console
 ###
-#
 
-# set the performance timer
+### set the performance timer
+###
 window.perfNow=window.performance.now()
 
 CloudFlare.define 'piwik_analytics', [
@@ -37,9 +41,9 @@ CloudFlare.define 'piwik_analytics', [
     'cloudflare/console'
 ],
   ( __config = {}, __console) ->
-    # move to functions http://stackoverflow.com/questions/4462478/jslint-is-suddenly-reporting-use-the-function-form-of-use-strict
+    # move to functions FIXME http://stackoverflow.com/questions/4462478/jslint-is-suddenly-reporting-use-the-function-form-of-use-strict
     # use strict javascript
-    "use strict"
+    #"use strict"
 
     # create or copy so as to not destroy the window._paq for piwik to utilize
     window._paq = window._paq || []
@@ -116,6 +120,11 @@ CloudFlare.define 'piwik_analytics', [
     ###
     myPiwik.fetch = (u) ->
       CloudFlare.require(u)
+    ###
+# overload for more CloudFlare.require functionality
+    ###
+    myPiwik.fetch = (u,r) ->
+      CloudFlare.require(u,r)
 
     ###
 # myPiwik.isPiwik()
@@ -124,6 +133,8 @@ CloudFlare.define 'piwik_analytics', [
 #
     ###
     myPiwik.isPiwik = () ->
+      # use strict javascript
+      "use strict"
       window._paq.push [->
         _isPiwik = yes
       ]
@@ -138,6 +149,7 @@ CloudFlare.define 'piwik_analytics', [
 #
     ###
     myPiwik.getVisitorId = () ->
+      "use strict"
       window._paq.push [ ->
         _visitorId = @getVisitorId()
         # output console message with VisitorId once piwik.js is loaded
@@ -164,38 +176,41 @@ CloudFlare.define 'piwik_analytics', [
 #
 #   checks for a null value, not a number, and assign's SiteId to default
     ###
-    myPiwik.setSiteId = ( _SiteId = default_piwik_site_id , _defaultSiteId = default_piwik_site_id ) ->
+    myPiwik.setSiteId =
+      (_SiteId = default_piwik_site_id,
+       _defaultSiteId = default_piwik_site_id ) ->
 
-      # if it's a number use it. Double Negative,
-      # will catch, alpha, and use the default above
-      if ( not isNaN( _SiteId ) )
-        __console.log( "Using _SiteId="+ _SiteId ) if __config._debug?
-      else
-        # default to default_site_id from cloudflare.json
-        __console.error( "Invalid SiteId="+ _SiteId+
-          " ; defaulting to " + _defaultSiteId ) if __config._debug?
-        _SiteId = _defaultSideId
-      # end if site_id
-      window._paq.push(['setSiteId', unescape ( _SiteId ) ])
-      _SiteId
+         # if it's a number use it. Double Negative,
+         # will catch, alpha, and use the default above
+         if ( not isNaN( _SiteId ) )
+           __console.log( "Using _SiteId="+ _SiteId ) if __config._debug?
+         else
+           # default to default_site_id from cloudflare.json
+           __console.error( "Invalid SiteId="+ _SiteId+
+             " ; defaulting to " + _defaultSiteId ) if __config._debug?
+          _SiteId = _defaultSideId
+          # end if site_id
+          window._paq.push(['setSiteId', unescape ( _SiteId ) ])
+          _SiteId
 
-    #
-    # mypiwik.setInstall
-    # sets the tracker for the client to use
-    #
-    myPiwik.setInstall = ( _install = default_piwik_install ) ->
-      if __config._debug?
-        __console.log("myPiwik.setInstall = \""+_install+"\"")
+    ###
+# mypiwik.setInstall
+# sets the tracker for the client to use
+    ###
+    myPiwik.setInstall =
+      (_install = default_piwik_install ) ->
+        if __config._debug?
+          __console.log("myPiwik.setInstall = \""+_install+"\"")
         myPiwik.perf()
 
-      window._paq.push(['setTrackerlUrl', unescape ( _install ) + "/piwik.php" ])
-      # fetch the piwik library
-      myPiwik.fetch([ unescape( _install + "/piwik.js" ) ])
-      __console.log("end myPiwik.setInstall") if __config._debug?
-      ###
-      #return _install
-      ###
-      _install
+        window._paq.push(['setTrackerlUrl', unescape ( _install ) + "/piwik.php" ])
+        # fetch the piwik library
+        myPiwik.fetch([ unescape( _install + "/piwik.js" ) ])
+        __console.log("end myPiwik.setInstall") if __config._debug?
+        ###
+#return _install
+        ###
+        _install
 
 
     ###
@@ -265,11 +280,10 @@ CloudFlare.define 'piwik_analytics', [
 
     ###
     window.CloudFlare.require(['https://cdnjs.cloudflare.com/ajax/libs/piwik/1.11.1/piwik.js'], function() {
-     window.console.log("piwik.js Module execution time in ms =")
-     window.console.log(window.performance.now() - window.perfNow)
-     }
-
-      );
+    window.console.log("piwik.js Module execution time in ms =")
+    window.console.log(window.performance.now() - window.perfNow)
+    }
+    );
     ###
 
     #
@@ -279,7 +293,7 @@ CloudFlare.define 'piwik_analytics', [
 
     if __config._debug?
       myPiwik.getVisitorId()
-      
+
     #myPiwik.fetch(unescape ( _install ) + "/piwik.js")
     #CloudFlare.require([unescape ( default_piwik_install ) + "/piwik.js"])
 
