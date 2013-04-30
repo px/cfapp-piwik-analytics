@@ -1,7 +1,7 @@
 {
   "name": "miniature-hipster",
   "preferGlobal": true,
-  "version": "0.0.17",
+  "version": "0.0.27b",
   "author": "Rob Friedman <px@ns1.net>",
   "description": "Piwik application for the CloudFlare network.",
   "contributors": [ 
@@ -11,11 +11,11 @@
   } 
   ],
     "dependencies": {
-      "coffee-script": ">=1.4.0",
+      "coffee-script": ">=1.6.2",
       "js2coffee": ">=0.2.0",
       "file": ">=0.2.1",
       "underscore":">=1.4.4",
-      "jsonlint":""
+      "jsonlint":">=1.6.0"
 
     },
     "license": "BSD-2 Clause",
