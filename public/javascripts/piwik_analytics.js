@@ -2,7 +2,7 @@
 /*
 * This is Miniature Hipster
 *  @name      Miniature Hipster
-*  @version   0.0.26b
+*  @version   0.0.27b
 *  @author    Rob Friedman <px@ns1.net>
 *  @url       <http://playerx.net>
 *  @license   https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt
@@ -114,7 +114,7 @@ CloudFlare.define('piwik_analytics', ['piwik_analytics/config', 'cloudflare/cons
   */
 
   myPiwik.isPiwik = function() {
-    "use strict";    window._paq.push([
+    window._paq.push([
       function() {
         return _isPiwik = true;
       }
@@ -130,7 +130,7 @@ CloudFlare.define('piwik_analytics', ['piwik_analytics/config', 'cloudflare/cons
   */
 
   myPiwik.getVisitorId = function() {
-    "use strict";    window._paq.push([
+    window._paq.push([
       function() {
         _visitorId = this.getVisitorId();
         if (__config._debug != null) {
@@ -162,23 +162,17 @@ CloudFlare.define('piwik_analytics', ['piwik_analytics/config', 'cloudflare/cons
   #   checks for a null value, not a number, and assign's SiteId to default
   */
 
-  myPiwik.setSiteId = function(_SiteId, _defaultSiteId) {
+  myPiwik.setSiteId = function(_SiteId) {
     if (_SiteId == null) {
       _SiteId = default_piwik_site_id;
-    }
-    if (_defaultSiteId == null) {
-      _defaultSiteId = default_piwik_site_id;
     }
     if (!isNaN(_SiteId)) {
       if (__config._debug != null) {
         __console.log("Using _SiteId=" + _SiteId);
       }
     } else {
-      if (__config._debug != null) {
-        __console.error("Invalid SiteId=" + _SiteId + " ; defaulting to " + _defaultSiteId);
-      }
+      __console.error("Invalid SiteId=" + _SiteId + " ; defaulting to " + default_piwik_site_id)(__config._debug != null ? _SiteId = default_piwik_site_id : void 0);
     }
-    _SiteId = _defaultSideId;
     window._paq.push(['setSiteId', unescape(_SiteId)]);
     return _SiteId;
   };
@@ -195,7 +189,7 @@ CloudFlare.define('piwik_analytics', ['piwik_analytics/config', 'cloudflare/cons
       __console.log("myPiwik.setInstall = \"" + _install + "\"");
     }
     myPiwik.perf();
-    window._paq.push(['setTrackerlUrl', unescape(_install + "/piwik.php")]);
+    window._paq.push(['setTrackerUrl', unescape(_install + "/piwik.php")]);
     myPiwik.fetch([unescape(_install + "/piwik.js")]);
     if (__config._debug != null) {
       __console.log("end myPiwik.setInstall");
@@ -218,7 +212,7 @@ CloudFlare.define('piwik_analytics', ['piwik_analytics/config', 'cloudflare/cons
       perfNow = window.performance.now();
     }
     if (__config.tracking_all_subdomains === "true" || __config.tracking_all_subdomains === void 0) {
-      wildcardZone = "*" + ".example.com";
+      wildcardZone = "*" + window.location.hostname;
       window._paq.push(["setCookieDomain", wildcardZone]);
     }
     if (__config.tracking_do_not_track === "true" || __config.tracking_do_not_track === void 0) {
