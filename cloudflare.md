@@ -5,11 +5,6 @@ This open source CloudFlare app will load 'piwik.js' into all of your webpages w
 
 ### App Features
 
-#### Speed
-
-  * Use [cdnjs](https://cdnjs.com/) to serve up 'piwik.js' quickly to your visitors(~40-60ms), or your use your own URL.
-
-
 #### Link Tracking
 
   * Easily enable open source analytics tracking for outlinks from your web properties.
@@ -23,11 +18,9 @@ This open source CloudFlare app will load 'piwik.js' into all of your webpages w
 
 #### Simple
 
-1. Turn it ON.
-2. Configure a 'Site ID' for the domain. Or it will use SiteId '1'
-3. Configure where 'piwik.js' is loaded. By default it will attempt to use cdnjs, otherwise '/piwik/piwik.js' will be tried.
-4. Input a tracker URL. By default it will use '/piwik/piwik.php' as the tracker url. 
-5. Click **UPDATE**, if configured properly all pages should have Piwik Analytics tracking enabled on them.
+1. Turn it ON, configure a 'Website ID' for the domain. Or it will by default use WebsiteId '1'
+2. Configure where your Piwik Analytics is installed. By default it will attempt to use '/piwik' as the base URL. This is used to load the piwik.js library and also for the tracker destination.
+3. Click **UPDATE**, if configured properly all pages should have Piwik Analytics tracking enabled on them.
 
 
 ##### About Piwik
@@ -37,7 +30,7 @@ Piwik is used to provide analytics about your visitors. More information can be 
   * [Piwik Javascript Tracking](http://piwik.org/docs/javascript-tracking/)
   
 
-  * TODO
+  * TODO FIXME
 ![Screenshot of Piwik](/images/apps/piwik_analytics/piwik_screenshot_1.png "Screenshot")
 ![Screenshot of Piwik CloudFlare App](/images/apps/piwik_analytics/piwik_screenshot_2.png "Screenshot")
 
