@@ -68,7 +68,7 @@
       },
       {
         "id": "tracking_group_by_domain",
-        "name": "Prepend the site domain to the page title when tracking",
+        "name": "Prepend the site domain to the page title when tracking (WIP)",
         "description": "So if someone visits the 'About' page on blog.example.com it will be recorded as 'blog / About'. This is the easiest way to get an overview of your traffic by sub-domain.",
         "type": "string",
         "value": "document.domain + '/' + document.title"
@@ -99,7 +99,7 @@
       {
         "id": "_debug",
         "name": "Debugger",
-        "description": "Enable or disable the logging, and errors debug output to the Javascript console. Leave this disabled unless you are having issues and would like to know more.",
+        "description": "Enable or disable the logging, performance, and errors debug output to the Javascript console. Leave this disabled unless you are having issues and would like to know more about what is going on.",
         "type": "select",
         "options": [
           {
@@ -144,5 +144,5 @@
   "scripts": {
     "piwik_js": "./public/javascripts/piwik.js"
   },
-  "version": "0.0.26b"
+  "version": "0.0.27b"
 }
