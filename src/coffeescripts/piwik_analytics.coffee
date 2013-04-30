@@ -134,7 +134,7 @@ CloudFlare.define 'piwik_analytics', [
     ###
     myPiwik.isPiwik = () ->
       # use strict javascript
-      "use strict"
+      #"use strict"
       window._paq.push [->
         _isPiwik = yes
       ]
@@ -149,7 +149,7 @@ CloudFlare.define 'piwik_analytics', [
 #
     ###
     myPiwik.getVisitorId = () ->
-      "use strict"
+      #"use strict"
       window._paq.push [ ->
         _visitorId = @getVisitorId()
         # output console message with VisitorId once piwik.js is loaded
@@ -177,21 +177,20 @@ CloudFlare.define 'piwik_analytics', [
 #   checks for a null value, not a number, and assign's SiteId to default
     ###
     myPiwik.setSiteId =
-      (_SiteId = default_piwik_site_id,
-       _defaultSiteId = default_piwik_site_id ) ->
+      (_SiteId = default_piwik_site_id ) ->
 
-         # if it's a number use it. Double Negative,
-         # will catch, alpha, and use the default above
-         if ( not isNaN( _SiteId ) )
-           __console.log( "Using _SiteId="+ _SiteId ) if __config._debug?
-         else
-           # default to default_site_id from cloudflare.json
-           __console.error( "Invalid SiteId="+ _SiteId+
-             " ; defaulting to " + _defaultSiteId ) if __config._debug?
-          _SiteId = _defaultSideId
-          # end if site_id
-          window._paq.push(['setSiteId', unescape ( _SiteId ) ])
-          _SiteId
+        # if it's a number use it. Double Negative,
+        # will catch, alpha, and use the default above
+        if ( not isNaN( _SiteId ) )
+          __console.log( "Using _SiteId="+ _SiteId ) if __config._debug?
+        else
+          # default to default_site_id from cloudflare.json
+          __console.error( "Invalid SiteId="+ _SiteId+
+            " ; defaulting to " + default_piwik_site_id ) if __config._debug?
+           _SiteId = default_piwik_site_id
+        # end if site_id
+        window._paq.push(['setSiteId', unescape ( _SiteId ) ])
+        _SiteId
 
     ###
 # mypiwik.setInstall
