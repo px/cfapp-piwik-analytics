@@ -9,12 +9,32 @@
 
 This CloudFlare App aims to improve upon the available Analytics &amp; Tracking options available to users. It is written primarily in [CoffeeScript](http://coffeescript.org/), and compiled into Javascript.
 
+### Process Notes
+  * New versions TODO
+    * better describe the process
+
+    * automatically compile changes to coffeescript files within this project. (`./watchme.sh`)
+    * test compiled javascript using <a href="http://js.cloudflare.com/">js.cloudflare.com</a>
+      * <a href="http://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/pbcopy.1.html">pbcopy</a> is your friend. (`pbcopy < public/javascripts/piwik_analytics.js`)
+
+    * which files need to version bump;
+      cloudflare.json -- end of file
+      package.json -- top of file
+      src/coffeescripts/piwik_analytics.coffee -- top of file
+
+    * Once you are happy, proceed to push your new version as follows.
+      1. <a href="https://www.cloudflare.com/login">login to cloudflare</a>
+      2. <a href="https://www.cloudflare.com/app-signup">App developer dashboard</a>
+      3. click on "more", then "Pull new version" button. Now WAIT! Here be dragons.
+
 ### Initially this App aims to
-  * Utililse " use stict;" when possible
   * Be asynchronous in loading
   * Work with your own Piwik Analytics installation, or maybe a hosted solution,
   * Support a single Piwik Site ID
   * Support a single Piwik tracker/receiver
+
+### Future
+  * Utililse " use stict;" when possible
   * Utilise [cdnjs](http://cdnjs.com/#piwik) for serving piwik.js quickly if enabled, or the parameters are left unsupplied by the user.
 
 
@@ -34,7 +54,9 @@ Contributing
 ------------
 
 1. Fork it on Github.
-2. Clone to your local machine. SSH: (`git clone "git@github.com:px/cfapp-piwik-analytics.git"`) HTTPS: (`git clone "https://github.com/px/cfapp-piwik-analytics.git"`)
+2. Clone to your local machine.
+  * SSH: (`git clone "git@github.com:px/cfapp-piwik-analytics.git"`)
+  * HTTPS: (`git clone "https://github.com/px/cfapp-piwik-analytics.git"`)
 3. Checkout and create a new branch (`git checkout -b my_new_feature`)
 4. Commit your changes, preferably one commit per file. (`git commit -am "Added my new feature"`)
 5. Push to the branch (`git push origin my_new_feature`)
@@ -43,10 +65,14 @@ Contributing
 
 
 
-### Piwik Documentation
+Piwik Documentation
+-------------------
+
  * [Online Videos about Piwik](https://piwik.org/blog/category/videos/)
  * [Piwik Javascript Tracking](http://piwik.org/docs/javascript-tracking/)
 
+About CloudFlare Apps
+---------------------
 CloudFlare's Apps platform enables developers to create and publish web applications for use by website owners on CloudFlare's network. See the [full list](https://www.cloudflare.com/apps).
 
 
