@@ -43,7 +43,8 @@ Contributing
 6. Open a Pull Request
 7. Enjoy a refreshing glass of water and wait
 
-### Process Notes
+Process Notes
+-------------
 * New versions TODO
   * better describe the process
   * npm -- there is a [package.json](package.json) to help with dependencies.
