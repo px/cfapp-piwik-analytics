@@ -2,7 +2,7 @@
 /*
 * This is Miniature Hipster
 *  @name      Miniature Hipster
-*  @version   0.0.27b
+*  @version   0.0.28b
 *  @author    Rob Friedman <px@ns1.net>
 *  @url       <http://playerx.net>
 *  @license   https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt
@@ -283,6 +283,6 @@ CloudFlare.define('piwik_analytics', ['piwik_analytics/config', 'cloudflare/cons
 */
 
 
-window.console.log("Script load time in ms =");
+window.console.log("Piwik Analytics CloudFlare App Script load time in ms =");
 
 window.console.log(window.performance.now() - window.perfNow);
