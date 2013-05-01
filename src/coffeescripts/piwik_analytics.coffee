@@ -222,7 +222,8 @@ CloudFlare.define 'piwik_analytics', [
 
       # determine if tracking-all-subdomains is enabled -- FIXME
       if ( __config.tracking_all_subdomains is "true" or __config.tracking_all_subdomains is undefined )
-        wildcardZone="*"+window.location.hostname ## FIXME
+        # FIXME this would be much easier if I could access the zone name from within CloudFlare
+        wildcardZone="*"+document.domain.split(".").slice(-2).join(".") ## FIXME -- this only works for 2nd level
         window._paq.push(["setCookieDomain", wildcardZone])
       # end if tracking all subdomains
 
