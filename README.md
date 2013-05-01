@@ -13,7 +13,7 @@ This CloudFlare App aims to improve upon the available Analytics &amp; Tracking 
   * New versions TODO
     * better describe the process
 
-    * automatically compile changes to coffeescript files within this project. (`./watchme.sh`)
+    * automatically compile changes to coffeescript files within this project. (`./[watchme.sh](watchme.sh)`)
     * test compiled javascript using <a href="http://js.cloudflare.com/">js.cloudflare.com</a>
       * <a href="http://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/pbcopy.1.html">pbcopy</a> is your friend. (`pbcopy < public/javascripts/piwik_analytics.js`)
 
