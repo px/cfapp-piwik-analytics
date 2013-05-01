@@ -24,9 +24,6 @@
   * [cookie configuration for domains and sub-domains](http://piwik.org/docs/javascript-tracking/#toc-cookie-configuration-for-domains-and-subdomains)
   * goals, tracking, 5 per site id, maybe more.
   * eventually support [all methods available in the Tracking API](http://piwik.org/docs/javascript-tracking/#toc-list-of-all-methods-available-in-the-tracking-api)
-* Validation:
-  * automatically validate, check, and minify .js files
-  * automatically validate and check cloudflare.json &amp; other json files with jsonlint
 * Describe the [test app](./test) better, and it's individual files.
 
 ### IMPOSSIBLE! 
@@ -47,17 +44,19 @@ Contributing
 7. Enjoy a refreshing glass of water and wait
 
 ### Process Notes
-  * New versions TODO
-    * better describe the process
-
-* npm -- there is a [package.json](package.json) to help with dependencies.
-  * (`npm install -d`)
+* New versions TODO
+  * better describe the process
+  * npm -- there is a [package.json](package.json) to help with dependencies.
+   * (`npm install -d`)
     * [jsonlint](https://github.com/zaach/jsonlint)
       * (`npm install jsonlint -g `)
 
     * automatically compile changes to coffeescript files within this project using the [watchme.sh](watchme.sh) script. (`./watchme.sh`)
     * test compiled javascript using <a href="http://js.cloudflare.com/">js.cloudflare.com</a>
       * <a href="http://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/pbcopy.1.html">pbcopy</a> is your friend. (`pbcopy < public/javascripts/piwik_analytics.js`)
+    * Validation: (`./validate.sh`)
+      * automatically validate, check, and minify .js and .json files;
+      * automatically validate and check cloudflare.json &amp; other json files with jsonlint
 
     * which files need to version bump;
       * [cloudflare.json](cloudflare.json) -- end of file
