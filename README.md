@@ -7,9 +7,10 @@
 
   * HTTPS Repository URL  [Piwik Analytics App for Cloudflare](https://github.com/px/cfapp-piwik-analytics.git/)
 
-This CloudFlare App aims to improve upon the available Analytics &amp; Tracking options available to users. It is written primarily in [CoffeeScript](http://coffeescript.org/), and compiled into Javascript.
 
 ### Initially this app aims to
+  * Improve upon the available Analytics &amp; Tracking options available to CloudFlare users.
+  * It is written primarily in [CoffeeScript](http://coffeescript.org/), and compiled into Javascript.
   * Be asynchronous in loading
   * Work with your own Piwik Analytics installation, or maybe a hosted solution,
   * Support a single Piwik Site ID
