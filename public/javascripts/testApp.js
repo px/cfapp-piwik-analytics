@@ -188,7 +188,3 @@ setTimeout("update_status()", 10000 * _delay * 1);
 setTimeout("update_status()", 10000 * _delay * 2);
 
 setTimeout("update_status()", 10000 * _delay * 4);
-
-/*
-//@ sourceMappingURL=testApp.map
-*/

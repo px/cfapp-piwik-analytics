@@ -49,7 +49,3 @@ pkC = {
 pkC.js_url = pkC.js_prot + pkC.js_schem + pkC.js_host + pkC.js_path + pkC.js_file;
 
 window.piwikConfig = pkC;
-
-/*
-//@ sourceMappingURL=multi-config.map
-*/

@@ -142,7 +142,9 @@ CloudFlare.define('piwik_analytics', ['piwik_analytics/config', 'cloudflare/cons
     return _visitorId;
   };
   /*
-  # myPiwik.
+  # myPiwik.perf
+  #   Use the _paq array to push performance metrics to the
+  #     Javascript console once piwik.js is loaded.
   */
 
   myPiwik.perf = function() {
@@ -212,7 +214,7 @@ CloudFlare.define('piwik_analytics', ['piwik_analytics/config', 'cloudflare/cons
       perfNow = window.performance.now();
     }
     if (__config.tracking_all_subdomains === "true" || __config.tracking_all_subdomains === void 0) {
-      wildcardZone = "*" + window.location.hostname;
+      wildcardZone = "*" + document.domain.split(".").slice(-2).join(".");
       window._paq.push(["setCookieDomain", wildcardZone]);
     }
     if (__config.tracking_do_not_track === "true" || __config.tracking_do_not_track === void 0) {
@@ -284,7 +286,3 @@ CloudFlare.define('piwik_analytics', ['piwik_analytics/config', 'cloudflare/cons
 window.console.log("Script load time in ms =");
 
 window.console.log(window.performance.now() - window.perfNow);
-
-/*
-//@ sourceMappingURL=piwik_analytics.map
-*/

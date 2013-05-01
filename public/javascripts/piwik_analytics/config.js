@@ -35,7 +35,3 @@ CloudFlare.define("piwik_analytics/config", [], function(_config) {
   __pkC.js_url = __pkC.js_prot + __pkC.js_schem + __pkC.js_host + __pkC.js_path + __pkC.js_file;
   return window.__piwikConfig = __pkC;
 });
-
-/*
-//@ sourceMappingURL=config.map
-*/
