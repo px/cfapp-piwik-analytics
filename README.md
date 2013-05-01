@@ -5,9 +5,6 @@
 
 **Miniature Hipster** is the 'random' new project name provided by [Github](https://github.com/new). I enjoy it, although may change it. But it's kind of interesting.
 
-  * HTTPS Repository URL  [Piwik Analytics App for Cloudflare](https://github.com/px/cfapp-piwik-analytics.git/)
-
-
 ### Initially this app aims to
   * Improve upon the available Analytics &amp; Tracking options available to CloudFlare users.
   * It is written primarily in [CoffeeScript](http://coffeescript.org/), and compiled into Javascript.
