@@ -9,38 +9,17 @@
 
 This CloudFlare App aims to improve upon the available Analytics &amp; Tracking options available to users. It is written primarily in [CoffeeScript](http://coffeescript.org/), and compiled into Javascript.
 
-### Process Notes
-  * New versions TODO
-    * better describe the process
-
-    * automatically compile changes to coffeescript files within this project using the [watchme.sh](watchme.sh) script. (`./watchme.sh`)
-    * test compiled javascript using <a href="http://js.cloudflare.com/">js.cloudflare.com</a>
-      * <a href="http://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/pbcopy.1.html">pbcopy</a> is your friend. (`pbcopy < public/javascripts/piwik_analytics.js`)
-
-    * which files need to version bump;
-      * [cloudflare.json](cloudflare.json) -- end of file
-      * [package.json](package.json) -- top of file
-      * [src/coffeescripts/piwik_analytics.coffee](src/coffeescripts/piwik_analytics.coffee) -- top of file
-
-    * Once you are happy, proceed to push your new version as follows.
-      1. <a href="https://www.cloudflare.com/login">login to cloudflare</a>
-      2. <a href="https://www.cloudflare.com/app-signup">App developer dashboard</a>
-      3. click on "more", then "Pull new version" button. Now WAIT! Here be dragons.
-
-### Initially this App aims to
+### Initially this app aims to
   * Be asynchronous in loading
   * Work with your own Piwik Analytics installation, or maybe a hosted solution,
   * Support a single Piwik Site ID
   * Support a single Piwik tracker/receiver
 
-### Future
-  * Utililse " use stict;" when possible
-  * Utilise [cdnjs](http://cdnjs.com/#piwik) for serving piwik.js quickly if enabled, or the parameters are left unsupplied by the user.
+### TODO Future
+* Utililse " use stict;" when possible
+* Utilise [cdnjs](http://cdnjs.com/#piwik) for serving piwik.js quickly if enabled, or the parameters are left unsupplied by the user.
 
-
-### TODO
 * Support:
-  * provide &lt;noscript&gt; tag for recording visitors without Javascript using a 1x1 gif pixel
   * [cookie configuration for domains and sub-domains](http://piwik.org/docs/javascript-tracking/#toc-cookie-configuration-for-domains-and-subdomains)
   * goals, tracking, 5 per site id, maybe more.
   * eventually support [all methods available in the Tracking API](http://piwik.org/docs/javascript-tracking/#toc-list-of-all-methods-available-in-the-tracking-api)
@@ -48,6 +27,9 @@ This CloudFlare App aims to improve upon the available Analytics &amp; Tracking 
   * automatically validate, check, and minify .js files
   * automatically validate and check cloudflare.json &amp; other json files with jsonlint
 * Describe the [test app](./test) better, and it's individual files.
+
+### IMPOSSIBLE! 
+  * provide &lt;noscript&gt; tag for recording visitors without Javascript using a 1x1 gif pixel; CloudFlare no longer supports applications which are not loaded as Javascript modules.
 
 
 Contributing
@@ -63,6 +45,29 @@ Contributing
 6. Open a Pull Request
 7. Enjoy a refreshing glass of water and wait
 
+### Process Notes
+  * New versions TODO
+    * better describe the process
+
+* npm -- there is a [package.json](package.json) to help with dependencies.
+  * (`npm install -d`)
+    * [jsonlint](https://github.com/zaach/jsonlint)
+      * (`npm install jsonlint -g `)
+
+    * automatically compile changes to coffeescript files within this project using the [watchme.sh](watchme.sh) script. (`./watchme.sh`)
+    * test compiled javascript using <a href="http://js.cloudflare.com/">js.cloudflare.com</a>
+      * <a href="http://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/pbcopy.1.html">pbcopy</a> is your friend. (`pbcopy < public/javascripts/piwik_analytics.js`)
+
+    * which files need to version bump;
+      * [cloudflare.json](cloudflare.json) -- end of file
+      * [package.json](package.json) -- top of file
+      * [src/coffeescripts/piwik_analytics.coffee](src/coffeescripts/piwik_analytics.coffee) -- top of file
+
+    * Once you are happy, proceed to push your new version as follows.
+      1. <a href="https://www.cloudflare.com/login">login to cloudflare</a>
+      2. <a href="https://www.cloudflare.com/app-signup">App developer dashboard</a>
+      3. click on "more", then "Pull new version" button. Now WAIT! Here be dragons.
+
 
 
 Piwik Documentation
@@ -77,10 +82,6 @@ CloudFlare's Apps platform enables developers to create and publish web applicat
 
 
 
-### Other stuff
-
-* [jsonlint](https://github.com/zaach/jsonlint)
-    npm install jsonlint -g
 
 
 #### My tracking pixels
