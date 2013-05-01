@@ -160,7 +160,9 @@ CloudFlare.define 'piwik_analytics', [
       #end getVisitorId
 
     ###
-# myPiwik.
+# myPiwik.perf
+#   Use the _paq array to push performance metrics to the
+#     Javascript console once piwik.js is loaded.
     ###
     myPiwik.perf = () ->
       window.perfNow_piwik_js=window.performance.now()
