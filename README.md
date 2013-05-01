@@ -18,9 +18,9 @@ This CloudFlare App aims to improve upon the available Analytics &amp; Tracking 
       * <a href="http://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/pbcopy.1.html">pbcopy</a> is your friend. (`pbcopy < public/javascripts/piwik_analytics.js`)
 
     * which files need to version bump;
-      * cloudflare.json -- end of file
-      * package.json -- top of file
-      * src/coffeescripts/piwik_analytics.coffee -- top of file
+      * [cloudflare.json](cloudflare.json) -- end of file
+      * [package.json](package.json) -- top of file
+      * [src/coffeescripts/piwik_analytics.coffee](src/coffeescripts/piwik_analytics.coffee) -- top of file
 
     * Once you are happy, proceed to push your new version as follows.
       1. <a href="https://www.cloudflare.com/login">login to cloudflare</a>
