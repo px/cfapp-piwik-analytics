@@ -15,10 +15,10 @@
     },
     "details": {
       "Category": "analytics",
+      "Homepage": "https://github.com/px/cfapp-piwik-analytics/",
       "Language": "English, <a href='#languages'>more coming soon</a>.",
-      "Piwik": "",
       "Price": "Free",
-      "Restrictions": "This application is open source licensed, <a href='https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt'>BSD-2 Clause</a>.",
+      "Restrictions": "<a href='https://github.com/px/cfapp-piwik-analytics/'>This application</a> is open source licensed, <a href='https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt'>BSD-2 Clause</a>.",
       "playerx.net": "<a href='http://playerx.net/' target='_blank'>Rob Friedman</a>"
     },
     "interface": [
@@ -144,5 +144,5 @@
   "scripts": {
     "piwik_js": "./public/javascripts/piwik.js"
   },
-  "version": "0.0.27b"
+  "version": "0.0.28b"
 }
