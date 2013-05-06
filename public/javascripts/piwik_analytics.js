@@ -200,7 +200,7 @@ CloudFlare.define('piwik_analytics', ['piwik_analytics/config', 'cloudflare/cons
 
   myPiwik.paqPush = function() {
     if ((!__config.paq_push) && (__config.paq_push !== void 0) && (__config.paq_push !== "")) {
-      window._paq.push(__config.paq_push);
+      window._paq.push(unescape(__config.paq_push));
     }
     window._paq.push(['enableLinkTracking', true]);
     window._paq.push(['trackPageView']);
