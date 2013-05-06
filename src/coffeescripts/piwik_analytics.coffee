@@ -325,7 +325,7 @@ CloudFlare.define 'piwik_analytics', [
       if ( ( ! __config.paq_push ) and
         ( __config.paq_push isnt undefined ) and
         ( __config.paq_push isnt "") )
-          window._paq.push( __config.paq_push )
+          window._paq.push( unescape (__config.paq_push) )
 
       # enable link tracking
       window._paq.push(['enableLinkTracking',true])
