@@ -23,6 +23,31 @@
 ###
 
 ###
+# now()
+#  return the window.performance.now()
+#  or the getTime() for less precision on
+#  browsers which are older
+###
+
+#now =->
+#  fake={}
+#  fake.now =->
+#    new Date().getTime()
+#
+#  p=window.performance || window.mozPerformance ||
+#    window.msPerformance || window.webkitPerformance || fake
+#  try
+#    p.now()
+#  catch e
+#    window.console.log(e)
+#    fake.now() #new Date().getTime()
+
+# set the performance function and create a timer
+# wrap in try or risk failure in some browsers
+#window.perfNow=now()
+
+
+###
 # piwik_analytics module definition
 # stick with commas for sep
 # REQUIRE:
@@ -32,36 +57,35 @@
 #  cloudflare/console for output to console
 ###
 
-###
-# now()
-#  return the window.performance.now()
-#  or the getTime() for less precision on
-#  browsers which are older
-###
-now =->
-  fake={}
-  fake.now =->
-    new Date().getTime()
-
-  p=window.performance || window.mozPerformance ||
-    window.msPerformance || window.webkitPerformance || fake
-  try
-    p.now()
-  catch e
-    window.console.log(e)
-    fake.now() #new Date().getTime()
-
-# set the performance function and create a timer
-# wrap in try or risk failure in some browsers
-window.perfNow=now()
-
-
 CloudFlare.define 'piwik_analytics', [
   'piwik_analytics/config',
     'cloudflare/console'
 ],
   ( __config = {}, __console) ->
     # move to functions FIXME http://stackoverflow.com/questions/4462478/jslint-is-suddenly-reporting-use-the-function-form-of-use-strict
+
+    ###
+# now()
+#  return the window.performance.now()
+#  or the getTime() for less precision on
+#  browsers which are older
+    ###
+    now =->
+      fake={}
+      fake.now =->
+         new Date().getTime()
+
+      p=window.performance || window.mozPerformance ||
+        window.msPerformance || window.webkitPerformance || fake
+      try
+        p.now()
+      catch e
+        window.console.log(e)
+        fake.now() #new Date().getTime()
+
+# set the performance function and create a timer
+# wrap in try or risk failure in some browsers
+    perfNow=now()
 
     # create or copy so as to not destroy the window._paq for piwik to utilize
     window._paq = window._paq || []
@@ -85,6 +109,12 @@ CloudFlare.define 'piwik_analytics', [
     default_piwik_install = "/piwik"
     # default piwik tracker id
     default_piwik_site_id = "1"
+
+    # for testing on js.cloudflare.com 
+    if (window.document.location.hostname is "js.cloudflare.com")
+      default_debug = true # || null
+      default_piwik_install="//piwik-ssl.ns1.net"
+      default_piwik_site_id="28"
 
     # try to read the _debug, otherwise set to default
     try
@@ -122,13 +152,14 @@ CloudFlare.define 'piwik_analytics', [
       # If we're debugging, say Hello, and clear localStorage
       __console.log( "Hello from the Piwik Analytics CloudFlare App!" )
 
-      __console.log( "Module begin execution time = " + (now() - window.perfNow) + "ms")
+      #__console.log( "Module begin execution time = " + (now() - window.perfNow ) + "ms")
 
       # clear localStorage is we're debuging, works next reload
-      __console.log(
-        "localStorage.clear() === undefined? " +
-        ( window.localStorage.clear()? )
-      )
+      #__console.log(
+      #  "localStorage.clear() === undefined? " +
+      #  ( window.localStorage.clear()? )
+      #)
+      window.localStorage.clear()
     # end
 
     ###
@@ -144,58 +175,58 @@ CloudFlare.define 'piwik_analytics', [
     myPiwik.fetch = (u,r) ->
       CloudFlare.require(u,r)
 
-    ###
+    ##
 # myPiwik.isPiwik()
 #   pushes a request for piwik to set _isPiwik true once piwik.js executes
 #   if it does, then it will return a yes, other no
 #
-    ###
-    myPiwik.isPiwik = () ->
-      # use strict javascript
-      #"use strict"
-      window._paq.push [->
-        _isPiwik = yes
-      ]
-      _isPiwik
+    ##
+#    myPiwik.isPiwik = () ->
+#      # use strict javascript
+#      #"use strict"
+#      window._paq.push [->
+#        _isPiwik = yes
+#      ]
+#      _isPiwik
 
 
-    ###
+    ##
 # myPiwik.getVisitorId
 # pushes a request for the Piwik VisitorId generated once piwik.js executes
 # sets the _visitorId to be the id, and returns it's value
 # will return the visitorId or false if piwik.js is still not loaded.
 #
-    ###
-    myPiwik.getVisitorId = () ->
-      #"use strict"
-      window._paq.push [ ->
-        _visitorId = @getVisitorId()
-        # output console message with VisitorId once piwik.js is loaded
-        __console.log( "_visitorId = "+ _visitorId ) if __config._debug?
-        _visitorId
-      ]
-      _visitorId
-      #end getVisitorId
+    ##
+#    myPiwik.getVisitorId = () ->
+#      #"use strict"
+#      window._paq.push [ ->
+#        _visitorId = @getVisitorId()
+#        # output console message with VisitorId once piwik.js is loaded
+#        __console.log( "_visitorId = "+ _visitorId ) if __config._debug?
+#        _visitorId
+#      ]
+#      _visitorId
+#      #end getVisitorId
 
-    ###
+    ##
 # myPiwik.perf
 #   Use the _paq array to push performance metrics to the
 #     Javascript console once piwik.js is loaded.
-    ###
-    myPiwik.perf = () ->
-      window.perfNow_piwik_js=now()
-
-      window._paq.push [ ->
-        __console.log(
-          "Piwik library load time = "+
-          (now() - window.perfNow_piwik_js) + "ms")
-        __console.log(
-          "Total execution time = "+
-          (now() - window.perfNow) + "ms")
-      ]
-
-      # return yes
-      yes
+    ##
+#    myPiwik.perf = () ->
+#      perfNow_piwik_js=now()
+#
+#      window._paq.push [ ->
+#        __console.log(
+#          "Piwik library load time = "+
+#          (now() - perfNow_piwik_js) + "ms")
+#        __console.log(
+#          "Total execution time = "+
+#          (now() - perfNow) + "ms")
+#        yes
+#      ]
+#      # return yes
+#      yes
 
 
     ###
@@ -226,15 +257,16 @@ CloudFlare.define 'piwik_analytics', [
     ###
     myPiwik.setInstall =
       (_install = default_piwik_install ) ->
-        #if __config._debug?
+        if __config._debug?
         #  perfNow=now()
-        #  __console.log("myPiwik.setInstall = \""+unescape( _install)+"\"")
+          __console.log("myPiwik.setInstall = \""+unescape( _install)+"\"")
+        
+        # fetch the piwik library
+        myPiwik.fetch([ unescape( _install + "/piwik.js" ) ])
 
         window._paq.push([
           'setTrackerUrl', unescape ( _install ) + "/piwik.php"
         ])
-        # fetch the piwik library
-        myPiwik.fetch([ unescape( _install + "/piwik.js" ) ])
         #__console.log(
         #  "end myPiwik.setInstall time = "+
         #  (now() - perfNow)
@@ -271,8 +303,8 @@ CloudFlare.define 'piwik_analytics', [
 
       #if __config._debug?
       #  __console.log("end myPiwik.menuOpts time = "+(now() - perfNow))
-
-      yes
+      # return the window._paq array so far
+      window._paq
 
     ###
 # myPiwik.paqPush()
@@ -319,9 +351,9 @@ CloudFlare.define 'piwik_analytics', [
     #
     #* do stuff to get the party started
 
-    if __config._debug?
+    #if __config._debug?
       #myPiwik.getVisitorId()
-      myPiwik.perf()
+      #myPiwik.perf()
 
     #myPiwik.fetch(unescape ( _install ) + "/piwik.js")
     #CloudFlare.require([unescape ( default_piwik_install ) + "/piwik.js"])
@@ -340,7 +372,7 @@ CloudFlare.define 'piwik_analytics', [
     myPiwik.paqPush()
 
     if __config._debug?
-      __console.log( "Module execution time = " + ( now() - window.perfNow ) + "ms")
+      __console.log( "Module execution time = " + ( now() - perfNow ) + "ms")
 
 
     #
@@ -350,6 +382,7 @@ CloudFlare.define 'piwik_analytics', [
 ###
 #end myPiwik module
 ###
-window.console.log(
-  "Piwik Analytics CloudFlare App Script load time = "+
-  ( now() - window.perfNow) + "ms")
+
+#window.console.log(
+#  "Piwik Analytics CloudFlare App Script load time = "+
+#  ( now() - window.perfNow) + "ms")
