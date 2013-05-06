@@ -44,7 +44,7 @@
 
 # set the performance function and create a timer
 # wrap in try or risk failure in some browsers
-#window.perfNow=now()
+#window.perfThen=now()
 
 
 ###
@@ -85,7 +85,7 @@ CloudFlare.define 'piwik_analytics', [
 
 # set the performance function and create a timer
 # wrap in try or risk failure in some browsers
-    perfNow=now()
+    perfThen=now()
 
     # create or copy so as to not destroy the window._paq for piwik to utilize
     window._paq = window._paq || []
@@ -116,32 +116,28 @@ CloudFlare.define 'piwik_analytics', [
       default_piwik_install="//piwik-ssl.ns1.net"
       default_piwik_site_id="28"
 
-    # try to read the _debug, otherwise set to default
-    try
-      if __config._debug is undefined
-        __config._debug = default_debug
-        __console.log("Using test default _debug = " + default_debug )
-    catch e1
-      __config._debug = default_debug
-      __console.error(e1)
+    ###
+    #
+    ###
+    setDefault = (v, d, m) ->
+      try
+        # if the variable is undefined
+        if v is undefined
+          # assign the variable the value of the default
+          v = d
+          # output a log message
+          __console.log("Using test default "+ m + " \t = "+ d )
+        v
+      catch e3 # catch the error
+        # perform the assignment of the default value
+        v = d
+        # output an error message
+        __console.error (e3)
+        v
 
-    # try to read the piwik_install otherwise set to default
-    try
-      if __config.piwik_install is undefined
-        __config.piwik_install = default_piwik_install
-        __console.log("Using test default installation Url = \"" + default_piwik_install+"\"" )
-    catch e2
-      __config.piwik_install = default_piwik_install
-      __console.error(e2)
-
-    # try to read the site_id otherwise set to default id
-    try
-      if __config.site_id is undefined
-        __config.site_id = default_piwik_site_id
-        __console.log("Using test default SiteId = "+ default_piwik_site_id )
-    catch e3
-      __config.site_id = default_piwik_site_id
-      __console.error (e3)
+    __config._debug = setDefault( __config._debug, default_debug, "Debug" )
+    __config.piwik_install = setDefault( __config.piwik_install, default_piwik_install, "Install" )
+    __config.site_id = setDefault( __config.site_id, default_piwik_site_id, "WebsiteId" )
 
 
     # if debug is enabled do stuff
@@ -152,7 +148,7 @@ CloudFlare.define 'piwik_analytics', [
       # If we're debugging, say Hello, and clear localStorage
       __console.log( "Hello from the Piwik Analytics CloudFlare App!" )
 
-      #__console.log( "Module begin execution time = " + (now() - window.perfNow ) + "ms")
+      __console.log( (now() - perfThen ) + " ms" + "\t Module begin execution time" )
 
       # clear localStorage is we're debuging, works next reload
       #__console.log(
@@ -170,7 +166,7 @@ CloudFlare.define 'piwik_analytics', [
     myPiwik.fetch = (u) ->
       CloudFlare.require(u)
     ###
-# overload for more CloudFlare.require functionality
+# overload for callback functionality
     ###
     myPiwik.fetch = (u,r) ->
       CloudFlare.require(u,r)
@@ -190,43 +186,43 @@ CloudFlare.define 'piwik_analytics', [
 #      _isPiwik
 
 
-    ##
+    ###
 # myPiwik.getVisitorId
 # pushes a request for the Piwik VisitorId generated once piwik.js executes
 # sets the _visitorId to be the id, and returns it's value
 # will return the visitorId or false if piwik.js is still not loaded.
 #
-    ##
-#    myPiwik.getVisitorId = () ->
-#      #"use strict"
-#      window._paq.push [ ->
-#        _visitorId = @getVisitorId()
-#        # output console message with VisitorId once piwik.js is loaded
-#        __console.log( "_visitorId = "+ _visitorId ) if __config._debug?
-#        _visitorId
-#      ]
-#      _visitorId
-#      #end getVisitorId
+    ###
+    myPiwik.getVisitorId = () ->
+      #"use strict"
+      window._paq.push [ ->
+        _visitorId = @getVisitorId()
+        # output console message with VisitorId once piwik.js is loaded
+        __console.log( "_visitorId = "+ _visitorId ) if __config._debug?
+        _visitorId
+      ]
+      _visitorId
+      #end getVisitorId
 
-    ##
+    ###
 # myPiwik.perf
 #   Use the _paq array to push performance metrics to the
 #     Javascript console once piwik.js is loaded.
-    ##
-#    myPiwik.perf = () ->
-#      perfNow_piwik_js=now()
-#
-#      window._paq.push [ ->
-#        __console.log(
-#          "Piwik library load time = "+
-#          (now() - perfNow_piwik_js) + "ms")
-#        __console.log(
-#          "Total execution time = "+
-#          (now() - perfNow) + "ms")
-#        yes
-#      ]
-#      # return yes
-#      yes
+    ###
+    myPiwik.perf = () ->
+      perfThen_piwik_js=now()
+
+      window._paq.push [ ->
+        __console.log(
+          (now() - perfThen_piwik_js) + " ms"+
+          "\t Piwik library fetch/load time")
+        __console.log(
+          (now() - perfThen) + " ms"+
+          "\t Total execution time")
+        yes
+      ]
+      # return yes
+      yes
 
 
     ###
@@ -240,7 +236,7 @@ CloudFlare.define 'piwik_analytics', [
         # if it's a number use it. Double Negative,
         # will catch, alpha, and use the default above
         if ( not isNaN( _SiteId ) )
-          __console.log( "myPiwik.setSiteId = "+ _SiteId ) if __config._debug?
+          __console.log( "myPiwik.setSiteId\t = "+ _SiteId ) if __config._debug?
         else
           # default to default_site_id from cloudflare.json
           __console.error( "myPiwik.setSiteId -- Invalid Website Id = "+ _SiteId+
@@ -258,8 +254,10 @@ CloudFlare.define 'piwik_analytics', [
     myPiwik.setInstall =
       (_install = default_piwik_install ) ->
         if __config._debug?
-        #  perfNow=now()
-          __console.log("myPiwik.setInstall = \""+unescape( _install)+"\"")
+        #  perfThen=now()
+          __console.log("myPiwik.setInstall\t = \""+unescape( _install)+"\"")
+          # start the performance counter
+          myPiwik.perf()
         
         # fetch the piwik library
         myPiwik.fetch([ unescape( _install + "/piwik.js" ) ])
@@ -269,7 +267,7 @@ CloudFlare.define 'piwik_analytics', [
         ])
         #__console.log(
         #  "end myPiwik.setInstall time = "+
-        #  (now() - perfNow)
+        #  (now() - perfThen)
         #) if __config._debug?
 
         ###
@@ -284,7 +282,7 @@ CloudFlare.define 'piwik_analytics', [
     myPiwik.menuOpts = ->
       #if __config._debug?
       #  __console.log("myPiwik.menuOpts")
-      #  perfNow=now()
+      #  perfThen=now()
 
       # determine if tracking-all-subdomains is enabled -- FIXME
       if ( __config.tracking_all_subdomains is "true" or __config.tracking_all_subdomains is undefined )
@@ -302,7 +300,7 @@ CloudFlare.define 'piwik_analytics', [
       # end if do_not_track
 
       #if __config._debug?
-      #  __console.log("end myPiwik.menuOpts time = "+(now() - perfNow))
+      #  __console.log("end myPiwik.menuOpts time = "+(now() - perfThen))
       # return the window._paq array so far
       window._paq
 
@@ -317,7 +315,7 @@ CloudFlare.define 'piwik_analytics', [
     myPiwik.paqPush = ( ) ->
       #if __config._debug?
       #  __console.log("myPiwik.paqPush")
-      #  perfNow=now()
+      #  perfThen=now()
 
       # we do this at the top of the module
       #window._paq = window._paq || []
@@ -334,7 +332,7 @@ CloudFlare.define 'piwik_analytics', [
       window._paq.push( ['trackPageView'] )
 
       #if __config._debug?
-      #  __console.log("end myPiwik.paqPush time = "+(now() - perfNow))
+      #  __console.log("end myPiwik.paqPush time = "+(now() - perfThen))
 
     #return the _paq array
       window._paq
@@ -343,7 +341,7 @@ CloudFlare.define 'piwik_analytics', [
     ###
     window.CloudFlare.require(['https://cdnjs.cloudflare.com/ajax/libs/piwik/1.11.1/piwik.js'], function() {
     window.console.log("piwik.js Module execution time =")
-    window.console.log(now() - window.perfNow)
+    window.console.log(now() - window.perfThen)
     }
     );
     ###
@@ -372,7 +370,10 @@ CloudFlare.define 'piwik_analytics', [
     myPiwik.paqPush()
 
     if __config._debug?
-      __console.log( "Module execution time = " + ( now() - perfNow ) + "ms")
+      __console.log(
+        ( now() - perfThen ) + " ms"+
+        "\t Module execution time")
+      
 
 
     #
@@ -385,4 +386,4 @@ CloudFlare.define 'piwik_analytics', [
 
 #window.console.log(
 #  "Piwik Analytics CloudFlare App Script load time = "+
-#  ( now() - window.perfNow) + "ms")
+#  ( now() - window.perfThen) + " ms")
