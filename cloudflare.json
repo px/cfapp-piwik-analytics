@@ -85,7 +85,7 @@
       {
         "id": "paq_push",
         "name": "Advanced _paq",
-        "description": "Push custom code on to the 'window._paq' array. example. '[ function() { return window.console.log(\"getVisitorId=\"this.getVisitorId()); } ]'",
+        "description": "Push custom code on to the 'window._paq' array. example. '[ function() { return window.console.log(\"getVisitorId=\"+this.getVisitorId()); } ]'",
         "type": "string",
         "value": ""
       },
