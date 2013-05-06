@@ -51,10 +51,10 @@
 # piwik_analytics module definition
 # stick with commas for sep
 # REQUIRE:
-#  piwik.js library
 #  piwik_analytics/config
 #   -- defaults to {} and will assign test defaults
 #  cloudflare/console for output to console
+#  piwik.js library -- needs logic :(
 ###
 
 CloudFlare.define 'piwik_analytics', [
