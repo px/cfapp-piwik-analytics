@@ -22,12 +22,12 @@
 # CloudFlare.push( { verbose:1 } );
 ###
 
-###
+##
 # now()
 #  return the window.performance.now()
 #  or the getTime() for less precision on
 #  browsers which are older
-###
+##
 
 #now =->
 #  fake={}
