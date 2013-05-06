@@ -83,6 +83,13 @@
         ]
       },
       {
+        "id": "paq_push",
+        "name": "Advanced _paq",
+        "description": "Push custom code on to the 'window._paq' array. example. '[ function() { return window.console.log(this.getVisitorId()); } ]'",
+        "type": "string",
+        "value": ""
+      },
+      {
         "id": "_debug",
         "name": "Debugger",
         "description": "Enable or disable the logging, performance, and errors debug output to the Javascript console. Leave this disabled unless you are having issues and would like to know more about what is going on.",
