@@ -1,17 +1,17 @@
 # Miniature Hipster:
 ## A Piwik App for CloudFlare -- cfapp_piwik_analytics
-
-  * [Piwik Analytics](https://www.cloudflare.com/apps/piwik_analytics) CloudFlare App.
+------------------------------------------------------
+[Piwik Analytics](https://www.cloudflare.com/apps/piwik_analytics) CloudFlare App.
 
 **Miniature Hipster** is the 'random' new project name provided by [Github](https://github.com/new). I enjoy it, although may change it. But it's kind of interesting.
+  * It is written primarily in [CoffeeScript](http://coffeescript.org/), and compiled into Javascript.
 
 ### Initially this app aims to
-  * Improve upon the available Analytics &amp; Tracking options available to CloudFlare users.
-  * It is written primarily in [CoffeeScript](http://coffeescript.org/), and compiled into Javascript.
   * Be asynchronous in loading
-  * Work with your own Piwik Analytics installation, or maybe a hosted solution,
   * Support a single Piwik Site ID
   * Support a single Piwik tracker/receiver
+  * Work with your own Piwik Analytics installation, or maybe a hosted solution,
+  * Improve upon the available Analytics &amp; Tracking options available to CloudFlare users.
 
 ### TODO Future
 * Utililse "use strict;" when possible for development
