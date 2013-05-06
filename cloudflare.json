@@ -30,24 +30,10 @@
         "value": "1"
       },
       {
-        "id": "default_site_id",
-        "name": "default SiteId ",
-        "description": "set a possibly sane default SiteId",
-        "type": "hidden",
-        "value": "1"
-      },
-      {
         "id": "piwik_install",
-        "name": "Piwik Installation URL (REQUIRED)",
+        "name": "Piwik Installation URL",
         "description": "Root URL of your working Piwik installation. 'https://piwik.yourdomain.com'. Do not add a trailing '/' character. Ideally should be utilizing SSL for security purposes, but using a schemeless URL '//host.tld' is valid also. Leaving this empty will use the default relative URL '/piwik'",
         "type": "string",
-        "value": "/piwik"
-      },
-      {
-        "id": "default_piwik_install",
-        "name": "Piwik URL (DEFAULT)",
-        "description": "",
-        "type": "hidden",
         "value": "/piwik"
       },
       {
