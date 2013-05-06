@@ -121,7 +121,7 @@
       "url": "https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt"
     }
   ],
-  "main": "./public/javascripts/piwik_analytics.js",
+  "main": "./public/javascripts/piwik_analytics.min.js",
   "name": "Piwik Analytics",
   "repository": {
     "type": "git",
