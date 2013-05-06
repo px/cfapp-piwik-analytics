@@ -14,7 +14,7 @@
   * Support a single Piwik tracker/receiver
 
 ### TODO Future
-* Utililse " use stict;" when possible
+* Utililse "use strict;" when possible for development
 * Utilise [cdnjs](http://cdnjs.com/#piwik) for serving piwik.js quickly if enabled, or the parameters are left unsupplied by the user.
 
 * Support:
