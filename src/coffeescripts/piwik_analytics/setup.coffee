@@ -9,57 +9,53 @@ CloudFlare.define 'piwik_analytics/setup', [
   'piwik_analytics/perf'
 ],
   ( __console,
-    __config = {
-      _debug: yes
-      piwik_install:'/piwik'
-      site_id:'1'
-      paq_push:""
-      tracking_all_subdomains: yes
-      tracking_do_not_track: no
-    },
+    __config,
       __perf
   ) ->
+    #    __console.log("START piwik_analytics/setup")
+    setup = {}
 
-    __console.log("START piwik_analytics/setup")
+    # store the current time
+    setup.perfThen = __perf.now()
+
+    __defaultConf = {
+      _debug: `false`
+      default_debug: yes
+      piwik_install:''
+      default_piwik_install:'/piwik'
+      site_id:''
+      default_piwik_site_id:1
+      paq_push:""
+      tracking_all_subdomains:yes
+      tracking_do_not_track: no
+    }
+    
+    # for testing on js.cloudflare.com
+    if (window.document.location.hostname is "js.cloudflare.com")
+      __console.error("js.cloudflare.com sandbox DETECTED! Using developer testing config.")
+      __devConf = __defaultConf
+      __devConf._debug=`true`
+      ##__devConf._debug=`false`
+      __devConf.default_piwik_install='//piwik-ssl.ns1.net'
+      __devConf.site_id='a'
+      __devConf.default_piwik_site_id=28
+      __config = __devConf
+
+    if __config is undefined
+      __config = __defaultConf
+
+    
     ## create _paq array
     window._paq = window._paq || []
 
-
-    setup = {}
-
-    setup.perfThen = __perf.now()
-    #(__config) ->
-    #    __console.log("mod START piwik_analytics/setup")
-
-    #    ## create _paq array
-    #    window._paq = window._paq || []
-
-    #    for opt in __config
-    #      __console.log("option: "+opt)
-
-    # _debug must be either true or null
-    setup.default_debug = true # || null
-    # default piwik tracker URL
-    setup.default_piwik_install = "/piwik"
-    # default piwik tracker id
-    setup.default_piwik_site_id = "1"
-
-    # for testing on js.cloudflare.com
-    if (window.document.location.hostname is "js.cloudflare.com")
-      __console.log("js.cloudflare.com sandbox DETECTED!")
-      __config._debug = true # || null
-      __config.piwik_install="//piwik-ssl.ns1.net"
-      __config.site_id="28"
-
-
     setup.setDefault = (v, d, m) ->
       try
-        # if the variable is undefined
-        if v is undefined
+        # if the variable is undefined or empty
+        if ( v is undefined or v is ""  )
+          # output a log message
+          __console.error("Invalid "+m+" = \""+v+"\", using default "+ m + " = \""+ d+"\" " )
           # assign the variable the value of the default
           v = d
-          # output a log message
-          __console.log("Using test default "+ m + " \t = "+ d )
         # return v
         v
       catch e3 # catch the error
@@ -72,23 +68,24 @@ CloudFlare.define 'piwik_analytics/setup', [
 
 
     ###
-# myPiwik.setSiteId()
+# setup.setSiteId()
 #
 #   checks for a null value, not a number, and assign's SiteId to default
     ###
     setup.setSiteId =
       ( _SiteId ) ->
 
+        #setup.setDefault( _SiteId, __config.default_piwik_site_id, "WebsiteId" )
+
         # if it's a number use it. Double Negative,
         # will catch, alpha, and use the default above
-        if ( not isNaN( _SiteId ) )
+        if ( ( not isNaN( _SiteId ) ) and ( _SiteId >= 1 ) )
           __console.log( "setup.setSiteId\t = "+ _SiteId ) if setup._debug?
         else
-          # default to default_site_id from cloudflare.json
-          __console.error( "setup.setSiteId -- Invalid Website Id = "+ _SiteId+
-            " ; defaulting to " + setup.default_piwik_site_id ) if setup._debug?
-          _SiteId = setup.default_piwik_site_id
-
+            # default to default_site_id from cloudflare.json
+          __console.error( "Invalid WebsiteId = \'"+ _SiteId+
+            "\' is not a number; defaulting to \'" + ( __defaultConf.default_piwik_site_id ) + "\'") if setup._debug?
+          _SiteId = __defaultConf.default_piwik_site_id
         # end if site_id
         window._paq.push(['setSiteId', unescape ( _SiteId ) ])
         _SiteId
@@ -98,43 +95,55 @@ CloudFlare.define 'piwik_analytics/setup', [
 # sets the tracker for the client to use
     ###
     setup.setInstall =
-      (_install = setup.default_piwik_install ) ->
-        if setup._debug?
-          #  perfThen=__perf.now()
-          __console.log("setup.setInstall\t = \""+unescape( _install)+"\"")
-          # start the performance counter
-          #myPiwik.perf()
+      (_install ) ->
 
-        # fetch the piwik library
-        #myPiwik.fetch([ unescape( _install + "/piwik.js" ) ])
+        _install = setup.setDefault( _install, __config.default_piwik_install, "Install" )
+
+        if setup._debug?
+          __console.log("setup.setInstall\t = \""+unescape( _install)+"\"")
 
         window._paq.push([
           'setTrackerUrl', unescape ( _install ) + "/piwik.php"
         ])
-        #__console.log(
-        #  "end myPiwik.setInstall time = "+
-        #  (__perf.now() - perfThen)
-        #) if setup._debug?
-
         ###
 #return _install
         ###
         _install
 
     ###
-    # config the defaults
+# check for how bad user configured values react
     ###
-    setup._debug = setup.setDefault( __config._debug, setup.default_debug, "Debug" )
-    setup.piwik_install = setup.setInstall( setup.setDefault( __config.piwik_install, setup.default_piwik_install, "Install" ) )
-    setup.site_id = setup.setSiteId( setup.setDefault( __config.site_id, setup.default_piwik_site_id, "WebsiteId" ) )
+    #__config.site_id='a'
+    #__config.piwik_install=""
+
+
+
+    ###
+    # configure with the defaults if undefined or invalid
+    ###
+    setup._debug = setup.setDefault( __config._debug, __defaultConf.default_debug, "Debug" )
+
+    setup.piwik_install = setup.setInstall( __config.piwik_install )
+
+    try
+      ## in the future if the SiteId is invalid, we can use the working tracker to fetch the Id based on the domain name
+      setup.site_id = setup.setSiteId( __config.site_id )
+    catch e
+      __console.error("uhoh "+e)
     #__console.log( "Hello from the Piwik Analytics CloudFlare App!" )
 
-    #setup._debug = yes
-    #setup.piwik_install ='/piwik-----'
-    #setup.site_id=28
+    if setup._debug?
+      CloudFlare.push( { verbose:1 } )
+      window.localStorage.clear()
+    #__console.log("END piwik_analytics/setup")
 
-    __console.log("END piwik_analytics/setup")
-
+    try
+      __console.log(
+        (__perf.now() - setup.perfThen) + " ms"+
+          "\t piwik_analytics/setup execution time")
+    catch e
+      __console.error("uhoh "+e)
+    
     setup
 ###
 # end of setup module

@@ -30,7 +30,7 @@ CloudFlare.define 'piwik_analytics/showPerf', [
         try
           __console.log(
             (__perf.now() - __js.perfThen) + " ms"+
-            "\t Piwik library fetch/load time")
+            "\t Piwik library fetch/execute time")
         catch e
           __console.error("uhoh "+e)
 
@@ -46,8 +46,8 @@ CloudFlare.define 'piwik_analytics/showPerf', [
       # return yes
       yes
 
-
-    module.showPerf()
+    if __setup._debug?
+      module.showPerf()
 
     # __console.log("END piwik_analytics/showPerf")
 

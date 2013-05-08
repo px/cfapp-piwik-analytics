@@ -10,7 +10,7 @@ CloudFlare.define 'piwik_analytics/piwik_js', [
 ],
   ( __setup , __console, __perf) ->
 
-    __console.log("START piwik_analytics/piwik_js")
+    #__console.log("START piwik_analytics/piwik_js")
     # module object
     module = {}
 
@@ -28,7 +28,14 @@ CloudFlare.define 'piwik_analytics/piwik_js', [
     )
     #__console.log("isPiwik " + module._isPiwik)
 
-    __console.log("END piwik_analytics/piwik_js")
+    try
+      __console.log(
+         (__perf.now() - module.perfThen) + " ms"+
+         "\t piwik_analytics/piwik_js execution time")
+    catch e
+      __console.error("uhoh "+e)
+
+    #__console.log("END piwik_analytics/piwik_js")
     # return piwik_js module
     module
 

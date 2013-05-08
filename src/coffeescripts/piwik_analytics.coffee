@@ -3,12 +3,9 @@
 
 ###
 # piwik_analytics module definition
-# stick with commas for sep
 # REQUIRE:
-#  piwik_analytics/config
 #   -- defaults to {} and will assign test defaults
 #  cloudflare/console for output to console
-#  piwik.js library -- needs logic :(
 ###
 
 CloudFlare.define 'piwik_analytics', [
@@ -18,20 +15,17 @@ CloudFlare.define 'piwik_analytics', [
   'piwik_analytics/piwik_js'
 ],
   ( __console, __perf, __setup, __js ) ->
-    # move to functions FIXME http://stackoverflow.com/questions/4462478/jslint-is-suddenly-reporting-use-the-function-form-of-use-strict
     #    __console.log("START piwik_analytics")
 
-    #__console.log("try setup()")
-    # this
     try
-      #      __setup(__config)
+      if __setup._debug?
+        __console.log(
+          ( __perf.now() - __setup.perfThen ) + " ms"+
+          "\t since \"piwik_analytics/setup\" Factory execution time")
     catch e
       __console.error("uhoh "+e)
 
     __config = {}
-
-    # should be avoided, but for whatever reason, the __setup is not there when it needs to be
-    #CloudFlare.block(['piwik_analytics/setup'])
 
     #try
     #  for opt in __setup
@@ -39,30 +33,11 @@ CloudFlare.define 'piwik_analytics', [
     #catch e
     #  __console.error("uhoh "+e)
 
-    try
-      _debug = __setup._debug || yes
-    catch e
-      __console.error("uhoh "+e)
-
-    ### 
-# now()
-#  return the window.performance.now()
-#  or the getTime() for less precision on
-#  browsers which are older
-    ###
-    now =->
-      fake={}
-      fake.now =->
-         new Date().getTime()
-
-      p=window.performance || window.mozPerformance ||
-        window.msPerformance || window.webkitPerformance || fake
-      try
-        p.now()
-      catch e
-        window.console.log(e)
-        fake.now() #new Date().getTime()
-
+    #try
+    _debug = __setup._debug || yes
+    #catch e
+    #  __console.error("uhoh "+e)
+    
     # define myPiwik module
     # -- to be passed into a "return" later which will cause loading
     myPiwik = {}
@@ -73,26 +48,6 @@ CloudFlare.define 'piwik_analytics', [
 
     # create or copy so as to not destroy the window._paq for piwik to utilize
     window._paq = window._paq || []
-
-
-    #__console.log(_debug + " valued")
-    # if debug is enabled do stuff
-    if _debug?
-      # turn on verbose with CloudFlare
-      CloudFlare.push( { verbose:1 } )
-
-      # If we're debugging, say Hello, and clear localStorage
-      __console.log( "Hello from the Piwik Analytics CloudFlare App!" )
-
-      #__console.log( (__perf.now() - __setup.perfThen ) + " ms" + "\t since piwik_analytics/setup begin execution time" )
-
-      # clear localStorage is we're debuging, works next reload
-      #__console.log(
-      #  "localStorage.clear() === undefined? " +
-      #  ( window.localStorage.clear()? )
-      #)
-      window.localStorage.clear()
-    # end
 
     ##
 # myPiwik.isPiwik()
@@ -118,10 +73,11 @@ CloudFlare.define 'piwik_analytics', [
     ###
     myPiwik.getVisitorId = () ->
       #"use strict"
+      _visitorId=no
       window._paq.push [ ->
         _visitorId = @getVisitorId()
         # output console message with VisitorId once piwik.js is loaded
-        __console.log( "_visitorId = "+ _visitorId ) if _debug?
+        __console.log( "Piwik.getVisitorId = "+ _visitorId ) if _debug?
         _visitorId
       ]
       _visitorId
@@ -132,9 +88,8 @@ CloudFlare.define 'piwik_analytics', [
 # myPiwik.menuOpts
     ###
     myPiwik.menuOpts = ->
-      if _debug?
-        __console.log("myPiwik.menuOpts")
-      #  perfThen=now()
+      #if _debug?
+      #  __console.log("myPiwik.menuOpts")
       
       # determine if tracking-all-subdomains is enabled -- FIXME
       if ( __config.tracking_all_subdomains is "true" or __config.tracking_all_subdomains is undefined )
@@ -152,7 +107,7 @@ CloudFlare.define 'piwik_analytics', [
       # end if do_not_track
 
       #if _debug?
-      #  __console.log("end myPiwik.menuOpts time = "+(now() - perfThen))
+      #  __console.log("end myPiwik.menuOpts time = "+(__perf.now() - perfThen))
       # return the window._paq array so far
       window._paq
 
@@ -167,7 +122,7 @@ CloudFlare.define 'piwik_analytics', [
     myPiwik.paqPush = ( ) ->
       #if _debug?
       #  __console.log("myPiwik.paqPush")
-      #  perfThen=now()
+      #  perfThen=__perf.now()
 
       # we do this at the top of the module
       #window._paq = window._paq || []
@@ -184,19 +139,15 @@ CloudFlare.define 'piwik_analytics', [
       window._paq.push( ['trackPageView'] )
 
       #if _debug?
-      #  __console.log("end myPiwik.paqPush time = "+(now() - perfThen))
+      #  __console.log("end myPiwik.paqPush time = "+(__perf.now() - perfThen))
 
     #return the _paq array
       window._paq
     # end myPiwik.paqPush
 
-
     #
     #* do stuff to get the party started
     #__console.log("before opts")
-
-    if _debug?
-      myPiwik.getVisitorId()
 
     #__console.log("before menu opts")
     try
@@ -206,7 +157,6 @@ CloudFlare.define 'piwik_analytics', [
       __console.error("uhoh "+e)
 
     #__console.log("before paqPush")
-    
     try
       # paqPush
       #  all the configured options into the window._paq array for processing
@@ -216,17 +166,19 @@ CloudFlare.define 'piwik_analytics', [
 
     if _debug?
       __console.log(
-        ( now() - __setup.perfThen ) + " ms"+
-        "\t since __setup Module execution time")
-      __console.log(
-        ( now() - myPiwik.perfThen ) + " ms"+
+        ( __perf.now() - myPiwik.perfThen ) + " ms"+
         "\t piwik_ananlytics Factory execution time")
+      
+      CloudFlare.require(['piwik_analytics/showPerf'])
 
+
+      # this getVisitorId() has to be executed last
+      try
+        myPiwik.getVisitorId()
+      catch e
+        __console.error("uhoh "+e)
     #__console.log("END piwik_analytics")
-
-    #
     # return myPiwik
-    #
     myPiwik
 ###
 #end myPiwik module

@@ -9,7 +9,7 @@ CloudFlare.define 'piwik_analytics/perf', [
   ( __console
   ) ->
 
-    __console.log("START piwik_analytics/perf")
+    #    __console.log("START piwik_analytics/perf")
 
     module = {}
 
@@ -34,7 +34,7 @@ CloudFlare.define 'piwik_analytics/perf', [
 
     module.perfThen = module.now()
 
-    __console.log("END piwik_analytics/perf")
+    #__console.log("END piwik_analytics/perf")
 
     module
 ###
