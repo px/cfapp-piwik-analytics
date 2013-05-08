@@ -38,7 +38,7 @@
       },
       {
         "id": "tracking_all_subdomains",
-        "name": "Track visitors across all subdomains (WIP)",
+        "name": "Track visitors across all subdomains",
         "description": "So if one visitor visits x.example.com and y.example.com, they will be counted as a unique visitor. Note: This only functions with 2nd level domain names. For example, 'stuff.co.uk; would not create the cookie as expected.",
         "type": "select",
         "options": [
@@ -54,7 +54,7 @@
       },
       {
         "id": "tracking_group_by_domain",
-        "name": "Prepend the site domain to the page title when tracking (WIP)",
+        "name": "Prepend the site domain to the page title when tracking",
         "description": "So if someone visits the 'About' page on blog.example.com it will be recorded as 'blog / About'. This is the easiest way to get an overview of your traffic by sub-domain.",
         "type": "hidden",
         "value": "document.domain + '/' + document.title"
@@ -114,7 +114,7 @@
     }
   ],
   "dependencies": {},
-  "description": "This open source <a href='https://github.com/px/cfapp-piwik-analytics'>Piwik Analytics CloudFlare application</a> will help you add the Piwik tracking code on your website pages. Some features are still a \"Work in Progress\" (WIP). Click <b>\"Setup\"</b> to modify your tracking options</a>. Be sure to click <b>\"Update\"</b> to save after modifying.",
+  "description": "This open source <a href='https://github.com/px/cfapp-piwik-analytics'>Piwik Analytics CloudFlare application</a> will help you add the Piwik tracking code on your website pages. Click <b>\"Setup\"</b> to modify your tracking options</a>. Be sure to click <b>\"Update\"</b> to save after modifying.",
   "implements": "AMD",
   "keywords": [
     "webmaster",
