@@ -23,6 +23,20 @@
     },
     "interface": [
       {
+        "id": "default_piwik_site_id",
+        "name": "Website Id",
+        "description": "Website Id to be tracked, otherwise it will default to use '1'.",
+        "type": "hidden",
+        "value": "1"
+      },
+      {
+        "id": "default_piwik_install",
+        "name": "Piwik Installation URL",
+        "description": "Root URL of your working Piwik installation. 'https://piwik.yourdomain.com'. Do not add a trailing '/' character. Ideally should be utilizing SSL for security purposes, but using a schemeless URL '//host.tld' is valid also. Leaving this empty will use the default relative URL '/piwik'",
+        "type": "string",
+        "value": "/piwik"
+      },
+      {
         "id": "site_id",
         "name": "Website Id",
         "description": "Website Id to be tracked, otherwise it will default to use '1'.",
@@ -137,5 +151,5 @@
   "scripts": {
     "piwik_js": "./public/javascripts/piwik.js"
   },
-  "version": "0.0.29b"
+  "version": "0.0.30b"
 }
