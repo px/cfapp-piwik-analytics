@@ -76,7 +76,7 @@ CloudFlare.define 'piwik_analytics/setup', [
     setup._debug = __conf._debug
     setup.paq_push = __conf.paq_push
     
-    setup._debug = no
+    #setup._debug = no
     #setup._debug = yes
 
     #__console.log("setup._debug="+setup._debug)
