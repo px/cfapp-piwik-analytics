@@ -17,6 +17,8 @@ CloudFlare.define 'piwik_analytics/piwik_js', [
     # piwik.js library is not loaded
     module._isPiwik = no
     
+    module._debug = __tracker._debug
+
     #__console.log("isPiwik " + module._isPiwik)
     
     module.perfThen = __perf.now()
@@ -29,12 +31,13 @@ CloudFlare.define 'piwik_analytics/piwik_js', [
     )
     #__console.log("isPiwik " + module._isPiwik)
 
-    try
-      __console.log(
-         (__perf.now() - module.perfThen) + " ms"+
-         "\t piwik_analytics/piwik_js execution time")
-    catch e
-      __console.error("uhoh "+e)
+    if __tracker._debug is yes
+      try
+        __console.log(
+           (__perf.now() - module.perfThen) + " ms"+
+           "\t piwik_analytics/piwik_js execution time")
+      catch e
+        __console.error("uhoh "+e)
 
     #__console.log("END piwik_analytics/piwik_js")
     # return piwik_js module

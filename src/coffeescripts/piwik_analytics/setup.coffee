@@ -40,9 +40,9 @@ CloudFlare.define 'piwik_analytics/setup', [
       __devConf = __defaultConf
       __devConf._debug=`true`
       ##__devConf._debug=`false`
-      __devConf.piwik_install='//piwik-ssl.ns1.net'
+      __devConf.piwik_install='' ## purposefully invalid
       __devConf.default_piwik_install='//piwik-ssl.ns1.net'
-      __devConf.site_id='a'
+      __devConf.site_id='invalid' ## purposefully invalid
       __devConf.default_piwik_site_id=28
       __conf = __devConf
 
@@ -75,21 +75,25 @@ CloudFlare.define 'piwik_analytics/setup', [
     setup.default_piwik_install = __conf.default_piwik_install
     setup._debug = __conf._debug
     setup.paq_push = __conf.paq_push
+    
+    setup._debug = no
+    #setup._debug = yes
 
+    #__console.log("setup._debug="+setup._debug)
     #__console.log("setup.site_id="+setup.site_id)
     #__console.log("setup.install="+setup.piwik_install)
-    if setup._debug?
+    if setup._debug is yes
       CloudFlare.push( { verbose:1 } )
       window.localStorage.clear()
 
-    __console.log("END piwik_analytics/setup")
+      #__console.log("END piwik_analytics/setup")
 
-    try
-      __console.log(
-        (__perf.now() - setup.perfThen) + " ms"+
-          "\t piwik_analytics/setup execution time")
-    catch e
-      __console.error("uhoh "+e)
+      try
+        __console.log(
+          (__perf.now() - setup.perfThen) + " ms"+
+            "\t piwik_analytics/setup execution time")
+      catch e
+        __console.error("uhoh "+e)
 
     setup
 ###

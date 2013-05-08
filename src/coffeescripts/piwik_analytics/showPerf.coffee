@@ -18,6 +18,10 @@ CloudFlare.define 'piwik_analytics/showPerf', [
     #    __console.log("START piwik_analytics/showPerf")
 
     module = {}
+
+    module.perfThen = __perf.now()
+
+    module._debug = __setup._debug
     ###
 # showPerf
 #   Use the _paq array to push functions which
@@ -46,7 +50,7 @@ CloudFlare.define 'piwik_analytics/showPerf', [
       # return yes
       yes
 
-    if __setup._debug?
+    if module._debug is yes
       module.showPerf()
 
     # __console.log("END piwik_analytics/showPerf")

@@ -18,7 +18,7 @@ CloudFlare.define 'piwik_analytics', [
     #    __console.log("START piwik_analytics")
 
     try
-      if __setup._debug?
+      if __setup._debug is yes
         __console.log(
           ( __perf.now() - __setup.perfThen ) + " ms"+
           "\t since \"piwik_analytics/setup\" Factory execution time")
@@ -34,7 +34,9 @@ CloudFlare.define 'piwik_analytics', [
     #  __console.error("uhoh "+e)
 
     #try
-    _debug = __setup._debug || yes
+    
+    #_debug = __setup._debug || yes
+    
     #catch e
     #  __console.error("uhoh "+e)
     
