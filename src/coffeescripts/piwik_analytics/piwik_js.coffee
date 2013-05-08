@@ -4,11 +4,11 @@
 * definition for piwik_js
 ###
 CloudFlare.define 'piwik_analytics/piwik_js', [
-  'piwik_analytics/setup'
+  'piwik_analytics/tracker'
   'cloudflare/console'
   'piwik_analytics/perf'
 ],
-  ( __setup , __console, __perf) ->
+  ( __tracker , __console, __perf) ->
 
     #__console.log("START piwik_analytics/piwik_js")
     # module object
@@ -20,10 +20,11 @@ CloudFlare.define 'piwik_analytics/piwik_js', [
     #__console.log("isPiwik " + module._isPiwik)
     
     module.perfThen = __perf.now()
-    
+   
+    #__setup.piwik_install = __setup.setDefault( __setup.piwik_install, __setup.default_piwik_install, "Install" )
     # perform the fetch '/piwik.js' on the configured installation url
     CloudFlare.require(
-      [ unescape( __setup.piwik_install + "/piwik.js" ) ],
+      [ unescape( __tracker.piwik_install + "/piwik.js" ) ],
       module.isPiwik = yes
     )
     #__console.log("isPiwik " + module._isPiwik)
