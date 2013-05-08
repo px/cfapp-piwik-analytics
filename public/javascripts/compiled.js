@@ -79,18 +79,17 @@ CloudFlare.define('piwik_analytics/setup', ['cloudflare/console', 'piwik_analyti
     tracking_all_subdomains: true,
     tracking_do_not_track: false
   };
+  if (__config === void 0) {
+    __config = __defaultConf;
+  }
   if (window.document.location.hostname === "js.cloudflare.com") {
     __console.error("js.cloudflare.com sandbox DETECTED! Using developer testing config.");
     __devConf = __defaultConf;
     __devConf._debug = true;
-    __devConf._debug = false;
     __devConf.default_piwik_install = '//piwik-ssl.ns1.net';
     __devConf.site_id = 'a';
     __devConf.default_piwik_site_id = 28;
     __config = __devConf;
-  }
-  if (__config === void 0) {
-    __config = __defaultConf;
   }
   window._paq = window._paq || [];
   setup.setDefault = function(v, d, m) {
