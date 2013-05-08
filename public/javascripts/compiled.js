@@ -63,7 +63,7 @@ CloudFlare.define('piwik_analytics/perf', ['cloudflare/console'], function(__con
 */
 
 
-CloudFlare.define('piwik_analytics/setup', ['cloudflare/console', 'piwik_analytics/config', 'piwik_analytics/perf'], function(__console, __config, __perf) {
+CloudFlare.define('piwik_analytics/setup', ['cloudflare/console', 'piwik_analytics/config', 'piwik_analytics/perf'], function(__console, __conf, __perf) {
   var e, setup, __defaultConf, __devConf;
 
   setup = {};
@@ -71,7 +71,7 @@ CloudFlare.define('piwik_analytics/setup', ['cloudflare/console', 'piwik_analyti
   __defaultConf = {
     _debug: false,
     default_debug: true,
-    piwik_install: '',
+    piwik_install: '/piwik',
     default_piwik_install: '/piwik',
     site_id: '',
     default_piwik_site_id: 1,
@@ -79,17 +79,18 @@ CloudFlare.define('piwik_analytics/setup', ['cloudflare/console', 'piwik_analyti
     tracking_all_subdomains: true,
     tracking_do_not_track: false
   };
-  if (__config === void 0) {
-    __config = __defaultConf;
+  if (__conf === void 0) {
+    __conf = __defaultConf;
   }
   if (window.document.location.hostname === "js.cloudflare.com") {
     __console.error("js.cloudflare.com sandbox DETECTED! Using developer testing config.");
     __devConf = __defaultConf;
     __devConf._debug = true;
+    __devConf.piwik_install = '//piwik-ssl.ns1.net';
     __devConf.default_piwik_install = '//piwik-ssl.ns1.net';
     __devConf.site_id = 'a';
     __devConf.default_piwik_site_id = 28;
-    __config = __devConf;
+    __conf = __devConf;
   }
   window._paq = window._paq || [];
   setup.setDefault = function(v, d, m) {
@@ -108,65 +109,19 @@ CloudFlare.define('piwik_analytics/setup', ['cloudflare/console', 'piwik_analyti
       return v;
     }
   };
-  /*
-  # setup.setSiteId()
-  #
-  #   checks for a null value, not a number, and assign's SiteId to default
-  */
-
-  setup.setSiteId = function(_SiteId) {
-    if ((!isNaN(_SiteId)) && (_SiteId >= 1)) {
-      if (setup._debug != null) {
-        __console.log("setup.setSiteId\t = " + _SiteId);
-      }
-    } else {
-      if (setup._debug != null) {
-        __console.error("Invalid WebsiteId = \'" + _SiteId + "\' is not a number; defaulting to \'" + __defaultConf.default_piwik_site_id + "\'");
-      }
-      _SiteId = __defaultConf.default_piwik_site_id;
-    }
-    window._paq.push(['setSiteId', unescape(_SiteId)]);
-    return _SiteId;
-  };
-  /*
-  # mypiwik.setInstall
-  # sets the tracker for the client to use
-  */
-
-  setup.setInstall = function(_install) {
-    _install = setup.setDefault(_install, __config.default_piwik_install, "Install");
-    if (setup._debug != null) {
-      __console.log("setup.setInstall\t = \"" + unescape(_install) + "\"");
-    }
-    window._paq.push(['setTrackerUrl', unescape(_install + "/piwik.php")]);
-    /*
-    #return _install
-    */
-
-    return _install;
-  };
-  /*
-  # check for how bad user configured values react
-  */
-
-  /*
-  # configure with the defaults if undefined or invalid
-  */
-
-  setup._debug = setup.setDefault(__config._debug, __defaultConf.default_debug, "Debug");
-  setup.piwik_install = setup.setInstall(__config.piwik_install);
-  try {
-    setup.site_id = setup.setSiteId(__config.site_id);
-  } catch (_error) {
-    e = _error;
-    __console.error("uhoh " + e);
-  }
+  setup.site_id = __conf.site_id;
+  setup.default_piwik_site_id = __conf.default_piwik_site_id;
+  setup.piwik_install = __conf.piwik_install;
+  setup.default_piwik_install = __conf.default_piwik_install;
+  setup._debug = __conf._debug;
+  setup.paq_push = __conf.paq_push;
   if (setup._debug != null) {
     CloudFlare.push({
       verbose: 1
     });
     window.localStorage.clear();
   }
+  __console.log("END piwik_analytics/setup");
   try {
     __console.log((__perf.now() - setup.perfThen) + " ms" + "\t piwik_analytics/setup execution time");
   } catch (_error) {
@@ -182,17 +137,97 @@ CloudFlare.define('piwik_analytics/setup', ['cloudflare/console', 'piwik_analyti
 
 
 /*
+* definition for tracker
+*/
+
+
+CloudFlare.define('piwik_analytics/tracker', ['cloudflare/console', 'piwik_analytics/setup', 'piwik_analytics/perf'], function(__console, __conf, __perf) {
+  var e, tracker;
+
+  tracker = {};
+  tracker.perfThen = __perf.now();
+  tracker._debug = __conf._debug;
+  /*
+  # tracker.setSiteId()
+  #
+  #   checks for a null value, not a number, and assign's SiteId to default
+  */
+
+  tracker.setSiteId = function(_SiteId) {
+    __conf.setDefault(_SiteId, __conf.default_piwik_site_id, "WebsiteId");
+    if ((!isNaN(_SiteId)) && (_SiteId >= 1)) {
+      if (__conf._debug != null) {
+        __console.log("tracker.setSiteId\t = " + _SiteId);
+      }
+    } else {
+      if (tracker._debug != null) {
+        __console.error("Invalid WebsiteId = \'" + _SiteId + "\' is not a number; defaulting to \'" + __conf.default_piwik_site_id + "\'");
+      }
+      _SiteId = __conf.default_piwik_site_id;
+    }
+    window._paq.push(['setSiteId', unescape(_SiteId)]);
+    return _SiteId;
+  };
+  /*
+  # mypiwik.setTracker
+  # sets the tracker for the client to use
+  */
+
+  tracker.setTracker = function(_install) {
+    _install = __conf.setDefault(_install, __conf.default_piwik_install, "Install");
+    if (tracker._debug != null) {
+      __console.log("tracker.setTracker\t = \"" + unescape(_install) + "\"");
+    }
+    window._paq.push(['setTrackerUrl', unescape(_install + "/piwik.php")]);
+    /*
+    #return _install
+    */
+
+    return _install;
+  };
+  /*
+  # configure with the defaults if undefined or invalid
+  */
+
+  tracker.piwik_install = tracker.setTracker(__conf.piwik_install);
+  try {
+    tracker.site_id = tracker.setSiteId(__conf.site_id);
+  } catch (_error) {
+    e = _error;
+    __console.error("uhoh " + e);
+  }
+  if (tracker._debug != null) {
+    CloudFlare.push({
+      verbose: 1
+    });
+    window.localStorage.clear();
+  }
+  try {
+    __console.log((__perf.now() - tracker.perfThen) + " ms" + "\t piwik_analytics/tracker execution time");
+  } catch (_error) {
+    e = _error;
+    __console.error("uhoh " + e);
+  }
+  return tracker;
+});
+
+/*
+# end of tracker module
+*/
+
+
+/*
 * definition for piwik_js
 */
 
 
-CloudFlare.define('piwik_analytics/piwik_js', ['piwik_analytics/setup', 'cloudflare/console', 'piwik_analytics/perf'], function(__setup, __console, __perf) {
+CloudFlare.define('piwik_analytics/piwik_js', ['piwik_analytics/tracker', 'cloudflare/console', 'piwik_analytics/perf'], function(__tracker, __console, __perf) {
   var e, module;
 
   module = {};
   module._isPiwik = false;
   module.perfThen = __perf.now();
-  CloudFlare.require([unescape(__setup.piwik_install + "/piwik.js")], module.isPiwik = true);
+  CloudFlare.require([unescape(__tracker.piwik_install + "/piwik.js")], module.isPiwik = true);
   try {
     __console.log((__perf.now() - module.perfThen) + " ms" + "\t piwik_analytics/piwik_js execution time");
   } catch (_error) {
