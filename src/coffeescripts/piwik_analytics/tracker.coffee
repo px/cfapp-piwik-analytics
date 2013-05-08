@@ -33,11 +33,11 @@ CloudFlare.define 'piwik_analytics/tracker', [
         # if it's a number use it. Double Negative,
         # will catch, alpha, and use the default above
         if ( ( not isNaN( _SiteId ) ) and ( _SiteId >= 1 ) )
-          __console.log( "tracker.setSiteId\t = "+ _SiteId ) if tracker._debug?
+          __console.log( "tracker.setSiteId\t = "+ _SiteId ) if tracker._debug is yes
         else
           # default to default_site_id from cloudflare.json
-          __console.error( "Invalid WebsiteId = \'"+ _SiteId+
-            "\' is not a number; defaulting to \'" + ( __conf.default_piwik_site_id ) + "\'") if tracker._debug?
+          __console.error( "tracker.setSiteId Invalid WebsiteId = \'"+ _SiteId+
+            "\' is not a number; defaulting to \'" + ( __conf.default_piwik_site_id ) + "\'") if tracker._debug is yes
           _SiteId = __conf.default_piwik_site_id
         # end if site_id
         window._paq.push(['setSiteId', unescape ( _SiteId ) ])
