@@ -29,6 +29,10 @@ CloudFlare.define 'piwik_analytics/setup', [
       tracking_all_subdomains:yes
       tracking_do_not_track: no
     }
+
+    #__config = undefined
+    if __config is undefined
+      __config = __defaultConf
     
     # for testing on js.cloudflare.com
     if (window.document.location.hostname is "js.cloudflare.com")
@@ -40,9 +44,6 @@ CloudFlare.define 'piwik_analytics/setup', [
       __devConf.site_id='a'
       __devConf.default_piwik_site_id=28
       __config = __devConf
-
-    if __config is undefined
-      __config = __defaultConf
 
     
     ## create _paq array
