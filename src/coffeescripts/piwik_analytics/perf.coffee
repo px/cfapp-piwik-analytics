@@ -14,6 +14,12 @@ CloudFlare.define 'piwik_analytics/perf', [
 
     module = {}
 
+    fake={}
+    fake.now =->
+      new Date().getTime()
+
+    p=window.performance || window.mozPerformance ||
+      window.msPerformance || window.webkitPerformance || fake
     ###
 # now()
 #  return the window.performance.now()
@@ -21,12 +27,6 @@ CloudFlare.define 'piwik_analytics/perf', [
 #  browsers which are older
     ###
     module.now =->
-      fake={}
-      fake.now =->
-        new Date().getTime()
-
-      p=window.performance || window.mozPerformance ||
-        window.msPerformance || window.webkitPerformance || fake
       try
         p.now()
       catch e
