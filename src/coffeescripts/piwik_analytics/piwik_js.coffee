@@ -31,7 +31,7 @@ CloudFlare.define 'piwik_analytics/piwik_js', [
     )
     #__console.log("isPiwik " + module._isPiwik)
 
-    if __tracker._debug is yes
+    if __tracker._debug isnt null
       try
         __console.log(
            (__perf.now() - module.perfThen) + " ms"+
