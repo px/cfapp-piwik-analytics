@@ -9,7 +9,7 @@ appFiles  = [
   'coffeescripts/piwik_analytics/perf'
   'coffeescripts/piwik_analytics/setup'     # use sane defaults
   'coffeescripts/piwik_analytics/tracker'   # set the tracker
-  'coffeescripts/piwik_analytics/piwik_js'  # fetch configured piwik.js
+#  'coffeescripts/piwik_analytics/piwik_js'  # fetch configured piwik.js
   #, and website id
   'coffeescripts/main'
   'coffeescripts/piwik_analytics/showPerf'
