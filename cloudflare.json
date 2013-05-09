@@ -149,7 +149,7 @@
     "url": "https://github.com/px/cfapp-piwik-analytics.git"
   },
   "scripts": {
-    "piwik_js": "./public/javascripts/piwik.js"
+    "": ""
   },
   "version": "0.0.30b"
 }
