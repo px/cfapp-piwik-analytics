@@ -46,10 +46,8 @@ Process Notes
   * better describe the process
   * npm -- there is a [package.json](package.json) to help with dependencies.
    * (`npm install -d`)
-    * [jsonlint](https://github.com/zaach/jsonlint)
-      * (`npm install jsonlint -g `)
 
-    * automatically compile changes to coffeescript files within this project using the [watchme.sh](watchme.sh) script. (`./watchme.sh`)
+    * automatically compile changes to coffeescript files within this project using the [Cakefile](Cakefile) script. (`cake all`)
     * test compiled javascript using <a href="http://js.cloudflare.com/">js.cloudflare.com</a>
       * <a href="http://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/pbcopy.1.html">pbcopy</a> is your friend. (`pbcopy < public/javascripts/piwik_analytics.js`)
     * Validation: (`./validate.sh`)
@@ -59,7 +57,7 @@ Process Notes
     * which files need to version bump;
       * [cloudflare.json](cloudflare.json) -- end of file
       * [package.json](package.json) -- top of file
-      * [src/coffeescripts/piwik_analytics.coffee](src/coffeescripts/piwik_analytics.coffee) -- top of file
+      * [src/coffeescripts/header.coffee](src/coffeescripts/header.coffee) -- top of file
 
     * Once you are happy, proceed to push your new version as follows.
       1. <a href="https://www.cloudflare.com/login">login to cloudflare</a>
