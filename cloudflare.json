@@ -69,15 +69,15 @@
       {
         "id": "tracking_group_by_domain",
         "name": "Prepend the site domain to the page title when tracking",
-        "description": "So if someone visits the 'About' page on blog.example.com it will be recorded as 'blog / About'. This is the easiest way to get an overview of your traffic by sub-domain.",
-        "type": "hidden",
+        "description": "So if someone visits the 'About' page on blog.example.com it will be recorded as 'blog / About'. This is the easiest way to get an overview of your traffic by sub-domain. Example: \"document.domain + '/' + document.title\"",
+        "type": "string",
         "value": "document.domain + '/' + document.title"
       },
       {
         "id": "tracking_all_aliases",
-        "name": "In the \"Outlinks\" report, hide clicks to known alias URLs (WIP)",
-        "description": "So clicks on links to Alias URLs (eg. http://*.example.com) will not be counted as \"Outlink\".",
-        "type": "hidden",
+        "name": "In the \"Outlinks\" report, hide clicks to known alias URLs",
+        "description": "So clicks on links to Alias URLs (eg. http://*.example.com) will not be counted as \"Outlink\". Example: \"[\"*.piwik.example.com\",\"*.p-ssl.example.com\",\"*.p.example.com\",\"*.piwik-ssl.example.com\"]\"",
+        "type": "string",
         "value": " [\"*.piwik.example.com\",\"*.p-ssl.example.com\",\"*.p.example.com\",\"*.piwik-ssl.example.com\"]"
       },
       {
