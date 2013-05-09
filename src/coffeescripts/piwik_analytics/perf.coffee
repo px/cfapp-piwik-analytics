@@ -1,7 +1,8 @@
 # vim: set tabstop=2:softtabstop=2:shiftwidth=2:noexpandtab
 
 ###
-* definition for performance
+* definition for performance module
+*   provides timing resources for the rest of the application
 ###
 CloudFlare.define 'piwik_analytics/perf', [
   'cloudflare/console'
@@ -29,7 +30,7 @@ CloudFlare.define 'piwik_analytics/perf', [
       try
         p.now()
       catch e
-        window.console.log(e)
+        __console.error(e)
         fake.now() #new Date().getTime()
 
     module.perfThen = module.now()
