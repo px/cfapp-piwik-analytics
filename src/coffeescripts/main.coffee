@@ -12,18 +12,18 @@ CloudFlare.define 'piwik_analytics', [
   'cloudflare/console'
   'piwik_analytics/perf'
   'piwik_analytics/setup'
-  'piwik_analytics/piwik_js'
+  'piwik_analytics/tracker'
 ],
-  ( __console, __perf, __setup, __js ) ->
+  ( __console, __perf, __setup, __tracker ) ->
     #    __console.log("START piwik_analytics")
 
-    try
-      if __setup._debug isnt null
-        __console.log(
-          ( __perf.now() - __setup.perfThen ) + " ms"+
-          "\t since \"piwik_analytics/setup\" Factory execution time")
-    catch e
-      __console.error("uhoh "+e)
+    #try
+    #  if __setup._debug isnt null
+    #    __console.log(
+    #      ( __perf.now() - __setup.perfThen ) + " ms"+
+    #      "\t since \"piwik_analytics/setup\" Factory execution time")
+    #catch e
+    #  __console.error("uhoh "+e)
 
     #try
     #  for opt in __setup

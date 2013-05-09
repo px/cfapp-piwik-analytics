@@ -20,6 +20,7 @@ CloudFlare.define 'piwik_analytics/tracker', [
 
     tracker._debug = __conf._debug
 
+    tracker.isPiwik = no
     ###
 # tracker.setSiteId()
 #
@@ -59,6 +60,10 @@ CloudFlare.define 'piwik_analytics/tracker', [
         window._paq.push([
           'setTrackerUrl', unescape ( _install ) + "/piwik.php"
         ])
+
+        tracker.perfThenJs = __perf.now()
+        CloudFlare.require([unescape(_install + "/piwik.js")], tracker.isPiwik = yes)
+
         ###
 #return _install
         ###
