@@ -33,11 +33,11 @@ CloudFlare.define 'piwik_analytics/tracker', [
         # if it's a number use it. Double Negative,
         # will catch, alpha, and use the default above
         if ( ( not isNaN( _SiteId ) ) and ( _SiteId >= 1 ) )
-          __console.log( "tracker.setSiteId\t = "+ _SiteId ) if tracker._debug is yes
+          __console.log( "tracker.setSiteId\t = "+ _SiteId ) if tracker._debug isnt null
         else
           # default to default_site_id from cloudflare.json
           __console.error( "tracker.setSiteId Invalid WebsiteId = \'"+ _SiteId+
-            "\' is not a number; defaulting to \'" + ( __conf.default_piwik_site_id ) + "\'") if tracker._debug is yes
+            "\' is not a number; defaulting to \'" + ( __conf.default_piwik_site_id ) + "\'") if tracker._debug isnt null
           _SiteId = __conf.default_piwik_site_id
         # end if site_id
         window._paq.push(['setSiteId', unescape ( _SiteId ) ])
@@ -53,7 +53,7 @@ CloudFlare.define 'piwik_analytics/tracker', [
         _install = __conf.setDefault( _install, __conf.default_piwik_install, "Install" )
 
         #__console.log("debug="+tracker._debug)
-        if tracker._debug is yes
+        if tracker._debug isnt null
           __console.log("tracker.setTracker\t = \""+unescape( _install)+"\"")
 
         window._paq.push([
@@ -79,7 +79,7 @@ CloudFlare.define 'piwik_analytics/tracker', [
       __console.error("uhoh "+e)
     #__console.log( "Hello from the Piwik Analytics CloudFlare App!" )
 
-    if tracker._debug is yes
+    if tracker._debug isnt null
       CloudFlare.push( { verbose:1 } )
       window.localStorage.clear()
     #__console.log("END piwik_analytics/tracker")
