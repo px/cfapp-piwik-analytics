@@ -85,11 +85,14 @@ CloudFlare.define('piwik_analytics/setup', ['cloudflare/console', 'piwik_analyti
   if (window.document.location.hostname === "js.cloudflare.com") {
     __console.error("js.cloudflare.com sandbox DETECTED! Using developer testing config.");
     __devConf = __defaultConf;
-    __devConf._debug = true;
+    __devConf._debug = "true";
     __devConf.piwik_install = '';
     __devConf.default_piwik_install = '//piwik-ssl.ns1.net';
     __devConf.site_id = 'invalid';
-    __devConf.default_piwik_site_id = 28;
+    __devConf.default_piwik_site_id = "28";
+    __devConf.paq_push = "[ function() { return window.console.log(\"getVisitorId=\"+this.getVisitorId()); } ]";
+    __devConf.tracking_group_by_domain = "document.domain + '/' + document.title";
+    __devConf.tracking_all_aliases = "[\"*.piwik.example.com\",\"*.p-ssl.example.com\",\"*.p.example.com\",\"*.piwik-ssl.example.com\"]";
     __conf = __devConf;
   }
   window._paq = window._paq || [];
@@ -109,13 +112,15 @@ CloudFlare.define('piwik_analytics/setup', ['cloudflare/console', 'piwik_analyti
       return v;
     }
   };
-  setup.site_id = __conf.site_id;
-  setup.default_piwik_site_id = __conf.default_piwik_site_id;
-  setup.piwik_install = __conf.piwik_install;
-  setup.default_piwik_install = __conf.default_piwik_install;
   setup._debug = __conf._debug;
+  setup.default_piwik_site_id = __conf.default_piwik_site_id;
+  setup.default_piwik_install = __conf.default_piwik_install;
+  setup.site_id = __conf.site_id;
+  setup.piwik_install = __conf.piwik_install;
   setup.paq_push = __conf.paq_push;
-  if (setup._debug === true) {
+  setup.tracking_group_by_domain = __conf.tracking_group_by_domain;
+  setup.tracking_all_aliases = __conf.tracking_all_aliases;
+  if (setup._debug !== null) {
     CloudFlare.push({
       verbose: 1
     });
@@ -155,11 +160,11 @@ CloudFlare.define('piwik_analytics/tracker', ['cloudflare/console', 'piwik_analy
   tracker.setSiteId = function(_SiteId) {
     __conf.setDefault(_SiteId, __conf.default_piwik_site_id, "WebsiteId");
     if ((!isNaN(_SiteId)) && (_SiteId >= 1)) {
-      if (tracker._debug === true) {
+      if (tracker._debug !== null) {
         __console.log("tracker.setSiteId\t = " + _SiteId);
       }
     } else {
-      if (tracker._debug === true) {
+      if (tracker._debug !== null) {
         __console.error("tracker.setSiteId Invalid WebsiteId = \'" + _SiteId + "\' is not a number; defaulting to \'" + __conf.default_piwik_site_id + "\'");
       }
       _SiteId = __conf.default_piwik_site_id;
@@ -174,7 +179,7 @@ CloudFlare.define('piwik_analytics/tracker', ['cloudflare/console', 'piwik_analy
 
   tracker.setTracker = function(_install) {
     _install = __conf.setDefault(_install, __conf.default_piwik_install, "Install");
-    if (tracker._debug === true) {
+    if (tracker._debug !== null) {
       __console.log("tracker.setTracker\t = \"" + unescape(_install) + "\"");
     }
     window._paq.push(['setTrackerUrl', unescape(_install + "/piwik.php")]);
@@ -195,7 +200,7 @@ CloudFlare.define('piwik_analytics/tracker', ['cloudflare/console', 'piwik_analy
     e = _error;
     __console.error("uhoh " + e);
   }
-  if (tracker._debug === true) {
+  if (tracker._debug !== null) {
     CloudFlare.push({
       verbose: 1
     });
@@ -228,7 +233,7 @@ CloudFlare.define('piwik_analytics/piwik_js', ['piwik_analytics/tracker', 'cloud
   module._debug = __tracker._debug;
   module.perfThen = __perf.now();
   CloudFlare.require([unescape(__tracker.piwik_install + "/piwik.js")], module.isPiwik = true);
-  if (__tracker._debug === true) {
+  if (__tracker._debug !== null) {
     try {
       __console.log((__perf.now() - module.perfThen) + " ms" + "\t piwik_analytics/piwik_js execution time");
     } catch (_error) {
@@ -253,17 +258,16 @@ CloudFlare.define('piwik_analytics/piwik_js', ['piwik_analytics/tracker', 'cloud
 
 
 CloudFlare.define('piwik_analytics', ['cloudflare/console', 'piwik_analytics/perf', 'piwik_analytics/setup', 'piwik_analytics/piwik_js'], function(__console, __perf, __setup, __js) {
-  var e, myPiwik, __config;
+  var e, myPiwik;
 
   try {
-    if (__setup._debug === true) {
+    if (__setup._debug !== null) {
       __console.log((__perf.now() - __setup.perfThen) + " ms" + "\t since \"piwik_analytics/setup\" Factory execution time");
     }
   } catch (_error) {
     e = _error;
     __console.error("uhoh " + e);
   }
-  __config = {};
   myPiwik = {};
   myPiwik.perfThen = __perf.now();
   window._paq = window._paq || [];
@@ -282,7 +286,7 @@ CloudFlare.define('piwik_analytics', ['cloudflare/console', 'piwik_analytics/per
     window._paq.push([
       function() {
         _visitorId = this.getVisitorId();
-        if (typeof _debug !== "undefined" && _debug !== null) {
+        if (__setup._debug !== null) {
           __console.log("Piwik.getVisitorId = " + _visitorId);
         }
         return _visitorId;
@@ -297,14 +301,43 @@ CloudFlare.define('piwik_analytics', ['cloudflare/console', 'piwik_analytics/per
   myPiwik.menuOpts = function() {
     var wildcardZone;
 
-    if (__config.tracking_all_subdomains === "true" || __config.tracking_all_subdomains === void 0) {
-      wildcardZone = "*" + document.domain.split(".").slice(-2).join(".");
-      window._paq.push(["setCookieDomain", wildcardZone]);
+    if (__setup.tracking_all_subdomains === "true" || __setup.tracking_all_subdomains === void 0) {
+      try {
+        wildcardZone = "*" + document.domain.split(".").slice(-2).join(".");
+        window._paq.push(["setCookieDomain", wildcardZone]);
+      } catch (_error) {
+        e = _error;
+        __console.error("uhoh " + e);
+      }
     }
-    if (__config.tracking_do_not_track === "true" || __config.tracking_do_not_track === void 0) {
+    if (__setup.tracking_do_not_track === "true" || __setup.tracking_do_not_track === void 0) {
       window._paq.push(['setDoNotTrack', true]);
     } else {
       window._paq.push(['setDoNotTrack', false]);
+    }
+    if ((__setup.tracking_group_by_domain !== void 0) && (__setup.tracking_group_by_domain !== "")) {
+      try {
+        window._paq.push(["setDocumentTitle", eval(unescape(__setup.tracking_group_by_domain))]);
+      } catch (_error) {
+        e = _error;
+        __console.error("uhoh " + e);
+      }
+    }
+    if ((__setup.tracking_all_aliases !== void 0) && (__setup.tracking_all_aliases !== "")) {
+      try {
+        window._paq.push(["setDomains", eval(unescape(__setup.tracking_all_aliases))]);
+      } catch (_error) {
+        e = _error;
+        __console.error("uhoh " + e);
+      }
+    }
+    if ((__setup.paq_push !== void 0) && (__setup.paq_push !== "")) {
+      try {
+        window._paq.push(eval(unescape(__setup.paq_push)));
+      } catch (_error) {
+        e = _error;
+        __console.error("uhoh " + e);
+      }
     }
     return window._paq;
   };
@@ -318,9 +351,6 @@ CloudFlare.define('piwik_analytics', ['cloudflare/console', 'piwik_analytics/per
   */
 
   myPiwik.paqPush = function() {
-    if ((!__config.paq_push) && (__config.paq_push !== void 0) && (__config.paq_push !== "")) {
-      window._paq.push(unescape(__config.paq_push));
-    }
     window._paq.push(['enableLinkTracking', true]);
     window._paq.push(['trackPageView']);
     return window._paq;
@@ -337,7 +367,7 @@ CloudFlare.define('piwik_analytics', ['cloudflare/console', 'piwik_analytics/per
     e = _error;
     __console.error("uhoh " + e);
   }
-  if (typeof _debug !== "undefined" && _debug !== null) {
+  if (__setup._debug !== null) {
     __console.log((__perf.now() - myPiwik.perfThen) + " ms" + "\t piwik_ananlytics Factory execution time");
     CloudFlare.require(['piwik_analytics/showPerf']);
     try {
@@ -395,7 +425,7 @@ CloudFlare.define('piwik_analytics/showPerf', ['cloudflare/console', 'piwik_anal
     ]);
     return true;
   };
-  if (module._debug === true) {
+  if (module._debug !== null) {
     module.showPerf();
   }
   return module;
