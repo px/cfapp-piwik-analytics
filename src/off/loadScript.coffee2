@@ -1,8 +1,0 @@
-   Piwik.prototype.loadScript = (f) ->
-     if _debug then piwik.consl "loadScript '"+f+"'"
-
-     CloudFlare.require( [f], ->
-       piwik.app_change()
-     )
-     true
-
