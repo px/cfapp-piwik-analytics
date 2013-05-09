@@ -50,7 +50,7 @@ CloudFlare.define 'piwik_analytics/showPerf', [
       # return yes
       yes
 
-    if module._debug is yes
+    if module._debug isnt null
       module.showPerf()
 
     # __console.log("END piwik_analytics/showPerf")
