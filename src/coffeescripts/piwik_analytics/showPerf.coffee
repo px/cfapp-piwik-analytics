@@ -1,16 +1,16 @@
 # vim: set tabstop=2:softtabstop=2:shiftwidth=2:noexpandtab
 
 ###
-* definition for performance
+* definition for performance display
 ###
 CloudFlare.define 'piwik_analytics/showPerf', [
   'cloudflare/console'
-  'piwik_analytics/setup'
+  'piwik_analytics/config'
   'piwik_analytics/perf'
   'piwik_analytics/tracker'
 ],
   ( __console,
-    __setup,
+    __conf,
     __perf,
     __tracker
   ) ->
@@ -21,7 +21,7 @@ CloudFlare.define 'piwik_analytics/showPerf', [
 
     module.perfThen = __perf.now()
 
-    module._debug = __setup._debug
+    module._debug = __conf._debug
     ###
 # showPerf
 #   Use the _paq array to push functions which
