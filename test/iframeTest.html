@@ -5,11 +5,14 @@
     <title>Testing piwik_analytics cfapp iframe buster</title>
   </head>
   <body>
-    <iframe src="./index.html"></iframe>
+    <h1>iframeTest.html</h1>
+    <a href="index.html">index.html</a>
+    <br/>
+    <iframe height="40%" width=60%" src="./index.html"></iframe>
 
     <script>
       window._paq = window._paq || [];
-      window._paq.push(['killFrame']);
+//      window._paq.push(['killFrame']);
     </script>
 
   </body>
