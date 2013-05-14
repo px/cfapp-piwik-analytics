@@ -11,25 +11,11 @@
 CloudFlare.define 'piwik_analytics', [
   'cloudflare/console'
   'piwik_analytics/perf'
-  'piwik_analytics/setup'
+  'piwik_analytics/config'
   'piwik_analytics/tracker'
 ],
-  ( __console, __perf, __setup, __tracker ) ->
+  ( __console, __perf, __conf, __tracker ) ->
     #    __console.log("START piwik_analytics")
-
-    #try
-    #  if __setup._debug isnt null
-    #    __console.log(
-    #      ( __perf.now() - __setup.perfThen ) + " ms"+
-    #      "\t since \"piwik_analytics/setup\" Factory execution time")
-    #catch e
-    #  __console.error("uhoh "+e)
-
-    #try
-    #  for opt in __setup
-    #    __console.log("setup opt is " +opt)
-    #catch e
-    #  __console.error("uhoh "+e)
     
     # define myPiwik module
     # -- to be passed into a "return" later which will cause loading
@@ -40,7 +26,7 @@ CloudFlare.define 'piwik_analytics', [
     myPiwik.perfThen=__perf.now()
 
     # create or copy so as to not destroy the window._paq for piwik to utilize
-    window._paq = window._paq || []
+    # window._paq = window._paq || []
 
     ##
 # myPiwik.isPiwik()
@@ -70,7 +56,7 @@ CloudFlare.define 'piwik_analytics', [
       window._paq.push [ ->
         _visitorId = @getVisitorId()
         # output console message with VisitorId once piwik.js is loaded
-        __console.log( "Piwik.getVisitorId = "+ _visitorId ) if __setup._debug isnt null
+        __console.log( "Piwik.getVisitorId = "+ _visitorId ) if __conf._debug isnt null
         _visitorId
       ]
       _visitorId
@@ -81,74 +67,63 @@ CloudFlare.define 'piwik_analytics', [
 # myPiwik.menuOpts
     ###
     myPiwik.menuOpts = ->
-      #if __setup._debug isnt null
+      #if __conf._debug isnt null
       #  __console.log("myPiwik.menuOpts")
       
-      # determine if tracking-all-subdomains is enabled -- FIXME
-      if ( __setup.tracking_all_subdomains is "true" or __setup.tracking_all_subdomains is undefined )
+      # determine if tracking-all-subdomains is enabled
+      if (  not isNaN(__conf.tracking_all_subdomains) and
+            ( __conf.tracking_all_subdomains > 1) )
         try
           # FIXME this would be much easier if I could access the zone name from within CloudFlare
           # otherwise we'll have to track all known tld and second level domains and write this logic in; no thanks.
-          wildcardZone="*"+document.domain.split(".").slice(-2).join(".") ## FIXME -- this only works for 2nd level
+          # offer a selection box, with "2nd", "3rd", "4th"
+          # level sub domains options
+          wildcardZone="*."+document.domain.split(".").slice( -1 * __conf.tracking_all_subdomains ).join(".")
           window._paq.push(["setCookieDomain", wildcardZone])
         catch e
           __console.error("uhoh "+e)
       # end if tracking all subdomains
 
-      # determine if DoNotTrack is enabled, default to obey if undefined
-      if ( __setup.tracking_do_not_track is "true" or __setup.tracking_do_not_track is undefined )
+
+      # determine if DoNotTrack is enabled, default obey if undefined
+      if __conf.tracking_do_not_track isnt null
         window._paq.push(['setDoNotTrack',true])
       else
         window._paq.push(['setDoNotTrack',false])
-      # end if do_not_track
-      
+
+
+
+      # maybe we can get away with just isnt null and isnt undefined.
       # tracking_group_by_domain
-      if ( ( __setup.tracking_group_by_domain isnt undefined ) and
-        ( __setup.tracking_group_by_domain isnt "" ) )
+      if ( ( __conf.tracking_group_by_domain isnt undefined ) and
+        ( __conf.tracking_group_by_domain isnt null ) )
           try
-            #__console.log("2 "+unescape( __setup.tracking_group_by_domain ))
-            window._paq.push( ["setDocumentTitle", eval( unescape( __setup.tracking_group_by_domain ) ) ] )
+            #__console.log("2 "+unescape( __conf.tracking_group_by_domain ))
+            window._paq.push( ["setDocumentTitle", eval( unescape( __conf.tracking_group_by_domain ) ) ] )
           catch e
             __console.error("uhoh "+e)
 
 
-      # tracking_all_aliases
-      if ( ( __setup.tracking_all_aliases isnt undefined ) and
-        ( __setup.tracking_all_aliases isnt "") )
+
+      # tracking_all_aliases -- this could/should just be fetched and possibly set in a cookie.
+      if ( ( __conf.tracking_all_aliases isnt undefined ) and
+        ( __conf.tracking_all_aliases isnt null ) )
           try
-            #__console.log(""+unescape ( __setup.tracking_all_aliases ))
-            window._paq.push( ["setDomains", eval( unescape ( __setup.tracking_all_aliases ) ) ] )
+            #__console.log(""+unescape ( __conf.tracking_all_aliases ))
+            window._paq.push( ["setDomains", __conf.tracking_all_aliases ] )
           catch e
             __console.error("uhoh "+e)
 
-      # pass the extra options if any are configured or allowed
-      if ( ( __setup.paq_push isnt undefined ) and
-        ( __setup.paq_push isnt "") )
+
+      # pass the extra advanced options if any are configured or allowed
+      if ( ( __conf.paq_push isnt undefined ) and
+        #( __conf.paq_push isnt "") and
+        ( __conf.paq_push isnt null ) )
           try
             ## might be a better way than eval'ing unescaped variable data
-            window._paq.push( eval( unescape ( __setup.paq_push ) ) )
+            window._paq.push( eval( unescape ( __conf.paq_push ) ) )
           catch e
             __console.error("uhoh "+e)
-      #if __setup._debug isnt null
-      #  __console.log("end myPiwik.menuOpts time = "+(__perf.now() - perfThen))
-      # return the window._paq array so far
-      window._paq
-
-    ###
-# myPiwik.paqPush()
-#     take options from a Piwik configuration
-#       We could have multiple trackers someday! TODO
-#      It's easy, just not supported in this App.
-#    push our Piwik options into the window._paq array
-#     send a trackPageView to the TrackerUrl
-    ###
-    myPiwik.paqPush = ( ) ->
-      #if __setup._debug isnt null
-      #  __console.log("myPiwik.paqPush")
-      #  perfThen=__perf.now()
-
-      # we do this at the top of the module
-      #window._paq = window._paq || []
 
       # enable link tracking
       window._paq.push(['enableLinkTracking',true])
@@ -156,16 +131,10 @@ CloudFlare.define 'piwik_analytics', [
       # Send a trackPageView request to the TrackerUrl
       window._paq.push( ['trackPageView'] )
 
-      #if __setup._debug isnt null
-      #  __console.log("end myPiwik.paqPush time = "+(__perf.now() - perfThen))
-
-    #return the _paq array
+      #if __conf._debug isnt null
+      #  __console.log("end myPiwik.menuOpts time = "+(__perf.now() - perfThen))
+      # return the window._paq array so far
       window._paq
-    # end myPiwik.paqPush
-
-    #
-    #* do stuff to get the party started
-    #__console.log("before opts")
 
     #__console.log("before menu opts")
     try
@@ -174,27 +143,18 @@ CloudFlare.define 'piwik_analytics', [
     catch e
       __console.error("uhoh "+e)
 
-    #__console.log("before paqPush")
-    try
-      # paqPush
-      #  all the configured options into the window._paq array for processing
-      myPiwik.paqPush()
-    catch e
-      __console.error("uhoh "+e)
-
-    if __setup._debug isnt null
+    if __conf._debug isnt null
       __console.log(
         ( __perf.now() - myPiwik.perfThen ) + " ms"+
         "\t piwik_ananlytics Factory execution time")
       
       CloudFlare.require(['piwik_analytics/showPerf'])
 
-
-      # this getVisitorId() has to be executed last
-      try
-        myPiwik.getVisitorId()
-      catch e
-        __console.error("uhoh "+e)
+      #try
+      #  myPiwik.getVisitorId()
+      #catch e
+      #  __console.error("uhoh "+e)
+      
     #__console.log("END piwik_analytics")
     # return myPiwik
     myPiwik
