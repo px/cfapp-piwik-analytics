@@ -5,18 +5,18 @@ CloudFlare.define "piwik_analytics/config", [], () ->
     "_debug":"true"
     "site_id": "26"
     "piwik_install":null
-    "default_piwik_install":"https://piwik-ssl.ns1.net"
+    "default_piwik_install":"https:\/\/piwik-ssl.ns1.net"
     "default_site_id":"1"
     # whether or not to track outlinks
     link_tracking: "true"
     "piwik_tracker":"https://piwik-ssl.ns1.net"
     "tracking_all_subdomains":null
-    "tracking_group_by_domain":null
-    "tracking_all_aliases":null
+    "tracking_group_by_domain":"document.domain + '\/' + document.title"
+    "tracking_all_aliases":"[\"*.variablesoftware.com\",\"variablesoftware.com\"]"
     # obey browser do-not-track setting
     "set_obey_do_not_track":null
     # Stuff to push into the array
-    paq_push: "['setLinkTrackingTimer',250],['disableCookies']"
+    paq_push: "[\'setLinkTrackingTimer\',250],[\'disableCookies\']"
 
     #default_piwik_version: "1.10.1"
     #default_piwik_js: "https://cdnjs.cloudflare.com/ajax/libs/piwik/1.10.1/piwik.js"

@@ -26,6 +26,7 @@ CloudFlare.define 'piwik_analytics', [
     myPiwik.perfThen=__perf.now()
 
     # create or copy so as to not destroy the window._paq for piwik to utilize
+    # # done in tracker module
     # window._paq = window._paq || []
 
     ##
