@@ -5,12 +5,12 @@
 ###
 CloudFlare.define 'piwik_analytics/tracker', [
   'cloudflare/console'
-  'piwik_analytics/setup'
+  #'piwik_analytics/setup'
   'piwik_analytics/config'
   'piwik_analytics/perf'
 ],
   ( __console,
-    __setup,
+    #__setup,
     __conf,
     __perf
   ) ->
@@ -32,15 +32,15 @@ CloudFlare.define 'piwik_analytics/tracker', [
       ( _install = __conf.default_piwik_install  ) ->
         #_install = __conf.setDefault( _install, __conf.default_piwik_install, "Install" )
 
+        tracker.perfThenJs = __perf.now()
+        CloudFlare.require([unescape(_install + "/piwik.js")], tracker.isPiwik = yes)
+
         if tracker._debug isnt null
           __console.log("tracker.setTracker\t Install URL \t= \""+unescape( _install)+"\"")
 
         window._paq.push([
           'setTrackerUrl', unescape ( _install ) + "/piwik.php"
         ])
-
-        tracker.perfThenJs = __perf.now()
-        CloudFlare.require([unescape(_install + "/piwik.js")], tracker.isPiwik = yes)
 
         ###
 #return _install
@@ -75,17 +75,11 @@ CloudFlare.define 'piwik_analytics/tracker', [
     ###
     tracker.piwik_install = tracker.setTracker( __conf.piwik_install )
 
-    try
-      ## in the future if the SiteId is invalid,
-      # we can use the working tracker to fetch the Id based on the domain name
-      tracker.site_id = tracker.setSiteId( __conf.site_id )
-    catch e
-      __console.error("uhoh "+e)
+    ## in the future if the SiteId is invalid,
+    # we can use the working tracker to fetch the Id based on the domain name
+    tracker.site_id = tracker.setSiteId( __conf.site_id )
 
     if tracker._debug isnt null
-      CloudFlare.push( { verbose:1 } )
-      window.localStorage.clear()
-
       try
         __console.log(
           (__perf.now() - tracker.perfThen) + " ms"+
