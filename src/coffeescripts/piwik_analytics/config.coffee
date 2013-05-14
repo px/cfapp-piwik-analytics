@@ -1,6 +1,6 @@
 
 
-CloudFlare.define "piwik_analytics/config", [], (_config) ->
+CloudFlare.define "piwik_analytics/config", [], () ->
   __pkC =
     "_debug":"true"
     "site_id": "26"
