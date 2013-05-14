@@ -78,7 +78,7 @@
         "name": "In the \"Outlinks\" report, hide clicks to known alias URLs",
         "description": "So clicks on links to Alias URLs (eg. http://*.example.com) will not be counted as \"Outlink\". Example: \"[\"*.piwik.example.com\",\"*.p-ssl.example.com\",\"*.p.example.com\",\"*.piwik-ssl.example.com\"]\"",
         "type": "string",
-        "value": " [\"*.piwik.example.com\",\"*.p-ssl.example.com\",\"*.p.example.com\",\"*.piwik-ssl.example.com\"]"
+        "value": ""
       },
       {
         "id": "tracking_do_not_track",
@@ -99,7 +99,7 @@
       {
         "id": "paq_push",
         "name": "Advanced _paq",
-        "description": "Push custom code on to the 'window._paq' array. example. '[ function() { return window.console.log(\"getVisitorId=\"+this.getVisitorId()); } ]'",
+        "description": "Push custom code on to the 'window._paq' array. examples. '[ function() { return 0;} ]' or '[ function() { return window.console.log(\"getVisitorId=\"+this.getVisitorId()); } ]'",
         "type": "string",
         "value": ""
       },
