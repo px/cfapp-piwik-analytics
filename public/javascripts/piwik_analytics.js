@@ -59,14 +59,16 @@ CloudFlare.define('piwik_analytics/tracker', ['cloudflare/console', 'piwik_analy
   tracker.perfThen = __perf.now();
   tracker._debug = __conf._debug;
   tracker.isPiwik = false;
+  window._paq = window._paq || [];
   /*
   # mypiwik.setTracker
   # sets the tracker for the client to use
+  # will use passed _install or the default or '/piwik' as a failsafe
   */
 
   tracker.setTracker = function(_install) {
     if (_install == null) {
-      _install = __conf.default_piwik_install;
+      _install = __conf.default_piwik_install || '/piwik';
     }
     tracker.perfThenJs = __perf.now();
     CloudFlare.require([unescape(_install + "/piwik.js")], tracker.isPiwik = true);
@@ -83,7 +85,9 @@ CloudFlare.define('piwik_analytics/tracker', ['cloudflare/console', 'piwik_analy
   /*
   # tracker.setSiteId()
   #
-  #   checks for a null value, not a number, and assign's SiteId to default
+  #   checks for a number value
+  #   and a number >=1
+  #   a null value, not a number, and assign's SiteId to default or '1'
   */
 
   tracker.setSiteId = function(_SiteId) {
@@ -95,7 +99,7 @@ CloudFlare.define('piwik_analytics/tracker', ['cloudflare/console', 'piwik_analy
       if (tracker._debug !== null) {
         __console.error("tracker.setSiteId Invalid WebsiteId = \'" + _SiteId + "\' is not a number; defaulting to \'" + __conf.default_piwik_site_id + "\'");
       }
-      _SiteId = __conf.default_piwik_site_id;
+      _SiteId = __conf.default_piwik_site_id || '1';
     }
     window._paq.push(['setSiteId', unescape(_SiteId)]);
     return _SiteId;

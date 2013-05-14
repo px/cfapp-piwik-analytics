@@ -6,15 +6,15 @@ CloudFlare.define("piwik_analytics/config", [], function() {
     "_debug": "true",
     "site_id": "26",
     "piwik_install": null,
-    "default_piwik_install": "https://piwik-ssl.ns1.net",
+    "default_piwik_install": "https:\/\/piwik-ssl.ns1.net",
     "default_site_id": "1",
     link_tracking: "true",
     "piwik_tracker": "https://piwik-ssl.ns1.net",
     "tracking_all_subdomains": null,
-    "tracking_group_by_domain": null,
-    "tracking_all_aliases": null,
+    "tracking_group_by_domain": "document.domain + '\/' + document.title",
+    "tracking_all_aliases": "[\"*.variablesoftware.com\",\"variablesoftware.com\"]",
     "set_obey_do_not_track": null,
-    paq_push: "['setLinkTrackingTimer',250],['disableCookies']"
+    paq_push: "[\'setLinkTrackingTimer\',250],[\'disableCookies\']"
   };
   return window.__piwikConfig = __pkC;
 });
