@@ -23,28 +23,6 @@ CloudFlare.define 'piwik_analytics/tracker', [
     tracker._debug = __conf._debug
 
     tracker.isPiwik = no
-    ###
-# tracker.setSiteId()
-#
-#   checks for a null value, not a number, and assign's SiteId to default
-    ###
-    tracker.setSiteId =
-      ( _SiteId ) ->
-
-        #__conf.setDefault( _SiteId, __conf.default_piwik_site_id, "WebsiteId" )
-
-        # if it's a number use it. Double Negative,
-        # will catch, alpha, and use the default above
-        if ( ( not isNaN( _SiteId ) ) and ( _SiteId >= 1 ) )
-          __console.log( "tracker.setSiteId\t WebsiteId \t= "+ _SiteId ) if tracker._debug isnt null
-        else
-          # default to default_site_id from cloudflare.json
-          __console.error( "tracker.setSiteId Invalid WebsiteId = \'"+ _SiteId+
-            "\' is not a number; defaulting to \'" + ( __conf.default_piwik_site_id ) + "\'") if tracker._debug isnt null
-          _SiteId = __conf.default_piwik_site_id
-        # end if site_id
-        window._paq.push(['setSiteId', unescape ( _SiteId ) ])
-        _SiteId
 
     ###
 # mypiwik.setTracker
@@ -68,6 +46,29 @@ CloudFlare.define 'piwik_analytics/tracker', [
 #return _install
         ###
         _install
+
+    ###
+# tracker.setSiteId()
+#
+#   checks for a null value, not a number, and assign's SiteId to default
+    ###
+    tracker.setSiteId =
+      ( _SiteId ) ->
+
+        #__conf.setDefault( _SiteId, __conf.default_piwik_site_id, "WebsiteId" )
+
+        # if it's a number use it. Double Negative,
+        # will catch, alpha, and use the default above
+        if ( ( not isNaN( _SiteId ) ) and ( _SiteId >= 1 ) )
+          __console.log( "tracker.setSiteId\t WebsiteId \t= "+ _SiteId ) if tracker._debug isnt null
+        else
+          # default to default_site_id from cloudflare.json
+          __console.error( "tracker.setSiteId Invalid WebsiteId = \'"+ _SiteId+
+            "\' is not a number; defaulting to \'" + ( __conf.default_piwik_site_id ) + "\'") if tracker._debug isnt null
+          _SiteId = __conf.default_piwik_site_id
+        # end if site_id
+        window._paq.push(['setSiteId', unescape ( _SiteId ) ])
+        _SiteId
 
     ###
     # configure with the defaults if undefined or invalid
