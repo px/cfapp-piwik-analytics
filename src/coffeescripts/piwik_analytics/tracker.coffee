@@ -6,9 +6,11 @@
 CloudFlare.define 'piwik_analytics/tracker', [
   'cloudflare/console'
   'piwik_analytics/setup'
+  'piwik_analytics/config'
   'piwik_analytics/perf'
 ],
   ( __console,
+    __setup,
     __conf,
     __perf
   ) ->
@@ -29,12 +31,12 @@ CloudFlare.define 'piwik_analytics/tracker', [
     tracker.setSiteId =
       ( _SiteId ) ->
 
-        __conf.setDefault( _SiteId, __conf.default_piwik_site_id, "WebsiteId" )
+        #__conf.setDefault( _SiteId, __conf.default_piwik_site_id, "WebsiteId" )
 
         # if it's a number use it. Double Negative,
         # will catch, alpha, and use the default above
         if ( ( not isNaN( _SiteId ) ) and ( _SiteId >= 1 ) )
-          __console.log( "tracker.setSiteId\t = "+ _SiteId ) if tracker._debug isnt null
+          __console.log( "tracker.setSiteId\t WebsiteId \t= "+ _SiteId ) if tracker._debug isnt null
         else
           # default to default_site_id from cloudflare.json
           __console.error( "tracker.setSiteId Invalid WebsiteId = \'"+ _SiteId+
@@ -49,13 +51,11 @@ CloudFlare.define 'piwik_analytics/tracker', [
 # sets the tracker for the client to use
     ###
     tracker.setTracker =
-      (_install ) ->
+      ( _install = __conf.default_piwik_install  ) ->
+        #_install = __conf.setDefault( _install, __conf.default_piwik_install, "Install" )
 
-        _install = __conf.setDefault( _install, __conf.default_piwik_install, "Install" )
-
-        #__console.log("debug="+tracker._debug)
         if tracker._debug isnt null
-          __console.log("tracker.setTracker\t = \""+unescape( _install)+"\"")
+          __console.log("tracker.setTracker\t Install URL \t= \""+unescape( _install)+"\"")
 
         window._paq.push([
           'setTrackerUrl', unescape ( _install ) + "/piwik.php"
@@ -72,8 +72,6 @@ CloudFlare.define 'piwik_analytics/tracker', [
     ###
     # configure with the defaults if undefined or invalid
     ###
-    #__console.log("install "+__conf.piwik_install)
-    #__console.log("site_id "+__conf.site_id)
     tracker.piwik_install = tracker.setTracker( __conf.piwik_install )
 
     try
@@ -82,12 +80,10 @@ CloudFlare.define 'piwik_analytics/tracker', [
       tracker.site_id = tracker.setSiteId( __conf.site_id )
     catch e
       __console.error("uhoh "+e)
-    #__console.log( "Hello from the Piwik Analytics CloudFlare App!" )
 
     if tracker._debug isnt null
       CloudFlare.push( { verbose:1 } )
       window.localStorage.clear()
-    #__console.log("END piwik_analytics/tracker")
 
       try
         __console.log(
@@ -96,6 +92,7 @@ CloudFlare.define 'piwik_analytics/tracker', [
       catch e
         __console.error("uhoh "+e)
 
+    #__console.log("END piwik_analytics/tracker")
     tracker
 ###
 # end of tracker module
