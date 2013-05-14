@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <title>Testing piwik_analytics cfapp</title>
+    <style>
+
+      a:link    {color:blue;}
+      a:visited {color:blue;}
+      a:hover   {color:red;}
+      a:active  {color:yellow;} 
+
+    </style>
+    <script type="text/javascript">
+      window._paq=window._paq||[];
+      window._paq.push(['killFrame']);
+
+    </script>
+    <script type="text/javascript">
+      //<![CDATA[
+     try{if (!window.CloudFlare) { var CloudFlare=[{verbose:1}];var a=document.createElement("script"),b=document.getElementsByTagName("script")[0];a.async=!0;a.src="https://ajax.cloudflare.com/cdn-cgi/nexp/cloudflare.js";b.parentNode.insertBefore(a,b);}}catch(e){};
+      //]]>
+    </script>
+
+
+<script type="text/javascript">
+  /* just use a, it's smaller */
+var a=window.CloudFlare;
+/* push this local path for use in loading the the app/module   */
+a.push({paths:{piwik_analytics:"../public/javascripts/"}});
+/* force load our piwikConfig associative array  */
+/* load the piwik_analytics module, and pass the path for the config.js also  */
+/* a.push(function(b,c){ c("piwik_analytics/config.js",function(){ return window.__piwikConfig }); b(["piwik_analytics"]); });
+ */
+CloudFlare.push({verbose:1});
+/*
+   This is the quickest way I have found to load the piwik.js library and the piwik_analytics application which
+   has the configuration on page. window.__CF.AJS.piwik_analytics
+   */
+a.push(function(b){ b(["piwik_analytics"]); });
+
+
+
+</script>
+
+</head>
+
+<body>
+  <h1>Piwik Analytics CloudFlare Test App</h1>
+
+
+  <div id="testing.zone">
+
+    <div id="timeDiv">&nbsp;</div>
+
+    <div id="testing.gets">
+      <p>
+      <strong>Testing Gets</strong>
+      </p>
+    </div>
+
+    <ul>
+      <li id="app_change">app_change</li>
+    </ul>
+    <div id="testing.config">
+
+
+    </div>
+    <h2>links</h2>
+    <div id="testing.links">
+    </div>
+
+  </div>
+
+  <!-- this loads up testApp which updates and refreshes above items from configuration when working properly. -->
+  <script type="text/javascript" src="../public/javascripts/testApp.js"></script>
+
+</body>
+</html>
