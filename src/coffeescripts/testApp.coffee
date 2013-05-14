@@ -17,10 +17,11 @@ _delay = 0.1
 links = """
 <!-- convert to some other file of links to utilize between the other test files. -->
   <ul>
-    <li><a href="index.html">index.html</a> -- use the static config.js</li>
+    <li><a href="index.html">index.html</a> -- use the static <a href="../public/javascripts/piwik_analytics/config.js">config.js</a> <a href="../public/javascripts/piwik_analytics.js">CF App</a></li>
+    <li><a href="index_min.html">index_min.html</a> -- use the static and minified <a href="../public/javascripts/piwik_analytics.min.js">CF App</a></li>
     <li><a href="cf-config.html">cf-config.html</a> -- use static config, display options from CloudFlare.</li>
     <li><a href="iframeTest.html">iframe buster test</a> -- break out of an iframe. </li>
-    <li><a href="example_piwik.html">static example</a> -- shows off features, using <a href="piwik_analytics.js">piwik_analytics.js</a>
+    <li><a href="example_piwik.html">static example</a> -- shows possible features <a href="piwik_analytics.js">source.js</a>
 <li><a href='#/no-tracking' target="_self" class='no-tracking'>Class 'no-tracking' No Tracking Test</a></li>
 <li><a href='https://github.com/px/cfapp-piwik-analytics/archive/master.zip' class='piwik_ignore'>File I don't want to track as a download</a> Latest master.zip </li>
 <li><a href='#/piwik_download' class='piwik_download'>Link I want to track as a download</a></li>
