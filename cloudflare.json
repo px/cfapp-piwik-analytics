@@ -53,7 +53,7 @@
       {
         "id": "tracking_all_subdomains",
         "name": "Track visitors across all subdomains",
-        "description": "So if one visitor visits x.example.com and y.example.com, they will be counted as a unique visitor. Note: This only functions with 2nd level domain names. For example, 'stuff.co.uk; would not create the cookie as expected.",
+        "description": "So if one visitor visits x.example.com and y.example.com, they will be counted as a unique visitor.",
         "type": "select",
         "options": [
           {
@@ -61,8 +61,16 @@
             "value": null
           },
           {
-            "label": "Enable",
-            "value": true
+            "label": "Second level -- *.example.com",
+            "value": "2"
+          },
+          {
+            "label": "Third level -- *.example.co.uk",
+            "value": "3"
+          },
+          {
+            "label": "Fourth level -- *.fourth.third.second.tld",
+            "value": "4"
           }
         ]
       },
