@@ -65,6 +65,7 @@ CloudFlare.define 'piwik_analytics/setup', [
     #setup._debug = null    ## null is "" or empty
     #setup._debug = "true"  ## true is "true" or not null
 
+    ## FIXME -- broke debug mode, re-implement this somewhere
     if setup._debug isnt null
       CloudFlare.push( { verbose:1 } )
       window.localStorage.clear()
