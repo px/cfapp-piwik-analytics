@@ -182,7 +182,7 @@ buildApp = (callback) ->
 # process
   ###
   process = ->
-    log "concatendated! Now processing!", green+bold
+    log "concatenated! Now processing!", green+bold
     # join the file contents and output to coffee script for compiling.
     fs.writeFile 'src/coffeescripts/piwik_analytics.coffee',appContents.join('\n\n'), 'utf8', (err) ->
       throw err if err
