@@ -77,36 +77,46 @@ task 'watchAll', 'Invoke "all" and watch for project file changes.', ->
 #  HELPERS
 #
 ###
+# ANSI Terminal Colors.
+bold = red = green = reset = ''
+unless process.env.NODE_DISABLE_COLORS
+  bold  = '\x1B[0;1m'
+  red   = '\x1B[0;31m'
+  green = '\x1B[0;32m'
+  reset = '\x1B[0m'
 
+# Log a message with a color.
+log = (message="", color=reset, explanation) ->
+  console.log color + message + reset + ' ' + (explanation or '')
 
 watchAll = (callback) ->
   invoke 'all'
-  util.log "Watching for project changes"
-  watchProjectFiles watchAppFiles
+  log "Watching for project changes", green
+  watchProjectFiles watchAppFiles callback
 
 
 watchProjectFiles = (callback) ->
   ## watch the projectFiles
   for file in projectFiles then do (file) ->
-    #console.log ("watching "+"#{file}")
+    log "watching "+"#{file}", bold
     fs.watchFile "#{file}", (curr, prev) ->
       if +curr.mtime isnt +prev.mtime
-        util.log "Changed #{file}"
+        log "Changed #{file}", red
         if file is "Cakefile"
-          throw ("!!!!Restart cake watch!!")
+          throw log "!!!!Restart cake watch!!", red
         # should be better way to rebuild only what is changed
         # the appFiles has more.
-        console.log 'Rebuilding all.'
+        log 'Rebuilding all.', green
         invoke 'all'
 
 watchAppFiles = (callback) ->
   ## watch the appFiles
   for file in appFiles then do (file) ->
-    #console.log ("watching "+"src/#{file}.coffee")
+    log "watching "+"src/#{file}.coffee", bold
     fs.watchFile "src/#{file}.coffee", (curr, prev) ->
       if +curr.mtime isnt +prev.mtime
         util.log "Changed #{file}"
-        console.log 'Rebuilding all.'
+        log 'Rebuilding all.'
         invoke 'all'
 
 
@@ -115,10 +125,13 @@ watchAppFiles = (callback) ->
 ###
 compileCoffee =
   ( filename , src='src/coffeescripts/', dest='public/javascripts/' ) ->
-    console.log "Compiling #{filename}."
+    log "Compiling #{filename}", green
     coffee_src = fs.readFileSync((src+filename+'.coffee'), 'utf8')
     # compile the coffee_src into js_src using bare option
-    js_src = coffee.compile coffee_src, bare: on
+    try
+      js_src = coffee.compile coffee_src, bare: on
+    catch e
+      log("uhoh! ",red,e)
     #fs.writeFileSync (dest+filename).replace(/\.coffee$/, '.js'), js_src
     fs.writeFileSync (dest+filename)+'.js', js_src
 
@@ -127,14 +140,14 @@ compileCoffee =
 # minify the application
 ###
 minify = (callback) ->
-  console.log "minify the stuff"
+  log "minify the stuff", bold
   # minify compiled piwik_analytics.js file into the output file
   cmd="""uglifyjs public/javascripts/piwik_analytics.js --lint --stats \
      --comments --compress --mangle --reserved "__console"  \
      >public/javascripts/piwik_analytics.min.js"""
   exec cmd, (err, stdout, stderr) ->
     throw err if err
-    console.log stdout + stderr
+    log stdout + stderr, red
     callback?()
 
 
@@ -144,21 +157,21 @@ minify = (callback) ->
 # concatenating files, and building development confgs
 ###
 buildApp = (callback) ->
-  console.log "compile the dev config and testApp"
+  log "compile the dev config and testApp", green+bold
 
   compileCoffee 'piwik_analytics/config'
   compileCoffee 'piwik_analytics/multi_config'
 
   compileCoffee 'testApp'
 
-  console.log "concatenate app"
+  log "concatenate app",green
   # add one to the length of the size of the appContents
   appContents = new Array remaining = (1+ appFiles.length)
   # append the header in position zero of the array
   appContents[0]=header
 
   for file, index in appFiles then do (file, index) ->
-    #console.log "#{index} and #{file}"
+    log "#{index} and #{file}", red
     fs.readFile "src/#{file}.coffee", 'utf8', (err, fileContents) ->
       throw err if err
       appContents[index+1] = fileContents
@@ -169,7 +182,7 @@ buildApp = (callback) ->
 # process
   ###
   process = ->
-    console.log ("concatendated! Now processing!")
+    log "concatendated! Now processing!", green+bold
     # join the file contents and output to coffee script for compiling.
     fs.writeFile 'src/coffeescripts/piwik_analytics.coffee',appContents.join('\n\n'), 'utf8', (err) ->
       throw err if err
@@ -177,16 +190,17 @@ buildApp = (callback) ->
       compileCoffee("piwik_analytics")
       fs.unlink 'src/coffeescripts/piwik_analytics.coffee', (err) ->
         throw err if err
-        console.log 'Done.'
+        log 'Done.'
         callback?()
 
 
 minify = (callback) ->
-  console.log "minify the stuff"
+  log "minify the stuff", bold+green
   # minify compiled piwik_analytics.js file into the output file
   exec 'uglifyjs public/javascripts/piwik_analytics.js --lint --stats --comments --compress --mangle --reserved "__console"  >public/javascripts/piwik_analytics.min.js', (err, stdout, stderr) ->
     throw err if err
-    console.log stdout + stderr
+    log stdout + stderr
+    log "minified done"
     callback?()
 
 
