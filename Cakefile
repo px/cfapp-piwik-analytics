@@ -1,18 +1,3 @@
-coffee    = require 'coffee-script'
-fs        = require 'fs'
-path = require 'path'
-util      = require 'util'
-{exec}    = require 'child_process'
-{spawn}   = require 'child_process'
-
-
-
-existsSync   = fs.existsSync or path.existsSync
-
-tasks     = {}
-options   = {}
-switches  = []
-oparse    = null
 
 MiniatureHipster = {}
 MiniatureHipster.VERSION = "0.0.34b"
@@ -29,8 +14,21 @@ header = """
  * @license   #{MiniatureHipster.LICENSE}
  ###
 """
+#helpers.extend
+#helpers.extend global
+###
+# INCLUDES
+###
+coffee    = require 'coffee-script'
+fs        = require 'fs'
+path = require 'path'
+util      = require 'util'
+{exec}    = require 'child_process'
+{spawn}   = require 'child_process'
 
-console.log header
+## output when run
+#console.log coffee.compile header, bare:on
+
 
 
 ## Files which should be watched
@@ -58,11 +56,50 @@ appFiles  = [
 # Tasks
 ###
 
+task 'say:hello', 'Description of task', -> console.log 'Hello World!'
+
 task 'all',' do all(buildApp->minify) the tasks!', -> buildApp -> minify()
 
 task 'buildApp', 'Build single application and support files from source', -> buildApp()
 
 task 'minify', 'Minify the resulting application file after compile', -> minify()
+
+task 'bake', 'Bake the cake, aka watchAll.', -> invoke 'watchAll'
+
+task 'watchAll', 'Invoke "all" and watch for project file changes.', ->
+  watchAll()
+
+###
+#
+#  HELPERS
+#
+###
+
+
+watchAll = (callback) ->
+  invoke 'all'
+  util.log "Watching for project changes"
+
+  ## watch the projectFiles
+  for file in projectFiles then do (file) ->
+    #console.log ("watching "+"#{file}")
+    fs.watchFile "#{file}", (curr, prev) ->
+      if +curr.mtime isnt +prev.mtime
+        util.log "Changed #{file}"
+        console.error("!!!!Restart cake watch!!") if file is "Cakefile"
+        # should be better way to rebuild only what is changed
+        # the appFiles has more.
+        console.log 'Rebuilding all.'
+        invoke 'all'
+
+  ## watch the appFiles
+  for file in appFiles then do (file) ->
+    #console.log ("watching "+"src/#{file}.coffee")
+    fs.watchFile "src/#{file}.coffee", (curr, prev) ->
+      if +curr.mtime isnt +prev.mtime
+        util.log "Changed #{file}"
+        console.log 'Rebuilding all.'
+        invoke 'all'
 
 
 ###
@@ -76,6 +113,21 @@ compileCoffee =
     js_src = coffee.compile coffee_src, bare: on
     #fs.writeFileSync (dest+filename).replace(/\.coffee$/, '.js'), js_src
     fs.writeFileSync (dest+filename)+'.js', js_src
+
+
+###
+# minify the application
+###
+minify = (callback) ->
+  console.log "minify the stuff"
+  # minify compiled piwik_analytics.js file into the output file
+  cmd="""uglifyjs public/javascripts/piwik_analytics.js --lint --stats \
+     --comments --compress --mangle --reserved "__console"  \
+     >public/javascripts/piwik_analytics.min.js"""
+  exec cmd, (err, stdout, stderr) ->
+    throw err if err
+    console.log stdout + stderr
+    callback?()
 
 
 ###
@@ -98,17 +150,22 @@ buildApp = (callback) ->
   appContents[0]=header
 
   for file, index in appFiles then do (file, index) ->
-    console.log "#{index} and #{file}"
+    #console.log "#{index} and #{file}"
     fs.readFile "src/#{file}.coffee", 'utf8', (err, fileContents) ->
       throw err if err
       appContents[index+1] = fileContents
       ## process when 1, because we add header
       process() if --remaining is 1
 
+  ###
+# process
+  ###
   process = ->
     console.log ("concatendated! Now processing!")
+    # join the file contents and output to coffee script for compiling.
     fs.writeFile 'src/coffeescripts/piwik_analytics.coffee',appContents.join('\n\n'), 'utf8', (err) ->
       throw err if err
+      # compile the coffeescript
       compileCoffee("piwik_analytics")
       fs.unlink 'src/coffeescripts/piwik_analytics.coffee', (err) ->
         throw err if err
@@ -125,8 +182,6 @@ minify = (callback) ->
     callback?()
 
 
-#helpers.extend
-#helpers.extend global
 
 option '-c', '--compile', 'compile to JavaScript and save as .js files'
 option '-o', '--output [DIR]', 'directory for compiled code'
@@ -135,46 +190,3 @@ option '-b', '--bare', 'compile without a top-level function wrapper'
 option '-t', '--tokens', 'print out the tokens that the lexer/rewriter produce'
 option '-w', '--watch', 'watch scripts for changes and rerun commands'
 
-task 'say:hello', 'Description of task', ->
-  console.log 'Hello World!'
-
-task 'bake', 'Bake the cake, aka watchAll.', -> invoke 'watchAll'
-
-task 'watchAll', 'Invoke "all" and watch for project file changes.', ->
-  watchAll()
-
-watchAll = (callback) ->
-  invoke 'all'
-  util.log "Watching for project changes"
-
-  ## watch the projectFiles
-  for file in projectFiles then do (file) ->
-    console.log ("watching "+"#{file}")
-    fs.watchFile "#{file}", (curr, prev) ->
-      if +curr.mtime isnt +prev.mtime
-        util.log "Changed #{file}"
-        console.error("!!!!Restart cake watch!!") if file is "Cakefile"
-        # should be better way to rebuild only what is changed
-        # the appFiles has more.
-        console.log 'Rebuilding all.'
-        invoke 'all'
-
-  ## watch the appFiles
-  for file in appFiles then do (file) ->
-    #console.log ("watching "+"src/#{file}.coffee")
-    fs.watchFile "src/#{file}.coffee", (curr, prev) ->
-      if +curr.mtime isnt +prev.mtime
-        util.log "Changed #{file}"
-        console.log 'Rebuilding all.'
-        invoke 'all'
-
-# printTasks = ->
-#   relative = path.relative or path.resolve
-#   cakefilePath = path.join relative(__originalDirname, process.cwd()), 'Cakefile'
-#   console.log "#{cakefilePath} defines the following tasks:\n"
-#   for name, task of tasks
-#      spaces = 20 - name.length
-#      spaces = if spaces > 0 then Array(spaces + 1).join(' ') else ''
-#      desc   = if task.description then "# #{task.description}" else ''
-#      console.log "cake #{name}#{spaces} #{desc}"
-#      console.log oparse.help() if switches.length
