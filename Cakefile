@@ -98,12 +98,12 @@ watchAll = (callback) ->
 watchProjectFiles = (callback) ->
   ## watch the projectFiles
   for file in projectFiles then do (file) ->
-    log "watching "+"#{file}", bold
+    log "watching "+"#{file}", reset
     fs.watchFile "#{file}", (curr, prev) ->
       if +curr.mtime isnt +prev.mtime
-        log "Changed #{file}", red
+        log "Changed #{file}", bold
         if file is "Cakefile"
-          throw log "!!!!Restart cake watch!!", red
+          throw log "!!!!Restart 'cake bake'!!", red
         # should be better way to rebuild only what is changed
         # the appFiles has more.
         log 'Rebuilding all.', green
@@ -112,7 +112,7 @@ watchProjectFiles = (callback) ->
 watchAppFiles = (callback) ->
   ## watch the appFiles
   for file in appFiles then do (file) ->
-    log "watching "+"src/#{file}.coffee", bold
+    log "watching "+"src/#{file}.coffee", reset
     fs.watchFile "src/#{file}.coffee", (curr, prev) ->
       if +curr.mtime isnt +prev.mtime
         util.log "Changed #{file}"
@@ -131,7 +131,7 @@ compileCoffee =
     try
       js_src = coffee.compile coffee_src, bare: on
     catch e
-      log("uhoh! ",red,e)
+      log("!!!    -----  uhoh! ",red,e)
     #fs.writeFileSync (dest+filename).replace(/\.coffee$/, '.js'), js_src
     fs.writeFileSync (dest+filename)+'.js', js_src
 
