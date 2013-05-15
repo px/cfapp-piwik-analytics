@@ -29,7 +29,10 @@ util      = require 'util'
 ## output when run
 #console.log coffee.compile header, bare:on
 
-
+###
+# FILE ARRAYS
+#     file arrangements
+###
 
 ## Files which should be watched
 projectFiles = [
@@ -79,19 +82,24 @@ task 'watchAll', 'Invoke "all" and watch for project file changes.', ->
 watchAll = (callback) ->
   invoke 'all'
   util.log "Watching for project changes"
+  watchProjectFiles watchAppFiles
 
+
+watchProjectFiles = (callback) ->
   ## watch the projectFiles
   for file in projectFiles then do (file) ->
     #console.log ("watching "+"#{file}")
     fs.watchFile "#{file}", (curr, prev) ->
       if +curr.mtime isnt +prev.mtime
         util.log "Changed #{file}"
-        console.error("!!!!Restart cake watch!!") if file is "Cakefile"
+        if file is "Cakefile"
+          throw ("!!!!Restart cake watch!!")
         # should be better way to rebuild only what is changed
         # the appFiles has more.
         console.log 'Rebuilding all.'
         invoke 'all'
 
+watchAppFiles = (callback) ->
   ## watch the appFiles
   for file in appFiles then do (file) ->
     #console.log ("watching "+"src/#{file}.coffee")
