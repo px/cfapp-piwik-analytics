@@ -11,3 +11,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 BSD 2 Clause
 <http://opensource.org/licenses/BSD-2-Clause>
 
+
+
+OTHER BITS:
+
+Use of copyrighted Piwik name, logo, and imagery used with permissionfrom Piwik.
