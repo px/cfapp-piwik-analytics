@@ -6,8 +6,9 @@
 ###
 CloudFlare.define 'piwik_analytics/perf', [
   'cloudflare/console'
+  'piwik_analytics/config'
 ],
-  ( __console
+  ( __console, __conf
   ) ->
 
     #    __console.log("START piwik_analytics/perf")
@@ -20,6 +21,12 @@ CloudFlare.define 'piwik_analytics/perf', [
 
     p=window.performance || window.mozPerformance ||
       window.msPerformance || window.webkitPerformance || fake
+
+    ## start early we might have messages to display
+    if __conf._debug isnt null
+      CloudFlare.push( { verbose:1 } )
+      window.localStorage.clear()
+
     ###
 # now()
 #  return the window.performance.now()
