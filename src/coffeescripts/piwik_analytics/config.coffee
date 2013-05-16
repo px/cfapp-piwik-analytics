@@ -12,21 +12,29 @@ CloudFlare.define "piwik_analytics/config", [], () ->
     "tracking_all_subdomains":"2"
     ## This is misleading, because it modifies the title captured by Piwik
     "tracking_group_by_domain":"true"
-    #
-    "tracking_all_aliases":"true"
+    # 
+    "tracking_all_aliases":null
+    "tracking_all_aliases":"'example.com','foo.com','bar.net'"
     # obey browser do-not-track setting
     "tracking_do_not_track":null
     # Stuff to push into the array
     #paq_push: "[function(){return 0;}],['setHeartBeatTimer',5,15],[function(){return window.console.log('getVisitorId='+this.getVisitorId());}]"
 
-    "paq_push": "\t    [\'setHeartBeatTimer\',5,30],\t,, [\'setLinkTrackingTimer\',250] ,,,,, [\'disableCookies\'] ,[ function() { return window.console.log('getVisitorId='+this.getVisitorId()); } ],['this'],false-true,['that'],    , ['trackPageView'], 'bad array1'], ['bad array', ; stuff,\" ][,i&#![]],[9],"  ## -- fails
-    "paq_push": "  ,  [\'setHeartBeatTimer\',,5,30],, [\'setLinkTrackingTimer\',250] , [\'disableCookies\'] ,[ function() { return window.console.log('getVisitorId='+this.getVisitorId()); } ],false-true, invalid-shit ,,   , ['trackPageView']"
+
+##
+# piwik.js:13
+# TypeError: 'undefined' is not an object (evaluating 'D[Q].apply')
+# [ CLOUDFLARE ] uhoh! paq_push option=['bad array', ; stuff, " ] (SyntaxError: Unexpected token ';')
+#
+##
+    "paq_push": "\t    [\'setHeartBeatTimer\',5,30],\t,, [\'setLinkTrackingTimer\',250] ,,,,, [\'disableCookies\'] ,[ function() { return window.console.log('getVisitorId='+this.getVisitorId()); } ],['this'],false-true,['that'],    , ['trackPageView'], 'bad array1'], ['bad array', ; stuff,\" ][,i&#![]],[9],"  ## -- fails -- bad array unexpected ';' token
+    #"paq_push": "  ,  [\'setHeartBeatTimer\',,5,30],, [\'setLinkTrackingTimer\',250] , [\'disableCookies\'] ,[ function() { return window.console.log('getVisitorId='+this.getVisitorId()); } ],false-true, invalid-shit ,,   , ['trackPageView']"  ## -- PASS
     #"paq_push": "[function(){return window.console.log('stuff');},true],['setHeartBeatTimer',5,15],"
     #"paq_push": "[\'setHeartBeatTimer\',5,15],[function(){return window.console.log(\'getVisitorId=\'+this.getVisitorId());}]"
     #"paq_push":"['setLinkTrackingTimer',250],['disableCookies'],[\'setHeartBeatTimer\',2,5]"
     #"paq_push":"   [\'setHeartBeatTimer\',2,5]" ## -- works
     #"paq_push":"[\'setHeartBeatTimer\',2,5],  " ## -- works
-    #"paq_push":"[\'setHeartBeatTimer\',2,5]" ## -- works
+    "paq_push":"[\'setHeartBeatTimer\',2,5]" ## -- works
     #"paq_push": "[function(){return window.console('100='+99+1);}],['setHeartBeatTimer',5,15]"
     #"paq_push":"['bad call'],  [\'setHeartBeatTimer\',2,5]"
     #"paq_push":"['bad call'],[\'setHeartBeatTimer\',2,5]"
