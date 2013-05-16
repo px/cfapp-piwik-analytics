@@ -3,10 +3,11 @@
   "config": {
     "assets": {
       "detail_page": [
-        "./public/images/piwik_analytics_screenshot_1.png"
+        "./public/images/piwik_cfapp_screenshot_1.png",
+        "./public/images/piwik_analytics_demo_screenshot_1.png"
       ],
       "images": [
-        "./public/images/piwik_analytics.png"
+        "./public/images/piwik_cfapp_screenshot_1.png"
       ],
       "logos": {
         "132px": "./public/images/logo-132.png",
@@ -23,6 +24,13 @@
     },
     "interface": [
       {
+        "id": "default_piwik_install",
+        "name": "Piwik Installation URL",
+        "description": "Root URL of your working Piwik installation. 'https://piwik.yourdomain.com'. Do not add a trailing '/' character. Ideally should be utilizing SSL for security purposes, but using a schemeless URL '//host.tld' is valid also. Leaving this empty will use the default relative URL '/piwik'",
+        "type": "hidden",
+        "value": "/piwik"
+      },
+      {
         "id": "default_piwik_site_id",
         "name": "Website Id",
         "description": "Website Id to be tracked, otherwise it will default to use '1'.",
@@ -30,10 +38,10 @@
         "value": "1"
       },
       {
-        "id": "default_piwik_install",
+        "id": "piwik_install",
         "name": "Piwik Installation URL",
-        "description": "Root URL of your working Piwik installation. 'https://piwik.yourdomain.com'. Do not add a trailing '/' character. Ideally should be utilizing SSL for security purposes, but using a schemeless URL '//host.tld' is valid also. Leaving this empty will use the default relative URL '/piwik'",
-        "type": "hidden",
+        "description": "Root URL of Piwik installation. 'https://piwik.yourdomain.com'. Do not add a trailing '/' character. Ideally should be utilizing SSL for security purposes. Using a schemeless URL '//host.tld' is also valid for use of other protocols, such as <a href='https://www.cloudflare.com/spdy'>SPDY</a>. But only if your tracker installation supports it. Leaving this empty will use the default relative URL '/piwik'",
+        "type": "string",
         "value": "/piwik"
       },
       {
@@ -42,13 +50,6 @@
         "description": "Website Id to be tracked, otherwise it will default to use '1'.",
         "type": "string",
         "value": "1"
-      },
-      {
-        "id": "piwik_install",
-        "name": "Piwik Installation URL",
-        "description": "Root URL of your working Piwik installation. 'https://piwik.yourdomain.com'. Do not add a trailing '/' character. Ideally should be utilizing SSL for security purposes, but using a schemeless URL '//host.tld' is valid also. Leaving this empty will use the default relative URL '/piwik'",
-        "type": "string",
-        "value": "/piwik"
       },
       {
         "id": "tracking_all_subdomains",
@@ -77,14 +78,23 @@
       {
         "id": "tracking_group_by_domain",
         "name": "Prepend the site domain to the page title when tracking",
-        "description": "So if someone visits the 'About' page on blog.example.com it will be recorded as 'blog / About'. This is the easiest way to get an overview of your traffic by sub-domain. Example: \"document.domain + '/' + document.title\"",
-        "type": "string",
-        "value": "document.domain + '/' + document.title"
+        "description": "So if someone visits the 'About' page on blog.example.com it will be recorded as 'blog.example.com / About'. This is the easiest way to get an overview of your traffic by sub-domain.",
+        "type": "select",
+        "options": [
+          {
+            "label": "Disable",
+            "value": null
+          },
+          {
+            "label": "Enable",
+            "value": true
+          }
+          ]
       },
       {
         "id": "tracking_all_aliases",
         "name": "In the \"Outlinks\" report, hide clicks to known alias URLs",
-        "description": "So clicks on links to Alias URLs (eg. http://*.example.com) will not be counted as \"Outlink\". Example: \"[\"*.piwik.example.com\",\"*.p-ssl.example.com\",\"*.p.example.com\",\"*.piwik-ssl.example.com\"]\"",
+        "description": "So clicks on links to Alias URLs (eg. http://*.example.com) will not be counted as \"Outlink\". Example: \'\"*.other.example.com\",\"*.another.example.com\",\"*.this.example.com\",\"*.subdomain.example.com\"\'",
         "type": "string",
         "value": ""
       },
@@ -107,14 +117,14 @@
       {
         "id": "paq_push",
         "name": "Advanced _paq",
-        "description": "Push custom code on to the 'window._paq' array. examples. '[ function() { return 0;} ]' or '[ function() { return window.console.log(\"getVisitorId=\"+this.getVisitorId()); } ]'",
+        "description": "Push custom Javascript code on to the 'window._paq' array. <br/> Examples: Return 0 '[ function() { return 0;} ]' <br/> Get VisitorId and display in console log. '[ function() { return window.console.log( \"getVisitorId=\" + this.getVisitorId() ); } ]' <br/> Set the Document Title '[\"setDocumentTitle\",document.domain + ' / ' + document.title]' <br/> Implement a heartbeat '['setHeartBeatTimer',30,60]' ",
         "type": "string",
         "value": ""
       },
       {
         "id": "_debug",
         "name": "Debugger",
-        "description": "Enable or disable the logging, performance, and errors debug output to the Javascript console. Leave this disabled unless you are having issues and would like to know more about what is going on.",
+        "description": "Enable or disable the logging, performance, and errors debug output to the client browser Javascript console. Leave this disabled unless there are issues and more information is required.",
         "type": "select",
         "options": [
           {
