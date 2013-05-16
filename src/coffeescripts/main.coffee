@@ -122,7 +122,7 @@ CloudFlare.define 'piwik_analytics', [
         ( __conf.tracking_all_aliases isnt null ) )
           try
             #__console.log(""+unescape ( __conf.tracking_all_aliases ))
-            pp(["setDomains", __conf.tracking_all_aliases ] )
+            pp(["setDomains", new Array __conf.tracking_all_aliases ] )
           catch e
             __console.error("uhoh "+e)
 
