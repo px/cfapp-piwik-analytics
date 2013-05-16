@@ -126,54 +126,74 @@ CloudFlare.define 'piwik_analytics', [
           catch e
             __console.error("uhoh "+e)
 
+
       # pass the extra advanced options if any are configured or allowed
       if ( ( __conf.paq_push isnt undefined ) and
         ( __conf.paq_push isnt null ) )
           index=1
-          fixspaces=/\s{2,}/g
+          fixdoublespaces=/\s{2,}/g
           # group matching ( zero or more spaces leading spaces before a comma)
           # two or more of these 
           doublecomma=/(\s{0,}\,){2,}/g #\s{0,}\,/g
-          trailingcomma=/\,$/
+          beginningcomma=/^([\,\s\S]{0,})\[/
+          trailingcomma=/\]([\,\s\S]{0,})$/
+          weirdcomma=/\s?\,\s?/g
           # split on end
           #pattern=/\]\s?,\s?/
-          # split on begin of array, zero or more preceeding whitespace, comma, white space, open square bracket
-          pattern=/\s{0,}\,{0,}\s?\[/g
+          # split on begin of array
+          # #, zero or more preceeding whitespace, comma, white space, open square bracket
+          pattern=/\]\s{0,}\,{0,}\s{0,}\[/
+          pattern=/\]\s{0,}\,{0,}\s{0,}\[?/
+            #pattern=/\]?\s{0,}\,{0,}\s{0,}\[/
+          #pattern=/([\,\s]{0,}\[.+\]([\,\s]){0,})/
+          #pattern=/([\,\s]{0,}\[.+\]([\,\s]))/
+          #pattern=/([\,\s]{0,}\[.+\]([\,\s]){0,}){0,}/
           ## object
           obj=(__conf.paq_push)
-          __console.log obj
+          __console.log "plain \'"+obj+"\'"
           obj=obj.replace(doublecomma, ", ")
-          __console.log obj
+          __console.log "doublecomma "+obj
+          obj=obj.replace(fixdoublespaces, ' ')
+          __console.log "fixdoublespaces \'"+obj+"\'"
+          obj=obj.replace(weirdcomma , '\, ')
+          __console.log "weird comma \'"+obj+"\'"
+          # normalize
           # close square, one or more space, comma, to '] '
-          obj=obj.replace(/\]\s{0,}\,/g , '], ')
-          __console.log obj
-          obj=obj.replace(fixspaces, ' ')
-          __console.log obj
+          #obj=obj.replace(/\]\s{0,}\,/g , '], ')
           last=obj.length
           ## loop over the configured options
           for option in obj.split(pattern)
-            #__console.log(index+" option='"+option+"'") if __conf._debug
+            __console.log(index+" option=\'"+option+"\'") if __conf._debug
             ## might be a better way than...
             ##  eval'ing unescaped variable data surrounded
-            if option isnt ""
-              option.replace( trailingcomma, '')
-              #option.replace(/,$/,'')
+            if option isnt undefined and option isnt ""
+              #option=option.replace( beginningcomma, '[')
+              option=option.replace( beginningcomma, '')
+              __console.log "begining comma \'"+option+"\'"
+              option=option.replace( trailingcomma, ']')
+              __console.log "trailing comma \'"+option+"\'"
               #if index isnt last # (__conf.paq_push).split('],').length
               #  __console.log (index)
                 #  ## we don't need to fix the last one.
-                #option+=']'
-              option='['+option
+              #  option+=']'
+              #if index isnt 1
+              #  option='['+option
+              #else
+              #  option='['+option
+
+              option='['+option+']'
+              __console.log "opted \'"+option+"\'"
               #if ( index >= last-2 )
               #option.replace(/\],$/,']')
               #remove trailing comma
-              #__console.log(index+" option='"+option+"'") if __conf._debug
               try
-                #__console.log (" "+ (typeof eval(option)))
+                #__console.log (index+" "+ (typeof eval(option)))
 
                 pp( eval (option) )
               catch e
                 __console.error("uhoh! paq_push option="+option+" ("+e+")")
             index++
+
 
       #window._paq.push(['setHeartBeatTimer',5,15])
 
