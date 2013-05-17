@@ -115,9 +115,25 @@
         ]
       },
       {
+        "id": "advMenu",
+        "name": "Advanced Menu Features",
+        "description": "Easily enable or disable advanced features. Be sure to completely understand them, and what you are typing.",
+        "type": "select",
+        "options": [
+          {
+            "label": "Disable",
+            "value": null
+          },
+          {
+            "label": "I UNDERSTAND",
+            "value": true
+          }
+        ]
+      },
+      {
         "id": "paq_push",
         "name": "Advanced _paq",
-        "description": "Push custom Javascript code on to the 'window._paq' array. <br/> Examples: Return 0 '[ function() { return 0;} ]' <br/> Get VisitorId and display in console log. '[ function() { return window.console.log( \"getVisitorId=\" + this.getVisitorId() ); } ]' <br/> Set the Document Title '[\"setDocumentTitle\",document.domain + ' / ' + document.title]' <br/> Implement a heartbeat '['setHeartBeatTimer',30,60]' ",
+        "description": "Push custom Javascript code on to the 'window._paq' array. Malformed code or data may have negative effects.<br/> Examples: Return 0 '[ function() { return 0;} ]' <br/> Get VisitorId and display in console log. '[ function() { return window.console.log( \"getVisitorId=\" + this.getVisitorId() ); } ]' <br/> Set the Document Title '[\"setDocumentTitle\",document.domain + ' / ' + document.title]' <br/> Implement a heartbeat '['setHeartBeatTimer',30,60]' ",
         "type": "string",
         "value": ""
       },
