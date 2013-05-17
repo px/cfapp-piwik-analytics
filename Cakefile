@@ -141,10 +141,11 @@ compileCoffee =
 minify = (callback) ->
   log "minify the stuff", bold
   # minify compiled piwik_analytics.js file into the output file
-  cmd="""uglifyjs public/javascripts/piwik_analytics.js --lint --stats \
-     --comments --compress --mangle --unsafe --lift-vars \
-     --mangle-toplevel \
-     -d windowAlias="window" -d myPiwikAlias="myPiwik" \
+  cmd="""uglifyjs public/javascripts/piwik_analytics.js \
+     --verbose --lint --stats  --comments --no-dead-code \
+     --compress hoist_vars=false,squeeze:true,dead_code:true \
+     --mangle mangle:true,squeeze:true,dead_code:true,show_copyright:true,unsafe:true,lift-vars:true \
+     -m mangle-toplevel:true mangle:true \
      >public/javascripts/piwik_analytics.min.js
      """
   exec cmd, (err, stdout, stderr) ->
