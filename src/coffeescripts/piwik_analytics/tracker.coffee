@@ -1,7 +1,10 @@
 # vim: set tabstop=2:softtabstop=2:shiftwidth=2:noexpandtab
 
 ###
-* definition for tracker
+* definition for tracker module
+*   attempts to:
+*     determine a valid installation root
+*     fetch and load the piwik.js library
 ###
 CloudFlare.define 'piwik_analytics/tracker', [
   'cloudflare/console'
@@ -9,12 +12,12 @@ CloudFlare.define 'piwik_analytics/tracker', [
   'piwik_analytics/config'
   'piwik_analytics/perf'
 ],
-  ( __console,
+  ( __cons,
     #__setup,
     __conf,
     __perf
   ) ->
-    #    __console.log("START piwik_analytics/tracker")
+    #    __cons.log("START piwik_analytics/tracker")
     tracker = {}
 
     # store the current time
@@ -23,9 +26,10 @@ CloudFlare.define 'piwik_analytics/tracker', [
     tracker._debug = __conf._debug
 
     tracker.isPiwik = no
-    
+
     ## LEAVE HERE -- already lost it once.
-    window._paq = window._paq || []
+    windowAlias=window
+    windowAlias._paq = windowAlias._paq || []
     ## END
 
     ###
@@ -35,15 +39,20 @@ CloudFlare.define 'piwik_analytics/tracker', [
     ###
     tracker.setTracker =
       ( _install = __conf.default_piwik_install || '/piwik' ) ->
-        #_install = __conf.setDefault( _install, __conf.default_piwik_install, "Install" )
 
         tracker.perfThenJs = __perf.now()
-        CloudFlare.require([unescape(_install + "/piwik.js")], tracker.isPiwik = yes)
+        windowAlias=window
+
+        CloudFlare.require( [ unescape(
+          #_install + "/js/") ], tracker.isPiwik = yes)
+          _install + "/piwik.js") ], tracker.isPiwik = yes)
 
         if tracker._debug isnt null
-          __console.log("tracker.setTracker\t Install URL \t= \""+unescape( _install)+"\"")
+          __cons.log(
+            "Piwik Install\t=\"#{unescape( _install)}\""
+          )
 
-        window._paq.push([
+        windowAlias._paq.push([
           'setTrackerUrl', unescape ( _install ) + "/piwik.php"
         ])
 
@@ -62,20 +71,23 @@ CloudFlare.define 'piwik_analytics/tracker', [
     tracker.setSiteId =
       ( _SiteId ) ->
 
-        #__conf.setDefault( _SiteId, __conf.default_piwik_site_id, "WebsiteId" )
-
         # if it's a number use it. Double Negative,
         # will catch, alpha, and use the default above
         if ( ( not isNaN( _SiteId ) ) and ( _SiteId >= 1 ) )
-          __console.log( "tracker.setSiteId\t WebsiteId \t= "+ _SiteId ) if tracker._debug isnt null
+          if tracker._debug isnt null
+            __cons.log(
+              "Piwik WebsiteId\t=\"#{ _SiteId}\""
+            )
         else
           # default to default_site_id from cloudflare.json
-          __console.error( "tracker.setSiteId Invalid WebsiteId = \'"+ _SiteId+
-            "\' is not a number; defaulting to \'" + ( __conf.default_piwik_site_id ) + "\'") if tracker._debug isnt null
-          ## double secret failsafe, if the default is null, use '1'
-          _SiteId = __conf.default_piwik_site_id || '1'
+          if tracker._debug isnt null
+            __cons.error(
+              "Invalid WebsiteId\t=\"#{_SiteId}\" is not a number;"+
+                " defaulting to \'#{ __conf.default_piwik_site_id }\'")
+            ## double secret failsafe, if the default is null, use '1'
+            _SiteId = __conf.default_piwik_site_id || '1'
         # end if site_id
-        window._paq.push(['setSiteId', unescape ( _SiteId ) ])
+        windowAlias._paq.push(['setSiteId', unescape ( _SiteId ) ])
         _SiteId
 
     ###
@@ -89,13 +101,14 @@ CloudFlare.define 'piwik_analytics/tracker', [
 
     if tracker._debug isnt null
       try
-        __console.log(
-          (__perf.now() - tracker.perfThen) + " ms"+
-            "\t piwik_analytics/tracker execution time")
+        __cons.log(
+          "#{(__perf.now() - tracker.perfThen)} ms\t"+
+          "\"piwik_analytics/tracker\" execution time"
+        )
       catch e
-        __console.error("uhoh "+e)
+        __cons.error("uhoh "+e)
 
-    #__console.log("END piwik_analytics/tracker")
+    #__cons.log("END piwik_analytics/tracker")
     tracker
 ###
 # end of tracker module
