@@ -8,7 +8,6 @@ MiniatureHipster.LICENSE =
 header = """
  ###
  * @name      Miniature Hipster
- * @version   #{MiniatureHipster.VERSION}
  * @author    Rob Friedman
  * @url       http://playerx.net
  * @license   #{MiniatureHipster.LICENSE}
@@ -143,8 +142,11 @@ minify = (callback) ->
   log "minify the stuff", bold
   # minify compiled piwik_analytics.js file into the output file
   cmd="""uglifyjs public/javascripts/piwik_analytics.js --lint --stats \
-     --comments --compress --mangle --reserved "__console"  \
-     >public/javascripts/piwik_analytics.min.js"""
+     --comments --compress --mangle --unsafe --lift-vars \
+     --mangle-toplevel \
+     -d windowAlias="window" -d myPiwikAlias="myPiwik" \
+     >public/javascripts/piwik_analytics.min.js
+     """
   exec cmd, (err, stdout, stderr) ->
     throw err if err
     log stdout + stderr, red
