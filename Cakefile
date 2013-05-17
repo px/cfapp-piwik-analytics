@@ -49,7 +49,7 @@ appFiles  = [
   # omit src/ and .coffee to make the below lines a little shorter
   'coffeescripts/piwik_analytics/perf'
   'coffeescripts/piwik_analytics/tracker'   # set the tracker
-  'coffeescripts/main'
+  'coffeescripts/piwik_analytics/main'
   'coffeescripts/piwik_analytics/showPerf'
 ]
 
