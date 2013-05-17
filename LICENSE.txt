@@ -15,4 +15,4 @@ BSD 2 Clause
 
 OTHER BITS:
 
-Use of copyrighted Piwik name, logo, and imagery used with permissionfrom Piwik.
+Use of copyrighted Piwik name, logo, and imagery used with permission from Piwik.
