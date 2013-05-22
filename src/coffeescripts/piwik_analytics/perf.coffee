@@ -8,24 +8,25 @@ CloudFlare.define 'piwik_analytics/perf', [
   'cloudflare/console'
   'piwik_analytics/config'
 ],
-  ( __console, __conf
+  ( __cons, __conf
   ) ->
 
-    #    __console.log("START piwik_analytics/perf")
+    #    __cons.log("START piwik_analytics/perf")
 
     module = {}
 
     fake={}
     fake.now =->
       new Date().getTime()
-
-    p=window.performance || window.mozPerformance ||
-      window.msPerformance || window.webkitPerformance || fake
+    
+    windowAlias=window
+    p=windowAlias.performance || windowAlias.mozPerformance ||
+      windowAlias.msPerformance || windowAlias.webkitPerformance || fake
 
     ## start early we might have messages to display
     if __conf._debug isnt null
       CloudFlare.push( { verbose:1 } )
-      window.localStorage.clear()
+      windowAlias.localStorage.clear()
 
     ###
 # now()
@@ -37,12 +38,12 @@ CloudFlare.define 'piwik_analytics/perf', [
       try
         p.now()
       catch e
-        __console.error(e)
+        __cons.error(e)
         fake.now() #new Date().getTime()
 
     module.perfThen = module.now()
 
-    #__console.log("END piwik_analytics/perf")
+    #__cons.log("END piwik_analytics/perf")
 
     module
 ###
