@@ -1,6 +1,6 @@
 
 MiniatureHipster = {}
-MiniatureHipster.VERSION = "0.0.36b"
+MiniatureHipster.VERSION = "0.0.37b"
 MiniatureHipster.LICENSE =
   "//github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt"
 
