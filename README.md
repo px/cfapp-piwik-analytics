@@ -47,18 +47,20 @@ Process Notes
   * npm -- there is a [package.json](package.json) to help with dependencies.
    * (`npm install -d`)
 
-    * automatically compile changes to coffeescript files within this project using the [Cakefile](Cakefile) script. (`cake all`)
+    * automatically compile changes to coffeescript files within this project using the [Cakefile](Cakefile) script. (`cake bake`)
+    * test compiled javascript using <a href="tests/index.html">local testing</a>.
     * test compiled javascript using <a href="http://js.cloudflare.com/">js.cloudflare.com</a>
       * <a href="http://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/pbcopy.1.html">pbcopy</a> is your friend. (`pbcopy < public/javascripts/piwik_analytics.js`)
     * Validation: (`./validate.sh`)
-      * automatically validate, check, and minify .js and .json files;
+      * (DEPRECATED) automatically validate, check, and minify .js and .json files;
       * automatically validate and check cloudflare.json &amp; other json files with jsonlint
 
     * which files need to version bump;
+      * [Cakefile](Cakefile) -- top of file
       * [cloudflare.json](cloudflare.json) -- end of file
       * [package.json](package.json) -- top of file
-      * [src/coffeescripts/header.coffee](src/coffeescripts/header.coffee) -- top of file
-
+    * `git commit cloudflare.json package.json Cakefile -m "version bump"`
+    * `git tag <version>`
     * Once you are happy, proceed to push your new version as follows.
       1. <a href="https://www.cloudflare.com/login">login to cloudflare</a>
       2. <a href="https://www.cloudflare.com/app-signup">App developer dashboard</a>
