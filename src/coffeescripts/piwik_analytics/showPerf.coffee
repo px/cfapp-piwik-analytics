@@ -9,13 +9,13 @@ CloudFlare.define 'piwik_analytics/showPerf', [
   'piwik_analytics/perf'
   'piwik_analytics/tracker'
 ],
-  ( __console,
+  ( __cons,
     __conf,
     __perf,
     __tracker
   ) ->
 
-    #    __console.log("START piwik_analytics/showPerf")
+    #    __cons.log("START piwik_analytics/showPerf")
 
     module = {}
 
@@ -32,18 +32,18 @@ CloudFlare.define 'piwik_analytics/showPerf', [
 
       window._paq.push [ ->
         try
-          __console.log(
+          __cons.log(
             (__perf.now() - __tracker.perfThenJs) + " ms"+
-            "\t Piwik library fetch/execute time")
+            "\tPiwik library fetch/execute time")
         catch e
-          __console.error("uhoh "+e)
+          __cons.error("uhoh "+e)
 
         try
-          __console.log(
+          __cons.log(
             (__perf.now() - __perf.perfThen) + " ms"+
-            "\t Total execution time")
+            "\tTotal execution time")
         catch e
-          __console.error("uhoh "+e)
+          __cons.error("uhoh "+e)
 
         yes
       ]
@@ -52,10 +52,10 @@ CloudFlare.define 'piwik_analytics/showPerf', [
 
     if module._debug isnt null
       module.showPerf()
-      __console.log(
+      __cons.log(
         (__perf.now() - module.perfThen) + " ms"+
-        "\t piwik_analytics/showPerf Factory execution time")
-    # __console.log("END piwik_analytics/showPerf")
+        "\t\"piwik_analytics/showPerf\" factory execution time")
+    # __cons.log("END piwik_analytics/showPerf")
 
     module
 ###
