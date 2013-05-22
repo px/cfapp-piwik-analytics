@@ -278,7 +278,7 @@ CloudFlare.define 'piwik_analytics', [
     if _cfg._debug isnt null
       _con.log(
         "#{(_perf.now() - mp.perfThen )} ms\t"+
-        "\"piwik_analytics\" factory time"
+        "\"piwik_analytics\" time"
       )
 
       #CloudFlare.require(['piwik_analytics/showPerf'])
