@@ -12,11 +12,14 @@
   ],
     "dependencies": {
       "coffee-script": ">=1.6.2",
+      "coffeelint":">=0.5.4",
       "js2coffee": ">=0.2.0",
       "file": ">=0.2.1",
       "underscore":">=1.4.4",
       "jsonlint":">=1.6.0",
-      "uglify-js":">=2.3.2"
+      "uglify-js":">=2.3.5",
+      "coffee-bean":">=0.1.0",
+      "coffeenode-stacktrace":">=0.0.5"
 
     },
     "license": "BSD-2 Clause",
