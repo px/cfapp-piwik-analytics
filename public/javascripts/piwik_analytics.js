@@ -1,8 +1,8 @@
 /*
 * @name      Miniature Hipster
-* @version   0.0.34b
 * @author    Rob Friedman
 * @url       http://playerx.net
+* @copyright 2013 Rob Friedman
 * @license   //github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt
 */
 
@@ -10,20 +10,21 @@
 * Definition for performance module
 *   provides timing method for the application
 */
-CloudFlare.define('piwik_analytics/perf', ['cloudflare/console', 'piwik_analytics/config'], function(__console, __conf) {
-  var fake, module, p;
+CloudFlare.define('piwik_analytics/perf', ['cloudflare/console', 'piwik_analytics/config'], function(__cons, __conf) {
+  var fake, module, p, windowAlias;
 
   module = {};
   fake = {};
   fake.now = function() {
     return new Date().getTime();
   };
-  p = window.performance || window.mozPerformance || window.msPerformance || window.webkitPerformance || fake;
+  windowAlias = window;
+  p = windowAlias.performance || windowAlias.mozPerformance || windowAlias.msPerformance || windowAlias.webkitPerformance || fake;
   if (__conf._debug !== null) {
     CloudFlare.push({
       verbose: 1
     });
-    window.localStorage.clear();
+    windowAlias.localStorage.clear();
   }
   /*
   # now()
@@ -39,7 +40,7 @@ CloudFlare.define('piwik_analytics/perf', ['cloudflare/console', 'piwik_analytic
       return p.now();
     } catch (_error) {
       e = _error;
-      __console.error(e);
+      __cons.error(e);
       return fake.now();
     }
   };
@@ -53,18 +54,22 @@ CloudFlare.define('piwik_analytics/perf', ['cloudflare/console', 'piwik_analytic
 
 
 /*
-* definition for tracker
+* definition for tracker module
+*   attempts to:
+*     determine a valid installation root
+*     fetch and load the piwik.js library
 */
 
 
-CloudFlare.define('piwik_analytics/tracker', ['cloudflare/console', 'piwik_analytics/config', 'piwik_analytics/perf'], function(__console, __conf, __perf) {
-  var e, tracker;
+CloudFlare.define('piwik_analytics/tracker', ['cloudflare/console', 'piwik_analytics/config', 'piwik_analytics/perf'], function(_con, _cfg, _perf) {
+  var e, tracker, windowAlias;
 
   tracker = {};
-  tracker.perfThen = __perf.now();
-  tracker._debug = __conf._debug;
+  tracker.perfThen = _perf.now();
+  tracker._debug = _cfg._debug;
   tracker.isPiwik = false;
-  window._paq = window._paq || [];
+  windowAlias = window;
+  windowAlias._paq = windowAlias._paq || [];
   /*
   # mypiwik.setTracker
   # sets the tracker for the client to use
@@ -73,14 +78,15 @@ CloudFlare.define('piwik_analytics/tracker', ['cloudflare/console', 'piwik_analy
 
   tracker.setTracker = function(_install) {
     if (_install == null) {
-      _install = __conf.default_piwik_install || '/piwik';
+      _install = _cfg.default_piwik_install || '/piwik';
     }
-    tracker.perfThenJs = __perf.now();
+    tracker.perfThenJs = _perf.now();
+    windowAlias = window;
     CloudFlare.require([unescape(_install + "/piwik.js")], tracker.isPiwik = true);
     if (tracker._debug !== null) {
-      __console.log("tracker.setTracker\t Install URL \t= \"" + unescape(_install) + "\"");
+      _con.log("Piwik Install\t=\"" + (unescape(_install)) + "\"");
     }
-    window._paq.push(['setTrackerUrl', unescape(_install + "/piwik.php")]);
+    windowAlias._paq.push(['setTrackerUrl', unescape(_install + "/piwik.php")]);
     /*
     #return _install
     */
@@ -96,31 +102,34 @@ CloudFlare.define('piwik_analytics/tracker', ['cloudflare/console', 'piwik_analy
   */
 
   tracker.setSiteId = function(_SiteId) {
+    var defaultSiteId;
+
+    defaultSiteId = _cfg.default_piwik_site_id || '1';
     if ((!isNaN(_SiteId)) && (_SiteId >= 1)) {
       if (tracker._debug !== null) {
-        __console.log("tracker.setSiteId\t WebsiteId \t= " + _SiteId);
+        _con.log("Piwik WebsiteId\t=\"" + _SiteId + "\"");
       }
     } else {
       if (tracker._debug !== null) {
-        __console.error("tracker.setSiteId Invalid WebsiteId = \'" + _SiteId + "\' is not a number; defaulting to \'" + __conf.default_piwik_site_id + "\'");
+        _con.error(("Invalid WebsiteId\t=\"" + _SiteId + "\" is not a number;") + (" defaulting to \'" + defaultSiteId + "\'"));
+        _SiteId = defaultSiteId;
       }
-      _SiteId = __conf.default_piwik_site_id || '1';
     }
-    window._paq.push(['setSiteId', unescape(_SiteId)]);
+    windowAlias._paq.push(['setSiteId', unescape(_SiteId)]);
     return _SiteId;
   };
   /*
   # configure with the defaults if undefined or invalid
   */
 
-  tracker.piwik_install = tracker.setTracker(__conf.piwik_install);
-  tracker.site_id = tracker.setSiteId(__conf.site_id);
+  tracker.piwik_install = tracker.setTracker(_cfg.piwik_install);
+  tracker.site_id = tracker.setSiteId(_cfg.site_id);
   if (tracker._debug !== null) {
     try {
-      __console.log((__perf.now() - tracker.perfThen) + " ms" + "\t piwik_analytics/tracker execution time");
+      _con.log(("" + (_perf.now() - tracker.perfThen) + " ms\t") + "\"piwik_analytics/tracker\" time");
     } catch (_error) {
       e = _error;
-      __console.error("uhoh " + e);
+      _con.error("uhoh " + e);
     }
   }
   return tracker;
@@ -139,42 +148,57 @@ CloudFlare.define('piwik_analytics/tracker', ['cloudflare/console', 'piwik_analy
 */
 
 
-CloudFlare.define('piwik_analytics', ['cloudflare/console', 'piwik_analytics/perf', 'piwik_analytics/config', 'piwik_analytics/tracker'], function(__console, __perf, __conf, __tracker) {
-  var e, myPiwik, pp,
+CloudFlare.define('piwik_analytics', ['cloudflare/console', 'piwik_analytics/perf', 'piwik_analytics/config', 'piwik_analytics/tracker'], function(_con, _perf, _cfg, _tracker) {
+  var e, mp, myPiwik, paqPush, wa, _err,
     _this = this;
 
   myPiwik = {};
-  myPiwik.perfThen = __perf.now();
-  pp = function(ao) {
-    var error, t;
+  mp = myPiwik;
+  mp.perfThen = _perf.now();
+  wa = window;
+  _err = "uhoh! ";
+  paqPush = function(ao) {
+    var error, size;
 
+    wa = window;
     try {
-      t = window._paq.push(ao);
-      if (__conf._debug) {
-        return __console.log("_paq.length=" + t + ",\t _paq.push " + ao + " ");
+      size = 0;
+      switch (typeof ao) {
+        case "object":
+          size = wa._paq.push(ao);
+          break;
+        case "string":
+          size = wa._paq.push([ao]);
+          break;
+        default:
+          _con.error("" + _err + " -- not sure what type this is " + (typeof ao));
+      }
+      if (_cfg._debug) {
+        return _con.log("_paq.length=" + size + ",\t" + ao);
       }
     } catch (_error) {
       error = _error;
-      return __console.error("uhoh! pp " + error);
+      return _con.error("" + _err + " pp (" + error + ")");
     }
   };
   /*
-  # myPiwik.getVisitorId
+  # mp.getVisitorId
   # pushes a request for the Piwik VisitorId generated once piwik.js executes
   # sets the _visitorId to be the id, and returns it's value
   # will return the visitorId or false if piwik.js is still not loaded.
   #
   */
 
-  myPiwik.getVisitorId = function() {
+  mp.getVisitorId = function() {
     var _visitorId;
 
     _visitorId = false;
-    window._paq.push([
+    wa = window;
+    wa._paq.push([
       function() {
         _visitorId = this.getVisitorId();
-        if (__conf._debug !== null) {
-          __console.log("Piwik.getVisitorId = " + _visitorId);
+        if (_cfg._debug !== null) {
+          _con.log("Piwik.getVisitorId = " + _visitorId);
         }
         return _visitorId;
       }
@@ -182,80 +206,107 @@ CloudFlare.define('piwik_analytics', ['cloudflare/console', 'piwik_analytics/per
     return _visitorId;
   };
   /*
-  # myPiwik.menuOpts
+  # mp.advMenuOpts
   */
 
-  myPiwik.menuOpts = function() {
-    var beginningcomma, doublecomma, e, fixdoublespaces, index, last, obj, option, pattern, trailingcomma, weirdcomma, wildcardZone, _i, _len, _ref;
+  mp.advMenuOpts = function() {
+    var beginningcomma, doublecomma, e, evileval, fixdoublespaces, index, m, obj, option, pattern, trailingcomma, weirdcomma, _i, _len, _paq_push, _ref;
 
-    if (!isNaN(__conf.tracking_all_subdomains) && (__conf.tracking_all_subdomains > 1) && (__conf.tracking_all_subdomains <= 15)) {
-      wildcardZone = "*." + document.domain.split(".").slice(-1 * __conf.tracking_all_subdomains).join(".");
-      pp(["setCookieDomain", wildcardZone]);
+    wa = window;
+    m = "ADVANCED FEATURES ";
+    if (_cfg._debug != null) {
+      _con.log(m + "BEGIN");
     }
-    if (__conf.tracking_do_not_track !== null) {
-      pp(['setDoNotTrack', true]);
-    } else {
-      pp(['setDoNotTrack', false]);
-    }
-    if ((__conf.tracking_group_by_domain !== void 0) && (__conf.tracking_group_by_domain !== null)) {
-      pp(["setDocumentTitle", document.domain + ' / ' + document.title]);
-    }
-    if ((__conf.tracking_all_aliases !== void 0) && (__conf.tracking_all_aliases !== null)) {
-      try {
-        pp(["setDomains", new Array(__conf.tracking_all_aliases)]);
-      } catch (_error) {
-        e = _error;
-        __console.error("uhoh " + e);
-      }
-    }
-    if ((__conf.paq_push !== void 0) && (__conf.paq_push !== null)) {
+    _paq_push = _cfg.paq_push;
+    if ((_paq_push !== void 0) && (_paq_push !== null)) {
       index = 1;
       fixdoublespaces = /\s{2,}/g;
       doublecomma = /(\s{0,}\,){2,}/g;
       beginningcomma = /^([\,\s\S]{0,})\[/;
       trailingcomma = /\]([\,\s\S]{0,})$/;
       weirdcomma = /\s?\,\s?/g;
-      pattern = /\]\s{0,}\,{0,}\s{0,}\[/;
+      evileval = /eval\s{0,}\(.+\)/g;
       pattern = /\]\s{0,}\,{0,}\s{0,}\[?/;
-      obj = __conf.paq_push;
+      obj = _paq_push;
       obj = obj.replace(doublecomma, ", ");
       obj = obj.replace(fixdoublespaces, ' ');
       obj = obj.replace(weirdcomma, '\, ');
-      last = obj.length;
       _ref = obj.split(pattern);
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         option = _ref[_i];
         if (option !== void 0 && option !== "") {
+          if (/eval\s{0,}\(.+\)/g.test(option)) {
+            _con.error("" + _err + " -- sorry buddy eval() usage is not allowed.");
+            continue;
+          }
           option = option.replace(beginningcomma, '');
           option = option.replace(trailingcomma, ']');
           if (option.length > 8) {
             option = '[' + option + ']';
             try {
-              pp(eval(option));
+              paqPush(eval(option));
             } catch (_error) {
               e = _error;
-              __console.error("uhoh! paq_push option=" + option + " (" + e + ")");
+              _con.error("" + _err + " paq_push option=" + option + " (" + e + ")");
             }
           }
         }
         index++;
       }
     }
-    pp(['enableLinkTracking', true]);
-    pp(['trackPageView']);
-    return window._paq;
+    if (_cfg._debug != null) {
+      _con.log(m + "END");
+    }
+    return wa._paq;
+  };
+  /*
+  # mp.menuOpts
+  #   the basic menu options
+  */
+
+  mp.menuOpts = function() {
+    var e, tmp, wildcardZone;
+
+    paqPush(['enableLinkTracking', true]);
+    if (_cfg.tracking_do_not_track !== null) {
+      paqPush(['setDoNotTrack', true]);
+    } else {
+      paqPush(['setDoNotTrack', false]);
+    }
+    tmp = _cfg.tracking_group_by_domain;
+    if ((tmp !== void 0) && (tmp !== null)) {
+      paqPush(["setDocumentTitle", "" + document.domain + " / " + document.title]);
+    }
+    tmp = _cfg.tracking_all_subdomains;
+    if (!isNaN(tmp) && (tmp > 1) && (tmp <= 15)) {
+      wildcardZone = "." + document.domain.split(".").slice(-1 * tmp).join(".");
+      paqPush(["setCookieDomain", wildcardZone]);
+    }
+    tmp = _cfg.tracking_all_aliases;
+    if ((tmp !== void 0) && (tmp !== null)) {
+      try {
+        paqPush(["setDomains", new Array(tmp)]);
+      } catch (_error) {
+        e = _error;
+        _con.error("" + _err + " tracking_all_aliases=" + tmp + " \(" + e + "\)");
+      }
+    }
+    if ((_cfg.advMenu !== void 0) && (_cfg.advMenu !== null)) {
+      mp.advMenuOpts();
+    }
+    paqPush(['trackPageView']);
+    return wa._paq;
   };
   try {
-    myPiwik.menuOpts();
+    mp.menuOpts();
   } catch (_error) {
     e = _error;
-    __console.error("uhoh " + e);
+    _con.error("" + _err + " Main " + e);
   }
-  if (__conf._debug !== null) {
-    __console.log((__perf.now() - myPiwik.perfThen) + " ms" + "\t piwik_ananlytics Factory execution time");
-    CloudFlare.require(['piwik_analytics/showPerf']);
+  if (_cfg._debug !== null) {
+    _con.log(("" + (_perf.now() - mp.perfThen) + " ms\t") + "\"piwik_analytics\" time");
   }
-  return myPiwik;
+  return mp;
 });
 
 /*
@@ -268,7 +319,7 @@ CloudFlare.define('piwik_analytics', ['cloudflare/console', 'piwik_analytics/per
 */
 
 
-CloudFlare.define('piwik_analytics/showPerf', ['cloudflare/console', 'piwik_analytics/config', 'piwik_analytics/perf', 'piwik_analytics/tracker'], function(__console, __conf, __perf, __tracker) {
+CloudFlare.define('piwik_analytics/showPerf', ['cloudflare/console', 'piwik_analytics/config', 'piwik_analytics/perf', 'piwik_analytics/tracker'], function(__cons, __conf, __perf, __tracker) {
   var module;
 
   module = {};
@@ -287,16 +338,16 @@ CloudFlare.define('piwik_analytics/showPerf', ['cloudflare/console', 'piwik_anal
         var e;
 
         try {
-          __console.log((__perf.now() - __tracker.perfThenJs) + " ms" + "\t Piwik library fetch/execute time");
+          __cons.log((__perf.now() - __tracker.perfThenJs) + " ms" + "\tPiwik library fetch/exec time");
         } catch (_error) {
           e = _error;
-          __console.error("uhoh " + e);
+          __cons.error("uhoh " + e);
         }
         try {
-          __console.log((__perf.now() - __perf.perfThen) + " ms" + "\t Total execution time");
+          __cons.log((__perf.now() - __perf.perfThen) + " ms" + "\tTotal exec time");
         } catch (_error) {
           e = _error;
-          __console.error("uhoh " + e);
+          __cons.error("uhoh " + e);
         }
         return true;
       }
@@ -305,7 +356,7 @@ CloudFlare.define('piwik_analytics/showPerf', ['cloudflare/console', 'piwik_anal
   };
   if (module._debug !== null) {
     module.showPerf();
-    __console.log((__perf.now() - module.perfThen) + " ms" + "\t piwik_analytics/showPerf Factory execution time");
+    __cons.log((__perf.now() - module.perfThen) + " ms" + "\t\"piwik_analytics/showPerf\" time");
   }
   return module;
 });
