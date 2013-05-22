@@ -10,10 +10,12 @@ header = """
  * @name      Miniature Hipster
  * @author    Rob Friedman
  * @url       http://playerx.net
- * @copyright #{new Date().getFullYear()}
+ * @copyright #{new Date().getFullYear()} Rob Friedman
  * @license   #{MiniatureHipster.LICENSE}
  ###
 """
+
+
 #helpers.extend
 #helpers.extend global
 ###
@@ -26,7 +28,7 @@ util      = require 'util'
 {exec}    = require 'child_process'
 
 #minify
-{parser, uglify} = require('uglify-js')
+UglifyJS = require("uglify-js")
 
 ###
 #
@@ -86,11 +88,11 @@ appFiles  = [
 
 task 'say:hello', 'Description of task', -> console.log 'Hello World!'
 
-task 'all',' do all(buildApp->minify) the tasks!', -> buildApp -> minify()
+task 'all',' do all(buildApp->minify) the tasks!', -> buildApp -> minify1()
 
 task 'buildApp', 'Build single application and support files from source', -> buildApp()
 
-task 'minify', 'Minify the resulting application file after compile', -> minify2()
+task 'minify', 'Minify the resulting application file after compile', -> minify1()
 
 task 'bake', 'Bake the cake, aka watchAll.', -> invoke 'watchAll'
 
@@ -166,11 +168,25 @@ compileCoffee =
 ###
 # minify the application
 ###
-minify = (code, callback) ->
+minify1 = (code, callback) ->
+  header=coffee.compile header, bare:on
   log "hot minifier", red+bold
-  ast = parser.parse code
-  code = uglify.gen_code uglify.ast_squeeze uglify.ast_mangle ast, extra: yes
-  fs.writeFileSync file, header + '\n' + code
+  options = {}
+  filename=code || "public/javascripts/piwik_analytics.js"
+  if filename.indexOf(".js")
+    console.log "filename is #{filename}"
+    minFilename = filename.replace ".js", ".min.js"
+    console.log "minFilename is #{minFilename}"
+    code=fs.readFileSync(filename)
+  
+  result = UglifyJS.minify(filename,options)
+  #console.log(result.code)
+
+  #result = UglifyJS.minify(code, options)
+  code = result.code
+
+  #code = UglifyJs.gen_code uglify.ast_squeeze uglify.ast_mangle ast, extra: yes
+  fs.writeFileSync minFilename, header + '\n' + code
   callback?()
 
 
