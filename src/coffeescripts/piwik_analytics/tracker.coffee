@@ -104,7 +104,7 @@ CloudFlare.define 'piwik_analytics/tracker', [
       try
         _con.log(
           "#{(_perf.now() - tracker.perfThen)} ms\t"+
-          "\"piwik_analytics/tracker\" execution time"
+          "\"piwik_analytics/tracker\" time"
         )
       catch e
         _con.error("uhoh "+e)
