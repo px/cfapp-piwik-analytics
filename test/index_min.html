@@ -27,7 +27,8 @@
   /* just use a, it's smaller */
 var a=window.CloudFlare;
 /* push this local path for use in loading the the app/module   */
-a.push({paths:{piwik_analytics:"../public/javascripts/"}});
+a.push({paths:{"piwik_analytics.min":"../public/javascripts/"}});
+a.push({paths:{"piwik_analytics":"../public/javascripts/"}});
 /* force load our piwikConfig associative array  */
 /* load the piwik_analytics module, and pass the path for the config.js also  */
 /* a.push(function(b,c){ c("piwik_analytics/config.js",function(){ return window.__piwikConfig }); b(["piwik_analytics"]); });
@@ -37,7 +38,7 @@ CloudFlare.push({verbose:1});
    This is the quickest way I have found to load the piwik.js library and the piwik_analytics application which
    has the configuration on page. window.__CF.AJS.piwik_analytics
    */
-a.push(function(b){ b(["piwik_analytics"]); });
+a.push(function(b){ b(["piwik_analytics.min"]); });
 
 
 
