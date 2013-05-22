@@ -10,6 +10,7 @@ header = """
  * @name      Miniature Hipster
  * @author    Rob Friedman
  * @url       http://playerx.net
+ * @copyright #{new Date().getFullYear()}
  * @license   #{MiniatureHipster.LICENSE}
  ###
 """
@@ -23,7 +24,32 @@ fs        = require 'fs'
 path = require 'path'
 util      = require 'util'
 {exec}    = require 'child_process'
-{spawn}   = require 'child_process'
+
+#minify
+{parser, uglify} = require('uglify-js')
+
+###
+#
+# cake bake,
+#
+# watchAll files
+#
+# test changes, lint
+#
+# Compile coffeescript for changed files
+#
+# Compress changed files
+#
+# Stitch .js
+#
+# Compress again?
+#
+# cake frosting
+#
+#   same as above, minus compressing
+#
+###
+
 
 ## output when run
 #console.log coffee.compile header, bare:on
@@ -64,7 +90,7 @@ task 'all',' do all(buildApp->minify) the tasks!', -> buildApp -> minify()
 
 task 'buildApp', 'Build single application and support files from source', -> buildApp()
 
-task 'minify', 'Minify the resulting application file after compile', -> minify()
+task 'minify', 'Minify the resulting application file after compile', -> minify2()
 
 task 'bake', 'Bake the cake, aka watchAll.', -> invoke 'watchAll'
 
@@ -85,7 +111,7 @@ unless process.env.NODE_DISABLE_COLORS
   reset = '\x1B[0m'
 
 # Log a message with a color.
-log = (message="", color=reset, explanation) ->
+log = (message="What no message?", color=reset, explanation="You got some splaining to do.") ->
   console.log color + message + reset + ' ' + (explanation or '')
 
 watchAll = (callback) ->
@@ -123,7 +149,7 @@ watchAppFiles = (callback) ->
 # compileCoffee filename using src and dest defaults is needed
 ###
 compileCoffee =
-  ( filename , src='src/coffeescripts/', dest='public/javascripts/' ) ->
+  ( filename , src='src/coffeescripts/', dest='public/javascripts/', callback ) ->
     log "Compiling #{filename}", green
     coffee_src = fs.readFileSync((src+filename+'.coffee'), 'utf8')
     # compile the coffee_src into js_src using bare option
@@ -133,12 +159,22 @@ compileCoffee =
       log("!!!    -----  uhoh! ",red,e)
     #fs.writeFileSync (dest+filename).replace(/\.coffee$/, '.js'), js_src
     fs.writeFileSync (dest+filename)+'.js', js_src
+    callback?()
+
 
 
 ###
 # minify the application
 ###
-minify = (callback) ->
+minify = (code, callback) ->
+  log "hot minifier", red+bold
+  ast = parser.parse code
+  code = uglify.gen_code uglify.ast_squeeze uglify.ast_mangle ast, extra: yes
+  fs.writeFileSync file, header + '\n' + code
+  callback?()
+
+
+minify2 = (callback) ->
   log "minify the stuff", bold
   # minify compiled piwik_analytics.js file into the output file
   cmd="""uglifyjs public/javascripts/piwik_analytics.js \
