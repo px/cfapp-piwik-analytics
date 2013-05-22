@@ -48,7 +48,7 @@ Process Notes
    * (`npm install -d`)
 
     * automatically compile changes to coffeescript files within this project using the [Cakefile](Cakefile) script. (`cake bake`)
-    * test compiled javascript using <a href="tests/index.html">local testing</a>.
+    * test compiled javascript using <a href="test/index.html">local testing</a>.
     * test compiled javascript using <a href="http://js.cloudflare.com/">js.cloudflare.com</a>
       * <a href="http://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/pbcopy.1.html">pbcopy</a> is your friend. (`pbcopy < public/javascripts/piwik_analytics.js`)
     * Validation: (`./validate.sh`)
