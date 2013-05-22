@@ -89,12 +89,12 @@
             "label": "Enable",
             "value": true
           }
-          ]
+        ]
       },
       {
         "id": "tracking_all_aliases",
         "name": "In the \"Outlinks\" report, hide clicks to known alias URLs",
-        "description": "So clicks on links to Alias URLs (eg. http://*.example.com) will not be counted as \"Outlink\". Example: \'\"*.other.example.com\",\"*.another.example.com\",\"*.this.example.com\",\"*.subdomain.example.com\"\'",
+        "description": "So clicks on links to Alias URLs (eg. http://*.example.com) will not be counted as 'Outlink'. Example: '\"*.other.example.com\",\"*.subdomain.example.com\"'",
         "type": "string",
         "value": ""
       },
@@ -185,5 +185,5 @@
   "scripts": {
     "": ""
   },
-  "version": "0.0.35b"
+  "version": "0.0.36b"
 }
