@@ -34,14 +34,14 @@ CloudFlare.define 'piwik_analytics/showPerf', [
         try
           __cons.log(
             (__perf.now() - __tracker.perfThenJs) + " ms"+
-            "\tPiwik library fetch/execute time")
+            "\tPiwik library fetch/exec time")
         catch e
           __cons.error("uhoh "+e)
 
         try
           __cons.log(
             (__perf.now() - __perf.perfThen) + " ms"+
-            "\tTotal execution time")
+            "\tTotal exec time")
         catch e
           __cons.error("uhoh "+e)
 
@@ -54,7 +54,7 @@ CloudFlare.define 'piwik_analytics/showPerf', [
       module.showPerf()
       __cons.log(
         (__perf.now() - module.perfThen) + " ms"+
-        "\t\"piwik_analytics/showPerf\" factory execution time")
+        "\t\"piwik_analytics/showPerf\" time")
     # __cons.log("END piwik_analytics/showPerf")
 
     module
