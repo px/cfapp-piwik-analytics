@@ -1,6 +1,6 @@
 
 MiniatureHipster = {}
-MiniatureHipster.VERSION = "0.0.35b"
+MiniatureHipster.VERSION = "0.0.36b"
 MiniatureHipster.LICENSE =
   "//github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt"
 
@@ -137,7 +137,8 @@ watchProjectFiles = (callback) ->
         if file is "Cakefile"
           throw log "Exiting, 'cake bake'!! try this:\n ", red, "while (true) do echo waiting ;sleep 4;cake bake; echo complete; done"
           #exec 'cake bake'
-
+        if file is "cloudflare.json"
+          exec 'jsonlint cloudflare.json'
         # should be better way to rebuild only what is changed
         # the appFiles has more.
         log 'Rebuilding all.', green, "do it."
