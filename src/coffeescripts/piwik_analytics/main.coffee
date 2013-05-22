@@ -14,77 +14,77 @@ CloudFlare.define 'piwik_analytics', [
   'piwik_analytics/config'
   'piwik_analytics/tracker'
 ],
-  ( __cons, __perf, __conf, __tracker ) ->
-    #    __cons.log("START piwik_analytics")
+  ( _con, _perf, _cfg, _tracker ) ->
+    #    _con.log("START piwik_analytics")
 
-    # define myPiwikAlias module
+    # define mp module
     # -- to be passed into a "return" later which will cause loading
     myPiwik = {}
-    myPiwikAlias=myPiwik
+    mp=myPiwik
 
     # set the performance function and create a timer
     # wrap in try or risk failure in some browsers
-    myPiwikAlias.perfThen=__perf.now()
+    mp.perfThen=_perf.now()
 
     #
-    windowAlias = window
+    wa = window
     # create or copy so as to not destroy the window._paq for piwik to utilize
     # # done in tracker module
-    # windowAlias._paq = windowAlias._paq || []
-    
+    # wa._paq = wa._paq || []
+
 
     ## error string
     _err="uhoh! "
-    
+
     ## paq pusher
     # push array objects into window._paq with error catching
     paqPush = (ao) =>
-      windowAlias=window
+      wa=window
       try
         size=0
         switch (typeof ao)
-          when "object" then size=windowAlias._paq.push(ao)
-          when "string" then size=windowAlias._paq.push([ao])
+          when "object" then size=wa._paq.push(ao)
+          when "string" then size=wa._paq.push([ao])
 
           else
-            __cons.error("#{_err} -- not sure what type this is #{(typeof ao)}")
+            _con.error("#{_err} -- not sure what type this is #{(typeof ao)}")
 
-        if __conf._debug
-          __cons.log("_paq.length=#{size},\t#{ao}")
+        if _cfg._debug
+          _con.log("_paq.length=#{size},\t#{ao}")
 
       catch error
-        __cons.error("#{_err} pp (#{error})")
+        _con.error("#{_err} pp (#{error})")
 
     ##
-# myPiwikAlias.isPiwik()
+# mp.isPiwik()
 #   pushes a request for piwik to set _isPiwik true once piwik.js executes
 #   if it does, then it will return a yes, other no
 #
     ##
-#    myPiwikAlias.isPiwik = () ->
+#    mp.isPiwik = () ->
 #      # use strict javascript
 #      #"use strict"
-#      windowAlias._paq.push [->
+#      wa._paq.push [->
 #        _isPiwik = yes
 #      ]
 #      _isPiwik
 
 
     ###
-# myPiwikAlias.getVisitorId
+# mp.getVisitorId
 # pushes a request for the Piwik VisitorId generated once piwik.js executes
 # sets the _visitorId to be the id, and returns it's value
 # will return the visitorId or false if piwik.js is still not loaded.
 #
     ###
-    myPiwikAlias.getVisitorId = () ->
+    mp.getVisitorId = () ->
       #"use strict"
       _visitorId=no
-      windowAlias=window
-      windowAlias._paq.push [ ->
+      wa=window
+      wa._paq.push [ ->
         _visitorId = @getVisitorId()
         # output console message with VisitorId once piwik.js is loaded
-        __cons.log( "Piwik.getVisitorId = #{_visitorId}" ) if __conf._debug isnt null
+        _con.log( "Piwik.getVisitorId = #{_visitorId}" ) if _cfg._debug isnt null
         _visitorId
       ]
       _visitorId
@@ -92,118 +92,136 @@ CloudFlare.define 'piwik_analytics', [
 
 
     ###
-# myPiwikAlias.advMenuOpts
+# mp.advMenuOpts
     ###
-    myPiwikAlias.advMenuOpts = ->
-      windowAlias=window
-      __cons.log("ADVANCED FEATURES BEGIN") if __conf._debug?
+    mp.advMenuOpts = ->
+      wa=window
+      m="ADVANCED FEATURES "
+      _con.log(m+"BEGIN") if _cfg._debug?
 
-      _paq_push=__conf.paq_push
+      _paq_push=_cfg.paq_push
       # pass the extra advanced options if any are configured or allowed
       if ( ( _paq_push isnt undefined ) and
         ( _paq_push isnt null ) )
-          
+
           index=1
-          fixdoublespaces=/\s{2,}/g
-          # group matching ( zero or more spaces leading spaces before a comma)
-          # two or more of these 
-          doublecomma=/(\s{0,}\,){2,}/g #\s{0,}\,/g
-          beginningcomma=/^([\,\s\S]{0,})\[/
-          trailingcomma=/\]([\,\s\S]{0,})$/
-          weirdcomma=/\s?\,\s?/g
-          evileval=/eval\s{0,}\(.+\)/g
-          # split on end
-          #pattern=/\]\s?,\s?/
-          # split on begin of array
-          # #, zero or more preceeding whitespace, comma, white space, open square bracket
-          ##pattern=/\]\s{0,}\,{0,}\s{0,}\[/
-          
-          #pattern=/\s{0,}\,{0,}\s{0,}/
-          pattern=/\]\s{0,}\,{0,}\s{0,}\[?/
-      
-          #pattern=/\]?\s{0,}\,{0,}\s{0,}\[/
-          #pattern=/([\,\s]{0,}\[.+\]([\,\s]){0,})/
-          #pattern=/([\,\s]{0,}\[.+\]([\,\s]))/
-          #pattern=/([\,\s]{0,}\[.+\]([\,\s]){0,}){0,}/
+          fixdoublespaces=///
+            \s{2,}        ## match two or more sequential spaces
+          ///g            ## match all
+
+          doublecomma=///
+            (\s{0,}\,)    ## match zero or more spaces and comma
+            {2,}          ## two of these
+          ///g            ## match all 
+
+          beginningcomma=/// ^ ## begin of line
+            (             ## begin match
+            [\,\s\S]      ## comma, white space, words
+            {0,}          ## zero or more of these
+            )             ## end match
+            \[            ## open square bracket
+          ///
+
+          trailingcomma=///
+            \]            ## closing square brace
+            (             ## begin match
+            [\,\s\S]      ## comma, white space, words
+            {0,}          ## zero or more of these
+            )             ## end match
+            $             ## end of line
+          ///
+
+          weirdcomma=///
+            \s?\,\s?  ## maybe a space, comma, then maybe space
+          ///g
+
+          evileval=///
+            eval      ## eval is evil
+            \s{0,}    ## zero or more spaces
+            \(.+\)    ## parameters
+          ///g        ## match all
+
+          # split on ends
+          pattern = ///
+            \]        ## closing square brace
+            \s{0,}    ## zero or more spaces
+            \,{0,}    ## zero or more comma
+            \s{0,}    ## zero or more spaces, again
+            \[?       ## maybe open square bracket
+          ///
+
           ## object
           obj=(_paq_push)
-          __cons.log "plain \'"+obj+"\'"
+          #_con.log "plain \'"+obj+"\'"
           obj=obj.replace(doublecomma, ", ")
-          #__cons.log "doublecomma "+obj
+          #_con.log "doublecomma "+obj
           obj=obj.replace(fixdoublespaces, ' ')
-          #__cons.log "fixdoublespaces \'"+obj+"\'"
+          #_con.log "fixdoublespaces \'"+obj+"\'"
           obj=obj.replace(weirdcomma , '\, ')
-          #__cons.log "weird comma \'"+obj+"\'"
-          # normalize
-          # close square, one or more space, comma, to '] '
-          #obj=obj.replace(/\]\s{0,}\,/g , '], ')
-          last=obj.length
+          #_con.log "weird comma \'"+obj+"\'"
+          
           ## loop over the configured options
           for option in obj.split(pattern)
-            #__cons.log(index+" option=\'"+option+"\'") if __conf._debug
+            #_con.log(index+" option=\'"+option+"\'") if _cfg._debug
             ## might be a better way than...
             ##  eval'ing unescaped variable data surrounded
             if option isnt undefined and option isnt ""
               if ( /eval\s{0,}\(.+\)/g.test(option) )
-                __cons.error("#{_err} -- sorry buddy eval() usage is not allowed.")
+                _con.error("#{_err} -- sorry buddy eval() usage is not allowed.")
                 continue
-              #option=option.replace( beginningcomma, '[')
+
               option=option.replace( beginningcomma, '')
-              #__cons.log "begining comma \'"+option+"\'"
+              #_con.log "begining comma \'"+option+"\'"
               option=option.replace( trailingcomma, ']')
-              #__cons.log "trailing comma \'"+option+"\'"
+              #_con.log "trailing comma \'"+option+"\'"
 
               # if length of the text is > 8 then continue
               # most of the api calls are 8 or more.
               if option.length > 8
-                option='['+option+']' ## make our string look more like an array for eval.
-                #option=new Array(option) # '['+option+']' ## make our string look more like an array for eval.
-                #__cons.log "opted \'"+option+"\'"
+                option='['+option+']' ## make our string look more like an array for eval. new Array is not functional
                 try
-                  #paqPush(option)
-                  #__cons.log (index+" "+ (typeof eval(option)))
-                  #paqPush( new Array(option) )
+                  #_con.log (index+" "+ (typeof eval(option)))
                   paqPush( eval (option) )
                 catch e
-                  __cons.error("#{_err} paq_push option=#{option} (#{e})")
+                  _con.error("#{_err} paq_push option=#{option} (#{e})")
             index++
-      __cons.log("ADVANCED FEATURES END") if __conf._debug?
+      _con.log(m+"END") if _cfg._debug?
 
-      #if __conf._debug isnt null
-      #  __cons.log("end myPiwikAlias.menuOpts time = "+(__perf.now() - perfThen))
+      #if _cfg._debug isnt null
+      #  _con.log("end mp.menuOpts time = "+(_perf.now() - perfThen))
       # return the window._paq array so far
-      windowAlias._paq
+      wa._paq
 
 
     ###
-# myPiwikAlias.menuOpts
+# mp.menuOpts
 #   the basic menu options
     ###
-    myPiwikAlias.menuOpts = ->
-      #if __conf._debug isnt null
-      #  __cons.log("myPiwikAlias.menuOpts")
+    mp.menuOpts = ->
+      #if _cfg._debug isnt null
+      #  _con.log("mp.menuOpts")
 
       # enable link tracking
       paqPush(['enableLinkTracking',true])
 
       # determine if DoNotTrack is enabled, default obey if undefined
-      if __conf.tracking_do_not_track isnt null
+      if _cfg.tracking_do_not_track isnt null
         paqPush(['setDoNotTrack',true])
       else
         paqPush(['setDoNotTrack',false])
 
       # maybe we can get away with just isnt null and isnt undefined.
       # tracking_group_by_domain
-      tmp=__conf.tracking_group_by_domain
+      tmp=_cfg.tracking_group_by_domain
       if ( ( tmp isnt undefined ) and
         ( tmp isnt null ) )
-          #__cons.log("2 "+unescape( tmp ))
+          #_con.log("2 "+unescape( tmp ))
           paqPush( ["setDocumentTitle", "#{document.domain} / #{document.title}" ] )
 
 
       # determine if tracking-all-subdomains is enabled
       # check for a number, and an arbitray range between 2 and 15.
-      tmp=__conf.tracking_all_subdomains
+      tmp=_cfg.tracking_all_subdomains
       if ( not isNaN( tmp ) and
         ( tmp > 1 ) and
             ( tmp <= 15 ) )
@@ -214,60 +232,60 @@ CloudFlare.define 'piwik_analytics', [
         # level sub domains options
         # prepend a period 
         wildcardZone="."+document.domain.split(".").slice( -1 * tmp ).join(".")
-        #__cons.log("setCookieDomain="+wildcardZone) if __conf._debug
+        #_con.log("setCookieDomain="+wildcardZone) if _cfg._debug
         ## setCookieDomain wants a string, may accept an array.
         paqPush(["setCookieDomain", wildcardZone])
         # end if tracking all subdomains
 
 
       # tracking_all_aliases -- this could/should just be fetched and possibly set in a cookie.
-      tmp=__conf.tracking_all_aliases
+      tmp=_cfg.tracking_all_aliases
       if ( ( tmp isnt undefined ) and
         ( tmp isnt null ) )
           try
-            #__cons.log(""+unescape ( __conf.tracking_all_aliases ))
-            
+            #_con.log(""+unescape ( _cfg.tracking_all_aliases ))
+
             ## setDomains wants an array. Should populate with all the known site aliases
             paqPush(["setDomains", new Array tmp ] )
           catch e
-            __cons.error("#{_err} tracking_all_aliases=#{tmp} \(#{e}\)")
+            _con.error("#{_err} tracking_all_aliases=#{tmp} \(#{e}\)")
 
-      
+
       ## run the advanced menu options if enabled.
       ## -- the user has been warned that this could negatively effect
-      if ( ( __conf.advMenu isnt undefined ) and ( __conf.advMenu isnt null ) )
+      if ( ( _cfg.advMenu isnt undefined ) and ( _cfg.advMenu isnt null ) )
         #paqPush( eval _paq_push )
 
-        myPiwikAlias.advMenuOpts()
+        mp.advMenuOpts()
 
       # Send a trackPageView request to the TrackerUrl
       paqPush( ['trackPageView'] )
 
-      #if __conf._debug isnt null
-      #  __cons.log("end myPiwikAlias.menuOpts time = "+(__perf.now() - perfThen))
+      #if _cfg._debug isnt null
+      #  _con.log("end mp.menuOpts time = "+(_perf.now() - perfThen))
       # return the window._paq array so far
-      windowAlias._paq
+      wa._paq
 
 
 
-    #__cons.log("before menu opts")
+    #_con.log("before menu opts")
     try
       # menuOpts -> then possibly run the advMenuOpts
-      myPiwikAlias.menuOpts()
+      mp.menuOpts()
     catch e
-      __cons.error("#{_err} Main #{e}")
+      _con.error("#{_err} Main #{e}")
 
-    if __conf._debug isnt null
-      __cons.log(
-        "#{(__perf.now() - myPiwikAlias.perfThen )} ms\t"+
-        "\"piwik_analytics\" factory exec time"
+    if _cfg._debug isnt null
+      _con.log(
+        "#{(_perf.now() - mp.perfThen )} ms\t"+
+        "\"piwik_analytics\" factory time"
       )
 
       #CloudFlare.require(['piwik_analytics/showPerf'])
 
-    #__cons.log("END piwik_analytics")
-    # return myPiwikAlias
-    myPiwikAlias
+    #_con.log("END piwik_analytics")
+    # return mp
+    mp
 ###
 #end myPiwik module
 ###
