@@ -40,7 +40,7 @@
       {
         "id": "piwik_install",
         "name": "Piwik Installation URL",
-        "description": "Root URL of Piwik installation. 'https://piwik.yourdomain.com'. Do not add a trailing '/' character. Ideally should be utilizing SSL for security purposes. Using a schemeless URL '//host.tld' is also valid for use of other protocols, such as <a href='https://www.cloudflare.com/spdy'>SPDY</a>. But only if your tracker installation supports it. Leaving this empty will use the default relative URL '/piwik'",
+        "description": "Root URL of Piwik installation. 'https://piwik.yourdomain.com'. Do not add a trailing '/' character. Ideally should be utilizing SSL for security purposes. Using a schemeless URL '//host.tld' is also valid for use of other protocols, such as SPDY. But only if your tracker installation supports it. Leaving this empty will use the default relative URL '/piwik'",
         "type": "string",
         "value": "/piwik"
       },
