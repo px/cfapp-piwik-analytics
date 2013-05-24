@@ -10,7 +10,6 @@ header = """
  * @name      Miniature Hipster
  * @author    Rob Friedman
  * @url       http://playerx.net
- * @copyright #{new Date().getFullYear()} Rob Friedman
  * @license   #{MiniatureHipster.LICENSE}
  ###
 """
