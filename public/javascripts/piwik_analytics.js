@@ -2,7 +2,6 @@
 * @name      Miniature Hipster
 * @author    Rob Friedman
 * @url       http://playerx.net
-* @copyright 2013 Rob Friedman
 * @license   //github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt
 */
 
