@@ -9,6 +9,8 @@
 #  piwik_analytics/config   for user configuration
 #  piwik_analytics/tracker  for loading piwik.js library from install url, and sets site id.
 #
+#
+# This main part of the module will erform user configured operations, and the advanced options if enabled.
 ###
 
 CloudFlare.define 'piwik_analytics', [
@@ -96,6 +98,8 @@ CloudFlare.define 'piwik_analytics', [
 
     ###
 # mp.advMenuOpts
+#
+#     Perform advanced configured features.
     ###
     mp.advMenuOpts = ->
       wa=window
