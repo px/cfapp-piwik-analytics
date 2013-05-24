@@ -133,7 +133,7 @@
       {
         "id": "paq_push",
         "name": "Advanced _paq",
-        "description": "Push custom Javascript code on to the 'window._paq' array. Malformed code or data may have negative effects.<br/> Examples: Return 0 '[ function() { return 0;} ]' <br/> Get VisitorId and display in console log. '[ function() { return window.console.log( \"getVisitorId=\" + this.getVisitorId() ); } ]' <br/> Set the Document Title '[\"setDocumentTitle\",document.domain + ' / ' + document.title]' <br/> Implement a heartbeat '['setHeartBeatTimer',30,60]' ",
+        "description": "Push custom Javascript code on to the 'window._paq' array. Malformed code or data may have negative effects.\n Examples: Return 0 '[ function() { return 0;} ]' \n Get VisitorId and display in console log. '[ function() { return window.console.log( \"getVisitorId=\" + this.getVisitorId() ); } ]' \n Set the Document Title '[\"setDocumentTitle\",document.domain + ' / ' + document.title]' \n Implement a heartbeat '['setHeartBeatTimer',30,60]' ",
         "type": "string",
         "value": ""
       },
