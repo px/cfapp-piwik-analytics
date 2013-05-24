@@ -143,8 +143,13 @@ CloudFlare.define('piwik_analytics/tracker', ['cloudflare/console', 'piwik_analy
 /*
 # piwik_analytics module definition
 # REQUIRE:
-#   -- defaults to {} and will assign test defaults
-#  cloudflare/console for output to console
+#  cloudflare/console       for output to console
+#  piwik_analytics/perf     for timing module
+#  piwik_analytics/config   for user configuration
+#  piwik_analytics/tracker  for loading piwik.js library from install url, and sets site id.
+#
+#
+# This main part of the module will erform user configured operations, and the advanced options if enabled.
 */
 
 
@@ -207,6 +212,8 @@ CloudFlare.define('piwik_analytics', ['cloudflare/console', 'piwik_analytics/per
   };
   /*
   # mp.advMenuOpts
+  #
+  #     Perform advanced configured features.
   */
 
   mp.advMenuOpts = function() {
