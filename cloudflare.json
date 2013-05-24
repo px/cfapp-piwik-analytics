@@ -47,7 +47,7 @@
       {
         "id": "site_id",
         "name": "Website Id",
-        "description": "Website Id to be tracked, otherwise it will default to use '1'.",
+        "description": "Website Id to be tracked. If not specified, it will default to use '1'.",
         "type": "string",
         "value": "1"
       },
@@ -58,7 +58,7 @@
         "type": "select",
         "options": [
           {
-            "label": "Disable",
+            "label": "Disable (default)",
             "value": null
           },
           {
@@ -82,7 +82,7 @@
         "type": "select",
         "options": [
           {
-            "label": "Disable",
+            "label": "Disable (default)",
             "value": null
           },
           {
@@ -100,12 +100,12 @@
       },
       {
         "id": "tracking_do_not_track",
-        "name": "Enable client side DoNotTrack detection.",
+        "name": "Enable client side DoNotTrack detection",
         "description": "So tracking requests will not be sent if visitors do not wish to be tracked. Note: If server side DoNotTrack support has been enabled, this option will have no effect.",
         "type": "select",
         "options": [
           {
-            "label": "Disable",
+            "label": "Disable (default)",
             "value": null
           },
           {
@@ -121,7 +121,7 @@
         "type": "select",
         "options": [
           {
-            "label": "Disable",
+            "label": "Disable (default)",
             "value": null
           },
           {
@@ -139,8 +139,8 @@
       },
       {
         "id": "_debug",
-        "name": "Debugger",
-        "description": "Enable or disable the logging, performance, and errors debug output to the client browser Javascript console. Leave this disabled unless there are issues and more information is required.",
+        "name": "Logging",
+        "description": "If you experience issues with the Javascript tracking code, you may enable logging and use your browser console to view learn more.",
         "type": "select",
         "options": [
           {
