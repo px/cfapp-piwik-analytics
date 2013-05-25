@@ -45,25 +45,26 @@ Process Notes
 * New versions TODO
   * better describe the process
   * npm -- there is a [package.json](package.json) to help with dependencies.
-   * (`npm install -d`)
+   * Install package dependecies - (`npm install -d`)
 
     * automatically compile changes to coffeescript files within this project using the [Cakefile](Cakefile) script. (`cake bake`)
-    * test compiled javascript using <a href="test/index.html">local testing</a>.
-    * test compiled javascript using <a href="http://js.cloudflare.com/">js.cloudflare.com</a>
-      * <a href="http://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/pbcopy.1.html">pbcopy</a> is your friend. (`pbcopy < public/javascripts/piwik_analytics.js`)
+    * test compiled javascript using [local testing](test/index.html)
+    * test compiled javascript using [js.cloudflare.com](http://js.cloudflare.com/)
+      * [pbcopy](http://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/pbcopy.1.html) is your friend. (`pbcopy < public/javascripts/piwik_analytics.js`)
     * Validation: (`./validate.sh`)
-      * (DEPRECATED) automatically validate, check, and minify .js and .json files;
-      * automatically validate and check cloudflare.json &amp; other json files with jsonlint
+      * automatically validate and check cloudflare.json &amp; and soon other json files with jsonlint
 
     * which files need to version bump;
       * [Cakefile](Cakefile) -- top of file
       * [cloudflare.json](cloudflare.json) -- end of file
       * [package.json](package.json) -- top of file
+
     * `git commit cloudflare.json package.json Cakefile -m "version bump"`
     * `git tag <version>`
+
     * Once you are happy, proceed to push your new version as follows.
-      1. <a href="https://www.cloudflare.com/login">login to cloudflare</a>
-      2. <a href="https://www.cloudflare.com/app-signup">App developer dashboard</a>
+      1. [login to CloudFlare](https://www.cloudflare.com/login)
+      2. [App Developer Dashboard](https://www.cloudflare.com/app-signup)
       3. click on "more", then "Pull new version" button. Now WAIT! Here be dragons.
 
 
@@ -79,6 +80,11 @@ About CloudFlare Apps
 CloudFlare's Apps platform enables developers to create and publish web applications for use by website owners on CloudFlare's network. See the [full list](https://www.cloudflare.com/apps).
 
 
+Screenshots
+-----------
+
+![CloudFlare App Dashboard](public/images/piwik_cfapp_screenshot_1.png)
+![CloudFlare App Dashboard](public/images/piwik_cfapp_screenshot_2.png)
 
 
 
