@@ -4,10 +4,12 @@
     "assets": {
       "detail_page": [
         "./public/images/piwik_cfapp_screenshot_1.png",
+        "./public/images/piwik_cfapp_screenshot_2.png",
         "./public/images/piwik_analytics_demo_screenshot_1.png"
       ],
       "images": [
-        "./public/images/piwik_cfapp_screenshot_1.png"
+        "./public/images/piwik_cfapp_screenshot_1.png",
+        "./public/images/piwik_cfapp_screenshot_2.png"
       ],
       "logos": {
         "132px": "./public/images/logo-132.png",
