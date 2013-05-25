@@ -84,10 +84,14 @@ Logo
 ----
 
 These are the current logo images used with this application.
-200x
+
+* 200x
+
 ![logo-200.png](public/images/logo-200.png)
 
-132x
+
+* 132x
+
 ![logo-132.png](public/images/logo-132.png)
 
 Screenshots
