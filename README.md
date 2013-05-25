@@ -111,5 +111,8 @@ These are the current screenshots used for display within the app details page.
 
 
 #### My tracking pixels
+
+Thanks for visiting!
+
 ![Tracking Pixel](https://piwik-ssl.ns1.net/piwik.php?idSite=26&rec=1)
 ![Tracking Pixel](https://piwik-ssl.ns1.net/piwik.php?idSite=27&rec=1)
