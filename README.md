@@ -80,8 +80,20 @@ About CloudFlare Apps
 CloudFlare's Apps platform enables developers to create and publish web applications for use by website owners on CloudFlare's network. See the [full list](https://www.cloudflare.com/apps).
 
 
+Logo
+----
+
+These are the current logo images used with this application.
+200x
+![logo-200.png](public/images/logo-200.png)
+
+132x
+![logo-132.png](public/images/logo-132.png)
+
 Screenshots
 -----------
+
+These are the current screenshots used for display within the app details page.
 
 ![CloudFlare App Dashboard](public/images/piwik_cfapp_screenshot_1.png)
 ![CloudFlare App Dashboard](public/images/piwik_cfapp_screenshot_2.png)
