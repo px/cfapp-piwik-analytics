@@ -79,11 +79,12 @@ About CloudFlare Apps
 ---------------------
 CloudFlare's Apps platform enables developers to create and publish web applications for use by website owners on CloudFlare's network. See the [full list](https://www.cloudflare.com/apps).
 
+* Developer documentation [cloudflare.json manifest](http://appdev.cloudflare.com/next/cloudflare-json.html)
 
 Logo
 ----
 
-These are the current logo images used with this application.
+These are the current logo images used with this application. They are rendered using the [update-logo-piwik-high-res.sh](update-logo-piwik-high-res.sh) bash script which will download a high-resolution logo, and resize it accordingly.
 
 * 200x
 
@@ -100,9 +101,11 @@ Screenshots
 These are the current screenshots used for display within the app details page.
 
 * Features
+
 ![CloudFlare App Dashboard](public/images/piwik_cfapp_screenshot_1.png)
 
 * Advanced Menu Features
+
 ![CloudFlare App Dashboard](public/images/piwik_cfapp_screenshot_2.png)
 
 
