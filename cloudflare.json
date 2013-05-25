@@ -22,6 +22,7 @@
       "Restrictions": "<a href='https://github.com/px/cfapp-piwik-analytics/'>This application</a> is open source licensed, <a href='https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt'>BSD-2 Clause</a>.",
       "playerx.net": "<a href='http://playerx.net/' target='_blank'>Rob Friedman</a>"
     },
+    "has_js": true,
     "interface": [
       {
         "id": "default_piwik_install",
