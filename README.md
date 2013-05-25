@@ -99,7 +99,10 @@ Screenshots
 
 These are the current screenshots used for display within the app details page.
 
+* Features
 ![CloudFlare App Dashboard](public/images/piwik_cfapp_screenshot_1.png)
+
+* Advanced Menu Features
 ![CloudFlare App Dashboard](public/images/piwik_cfapp_screenshot_2.png)
 
 
