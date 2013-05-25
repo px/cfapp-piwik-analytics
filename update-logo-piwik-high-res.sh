@@ -38,10 +38,11 @@ CMD='convert '
 CMD+="-verbose "
 #CMD+="-alpha transparent "
 CMD+="-resize ${size} "
+#CMD+="-resize ${resize[${size}]} "
 #CMD+="-layers merge"
 
 outfile="${images}/logo-${size}.png"
-EXEC="${CMD} -resize ${resize[${size}]} ${images}${logo} ${outfile}"
+EXEC="${CMD} ${images}${logo} ${outfile}"
 
 if [[ ${DEBUG} -gt 0 ]];
 then
