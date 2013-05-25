@@ -106,13 +106,13 @@
         "type": "select",
         "options": [
           {
-            "label": "Disable (default)",
-            "value": null
+            "label": "Enable (default)",
+            "value": true
           },
           {
-            "label": "Enable",
-            "value": true
-          }
+            "label": "Disable",
+            "value": null
+          },
         ]
       },
       {
