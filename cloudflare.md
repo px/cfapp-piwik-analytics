@@ -17,8 +17,8 @@ This Piwik Analytics Cloudflare Application will help you add the Piwik tracking
 
 
 #### Simple Configuration
-1. Turn it ON, configure a 'Website ID' for the domain. Or it will by default use WebsiteId '1'
-2. Configure where your Piwik Analytics is installed. By default it will attempt to use '/piwik' as the base URL. This is used to load the piwik.js library and also for the tracker destination.
+1. Configure where your Piwik Analytics is installed. By default it will attempt to use '/piwik' as the base URL. This is used to load the piwik.js library and also for the tracker destination.
+2. Turn it ON, configure a 'Website ID' for the domain. If not specified, it will default to use '1'.
 3. Click **UPDATE**, if configured properly all pages should have Piwik Analytics tracking enabled on them.
 
 ### Screenshots
