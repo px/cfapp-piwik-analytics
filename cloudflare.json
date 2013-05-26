@@ -21,8 +21,8 @@
       "Homepage": "https://github.com/px/cfapp-piwik-analytics/",
       "Language": "English, <a href='#languages'>more coming soon</a>.",
       "Price": "Free",
-      "Restrictions": "<a href='https://github.com/px/cfapp-piwik-analytics/'>This application</a> is open source licensed, <a href='https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt'>BSD-2 Clause</a>.",
-      "playerx.net": "<a href='http://playerx.net/' target='_blank'>Rob Friedman</a>"
+      "Restrictions": "[This application](https://github.com/px/cfapp-piwik-analytics/) is open source licensed, [BSD-2 Clause](https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt).",
+      "playerx.net": "[Rob Friedman](http://playerx.net/)"
     },
     "has_js": true,
     "interface": [
@@ -43,26 +43,27 @@
       {
         "id": "piwik_install",
         "name": "Piwik Installation URL",
-        "description": "Root URL of Piwik installation. 'https://piwik.yourdomain.com'. Do not add a trailing '/' character. Ideally should be utilizing SSL for security purposes. Using a schemeless URL '//host.tld' is also valid for use of other protocols, such as SPDY. But only if your tracker installation supports it. Leaving this empty will use the default relative URL '/piwik'",
+        "description": "Root URL of Piwik installation. *'https://piwik.yourdomain.com'*. Do not add a trailing **'/'** character. Ideally should be utilizing SSL for security purposes. Using a schemeless URL **'//host.tld'** is also valid for use of other protocols, such as SPDY. But only if your tracker installation supports it. Leaving this empty will use the default relative URL **'/piwik'**",
         "type": "string",
         "value": "/piwik"
       },
       {
         "id": "site_id",
         "name": "Website Id",
-        "description": "Website Id to be tracked. If not specified, it will default to use '1'.",
+        "description": "Website Id to be tracked. If not specified, it will default to use **'1'**.",
         "type": "string",
         "value": "1"
       },
       {
         "id": "tracking_all_subdomains",
         "name": "Track visitors across all subdomains",
-        "description": "So if one visitor visits x.example.com and y.example.com, they will be counted as a unique visitor.",
+        "description": "So if one visitor visits *'x.example.com'* and *'y.example.com'*, they will be counted as a unique visitor.",
         "type": "select",
         "options": [
           {
             "label": "Disable (default)",
-            "value": null
+            "value": null,
+            "selected": true
           },
           {
             "label": "Second level -- *.example.com",
@@ -81,12 +82,13 @@
       {
         "id": "tracking_group_by_domain",
         "name": "Prepend the site domain to the page title when tracking",
-        "description": "So if someone visits the 'About' page on blog.example.com it will be recorded as 'blog.example.com / About'. This is the easiest way to get an overview of your traffic by sub-domain.",
+        "description": "So if someone visits the *'About'* page on *blog.example.com* it will be recorded as **'blog.example.com / About'**. This is the easiest way to get an overview of your traffic by sub-domain.",
         "type": "select",
         "options": [
           {
             "label": "Disable (default)",
-            "value": null
+            "value": null,
+            "selected": true
           },
           {
             "label": "Enable",
@@ -109,7 +111,8 @@
         "options": [
           {
             "label": "Enable (default)",
-            "value": true
+            "value": true,
+            "selected": true
           },
           {
             "label": "Disable",
@@ -120,12 +123,13 @@
       {
         "id": "advMenu",
         "name": "Advanced Menu Features",
-        "description": "Easily enable or disable advanced features. Be sure to completely understand them, and what you are typing.",
+        "description": "Easily enable or disable advanced menu features. Be sure to completely understand them, and what you are typing.",
         "type": "select",
         "options": [
           {
             "label": "Disable (default)",
-            "value": null
+            "value": null,
+            "selected": true
           },
           {
             "label": "I UNDERSTAND",
@@ -136,7 +140,7 @@
       {
         "id": "paq_push",
         "name": "Advanced _paq",
-        "description": "Push custom Javascript code on to the 'window._paq' array. Malformed code or data may have negative effects.\n Examples: Return 0 '[ function() { return 0;} ]' \n Get VisitorId and display in console log. '[ function() { return window.console.log( \"getVisitorId=\" + this.getVisitorId() ); } ]' \n Set the Document Title '[\"setDocumentTitle\",document.domain + ' / ' + document.title]' \n Implement a heartbeat '['setHeartBeatTimer',30,60]' ",
+        "description": "Push custom Javascript code on to the `window._paq` array. Malformed code or data may have negative effects.",
         "type": "string",
         "value": ""
       },
@@ -148,7 +152,8 @@
         "options": [
           {
             "label": "Disable (default)",
-            "value": null
+            "value": null,
+            "selected": true
           },
           {
             "label": "Enable",
