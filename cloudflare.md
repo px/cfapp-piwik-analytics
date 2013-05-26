@@ -1,7 +1,7 @@
 # Codename: Miniature Hipster 
 ## A Piwik App for Cloudflare
 
-This Piwik Analytics Cloudflare Application will help you add the Piwik tracking code on your website pages. To use this app, you need to have Piwik [installed](http://piwik.org/docs/installation/) already, or use a [Piwik Hosting](http://www.arvixe.com/5725-46-3-29.html) package. Setup [your configured domains](https://www.cloudflare.com/cloudflare-apps).
+This Piwik Analytics Cloudflare Application will help you add the Piwik tracking code on your website pages. To use this app, you need to have Piwik [installed](http://piwik.org/docs/installation/) already, or use a [Piwik Hosting](http://piwik.org/hosting/) package. Setup [your configured domains](https://www.cloudflare.com/cloudflare-apps).
 
 
 ### App Features
@@ -39,9 +39,13 @@ This Piwik Analytics Cloudflare Application will help you add the Piwik tracking
 ![Advanced Menu Features](/images/apps/piwik_analytics/piwik_cfapp_screenshot_2.png "Screenshot 2")
 
 ### Open Source & Contribute!
-This Piwik Analytics CloudFlare application is an [open source project](https://github.com/px/cfapp-piwik-analytics/#readme) hosted on [Github](https://github.com/). If you are feeling comfortable, please feel free to [contribute](https://github.com/px/cfapp-piwik-analytics/#contributing) in anyway you can; <a href="https://github.com/px/cfapp-piwik-analytics/issues">file bugs</a>, write documentation, <a href="https://github.com/px/cfapp-piwik-analytics/fork">fork</a>, and <a href="https://github.com/px/cfapp-piwik-analytics/pulls">submit pull requests</a> for consideration. Have an itch? Scratch it!
+This Piwik Analytics CloudFlare application is an [open source project](https://github.com/px/cfapp-piwik-analytics/#readme) hosted on [Github](https://github.com/).
+It is primarily developed by [Rob Friedman](http://playerx.net/?utm_src=cfapp_pa). Follow <a href="http://twitter.com/px">px</a> Twitter.
 
-For application comments, or support, please contact by filing <a href="https://github.com/px/cfapp-piwik-analytics/issues">bug issues</a>, <a href="mailto:px+cfapp-piwik-analytics@ns1.net">email</a> or <a href="http://twitter.com/px">Twitter</a>.
+If you are feeling comfortable, please feel free to [contribute](https://github.com/px/cfapp-piwik-analytics/#contributing) in anyway you can; <a href="https://github.com/px/cfapp-piwik-analytics/issues">file bugs</a>, write documentation, <a href="https://github.com/px/cfapp-piwik-analytics/fork">fork</a>, and <a href="https://github.com/px/cfapp-piwik-analytics/pulls">submit pull requests</a> for consideration. Have an itch? Scratch it!
+
+For application comments, or support, please contact by filing <a href="https://github.com/px/cfapp-piwik-analytics/issues">bug issues</a>.
+
 
 
 ##### About Piwik
