@@ -23,7 +23,7 @@ This Piwik Analytics Cloudflare Application will help you add the Piwik tracking
 
 #### Advanced Configuration
 1. Enable the **Advanced Features Menu**
-2. Try out some *Advanced \_paq* features. *Examples:*
+2. Try out some **Advanced \_paq** features. *Examples:*
   * Return 0 `[ function() { return 0;} ]`
   * Hello World displayed in console log `[ function() { return window.console.log( "Hello World"); } ]`
   * Get VisitorId and display in console log `[ function() { return window.console.log( "getVisitorId=" + this.getVisitorId() ); } ]`
