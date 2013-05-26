@@ -27,9 +27,9 @@ This Piwik Analytics Cloudflare Application will help you add the Piwik tracking
   * Examples:
     * Return 0 `[ function() { return 0;} ]`
     * Hello World displayed in console log `[ function() { return window.console.log( "Hello World"); } ]`
-    * Get VisitorId and display in console log `[ function() { return window.console.log( "getVisitorId=" + this.getVisitorId() ); } ]
+    * Get VisitorId and display in console log `[ function() { return window.console.log( "getVisitorId=" + this.getVisitorId() ); } ]`
     * Set the Document Title using more advanced methods `["setDocumentTitle",document.domain + ' / ' + document.title]`
-    * Implement a HeartBeatTimer '['setHeartBeatTimer',30,60]'
+    * Implement a HeartBeatTimer `['setHeartBeatTimer',30,60]`
 3. Enable __Logging__ if you experience issues with the Javascript tracking code.
 
 ### Screenshots
