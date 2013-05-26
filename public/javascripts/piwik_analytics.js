@@ -162,27 +162,37 @@ CloudFlare.define('piwik_analytics', ['cloudflare/console', 'piwik_analytics/per
   wa = window;
   _err = "uhoh! ";
   paqPush = function(ao) {
-    var error, size;
+    var error, size, _paq;
 
-    wa = window;
+    size = 0;
     try {
-      size = 0;
+      _paq = window._paq = window._paq || [];
+    } catch (_error) {
+      error = _error;
+      _con.error("" + _err + " _paq " + error);
+    }
+    try {
       switch (typeof ao) {
         case "object":
-          size = wa._paq.push(ao);
+          size = _paq.push(ao);
           break;
         case "string":
-          size = wa._paq.push([ao]);
+          size = _paq.push([ao]);
+          break;
+        case "function":
+          size = _paq.push([ao]);
           break;
         default:
           _con.error("" + _err + " -- not sure what type this is " + (typeof ao));
       }
       if (_cfg._debug) {
-        return _con.log("_paq.length=" + size + ",\t" + ao);
+        _con.log("_paq" + (size > 0 ? ".length=" + size : "") + (",\t" + ao));
       }
+      return size;
     } catch (_error) {
       error = _error;
-      return _con.error("" + _err + " pp (" + error + ")");
+      _con.error("" + _err + " pp (" + error + ")");
+      return size;
     }
   };
   /*
