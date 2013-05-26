@@ -16,12 +16,12 @@ This Piwik Analytics Cloudflare Application will help you add the Piwik tracking
 * Loads piwik.js from your own Piwik installation.
 
 
-### Simple Configuration
+## Simple Configuration
 1. Turn it on. Configure where your **Piwik Installation URL** is. By default it will attempt to use *'/piwik'* as a relative URL. This is used to load the *piwik.js* library, and also for the tracker destination.
 2. Configure a **Website ID** for the domain. If not specified, it will default to use **'1'**.
 3. Click **UPDATE**, if configured properly all pages should have Piwik Analytics tracking enabled on them.
 
-#### Advanced Configuration
+### Advanced Configuration
 1. Enable the **Advanced Features Menu**
 2. Try out some **Advanced \_paq** features. *Examples:*
   * Return 0 `[ function() { return 0;} ]`
@@ -31,14 +31,14 @@ This Piwik Analytics Cloudflare Application will help you add the Piwik tracking
   * Implement a HeartBeatTimer `['setHeartBeatTimer',30,60]`
 3. Enable __Logging__ if you experience issues with the Javascript tracking code.
 
-### Screenshots
+# Screenshots
 * Piwik Analytics CloudFlare App options screen.
 ![Screenshot of Piwik CloudFlare App](/images/apps/piwik_analytics/piwik_cfapp_screenshot_1.png "Screenshot 1")
 
 * Advanced Menu Features
 ![Advanced Menu Features](/images/apps/piwik_analytics/piwik_cfapp_screenshot_2.png "Screenshot 2")
 
-### Open Source & Contribute!
+## Open Source & Contribute!
 This Piwik Analytics CloudFlare application is an [open source project](https://github.com/px/cfapp-piwik-analytics/#readme) hosted on [Github](https://github.com/).
 It is primarily developed by [Rob Friedman](http://playerx.net/?utm_src=cfapp_pa). Follow <a href="http://twitter.com/px">px</a> Twitter.
 
@@ -48,7 +48,7 @@ For application comments, or support, please contact by filing <a href="https://
 
 
 
-##### About Piwik
+### About Piwik
 Piwik is the leading open source web analytics software, used by more than 460,000 websites. It gives interesting reports on your website visitors, your popular pages, the search engines keywords they used, the language they speak… and so much more. Piwik aims to be an open source alternative to Google Analytics.
 More information can be found on the [Piwik Analytics Media page](http://piwik.org/media/).
 
