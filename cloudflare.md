@@ -17,9 +17,20 @@ This Piwik Analytics Cloudflare Application will help you add the Piwik tracking
 
 
 #### Simple Configuration
-1. Configure where your Piwik Analytics is installed. By default it will attempt to use '/piwik' as the base URL. This is used to load the piwik.js library and also for the tracker destination.
-2. Turn it ON, configure a 'Website ID' for the domain. If not specified, it will default to use '1'.
+1. Turn it on. Configure where your Piwik Analytics is installed. By default it will attempt to use '/piwik' as a relative URL. This is used to load the *piwik.js* library, and also for the tracker destination.
+2. Configure a *Website ID* for the domain. If not specified, it will default to use *1*.
 3. Click **UPDATE**, if configured properly all pages should have Piwik Analytics tracking enabled on them.
+
+#### Advanced Configuration
+1. Enable the **Advanced Features Menu**
+2. Try out some Advanced \_paq features.
+  * Examples:
+    * Return 0 `[ function() { return 0;} ]`
+    * Hello World displayed in console log `[ function() { return window.console.log( "Hello World"); } ]`
+    * Get VisitorId and display in console log `[ function() { return window.console.log( "getVisitorId=" + this.getVisitorId() ); } ]
+    * Set the Document Title using more advanced methods `["setDocumentTitle",document.domain + ' / ' + document.title]`
+    * Implement a HeartBeatTimer '['setHeartBeatTimer',30,60]'
+3. Enable __Logging__ if you experience issues with the Javascript tracking code.
 
 ### Screenshots
 * Piwik Analytics CloudFlare App options screen.
@@ -29,7 +40,7 @@ This Piwik Analytics Cloudflare Application will help you add the Piwik tracking
 ![Advanced Menu Features](/images/apps/piwik_analytics/piwik_cfapp_screenshot_2.png "Screenshot 2")
 
 ### Open Source & Contribute!
-This Piwik Analytics CloudFlare application is an [open source project](https://github.com/px/cfapp-piwik-analytics/#readme) hosted on [Github](https://github.com/). If you are feeling comfortable, please feel free to [contribute](https://github.com/px/cfapp-piwik-analytics/#contribute) in anyway you can; <a href="https://github.com/px/cfapp-piwik-analytics/issues">file bugs</a>, write documentation, <a href="https://github.com/px/cfapp-piwik-analytics/fork">fork</a>, and <a href="https://github.com/px/cfapp-piwik-analytics/pulls">submit pull requests</a> for consideration. Have an itch? Scratch it!
+This Piwik Analytics CloudFlare application is an [open source project](https://github.com/px/cfapp-piwik-analytics/#readme) hosted on [Github](https://github.com/). If you are feeling comfortable, please feel free to [contribute](https://github.com/px/cfapp-piwik-analytics/#contributing) in anyway you can; <a href="https://github.com/px/cfapp-piwik-analytics/issues">file bugs</a>, write documentation, <a href="https://github.com/px/cfapp-piwik-analytics/fork">fork</a>, and <a href="https://github.com/px/cfapp-piwik-analytics/pulls">submit pull requests</a> for consideration. Have an itch? Scratch it!
 
 For application comments, or support, please contact by filing <a href="https://github.com/px/cfapp-piwik-analytics/issues">bug issues</a>, <a href="mailto:px+cfapp-piwik-analytics@ns1.net">email</a> or <a href="http://twitter.com/px">Twitter</a>.
 
