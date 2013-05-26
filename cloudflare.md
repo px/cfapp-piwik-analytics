@@ -17,19 +17,18 @@ This Piwik Analytics Cloudflare Application will help you add the Piwik tracking
 
 
 #### Simple Configuration
-1. Turn it on. Configure where your Piwik Analytics is installed. By default it will attempt to use '/piwik' as a relative URL. This is used to load the *piwik.js* library, and also for the tracker destination.
-2. Configure a *Website ID* for the domain. If not specified, it will default to use *1*.
+1. Turn it on. Configure where your **Piwik Installation URL** is. By default it will attempt to use *'/piwik'* as a relative URL. This is used to load the *piwik.js* library, and also for the tracker destination.
+2. Configure a **Website ID** for the domain. If not specified, it will default to use **'1'**.
 3. Click **UPDATE**, if configured properly all pages should have Piwik Analytics tracking enabled on them.
 
 #### Advanced Configuration
 1. Enable the **Advanced Features Menu**
-2. Try out some Advanced \_paq features.
-  * Examples:
-    * Return 0 `[ function() { return 0;} ]`
-    * Hello World displayed in console log `[ function() { return window.console.log( "Hello World"); } ]`
-    * Get VisitorId and display in console log `[ function() { return window.console.log( "getVisitorId=" + this.getVisitorId() ); } ]`
-    * Set the Document Title using more advanced methods `["setDocumentTitle",document.domain + ' / ' + document.title]`
-    * Implement a HeartBeatTimer `['setHeartBeatTimer',30,60]`
+2. Try out some *Advanced \_paq* features. *Examples:*
+  * Return 0 `[ function() { return 0;} ]`
+  * Hello World displayed in console log `[ function() { return window.console.log( "Hello World"); } ]`
+  * Get VisitorId and display in console log `[ function() { return window.console.log( "getVisitorId=" + this.getVisitorId() ); } ]`
+  * Set the Document Title using more advanced methods `["setDocumentTitle",document.domain + ' / ' + document.title]`
+  * Implement a HeartBeatTimer `['setHeartBeatTimer',30,60]`
 3. Enable __Logging__ if you experience issues with the Javascript tracking code.
 
 ### Screenshots
