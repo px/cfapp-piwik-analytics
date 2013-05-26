@@ -44,21 +44,28 @@ CloudFlare.define 'piwik_analytics', [
     ## paq pusher
     # push array objects into window._paq with error catching
     paqPush = (ao) =>
-      wa=window
+      # ensure _paq array
+      try
+        _paq = window._paq = window._paq || []
+      catch error
+        _con.error("#{_err} _paq #{error}")
+
       try
         size=0
         switch (typeof ao)
-          when "object" then size=wa._paq.push(ao)
-          when "string" then size=wa._paq.push([ao])
+          when "object" then size=_paq.push(ao)
+          when "string" then size=_paq.push([ao])
+          when "function" then size=_paq.push([ao])
 
           else
             _con.error("#{_err} -- not sure what type this is #{(typeof ao)}")
 
         if _cfg._debug
-          _con.log("_paq.length=#{size},\t#{ao}")
-
+          _con.log("_paq"+ (if (size > 0 ) then ".length=#{size}" else "")  + ",\t#{ao}" )
+        size
       catch error
         _con.error("#{_err} pp (#{error})")
+        size
 
     ##
 # mp.isPiwik()
