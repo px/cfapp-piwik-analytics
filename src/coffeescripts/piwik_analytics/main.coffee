@@ -44,6 +44,7 @@ CloudFlare.define 'piwik_analytics', [
     ## paq pusher
     # push array objects into window._paq with error catching
     paqPush = (ao) =>
+      size=0
       # ensure _paq array
       try
         _paq = window._paq = window._paq || []
@@ -51,7 +52,6 @@ CloudFlare.define 'piwik_analytics', [
         _con.error("#{_err} _paq #{error}")
 
       try
-        size=0
         switch (typeof ao)
           when "object" then size=_paq.push(ao)
           when "string" then size=_paq.push([ao])
