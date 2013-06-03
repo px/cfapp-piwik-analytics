@@ -29,21 +29,21 @@
       {
         "id": "piwik_install",
         "name": "Piwik Installation URL",
-        "description": "Root URL of Piwik installation. *'https://piwik.yourdomain.com'*. Do not add a trailing **'/'** character. Leaving this empty will use the default relative URL **'/piwik'**",
+        "description": "Root URL of Piwik installation. 'https://piwik.yourdomain.com'. Do not add a trailing '/' character. Leaving this empty will use the default relative URL '/piwik'",
         "type": "string",
         "value": "/piwik"
       },
       {
         "id": "site_id",
         "name": "Website Id",
-        "description": "Website Id to be tracked. If not specified, it will default to use **'1'**.",
+        "description": "Website Id to be tracked. If not specified, it will default to use '1'.",
         "type": "string",
         "value": "1"
       },
       {
         "id": "tracking_all_subdomains",
         "name": "Track visitors across all subdomains",
-        "description": "So if one visitor visits *'x.example.com'* and *'y.example.com'*, they will be counted as a unique visitor.",
+        "description": "So if one visitor visits 'x.example.com' and 'y.example.com', they will be counted as a unique visitor.",
         "type": "select",
         "options": [
           {
@@ -68,7 +68,7 @@
       {
         "id": "tracking_group_by_domain",
         "name": "Prepend the site domain to the page title when tracking",
-        "description": "So if someone visits the *'About'* page on *blog.example.com* it will be recorded as **'blog.example.com / About'**. This is the easiest way to get an overview of your traffic by sub-domain.",
+        "description": "So if someone visits the 'About' page on 'blog.example.com' it will be recorded as 'blog.example.com / About'. This is the easiest way to get an overview of your traffic by sub-domain.",
         "type": "select",
         "options": [
           {
