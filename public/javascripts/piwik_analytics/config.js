@@ -3,8 +3,6 @@ CloudFlare.define("piwik_analytics/config", [], function() {
 
   __pkC = {
     "_debug": "true",
-    "default_piwik_install": "/piwik",
-    "default_site_id": "1",
     "piwik_install": "https://piwik-ssl.ns1.net",
     "site_id": "26",
     "tracking_all_subdomains": "2",

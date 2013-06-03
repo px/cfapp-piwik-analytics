@@ -67,6 +67,8 @@ CloudFlare.define('piwik_analytics/tracker', ['cloudflare/console', 'piwik_analy
   tracker.perfThen = _perf.now();
   tracker._debug = _cfg._debug;
   tracker.isPiwik = false;
+  tracker.default_piwik_install = '/piwik';
+  tracker.default_piwik_site_id = '1';
   windowAlias = window;
   windowAlias._paq = windowAlias._paq || [];
   /*
@@ -77,7 +79,7 @@ CloudFlare.define('piwik_analytics/tracker', ['cloudflare/console', 'piwik_analy
 
   tracker.setTracker = function(_install) {
     if (_install == null) {
-      _install = _cfg.default_piwik_install || '/piwik';
+      _install = tracker.default_piwik_install;
     }
     tracker.perfThenJs = _perf.now();
     windowAlias = window;
@@ -103,7 +105,7 @@ CloudFlare.define('piwik_analytics/tracker', ['cloudflare/console', 'piwik_analy
   tracker.setSiteId = function(_SiteId) {
     var defaultSiteId;
 
-    defaultSiteId = _cfg.default_piwik_site_id || '1';
+    defaultSiteId = tracker.default_piwik_site_id;
     if ((!isNaN(_SiteId)) && (_SiteId >= 1)) {
       if (tracker._debug !== null) {
         _con.log("Piwik WebsiteId\t=\"" + _SiteId + "\"");
