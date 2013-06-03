@@ -27,6 +27,9 @@ CloudFlare.define 'piwik_analytics/tracker', [
 
     tracker.isPiwik = no
 
+    tracker.default_piwik_install = '/piwik'
+    tracker.default_piwik_site_id = '1'
+
     ## LEAVE HERE -- already lost it once.
     windowAlias=window
     windowAlias._paq = windowAlias._paq || []
@@ -38,7 +41,7 @@ CloudFlare.define 'piwik_analytics/tracker', [
 # will use passed _install or the default or '/piwik' as a failsafe
     ###
     tracker.setTracker =
-      ( _install = _cfg.default_piwik_install || '/piwik' ) ->
+      ( _install = tracker.default_piwik_install) ->
 
         tracker.perfThenJs = _perf.now()
         windowAlias=window
@@ -70,7 +73,7 @@ CloudFlare.define 'piwik_analytics/tracker', [
     ###
     tracker.setSiteId =
       ( _SiteId ) ->
-        defaultSiteId=_cfg.default_piwik_site_id || '1'
+        defaultSiteId=tracker.default_piwik_site_id
 
         # if it's a number use it. Double Negative,
         # will catch, alpha, and use the default above
