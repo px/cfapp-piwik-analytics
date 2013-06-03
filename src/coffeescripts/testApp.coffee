@@ -184,7 +184,7 @@ testApp.buildPage()
 window.onload=document.getElementById("timeDiv").innerHTML = "Timer update in " + _delay+ " sec, or async onload."
 
 ## only fire on pages with AJS
-if window.__CF.piwik_analytics isnt undefined
+if window.__CF.AJS.piwik_analytics isnt undefined
   window.onload=update_status()
 
   setTimeout timer_updated, 1000*_delay

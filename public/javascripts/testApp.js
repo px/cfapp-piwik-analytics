@@ -185,7 +185,7 @@ testApp.buildPage();
 
 window.onload = document.getElementById("timeDiv").innerHTML = "Timer update in " + _delay + " sec, or async onload.";
 
-if (window.__CF.piwik_analytics !== void 0) {
+if (window.__CF.AJS.piwik_analytics !== void 0) {
   window.onload = update_status();
   setTimeout(timer_updated, 1000 * _delay);
   /*
