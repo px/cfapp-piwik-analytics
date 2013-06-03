@@ -116,10 +116,6 @@ update_status = ->
   catch e
     console.error "ERR: " + e
 
-  try
-    document.getElementById("default_piwik_install").innerHTML = "default_piwik_install='" + window.__CF.AJS.piwik_analytics.default_piwik_install+"'"
-  catch e
-    console.error "ERR: " + e
 
   try
     document.getElementById("piwik_install").innerHTML = "piwik_install='" + window.__CF.AJS.piwik_analytics.piwik_install+"'"
@@ -127,10 +123,6 @@ update_status = ->
     console.error "ERR: " + e
 
 
-  try
-    document.getElementById("default_piwik_site_id").innerHTML = "default_piwik_site_id='" + window.__CF.AJS.piwik_analytics.default_piwik_site_id+"'"
-  catch e
-    console.error "ERR: " + e
   try
     document.getElementById("site_id").innerHTML = "site_id='" + window.__CF.AJS.piwik_analytics.site_id+"'"
   catch e
