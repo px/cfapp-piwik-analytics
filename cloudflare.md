@@ -4,6 +4,8 @@
 This Piwik Analytics Cloudflare Application will help you add the Piwik tracking code on your website pages. To use this app, you need to have Piwik [installed](http://piwik.org/docs/installation/) already, or use a [Piwik Hosting](http://piwik.org/hosting/) package. Setup [your configured domains](https://www.cloudflare.com/cloudflare-apps).
 
 
+
+
 ### App Features
 
 
@@ -11,15 +13,29 @@ This Piwik Analytics Cloudflare Application will help you add the Piwik tracking
 * Easily enable open source analytics tracking for outlinks from your web properties.
 
 
+
+
 #### Privacy Features
 * By default obey a visitor's "[Do-Not-Track](https://www.eff.org/issues/do-not-track)" option with [supported browsers](https://ie.microsoft.com/testdrive/browser/donottrack/default.html).
 * Loads piwik.js from your own Piwik installation.
 
 
+# Installation & Configuration
+
+
 ## Simple Configuration
-1. Turn it on. Configure where your **Piwik Installation URL** is. By default it will attempt to use *'/piwik'* as a relative URL. This is used to load the *piwik.js* library, and also for the tracker destination.
+1. Turn it on. Configure where your **Piwik Installation URL** is. By default it will attempt to use **'/piwik'** as a relative URL. This is used to load the *piwik.js* library, and also for the tracker destination.
 2. Configure a **Website ID** for the domain. If not specified, it will default to use **'1'**.
 3. Click **UPDATE**, if configured properly all pages should have Piwik Analytics tracking enabled on them.
+
+
+
+## More Details
+* Piwik Installation URL
+    Root URL of Piwik installation. *'https://piwik.yourdomain.com'*. Do not add a trailing **'/'** character. Ideally should be utilizing SSL for security purposes. Using a schemeless URL **'//host.tld'** is also valid for use of other protocols, such as SPDY. But only if your tracker installation supports it. Leaving this empty will use the default relative URL **'/piwik'**
+* Piwik Site Id
+  Website Id to be tracked. If not specified, it will default to use **'1'**.
+
 
 ### Advanced Configuration
 1. Enable the **Advanced Features Menu**
@@ -31,12 +47,15 @@ This Piwik Analytics Cloudflare Application will help you add the Piwik tracking
   * Implement a HeartBeatTimer `['setHeartBeatTimer',30,60]`
 3. Enable __Logging__ if you experience issues with the Javascript tracking code.
 
+
+
 # Screenshots
 * Piwik Analytics CloudFlare App options screen.
 ![Screenshot of Piwik CloudFlare App](/images/apps/piwik_analytics/piwik_cfapp_screenshot_1.png "Screenshot 1")
 
 * Advanced Menu Features
 ![Advanced Menu Features](/images/apps/piwik_analytics/piwik_cfapp_screenshot_2.png "Screenshot 2")
+
 
 ## Open Source & Contribute!
 This Piwik Analytics CloudFlare application is an [open source project](https://github.com/px/cfapp-piwik-analytics/#readme) hosted on [Github](https://github.com/).
