@@ -21,8 +21,7 @@
       "Homepage": "https://github.com/px/cfapp-piwik-analytics/",
       "Language": "English",
       "Price": "Free",
-      "Restrictions": "[This application](https://github.com/px/cfapp-piwik-analytics/) is open source licensed, [BSD-2 Clause](https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt).",
-      "playerx.net": "[Rob Friedman](http://playerx.net/)"
+      "Restrictions": "<a href='https://github.com/px/cfapp-piwik-analytics/'>This application</a> is open source licensed, <a href='https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt'>BSD-2 Clause</a>.",
     },
     "has_js": true,
     "interface": [
