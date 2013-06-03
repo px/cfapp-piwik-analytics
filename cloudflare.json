@@ -19,7 +19,7 @@
     "details": {
       "Category": "Analytics",
       "Homepage": "https://github.com/px/cfapp-piwik-analytics/",
-      "Language": "English, <a href='#languages'>more coming soon</a>.",
+      "Language": "English",
       "Price": "Free",
       "Restrictions": "[This application](https://github.com/px/cfapp-piwik-analytics/) is open source licensed, [BSD-2 Clause](https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt).",
       "playerx.net": "[Rob Friedman](http://playerx.net/)"
@@ -27,23 +27,9 @@
     "has_js": true,
     "interface": [
       {
-        "id": "default_piwik_install",
-        "name": "Piwik Installation URL",
-        "description": "",
-        "type": "hidden",
-        "value": "/piwik"
-      },
-      {
-        "id": "default_piwik_site_id",
-        "name": "Website Id",
-        "description": "",
-        "type": "hidden",
-        "value": "1"
-      },
-      {
         "id": "piwik_install",
         "name": "Piwik Installation URL",
-        "description": "Root URL of Piwik installation. *'https://piwik.yourdomain.com'*. Do not add a trailing **'/'** character. Ideally should be utilizing SSL for security purposes. Using a schemeless URL **'//host.tld'** is also valid for use of other protocols, such as SPDY. But only if your tracker installation supports it. Leaving this empty will use the default relative URL **'/piwik'**",
+        "description": "Root URL of Piwik installation. *'https://piwik.yourdomain.com'*. Do not add a trailing **'/'** character. Leaving this empty will use the default relative URL **'/piwik'**",
         "type": "string",
         "value": "/piwik"
       },
