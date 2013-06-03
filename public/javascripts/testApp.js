@@ -1,4 +1,4 @@
-var TestApp, links, myLinks, testApp, timer_updated, update_status, _debug, _delay;
+var TestApp, e, links, myLinks, testApp, timer_updated, update_status, _debug, _delay;
 
 window._paq = window._paq || [];
 
@@ -185,14 +185,19 @@ testApp.buildPage();
 
 window.onload = document.getElementById("timeDiv").innerHTML = "Timer update in " + _delay + " sec, or async onload.";
 
-if (window.__CF.AJS.piwik_analytics !== void 0) {
-  window.onload = update_status();
-  setTimeout(timer_updated, 1000 * _delay);
-  /*
-  # the visitor id should be displayed by at least this mark, anything slower is not really acceptable
-  */
+try {
+  if (window.__CF.AJS.piwik_analytics !== void 0) {
+    window.onload = update_status();
+    setTimeout(timer_updated, 1000 * _delay);
+    /*
+    # the visitor id should be displayed by at least this mark, anything slower is not really acceptable
+    */
 
-  setTimeout("update_status()", 10000 * _delay * 1);
-  setTimeout("update_status()", 10000 * _delay * 2);
-  setTimeout("update_status()", 10000 * _delay * 4);
+    setTimeout("update_status()", 10000 * _delay * 1);
+    setTimeout("update_status()", 10000 * _delay * 2);
+    setTimeout("update_status()", 10000 * _delay * 4);
+  }
+} catch (_error) {
+  e = _error;
+  console.error("ERR: " + e);
 }
