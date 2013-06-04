@@ -252,7 +252,7 @@ CloudFlare.define 'piwik_analytics', [
         # end if tracking all subdomains
 
 
-      # tracking_all_aliases -- this could/should just be fetched and possibly set in a cookie.
+      # tracking_all_aliases aka 'outlinks' -- this could/should just be fetched and possibly set in a cookie.
       tmp=_cfg.tracking_all_aliases
       if ( ( tmp isnt undefined ) and
         ( tmp isnt null ) )
