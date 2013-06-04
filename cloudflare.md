@@ -78,7 +78,7 @@ Was this free application useful? Please consider supporting this work by [regis
 ### About the Author
 [Rob Friedman](http://playerx.net/?utm_src=cfapp_pa&utm_term=me) is the primary developer of this application. He is also the Owner/Operator of NS1.net.
 
-For comments, or support, please [contact Rob](http://playerx.net/contact/?utm_src=cfapp_pa&utm_term=contact). Please be sure to include your details, a relevant screenshot, and pasted configuration information. Either way, he would love to hear about you. [Say "Hello!"](http://playerx.net/contact/?utm_src=cfapp_pa&utm_term=hello)
+For comments, or support, [contact Rob](http://playerx.net/contact/?utm_src=cfapp_pa&utm_term=contact). Please be sure to include your details, a relevant screenshot, and pasted configuration information. Either way, he would love to hear about you. [Say "Hello!"](http://playerx.net/contact/?utm_src=cfapp_pa&utm_term=hello)
 
 Follow <a href="http://twitter.com/px">px</a> on Twitter.
 
