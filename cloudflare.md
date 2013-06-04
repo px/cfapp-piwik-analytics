@@ -1,7 +1,7 @@
 ## Codename: Miniature Hipster 
 ### A Piwik App for Cloudflare
 
-This free Piwik Analytics Cloudflare Application will help you add the Piwik tracking code on your website pages. To use this app, you need to have Piwik [installed](http://piwik.org/docs/installation/) already, or use a [Piwik Hosting](http://piwik.org/hosting/) package. Setup [your configured domains](https://www.cloudflare.com/cloudflare-apps).
+This free Piwik Analytics Cloudflare Application will help you add the Piwik tracking code on your website pages. To use this app, you need to have Piwik [installed](http://piwik.org/docs/installation/) already, or use a [Piwik Hosting](http://piwik.org/hosting/) package.
 
 
 
@@ -22,6 +22,7 @@ This free Piwik Analytics Cloudflare Application will help you add the Piwik tra
 
 <a id="installation" name="installation"></a>
 ## Installation & Configuration
+Setup [your configured domains](https://www.cloudflare.com/cloudflare-apps).
 
 <a id="configuration" name="configuration"></a>
 ### Simple Configuration
