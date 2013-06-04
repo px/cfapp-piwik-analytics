@@ -1,11 +1,11 @@
 ## Codename: Miniature Hipster 
 ### A Piwik App for Cloudflare
 
-This Piwik Analytics Cloudflare Application will help you add the Piwik tracking code on your website pages. To use this app, you need to have Piwik [installed](http://piwik.org/docs/installation/) already, or use a [Piwik Hosting](http://piwik.org/hosting/) package. Setup [your configured domains](https://www.cloudflare.com/cloudflare-apps).
+This free Piwik Analytics Cloudflare Application will help you add the Piwik tracking code on your website pages. To use this app, you need to have Piwik [installed](http://piwik.org/docs/installation/) already, or use a [Piwik Hosting](http://piwik.org/hosting/) package. Setup [your configured domains](https://www.cloudflare.com/cloudflare-apps).
 
 
 
-
+<a id="features"></a>
 #### App Features
 
 
@@ -14,15 +14,16 @@ This Piwik Analytics Cloudflare Application will help you add the Piwik tracking
 
 
 
-
+<a id="privacy"></a>
 ##### Privacy Features
 * By default obey a visitor's "[Do-Not-Track](https://www.eff.org/issues/do-not-track)" option with [supported browsers](https://ie.microsoft.com/testdrive/browser/donottrack/default.html).
 * Loads piwik.js from your own Piwik installation.
 
 
+<a id="installation"></a>
 ## Installation & Configuration
 
-
+<a id="configuration"></a>
 ### Simple Configuration
 1. Turn it on. Configure where your **Piwik Installation URL** is. By default it will attempt to use **'/piwik'** as a relative URL. This is used to load the *piwik.js* library, and also for the tracker destination.
 2. Configure a **Website ID** for the domain. If not specified, it will default to use **'1'**.
@@ -38,6 +39,7 @@ This Piwik Analytics Cloudflare Application will help you add the Piwik tracking
 * Outlinks
   * '"\*.other.example.com","\*.subdomain.example.com"' A formated list of configured alias URLs, where clicks on those links will not be counted as 'Outlink'.
 
+<a id="advanced"></a>
 ### Advanced Configuration
 Looking for something beyond the norm? Piwik is an incredible application. It contains a very large feature set of well documented API calls. Through use of these [Javascript tracking](http://piwik.org/docs/javascript-tracking/) features, and the **Advanced \_paq** field, you will be able to utilize the complete set of Piwik API calls available for your installation.
 
@@ -65,9 +67,11 @@ This Piwik Analytics CloudFlare application is an [open source project](https://
 
 If you are feeling comfortable, please feel free to [contribute](https://github.com/px/cfapp-piwik-analytics/?utm_src=cfapp_pa&utm_term=contribute#contributing) in anyway you can; <a href="https://github.com/px/cfapp-piwik-analytics/issues">file bugs</a>, write documentation, <a href="https://github.com/px/cfapp-piwik-analytics/fork">fork</a>, and <a href="https://github.com/px/cfapp-piwik-analytics/pulls">submit pull requests</a> for consideration. Have an itch? Scratch it!
 
-### <a id="tipjar"></a> Tip Jar
+<a id="tipjar"></a>
+### Tip Jar
 Was this free application useful? Please consider supporting this work by [registering new domains](http://ns1.net/en/domains/new/?utm_src=cfapp_pa&utm_term=tipjar), or [transferring current names](http://ns1.net/en/domains/transfer/?utm_src=cfapp_pa&utm_term=tipjar) through [NS1.net](http://ns1.net/?utm_src=cfapp_pa&utm_term=tipjar).
 
+<a id="author"></a>
 ### About the Author
 [Rob Friedman](http://playerx.net/?utm_src=cfapp_pa&utm_term=me) is the primary developer of this application. He is also the Owner/Operator of NS1.net.
 
