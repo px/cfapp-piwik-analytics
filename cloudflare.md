@@ -65,10 +65,10 @@ This Piwik Analytics CloudFlare application is an [open source project](https://
 If you are feeling comfortable, please feel free to [contribute](https://github.com/px/cfapp-piwik-analytics/?utm_src=cfapp_pa&utm_term=contribute#contributing) in anyway you can; <a href="https://github.com/px/cfapp-piwik-analytics/issues">file bugs</a>, write documentation, <a href="https://github.com/px/cfapp-piwik-analytics/fork">fork</a>, and <a href="https://github.com/px/cfapp-piwik-analytics/pulls">submit pull requests</a> for consideration. Have an itch? Scratch it!
 
 ### Tip Jar
-Was this application useful for you? Please consider supporting this work by [registering new domains](http://ns1.net/en/domains/new/?utm_src=cfapp_pa&utm_term=tipjar) or [transferring](http://ns1.net/en/domains/transfer/?utm_src=cfapp_pa&utm_term=tipjar) current ones through [NS1.net](http://ns1.net/?utm_src=cfapp_pa&utm_term=tipjar).
+Was this application useful? Please consider supporting this work by [registering new domains](http://ns1.net/en/domains/new/?utm_src=cfapp_pa&utm_term=tipjar), or [transferring names](http://ns1.net/en/domains/transfer/?utm_src=cfapp_pa&utm_term=tipjar) through [NS1.net](http://ns1.net/?utm_src=cfapp_pa&utm_term=tipjar).
 
 ### About the Author
-[Rob Friedman](http://playerx.net/?utm_src=cfapp_pa&utm_term=me) is the Owner/Operator of NS1.net, and he is the primary developer of this application.
+[Rob Friedman](http://playerx.net/?utm_src=cfapp_pa&utm_term=me) is the primary developer of this application. He is also the Owner/Operator of NS1.net.
 
 For comments, or support, please [contact Rob](http://playerx.net/contact/?utm_src=cfapp_pa&utm_term=contact). Please be sure to include your details, a relevant screenshot, and pasted configuration information. Either way, he would love to hear about you. [Say "Hello!"](http://playerx.net/contact/?utm_src=cfapp_pa&utm_term=hello)
 
