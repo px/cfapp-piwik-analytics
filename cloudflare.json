@@ -20,8 +20,8 @@
       "Category": "Analytics",
       "Homepage": "https://github.com/px/cfapp-piwik-analytics/",
       "Language": "English",
-      "Price": "Free. See <a href='#tip-jar'>Tip Jar</a>.",
-      "Restrictions": "This work is <a href='#open-source'>open source free software</a>."
+      "Price": "Free. See <a href='https://github.com/px/cfapp-piwik-analytics/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_content=price#tip-jar'>Tip Jar</a>.",
+      "Restrictions": "This work is <a href='https://github.com/px/cfapp-piwik-analytics/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_content=open-source#open-source'>open source free software</a>."
     },
     "has_js": true,
     "interface": [
