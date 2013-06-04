@@ -40,6 +40,13 @@ Contributing
 6. Open a Pull Request
 7. Enjoy a refreshing glass of water and wait
 
+
+<a name="open-source"></a>
+## Open Source & Contribute!
+This work is an [open source project](https://github.com/px/cfapp-piwik-analytics/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_content=open+source+project#readme) hosted on [Github](https://github.com/). It is available under a <a href='https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt'>BSD 2-Clause</a> License.
+
+If you are feeling comfortable, please feel free to [contribute](https://github.com/px/cfapp-piwik-analytics/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_content=contribute#contributing) in anyway you can; <a href="https://github.com/px/cfapp-piwik-analytics/issues">file bugs</a>, write documentation, <a href="https://github.com/px/cfapp-piwik-analytics/fork">fork</a>, and <a href="https://github.com/px/cfapp-piwik-analytics/pulls">submit pull requests</a> for consideration. Have an itch? Scratch it!
+
 <a name="tip-jar"></a>
 ### Tip Jar
 Was this free application useful? Please consider supporting this work by [registering new domains](http://ns1.net/en/domains/new/?utm_campaign=github&utm_src=cfapp_pa&utm_content=tip-jar), or [transferring current names](http://ns1.net/en/domains/transfer/?utm_campaign=github&utm_src=cfapp_pa&utm_content=tip-jar) through [NS1.net](http://ns1.net/?utm_campaign=github&utm_src=cfapp_pa&utm_content=tip-jar).
