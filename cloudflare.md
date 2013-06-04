@@ -33,11 +33,11 @@ This free Piwik Analytics Cloudflare Application will help you add the Piwik tra
 
 #### Details
 * Piwik Installation URL
-  * *'https://piwik.example.com'*. Do not add a trailing **'/'** character. Ideally should be utilizing [SSL](https://support.cloudflare.com/forums/21317627-SSL-at-CloudFlare) transport for security purposes. Providing a schemeless URL **'//host.tld'** is also valid for use of other protocols, such as [SPDY](https://www.cloudflare.com/spdy). But only if your tracker installation supports it. Leaving this empty will use the default relative URL **'/piwik'**
+  * Do not add a trailing **'/'** character. Ideally should be utilizing [SSL](https://support.cloudflare.com/forums/21317627-SSL-at-CloudFlare) transport for security purposes. Providing a schemeless URL **'//host.tld'** is also valid for use of other protocols, such as [SPDY](https://www.cloudflare.com/spdy). But only if your tracker installation supports it. Example: `https://piwik.example.com` Leaving this empty will use the default relative URL `'/piwik'`
 * Piwik Site Id
-  * Website Id to be tracked. If not specified, it will default to use **'1'**.
+  * Website Id to be tracked. If not specified, it will default to use `1`.
 * Outlinks
-  * A quoted and comma separated list of configured alias URLs, where clicks on those links will not be counted as 'Outlink'. Use of the asterisk ('\*') wildcard token is optional. Example: **"\*.other.example.com",".subdomain.example.com"**
+  * A quoted and comma separated list of configured alias URLs, where clicks on those links will not be counted as 'Outlink'. Use of the asterisk ('\*') wildcard token is optional. Example: `"\*.other.example.com",".subdomain.example.com"`
 
 <a id="advanced"></a>
 ### Advanced Configuration
@@ -52,6 +52,7 @@ Looking for something beyond the norm? Piwik is an incredible application. It co
   * Implement a HeartBeatTimer `['setHeartBeatTimer',30,60]`
 3. Enable __Logging__ if you experience issues with the Javascript tracking codes.
 
+Proud of a practical advanced usage? Consider contributing code.
 
 
 ## Screenshots
