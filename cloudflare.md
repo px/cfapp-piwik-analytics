@@ -37,7 +37,7 @@ This free Piwik Analytics Cloudflare Application will help you add the Piwik tra
 * Piwik Site Id
   * Website Id to be tracked. If not specified, it will default to use **'1'**.
 * Outlinks
-  * '"\*.other.example.com","\*.subdomain.example.com"' A formated list of configured alias URLs, where clicks on those links will not be counted as 'Outlink'.
+  * A quoted and comma separated list of configured alias URLs, where clicks on those links will not be counted as 'Outlink'. Use of the asterisk wildcard ('\*') is optional.. Example: **"\*.other.example.com",".subdomain.example.com"**
 
 <a id="advanced"></a>
 ### Advanced Configuration
