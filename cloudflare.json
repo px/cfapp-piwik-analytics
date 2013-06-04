@@ -20,7 +20,7 @@
       "Category": "Analytics",
       "Homepage": "https://github.com/px/cfapp-piwik-analytics/",
       "Language": "English",
-      "Price": "Free. See <a href'#tip-jar'>Tip Jar</a>.",
+      "Price": "Free. See <a href='#tip-jar'>Tip Jar</a>.",
       "Restrictions": "This work is <a href='#open-source'>open source free software</a>."
     },
     "has_js": true,
