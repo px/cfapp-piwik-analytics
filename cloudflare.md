@@ -52,7 +52,7 @@ Looking for something beyond the norm? Piwik is an incredible application. It co
   * Implement a HeartBeatTimer `['setHeartBeatTimer',30,60]`
 3. Enable __Logging__ if you experience issues with the Javascript tracking codes.
 
-Proud of a practical advanced usage? Consider contributing code.
+Proud of a practical advanced usage? Consider sharing your results!
 
 
 ## Screenshots
