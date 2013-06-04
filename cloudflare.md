@@ -39,6 +39,7 @@ This Piwik Analytics Cloudflare Application will help you add the Piwik tracking
 
 #### Advanced Configuration
 Looking for more? Piwik is an incredible application. It contains a very large feature set of well documented API calls. Through use of these [Javascript tracking](http://piwik.org/docs/javascript-tracking/) features, and the **Advanced \_paq** field, you will be able to utilize the complete set of Piwik API calls available for your installation.
+
 1. Enable the **Advanced Features Menu** option.
 2. Try out some **Advanced \_paq** features. *Examples:*
   * Return 0 `[ function() { return 0;} ]`
