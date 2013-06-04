@@ -60,13 +60,20 @@ Looking for more? Piwik is an incredible application. It contains a very large f
 
 
 ## Open Source & Contribute!
-This Piwik Analytics CloudFlare application is an [open source project](https://github.com/px/cfapp-piwik-analytics/?utm_src=cfapp_pa#readme) hosted on [Github](https://github.com/).
+This Piwik Analytics CloudFlare application is an [open source project](https://github.com/px/cfapp-piwik-analytics/?utm_src=cfapp_pa&utm_term=open+source+project#readme) hosted on [Github](https://github.com/).
 
-It is primarily developed by [Rob Friedman](http://playerx.net/?utm_src=cfapp_pa). Follow <a href="http://twitter.com/px">px</a> on Twitter.
+If you are feeling comfortable, please feel free to [contribute](https://github.com/px/cfapp-piwik-analytics/?utm_src=cfapp_pa&utm_term=contribute#contributing) in anyway you can; <a href="https://github.com/px/cfapp-piwik-analytics/issues">file bugs</a>, write documentation, <a href="https://github.com/px/cfapp-piwik-analytics/fork">fork</a>, and <a href="https://github.com/px/cfapp-piwik-analytics/pulls">submit pull requests</a> for consideration. Have an itch? Scratch it!
 
-For application comments, or support, please [contact Rob](http://playerx.net/contact/?utm_src=cfapp_pa). Please include your details, a relevant screenshot, and pasted configuration information. Either way, he would love to hear about you. [Say "Hello!"](http://playerx.net/contact/?utm_src=cfapp_pa)
+### Tip Jar
+Was this application useful for you? Please consider supporting this work by [registering new domains](http://ns1.net/en/domains/new/?utm_src=cfapp_pa&utm_term=tipjar) or [transferring](http://ns1.net/en/domains/transfer/?utm_src=cfapp_pa&utm_term=tipjar) current ones through [NS1.net](http://ns1.net/?utm_src=cfapp_pa&utm_term=tipjar).
 
-If you are feeling comfortable, please feel free to [contribute](https://github.com/px/cfapp-piwik-analytics/?utm_src=cfapp_pa#contributing) in anyway you can; <a href="https://github.com/px/cfapp-piwik-analytics/issues">file bugs</a>, write documentation, <a href="https://github.com/px/cfapp-piwik-analytics/fork">fork</a>, and <a href="https://github.com/px/cfapp-piwik-analytics/pulls">submit pull requests</a> for consideration. Have an itch? Scratch it!
+### About the Author
+[Rob Friedman](http://playerx.net/?utm_src=cfapp_pa&utm_term=me) is the Owner/Operator of NS1.net, and he is the primary developer of this application.
+
+For comments, or support, please [contact Rob](http://playerx.net/contact/?utm_src=cfapp_pa&utm_term=contact). Please be sure to include your details, a relevant screenshot, and pasted configuration information. Either way, he would love to hear about you. [Say "Hello!"](http://playerx.net/contact/?utm_src=cfapp_pa&utm_term=hello)
+
+Follow <a href="http://twitter.com/px">px</a> on Twitter.
+
 
 
 
