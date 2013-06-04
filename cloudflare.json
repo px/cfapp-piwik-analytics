@@ -155,7 +155,7 @@
     }
   ],
   "dependencies": {},
-  "description": "This open source <a href='https://github.com/px/cfapp-piwik-analytics'>Piwik Analytics CloudFlare application</a> will help you add the Piwik tracking code on your website pages. Click <b>Setup</b> to modify your tracking options. Be sure to click <b>Update</b> to save after modifying.",
+  "description": "This open source <a href='https://github.com/px/cfapp-piwik-analytics'>Piwik Analytics CloudFlare application</a> will help you <a href='/apps/piwik_analytics#installation'>install</a> the Piwik tracking code on your website pages. Click <b>Setup</b> to modify your tracking options. Be sure to click <b>Update</b> to save after modifying.",
   "implements": "AMD",
   "keywords": [
     "webmaster",
