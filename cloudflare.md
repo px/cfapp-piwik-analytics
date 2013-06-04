@@ -66,19 +66,19 @@ Proud of a practical advanced usage? Consider sharing your results!
 
 <a name="open-source"></a>
 ## Open Source & Contribute!
-This work is an [open source project](https://github.com/px/cfapp-piwik-analytics/?utm_src=cfapp_pa&utm_content=open+source+project#readme) hosted on [Github](https://github.com/). It is available under a <a href='https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt'>BSD 2-Clause</a> License.
+This work is an [open source project](https://github.com/px/cfapp-piwik-analytics/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_content=open+source+project#readme) hosted on [Github](https://github.com/). It is available under a <a href='https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt'>BSD 2-Clause</a> License.
 
-If you are feeling comfortable, please feel free to [contribute](https://github.com/px/cfapp-piwik-analytics/?utm_src=cfapp_pa&utm_content=contribute#contributing) in anyway you can; <a href="https://github.com/px/cfapp-piwik-analytics/issues">file bugs</a>, write documentation, <a href="https://github.com/px/cfapp-piwik-analytics/fork">fork</a>, and <a href="https://github.com/px/cfapp-piwik-analytics/pulls">submit pull requests</a> for consideration. Have an itch? Scratch it!
+If you are feeling comfortable, please feel free to [contribute](https://github.com/px/cfapp-piwik-analytics/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_content=contribute#contributing) in anyway you can; <a href="https://github.com/px/cfapp-piwik-analytics/issues">file bugs</a>, write documentation, <a href="https://github.com/px/cfapp-piwik-analytics/fork">fork</a>, and <a href="https://github.com/px/cfapp-piwik-analytics/pulls">submit pull requests</a> for consideration. Have an itch? Scratch it!
 
 <a name="tip-jar"></a>
 ### Tip Jar
-Was this free application useful? Please consider supporting this work by [registering new domains](http://ns1.net/en/domains/new/?utm_src=cfapp_pa&utm_content=tip-jar), or [transferring current names](http://ns1.net/en/domains/transfer/?utm_src=cfapp_pa&utm_content=tip-jar) through [NS1.net](http://ns1.net/?utm_src=cfapp_pa&utm_content=tip-jar).
+Was this free application useful? Please consider supporting this work by [registering new domains](http://ns1.net/en/domains/new/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_content=tip-jar), or [transferring current names](http://ns1.net/en/domains/transfer/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_content=tip-jar) through [NS1.net](http://ns1.net/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_content=tip-jar).
 
 <a name="author"></a>
 ### About the Author
-[Rob Friedman](http://playerx.net/?utm_src=cfapp_pa&utm_content=me) is the primary developer of this application. He is also the Owner/Operator of NS1.net.
+[Rob Friedman](http://playerx.net/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_content=me) is the primary developer of this application. He is also the Owner/Operator of NS1.net.
 
-For comments, or support, [contact Rob](http://playerx.net/contact/?utm_src=cfapp_pa&utm_content=contact). Please be sure to include your details, a relevant screenshot, and pasted configuration information. Either way, he would love to hear about you. [Say "Hello!"](http://playerx.net/contact/?utm_src=cfapp_pa&utm_content=hello)
+For comments, or support, [contact Rob](http://playerx.net/contact/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_content=contact). Please be sure to include your details, a relevant screenshot, and pasted configuration information. Either way, he would love to hear about you. [Say "Hello!"](http://playerx.net/contact/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_content=hello)
 
 Follow <a href="http://twitter.com/px">px</a> on Twitter.
 
