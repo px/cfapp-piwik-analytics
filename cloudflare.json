@@ -21,7 +21,7 @@
       "Homepage": "https://github.com/px/cfapp-piwik-analytics/",
       "Language": "English",
       "Price": "Free. <a href'#tip-jar'>Tip Jar</a>",
-      "Restrictions": "<a href='https://github.com/px/cfapp-piwik-analytics/'>This application</a> is open source licensed, <a href='https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt'>BSD-2 Clause</a>."
+      "Restrictions": "<a href='https://github.com/px/cfapp-piwik-analytics/'>This work</a> is open source, and available under a <a href='https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt'>BSD 2-Clause</a> License."
     },
     "has_js": true,
     "interface": [
