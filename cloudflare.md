@@ -67,9 +67,9 @@ This Piwik Analytics CloudFlare application is an [open source project](https://
 
 If you are feeling comfortable, please feel free to [contribute](https://github.com/px/cfapp-piwik-analytics/?utm_src=cfapp_pa&utm_term=contribute#contributing) in anyway you can; <a href="https://github.com/px/cfapp-piwik-analytics/issues">file bugs</a>, write documentation, <a href="https://github.com/px/cfapp-piwik-analytics/fork">fork</a>, and <a href="https://github.com/px/cfapp-piwik-analytics/pulls">submit pull requests</a> for consideration. Have an itch? Scratch it!
 
-<a id="tipjar"></a>
+<a id="tip-jar"></a>
 ### Tip Jar
-Was this free application useful? Please consider supporting this work by [registering new domains](http://ns1.net/en/domains/new/?utm_src=cfapp_pa&utm_term=tipjar), or [transferring current names](http://ns1.net/en/domains/transfer/?utm_src=cfapp_pa&utm_term=tipjar) through [NS1.net](http://ns1.net/?utm_src=cfapp_pa&utm_term=tipjar).
+Was this free application useful? Please consider supporting this work by [registering new domains](http://ns1.net/en/domains/new/?utm_src=cfapp_pa&utm_term=tip-jar), or [transferring current names](http://ns1.net/en/domains/transfer/?utm_src=cfapp_pa&utm_term=tip-jar) through [NS1.net](http://ns1.net/?utm_src=cfapp_pa&utm_term=tip-jar).
 
 <a id="author"></a>
 ### About the Author
