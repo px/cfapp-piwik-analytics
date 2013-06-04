@@ -5,7 +5,7 @@ This free Piwik Analytics Cloudflare Application will help you add the Piwik tra
 
 
 
-<a id="features" name="features"></a>
+<a name="features"></a>
 #### App Features
 
 
@@ -14,17 +14,17 @@ This free Piwik Analytics Cloudflare Application will help you add the Piwik tra
 
 
 
-<a id="privacy" name="privacy"></a>
+<a name="privacy"></a>
 ##### Privacy Features
 * By default obey a visitor's "[Do-Not-Track](https://www.eff.org/issues/do-not-track)" option with [supported browsers](https://ie.microsoft.com/testdrive/browser/donottrack/default.html).
 * Loads piwik.js from your own Piwik installation.
 
 
-<a id="installation" name="installation"></a>
+<a name="installation"></a>
 ## Installation & Configuration
 Setup [your configured domains](https://www.cloudflare.com/cloudflare-apps).
 
-<a id="configuration" name="configuration"></a>
+<a name="configuration"></a>
 ### Simple Configuration
 1. Turn it on. Configure where your **Piwik Installation URL** is. 
 2. Configure a **Website ID** for the domain.
@@ -40,7 +40,7 @@ Setup [your configured domains](https://www.cloudflare.com/cloudflare-apps).
 * Outlinks
   * A quoted and comma separated list of configured alias URLs, where clicks on those links will not be counted as 'Outlink'. Use of the asterisk ('\*') wildcard token is optional. Example: `"*.other.example.com",".subdomain.example.com"`
 
-<a id="advanced" name="advanced"></a>
+<a name="advanced"></a>
 ### Advanced Configuration
 Looking for something beyond the norm? Piwik is an incredible application. It contains a very large feature set of well documented API calls. Through use of these [Javascript tracking](http://piwik.org/docs/javascript-tracking/) features, and the **Advanced \_paq** field, you will be able to utilize the complete set of Piwik API calls available for your installation.
 
@@ -56,7 +56,7 @@ Looking for something beyond the norm? Piwik is an incredible application. It co
 Proud of a practical advanced usage? Consider sharing your results!
 
 
-<a id="screenshots" name="screenshots"></a>
+<a name="screenshots"></a>
 ## Screenshots
 * Main options screen
 ![Screenshot of Piwik CloudFlare App](/images/apps/piwik_analytics/piwik_cfapp_screenshot_1.png "Main options")
@@ -64,17 +64,17 @@ Proud of a practical advanced usage? Consider sharing your results!
 * Advanced Menu Features
 ![Advanced Menu Features](/images/apps/piwik_analytics/piwik_cfapp_screenshot_2.png "Utilize advanced options powered by Piwik and Javascript")
 
-<a id="open-source" name="open-source"></a>
+<a name="open-source"></a>
 ## Open Source & Contribute!
 This work is an [open source project](https://github.com/px/cfapp-piwik-analytics/?utm_src=cfapp_pa&utm_content=open+source+project#readme) hosted on [Github](https://github.com/). It is available under a <a href='https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt'>BSD 2-Clause</a> License.
 
 If you are feeling comfortable, please feel free to [contribute](https://github.com/px/cfapp-piwik-analytics/?utm_src=cfapp_pa&utm_content=contribute#contributing) in anyway you can; <a href="https://github.com/px/cfapp-piwik-analytics/issues">file bugs</a>, write documentation, <a href="https://github.com/px/cfapp-piwik-analytics/fork">fork</a>, and <a href="https://github.com/px/cfapp-piwik-analytics/pulls">submit pull requests</a> for consideration. Have an itch? Scratch it!
 
-<a id="tip-jar"></a>
+<a name="tip-jar"></a>
 ### Tip Jar
 Was this free application useful? Please consider supporting this work by [registering new domains](http://ns1.net/en/domains/new/?utm_src=cfapp_pa&utm_content=tip-jar), or [transferring current names](http://ns1.net/en/domains/transfer/?utm_src=cfapp_pa&utm_content=tip-jar) through [NS1.net](http://ns1.net/?utm_src=cfapp_pa&utm_content=tip-jar).
 
-<a id="author"></a>
+<a name="author"></a>
 ### About the Author
 [Rob Friedman](http://playerx.net/?utm_src=cfapp_pa&utm_content=me) is the primary developer of this application. He is also the Owner/Operator of NS1.net.
 
