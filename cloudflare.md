@@ -38,14 +38,15 @@ This Piwik Analytics Cloudflare Application will help you add the Piwik tracking
 
 
 #### Advanced Configuration
-1. Enable the **Advanced Features Menu**
+Looking for more? Piwik is an incredible application. It contains a very large feature set of well documented API calls. Through use of these [Javascript tracking](http://piwik.org/docs/javascript-tracking/) features, and the **Advanced \_paq** field, you will be able to utilize the complete set of Piwik API calls available for your installation.
+1. Enable the **Advanced Features Menu** option.
 2. Try out some **Advanced \_paq** features. *Examples:*
   * Return 0 `[ function() { return 0;} ]`
   * Hello World displayed in console log `[ function() { return window.console.log( "Hello World"); } ]`
   * Get VisitorId and display in console log `[ function() { return window.console.log( "getVisitorId=" + this.getVisitorId() ); } ]`
   * Set the Document Title using more advanced methods `["setDocumentTitle",document.domain + ' / ' + document.title]`
   * Implement a HeartBeatTimer `['setHeartBeatTimer',30,60]`
-3. Enable __Logging__ if you experience issues with the Javascript tracking code.
+3. Enable __Logging__ if you experience issues with the Javascript tracking codes.
 
 
 
@@ -64,7 +65,7 @@ It is primarily developed by [Rob Friedman](http://playerx.net/?utm_src=cfapp_pa
 
 If you are feeling comfortable, please feel free to [contribute](https://github.com/px/cfapp-piwik-analytics/?utm_src=cfapp_pa#contributing) in anyway you can; <a href="https://github.com/px/cfapp-piwik-analytics/issues">file bugs</a>, write documentation, <a href="https://github.com/px/cfapp-piwik-analytics/fork">fork</a>, and <a href="https://github.com/px/cfapp-piwik-analytics/pulls">submit pull requests</a> for consideration. Have an itch? Scratch it!
 
-For application comments, or support, please [contact Rob](http://playerx.net/contact/?utm_src=cfapp_pa)
+For application comments, or support, please [contact Rob](http://playerx.net/contact/?utm_src=cfapp_pa). Please include your details, a relevant screenshot, and pasted configuration information. Either way, he would love to hear about you! [Say "Hello!"](http://playerx.net/contact/?utm_src=cfapp_pa)
 
 
 
