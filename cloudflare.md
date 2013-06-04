@@ -30,15 +30,15 @@ This Piwik Analytics Cloudflare Application will help you add the Piwik tracking
 
 
 
-#### More Details
+#### Details
 * Piwik Installation URL
   * *'https://piwik.example.com'*. Do not add a trailing **'/'** character. Ideally should be utilizing [SSL](https://support.cloudflare.com/forums/21317627-SSL-at-CloudFlare) transport for security purposes. Using a schemeless URL **'//host.tld'** is also valid for use of other protocols, such as [SPDY](https://www.cloudflare.com/spdy). But only if your tracker installation supports it. Leaving this empty will use the default relative URL **'/piwik'**
 * Piwik Site Id
   * Website Id to be tracked. If not specified, it will default to use **'1'**.
 
 
-#### Advanced Configuration
-Looking for more? Piwik is an incredible application. It contains a very large feature set of well documented API calls. Through use of these [Javascript tracking](http://piwik.org/docs/javascript-tracking/) features, and the **Advanced \_paq** field, you will be able to utilize the complete set of Piwik API calls available for your installation.
+### Advanced Configuration
+Looking for something beyond the norm? Piwik is an incredible application. It contains a very large feature set of well documented API calls. Through use of these [Javascript tracking](http://piwik.org/docs/javascript-tracking/) features, and the **Advanced \_paq** field, you will be able to utilize the complete set of Piwik API calls available for your installation.
 
 1. Enable the **Advanced Features Menu** option.
 2. Try out some **Advanced \_paq** features. *Examples:*
@@ -65,7 +65,7 @@ This Piwik Analytics CloudFlare application is an [open source project](https://
 If you are feeling comfortable, please feel free to [contribute](https://github.com/px/cfapp-piwik-analytics/?utm_src=cfapp_pa&utm_term=contribute#contributing) in anyway you can; <a href="https://github.com/px/cfapp-piwik-analytics/issues">file bugs</a>, write documentation, <a href="https://github.com/px/cfapp-piwik-analytics/fork">fork</a>, and <a href="https://github.com/px/cfapp-piwik-analytics/pulls">submit pull requests</a> for consideration. Have an itch? Scratch it!
 
 ### Tip Jar
-Was this application useful? Please consider supporting this work by [registering new domains](http://ns1.net/en/domains/new/?utm_src=cfapp_pa&utm_term=tipjar), or [transferring names](http://ns1.net/en/domains/transfer/?utm_src=cfapp_pa&utm_term=tipjar) through [NS1.net](http://ns1.net/?utm_src=cfapp_pa&utm_term=tipjar).
+Was this application useful? Please consider supporting this work by [registering new domains](http://ns1.net/en/domains/new/?utm_src=cfapp_pa&utm_term=tipjar), or [transferring current names](http://ns1.net/en/domains/transfer/?utm_src=cfapp_pa&utm_term=tipjar) through [NS1.net](http://ns1.net/?utm_src=cfapp_pa&utm_term=tipjar).
 
 ### About the Author
 [Rob Friedman](http://playerx.net/?utm_src=cfapp_pa&utm_term=me) is the primary developer of this application. He is also the Owner/Operator of NS1.net.
