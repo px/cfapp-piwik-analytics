@@ -22,7 +22,6 @@
       "Language": "English",
       "Price": "Free",
       "Restrictions": "<a href='https://github.com/px/cfapp-piwik-analytics/'>This application</a> is open source licensed, <a href='https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt'>BSD-2 Clause</a>."
-      
     },
     "has_js": true,
     "interface": [
@@ -133,7 +132,7 @@
       {
         "id": "_debug",
         "name": "Logging",
-        "description": "If you experience issues with the Javascript tracking code, you may enable logging and use your browser console to view learn more.",
+        "description": "If you experience issues with the Javascript tracking code, you may enable logging and use your browser console to view & learn more.",
         "type": "select",
         "options": [
           {
@@ -155,9 +154,7 @@
       "email": "px@ns1.net"
     }
   ],
-  "dependencies": {
-    
-  },
+  "dependencies": {},
   "description": "This open source <a href='https://github.com/px/cfapp-piwik-analytics'>Piwik Analytics CloudFlare application</a> will help you add the Piwik tracking code on your website pages. Click <b>Setup</b> to modify your tracking options. Be sure to click <b>Update</b> to save after modifying.",
   "implements": "AMD",
   "keywords": [
