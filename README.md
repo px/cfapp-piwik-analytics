@@ -60,13 +60,14 @@ Process Notes
       * [package.json](package.json) -- top of file
 
     * `git commit cloudflare.json package.json Cakefile -m "version bump"`
-    * `git tag <version>`
 
     * Once you are happy, proceed to push your new version as follows.
       1. [login to CloudFlare](https://www.cloudflare.com/login)
       2. [App Developer Dashboard](https://www.cloudflare.com/app-signup)
       3. click on "more", then "Pull new version" button. Now WAIT! Here be dragons.
 
+    So your pull was successful? Now tag that version!
+    * `git tag <version>`
 
 
 Piwik Documentation
