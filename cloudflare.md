@@ -51,7 +51,7 @@ Looking for more? Piwik is an incredible application. It contains a very large f
 
 
 ## Screenshots
-* Piwik Analytics CloudFlare App options screen.
+* Main options screen
 ![Screenshot of Piwik CloudFlare App](/images/apps/piwik_analytics/piwik_cfapp_screenshot_1.png "Main options")
 
 * Advanced Menu Features
@@ -63,9 +63,9 @@ This Piwik Analytics CloudFlare application is an [open source project](https://
 
 It is primarily developed by [Rob Friedman](http://playerx.net/?utm_src=cfapp_pa). Follow <a href="http://twitter.com/px">px</a> on Twitter.
 
-If you are feeling comfortable, please feel free to [contribute](https://github.com/px/cfapp-piwik-analytics/?utm_src=cfapp_pa#contributing) in anyway you can; <a href="https://github.com/px/cfapp-piwik-analytics/issues">file bugs</a>, write documentation, <a href="https://github.com/px/cfapp-piwik-analytics/fork">fork</a>, and <a href="https://github.com/px/cfapp-piwik-analytics/pulls">submit pull requests</a> for consideration. Have an itch? Scratch it!
-
 For application comments, or support, please [contact Rob](http://playerx.net/contact/?utm_src=cfapp_pa). Please include your details, a relevant screenshot, and pasted configuration information. Either way, he would love to hear about you! [Say "Hello!"](http://playerx.net/contact/?utm_src=cfapp_pa)
+
+If you are feeling comfortable, please feel free to [contribute](https://github.com/px/cfapp-piwik-analytics/?utm_src=cfapp_pa#contributing) in anyway you can; <a href="https://github.com/px/cfapp-piwik-analytics/issues">file bugs</a>, write documentation, <a href="https://github.com/px/cfapp-piwik-analytics/fork">fork</a>, and <a href="https://github.com/px/cfapp-piwik-analytics/pulls">submit pull requests</a> for consideration. Have an itch? Scratch it!
 
 
 
@@ -76,7 +76,7 @@ More information can be found on the [Piwik Analytics Media page](http://piwik.o
 * [Online Videos about Piwik](https://piwik.org/blog/category/videos/)
 * [Piwik Javascript Tracking](http://piwik.org/docs/javascript-tracking/)
 
-* Screenshot of Piwik Demo
+* [Screenshot of Piwik Demo](/images/apps/piwik_analytics/piwik_analytics_demo_screenshot_1.png)
 ![Screenshot of Piwik](/images/apps/piwik_analytics/piwik_analytics_demo_screenshot_1.png "Piwik Demo Screenshot")
 
 
