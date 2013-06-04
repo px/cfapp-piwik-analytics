@@ -32,10 +32,11 @@ This Piwik Analytics Cloudflare Application will help you add the Piwik tracking
 
 #### Details
 * Piwik Installation URL
-  * *'https://piwik.example.com'*. Do not add a trailing **'/'** character. Ideally should be utilizing [SSL](https://support.cloudflare.com/forums/21317627-SSL-at-CloudFlare) transport for security purposes. Using a schemeless URL **'//host.tld'** is also valid for use of other protocols, such as [SPDY](https://www.cloudflare.com/spdy). But only if your tracker installation supports it. Leaving this empty will use the default relative URL **'/piwik'**
+  * *'https://piwik.example.com'*. Do not add a trailing **'/'** character. Ideally should be utilizing [SSL](https://support.cloudflare.com/forums/21317627-SSL-at-CloudFlare) transport for security purposes. Providing a schemeless URL **'//host.tld'** is also valid for use of other protocols, such as [SPDY](https://www.cloudflare.com/spdy). But only if your tracker installation supports it. Leaving this empty will use the default relative URL **'/piwik'**
 * Piwik Site Id
   * Website Id to be tracked. If not specified, it will default to use **'1'**.
-
+* Outlinks
+  * '"\*.other.example.com","\*.subdomain.example.com"' A formated list of configured alias URLs, where clicks on those links will not be counted as 'Outlink'.
 
 ### Advanced Configuration
 Looking for something beyond the norm? Piwik is an incredible application. It contains a very large feature set of well documented API calls. Through use of these [Javascript tracking](http://piwik.org/docs/javascript-tracking/) features, and the **Advanced \_paq** field, you will be able to utilize the complete set of Piwik API calls available for your installation.
