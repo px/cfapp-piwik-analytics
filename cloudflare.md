@@ -64,7 +64,7 @@ This Piwik Analytics CloudFlare application is an [open source project](https://
 
 It is primarily developed by [Rob Friedman](http://playerx.net/?utm_src=cfapp_pa). Follow <a href="http://twitter.com/px">px</a> on Twitter.
 
-For application comments, or support, please [contact Rob](http://playerx.net/contact/?utm_src=cfapp_pa). Please include your details, a relevant screenshot, and pasted configuration information. Either way, he would love to hear about you! [Say "Hello!"](http://playerx.net/contact/?utm_src=cfapp_pa)
+For application comments, or support, please [contact Rob](http://playerx.net/contact/?utm_src=cfapp_pa). Please include your details, a relevant screenshot, and pasted configuration information. Either way, he would love to hear about you. [Say "Hello!"](http://playerx.net/contact/?utm_src=cfapp_pa)
 
 If you are feeling comfortable, please feel free to [contribute](https://github.com/px/cfapp-piwik-analytics/?utm_src=cfapp_pa#contributing) in anyway you can; <a href="https://github.com/px/cfapp-piwik-analytics/issues">file bugs</a>, write documentation, <a href="https://github.com/px/cfapp-piwik-analytics/fork">fork</a>, and <a href="https://github.com/px/cfapp-piwik-analytics/pulls">submit pull requests</a> for consideration. Have an itch? Scratch it!
 
