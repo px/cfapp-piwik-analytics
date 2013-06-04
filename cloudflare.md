@@ -66,7 +66,7 @@ Proud of a practical advanced usage? Consider sharing your results!
 
 <a id="open-source" name="open-source"></a>
 ## Open Source & Contribute!
-This work is an [open source project](https://github.com/px/cfapp-piwik-analytics/?utm_src=cfapp_pa&utm_term=open+source+project#readme) hosted on [Github](https://github.com/). It is available under a <a href='https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt'>BSD 2-Clause</a> License."
+This work is an [open source project](https://github.com/px/cfapp-piwik-analytics/?utm_src=cfapp_pa&utm_term=open+source+project#readme) hosted on [Github](https://github.com/). It is available under a <a href='https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt'>BSD 2-Clause</a> License.
 
 If you are feeling comfortable, please feel free to [contribute](https://github.com/px/cfapp-piwik-analytics/?utm_src=cfapp_pa&utm_term=contribute#contributing) in anyway you can; <a href="https://github.com/px/cfapp-piwik-analytics/issues">file bugs</a>, write documentation, <a href="https://github.com/px/cfapp-piwik-analytics/fork">fork</a>, and <a href="https://github.com/px/cfapp-piwik-analytics/pulls">submit pull requests</a> for consideration. Have an itch? Scratch it!
 
