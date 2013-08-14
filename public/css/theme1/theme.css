@@ -1,11 +1,29 @@
+body {
+  /*  padding-bottom: 70px; */
+}
 div#menu {
 
+}
+.none {
+
+  text-decoration:none;
+  color:inherit;
 
 }
-.navbar-brand h1  {
-  font-family: 'Chivo', 'Helvetica Neue', Helvetica, Arial, serif; font-weight: 900;
+
+span {
+display:inline;
+
 }
+
+.navbar-brand a  {
+  font-family: 'Chivo', 'Helvetica Neue', Helvetica, Arial, serif; font-weight: 900;
+  text-decoration:none;
+  color:inherit;
+}
+
 header h1  {
+  text-transform:uppercase;
   font-family: 'Chivo', 'Helvetica Neue', Helvetica, Arial, serif; font-weight: 900;
   letter-spacing: -1px;
   font-size: 48px;
@@ -13,45 +31,139 @@ header h1  {
   line-height: 1.2;
 }
 
+header h1 small {
+display:block;
+}
+
+header h1 small a {
+  text-decoration:none;
+  color:inherit;
+
+}
+
+.tip-jar-right.
+header img, #jumbotron > img {
+  float:right;
+}
+
+
+#menu nav.navbar,
+#foot nav.navbar {
+  background-color: transparent;
+}
+
+
 h1, h2, h3, h4, h5, h6 {
-
-a {
-color:inherit;
-text-decoration:none;
+  a {
+    color:inherit;
+    text-decoration:none;
+  }
 }
+
+code {
+/*  overflow: auto;
+*/
+/* display:clear;
+max-width:50%; */
 }
 
-footer {
+
+#foot {
   display: clear;
 
-}
-footer div#copyright {
-  position:relative;
-/*  bottom: 0; */
-  right: 0;
-  float: right;
-  padding-right:2em;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+
 }
 
-.Absolute-Center.is-Variable {
-  padding-top:1%;
-    display: table;
-      width: 50%;
-        overflow: auto;
-          margin: auto;
-/*  position: absolute; */
-  top: 0; left: 0; bottom: 0; right: 0;
+#foot #copyright {
+  /* position:relative; */
+  /*  bottom: 0; */
+  /* right: 0;
+   float: right;
+   padding-right:2em; */
+  float:right;
+}
+
+.px-social {
+
+  text-align:center;
+
+
+  ul { display:inline;}
+  iframe { border:0; }
+
+}
+
+blockquote {
+
 }
 
 
 
+
+/* Social proof buttons from GitHub & Twitter */
+.px-EFF {
+background-color: black;
+color:red;
+
+}
+.px-social {
+  margin-bottom: 20px;
+}
+.px-social-buttons {
+  display: inline-block;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+}
+.px-social-buttons li {
+  display: inline-block;
+  line-height: 1;
+}
+.px-social-buttons li + li {
+  margin-left: 15px;
+}
+.px-social-buttons .twitter-follow-button {
+  width: 225px !important;
+}
+.px-social-buttons .twitter-share-button {
+  width: 98px !important;
+}
+/* Style the GitHub buttons via CSS instead of inline attributes */
+.github-btn {
+  border: 0;
+  overflow: hidden;
+}
+
+  /* .inner,  {
+    max-width: 15em;
+  } */
 
 /* #Media Queries
  * ================================================== */
 
+@media only screen and (min-width:969px) {
+
+
+  #jumbotron > *
+  {
+    max-width:20em;
+  }
+  #menu nav.navbar {
+  }
+
+
+
+}
+
 /* Smaller than standard 960 (devices and browsers) */
 @media only screen and (max-width: 959px) {
 
+  #jumbotron > *
+  {
+    max-width:22em;
+  }
 
 
 }
@@ -75,10 +187,11 @@ footer div#copyright {
   #download-zip, #download-tar-gz {
     display: none;
   }
-  .inner {
+  /*.container, .inner {
     width: 94%;
     margin: 0 auto;
   }
+  */
 }
 
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
