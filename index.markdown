@@ -1,8 +1,8 @@
------
+---
 title: miniature hipster home
 layout: default
 
------
+---
 
 
 # Miniature Hipster
@@ -18,7 +18,6 @@ layout: default
 
 
 ## [Contributing](/CONTRIBUTING.markdown)
-
 
 
 ## [Copyright](/LICENSE.txt)
