@@ -1,3 +1,8 @@
+---
+title: help
+layout: default
+
+---
 ## Miniature Hipster 
 ### A Piwik App for Cloudflare
 
