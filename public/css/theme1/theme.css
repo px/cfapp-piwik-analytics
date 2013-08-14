@@ -1,3 +1,91 @@
-footer {
-float: right;
+div#menu {
+
+
 }
+.navbar-brand h1  {
+  font-family: 'Chivo', 'Helvetica Neue', Helvetica, Arial, serif; font-weight: 900;
+}
+header h1  {
+  font-family: 'Chivo', 'Helvetica Neue', Helvetica, Arial, serif; font-weight: 900;
+  letter-spacing: -1px;
+  font-size: 48px;
+  color: #303030;
+  line-height: 1.2;
+}
+
+h1, h2, h3, h4, h5, h6 {
+
+a {
+color:inherit;
+text-decoration:none;
+}
+}
+
+footer {
+  display: clear;
+
+}
+footer div#copyright {
+  position:relative;
+/*  bottom: 0; */
+  right: 0;
+  float: right;
+  padding-right:2em;
+}
+
+.Absolute-Center.is-Variable {
+  padding-top:1%;
+    display: table;
+      width: 50%;
+        overflow: auto;
+          margin: auto;
+/*  position: absolute; */
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
+
+
+
+/* #Media Queries
+ * ================================================== */
+
+/* Smaller than standard 960 (devices and browsers) */
+@media only screen and (max-width: 959px) {
+
+
+
+}
+
+/* Tablet Portrait size to standard 960 (devices and browsers) */
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+
+
+
+}
+
+/* All Mobile Sizes (devices and browser) */
+@media only screen and (max-width: 767px) {
+  header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  #downloads {
+    margin-bottom: 25px;
+  }
+  #download-zip, #download-tar-gz {
+    display: none;
+  }
+  .inner {
+    width: 94%;
+    margin: 0 auto;
+  }
+}
+
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+
+}
+
+/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+@media only screen and (max-width: 479px) {}
