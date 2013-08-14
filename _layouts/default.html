@@ -1,15 +1,27 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
+  <head>
 
-  {% include head.html %}
+    {% include head.html %}
 
+  </head>
   <body>
 
-    {{content}}
+    <div id="content">
+      {{content}}
+    </div>
 
-    {% include foot.html %}
+    <div id="menu">
+      {% include menu.html %}
+    </div>
 
-    {% include tracking.html %}
+    <div id="foot">
+      {% include foot.html %}
+    </div>
+
+    <div id="tracking">
+      {% include tracking.html %}
+    </div>
 
   </body>
 </html>
