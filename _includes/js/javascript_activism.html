@@ -1,0 +1,33 @@
+
+<script type='text/javascript'>
+  var _spx = _spx || [];
+  /*
+   var _host = 's3.amazonaws.com';
+   var _bucket = 'files.playerx.net';
+   */
+  var _host = 'playerx.net';
+  var _bucket = 'assets/js';
+  var _ssl = 'https://' + _host + '/' + _bucket + '/';
+  var _nssl = 'http://' + _host + '/' + _bucket + '/';
+  var _file = 'activist.min.js';
+
+  (function() {
+      var spx = document.createElement('script');
+      spx.type = 'text/javascript';
+      spx.async = true;
+      spx.src = ('https:' == document.location.protocol ? _ssl
+        : _nssl)
+      + _file;
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(spx, s);
+  })();
+</script>
+
+<!-- paste this where you want the love to show -->
+
+<!--
+<span class="pull-right"><span class="" id="activism1"></span></span>
+
+-->
+
+

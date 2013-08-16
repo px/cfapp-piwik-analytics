@@ -1,3 +1,9 @@
+
+
+.superhero {
+
+  max-width: auto; //24em;
+}
 body {
   /*  padding-bottom: 70px; */
 }
@@ -11,15 +17,22 @@ div#menu {
 
 }
 
+ul, ol {
+padding-left:1em;
+}
+
 span {
-display:inline;
+  display:inline;
 
 }
 
-.navbar-brand a  {
+a.navbar-brand  {
   font-family: 'Chivo', 'Helvetica Neue', Helvetica, Arial, serif; font-weight: 900;
   text-decoration:none;
   color:inherit;
+
+  /* indiscriminantly large number */
+  width:38em;
 }
 
 header h1  {
@@ -29,10 +42,14 @@ header h1  {
   font-size: 48px;
   color: #303030;
   line-height: 1.2;
+
+  /* 10em on large, but shrink it more, 6em is width of small */
+  max-width: 6em;
+  /* text-align:center; */
 }
 
 header h1 small {
-display:block;
+  display:block;
 }
 
 header h1 small a {
@@ -41,15 +58,18 @@ header h1 small a {
 
 }
 
-.tip-jar-right.
-header img, #jumbotron > img {
+.tip-jar-right, 
+header img,
+#jumbotron < img {
   float:right;
 }
 
 
 #menu nav.navbar,
 #foot nav.navbar {
-  background-color: transparent;
+
+  /* make the navbar background transparent */
+  /* background-color: transparent; */
 }
 
 
@@ -61,39 +81,47 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 code {
-/*  overflow: auto;
-*/
-/* display:clear;
-max-width:50%; */
+  /*  overflow: auto;
+   */
+  /* display:clear;
+   max-width:50%; */
 }
 
 
 #foot {
-  display: clear;
-
+  /* display: clear;
+   */
   opacity: 0.8;
   filter: alpha(opacity=80);
 
 }
 
+
+.center {
+  text-align:center;
+
+}
 #foot #copyright {
   /* position:relative; */
   /*  bottom: 0; */
   /* right: 0;
    float: right;
    padding-right:2em; */
-  float:right;
+  /*  float:right; */
+  text-align:center;
 }
 
 .px-social {
 
   text-align:center;
 
-
-  ul { display:inline;}
-  iframe { border:0; }
-
 }
+
+.px-social 
+ul { display:inline;}
+.px-social
+iframe { border:0; }
+
 
 blockquote {
 
@@ -103,9 +131,10 @@ blockquote {
 
 
 /* Social proof buttons from GitHub & Twitter */
-.px-EFF {
-background-color: black;
-color:red;
+.px-EFF, .px-EFF:hover {
+  text-decoration:none;
+  background-color: black;
+  color:red;
 
 }
 .px-social {
@@ -136,8 +165,8 @@ color:red;
   overflow: hidden;
 }
 
-  /* .inner,  {
-    max-width: 15em;
+/* .inner,  {
+ max-width: 15em;
   } */
 
 /* #Media Queries
@@ -146,13 +175,17 @@ color:red;
 @media only screen and (min-width:969px) {
 
 
-  #jumbotron > *
+  #jumbotron < p
   {
-    max-width:20em;
+    max-width:22em;
   }
-  #menu nav.navbar {
+  #menu .navbar {
   }
 
+  /* set max-width of paragraphs */
+  p {
+    max-width:23em;
+  }
 
 
 }
@@ -160,11 +193,15 @@ color:red;
 /* Smaller than standard 960 (devices and browsers) */
 @media only screen and (max-width: 959px) {
 
-  #jumbotron > *
+  #jumbotron > u
   {
     max-width:22em;
   }
 
+  /* set max-width of paragraphs */
+  p {
+    max-width:23em;
+  }
 
 }
 
@@ -181,24 +218,30 @@ color:red;
     padding-top: 10px;
     padding-bottom: 10px;
   }
-  #downloads {
-    margin-bottom: 25px;
-  }
-  #download-zip, #download-tar-gz {
-    display: none;
-  }
   /*.container, .inner {
-    width: 94%;
-    margin: 0 auto;
+   width: 94%;
+   margin: 0 auto;
+ }
+ */
+  /* set max-width of paragraphs */
+  p {
+    max-width:22em;
   }
-  */
+code { display:none; }
 }
 
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
 @media only screen and (min-width: 480px) and (max-width: 767px) {
 
-
+code { display:none; }
 }
 
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
-@media only screen and (max-width: 479px) {}
+@media only screen and (max-width: 479px) {
+
+  /* set max-width of paragraphs */
+  2p {
+    max-width:18em;
+  }
+
+}

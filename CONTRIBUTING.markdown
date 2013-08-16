@@ -1,5 +1,5 @@
 ---
-title: miniature contributions
+title: masterful handouts
 layout: docs
 ---
 
@@ -20,7 +20,7 @@ Have an itch? Scratch it!
 
 
 
-## Contributing Hipster
+## Masterful Handouts
 
 1. Fork it on Github.
 
