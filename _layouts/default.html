@@ -1,30 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-  <head>
+{% include TOP.html %}
 
-    {% include head.html %}
 
-  </head>
+<div id="content" class="container" >
+  <div class="container">
+    {{content}}
+  </div>
+</div>
 
-  <body class="">
-
-    <div id="menu" class="container" >
-      {% include menu.html %}
-    </div>
-
-    <div id="content" class="container" >
-      <div class="container">
-      {{content}}
-      </div>
-    </div>
-
-    <div id="foot" class="container" >
-      {% include foot.html %}
-    </div>
-
-    <div id="scripts" class="" >
-      {% include js/javascripts.html %}
-    </div>
-
-  </body>
-</html>
+{% include BOTTOM.html %}

@@ -5,6 +5,9 @@
   max-width: auto; //24em;
 }
 body {
+  /* for scrollspy */
+  position:relative;
+
   /*  padding-bottom: 70px; */
 }
 div#menu {
@@ -19,6 +22,7 @@ div#menu {
 
 ul, ol {
 padding-left:1em;
+text-align: left;
 }
 
 span {
@@ -35,6 +39,10 @@ a.navbar-brand  {
   width:38em;
 }
 
+.jumbotron {
+/* text-align:center; */
+}
+
 header h1  {
   text-transform:uppercase;
   font-family: 'Chivo', 'Helvetica Neue', Helvetica, Arial, serif; font-weight: 900;
@@ -44,12 +52,15 @@ header h1  {
   line-height: 1.2;
 
   /* 10em on large, but shrink it more, 6em is width of small */
-  max-width: 6em;
+/* force the h1 to wrap lines */
+  /*  max-width: 6em; */
   /* text-align:center; */
 }
 
 header h1 small {
+  /* force the small part to be on it's own line */
   display:block;
+  /* text-align:center; */
 }
 
 header h1 small a {
@@ -89,24 +100,16 @@ code {
 
 
 #foot {
-  /* display: clear;
-   */
   opacity: 0.8;
   filter: alpha(opacity=80);
-
 }
 
-
+/* center things */
 .center {
   text-align:center;
 
 }
 #foot #copyright {
-  /* position:relative; */
-  /*  bottom: 0; */
-  /* right: 0;
-   float: right;
-   padding-right:2em; */
   /*  float:right; */
   text-align:center;
 }

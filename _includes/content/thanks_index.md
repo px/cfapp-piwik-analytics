@@ -1,8 +1,6 @@
-
 <a name="tip-jar">&nbsp;</a>
 
 # Tip Jar
-
 
 Howdy,
 
