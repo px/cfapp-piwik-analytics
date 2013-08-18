@@ -10,14 +10,14 @@ This free Piwik Analytics Cloudflare Application will help you add the Piwik tra
 
 
 #### About Piwik
+
+![Piwik Demo](/images/apps/piwik_analytics/piwik_analytics_demo_screenshot_1.png "Piwik Demo Screenshot")
+
 Piwik is the leading open source web analytics software, used by more than 460,000 websites. It gives interesting reports on your website visitors, your popular pages, the search engines keywords they used, the language they speak... and so much more. Piwik aims to be an open source alternative to Google Analytics.
 More information can be found on the [Piwik Analytics Media page](http://piwik.org/media/).
 
 * Online [Videos about Piwik](https://piwik.org/blog/category/videos/)
 * Piwik [Javascript Tracking](https://piwik.org/docs/javascript-tracking/) Documentation
-
-* [Piwik Demo](/images/apps/piwik_analytics/piwik_analytics_demo_screenshot_1.png) Screenshot
-![Screenshot of Piwik](/images/apps/piwik_analytics/piwik_analytics_demo_screenshot_1.png "Piwik Demo Screenshot")
 
 
 
@@ -33,12 +33,6 @@ More information can be found on the [Piwik Analytics Media page](http://piwik.o
 * By default obey a visitor's "[Do-Not-Track](https://www.eff.org/issues/do-not-track)" option with [supported browsers](https://ie.microsoft.com/testdrive/browser/donottrack/default.html).
 * Loads piwik.js from your own Piwik installation.
 
-
-<a name="open-source">&nbsp;</a>
-## <a name="open-source">Open Source & Contribute!</a>
-This work is an [open source project](https://github.com/px/cfapp-piwik-analytics/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_medium=web&utm_content=open+source+project#readme) hosted on [Github](https://github.com/). It is available under a <a href='https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt'>BSD 2-Clause</a> License.
-
-If you are feeling comfortable, please feel free to [contribute](https://github.com/px/cfapp-piwik-analytics/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_medium=web&utm_content=contribute#contributing) in anyway you can; <a href="https://github.com/px/cfapp-piwik-analytics/issues">file bugs</a>, write documentation, clone, <a href="https://github.com/px/cfapp-piwik-analytics/fork">fork</a>, and <a href="https://github.com/px/cfapp-piwik-analytics/pulls">submit pull requests</a> for consideration. Have an itch? Scratch it!
 
 <a name="tip-jar">&nbsp;</a>
 ### <a name="tip-jar">Tip Jar</a>
