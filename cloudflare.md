@@ -11,7 +11,7 @@ This free Piwik Analytics Cloudflare Application will help you add the Piwik tra
 
 #### About Piwik
 
-![Piwik Demo](/images/apps/piwik_analytics/piwik_analytics_demo_screenshot_1.png "Piwik Demo Screenshot")
+![Piwik Demo Screenshot](/images/apps/piwik_analytics/piwik_analytics_demo_screenshot_1.png "Piwik Demo Screenshot")
 
 Piwik is the leading open source web analytics software, used by more than 460,000 websites. It gives interesting reports on your website visitors, your popular pages, the search engines keywords they used, the language they speak... and so much more. Piwik aims to be an open source alternative to Google Analytics.
 More information can be found on the [Piwik Analytics Media page](http://piwik.org/media/).
@@ -22,23 +22,29 @@ More information can be found on the [Piwik Analytics Media page](http://piwik.o
 
 
 <a name="features">&nbsp;</a>
+
 ### App Features
 
 #### Link Tracking
 * Easily enable open source analytics tracking for outlinks from your web properties.
 
 
+
 <a name="privacy">&nbsp;</a>
+
 #### Privacy Features
 * By default obey a visitor's "[Do-Not-Track](https://www.eff.org/issues/do-not-track)" option with [supported browsers](https://ie.microsoft.com/testdrive/browser/donottrack/default.html).
 * Loads piwik.js from your own Piwik installation.
 
 
 <a name="tip-jar">&nbsp;</a>
+
 ### <a name="tip-jar">Tip Jar</a>
 Was this free application useful? Please consider supporting this work by [registering new domains](http://ns1.net/en/domains/new/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_medium=web&utm_content=tip-jar), or [transferring current names](http://ns1.net/en/domains/transfer/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_medium=web&utm_content=tip-jar) through [NS1.net](http://ns1.net/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_medium=web&utm_content=tip-jar).
 
+
 <a name="author">&nbsp;</a>
+
 ### <a name="author">About the Author</a>
 [Rob Friedman](http://playerx.net/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_medium=web&utm_content=me) got the itch. He is also the Owner/Operator of Suspicious Networks NS1.net.
 
