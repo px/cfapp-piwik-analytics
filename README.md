@@ -3,7 +3,6 @@
 ------------------------------------------------------
 [Piwik Analytics](https://www.cloudflare.com/apps/piwik_analytics) CloudFlare App.
 
-**Miniature Hipster** is the 'random' new project name provided by [Github](https://github.com/new). I enjoy it, although may change it. But it's kind of interesting.
   * It is written primarily in [CoffeeScript](http://coffeescript.org/), and compiled into Javascript.
 
 ### Initially this app aims to
@@ -27,30 +26,6 @@
   * provide &lt;noscript&gt; tag for recording visitors without Javascript using a 1x1 gif pixel; CloudFlare no longer supports applications which are not loaded as Javascript modules.
 
 
-Contributing
-------------
-
-1. Fork it on Github.
-2. Clone to your local machine.
-  * SSH: (`git clone "git@github.com:px/cfapp-piwik-analytics.git"`)
-  * HTTPS: (`git clone "https://github.com/px/cfapp-piwik-analytics.git"`)
-3. Checkout and create a new branch (`git checkout -b my_new_feature`)
-4. Commit your changes, preferably one commit per file. (`git commit -am "Added my new feature"`)
-5. Push to the branch (`git push origin my_new_feature`)
-6. Open a Pull Request
-7. Enjoy a refreshing glass of water and wait
-
-
-<a name="open-source"></a>
-## Open Source & Contribute!
-This work is an [open source project](https://github.com/px/cfapp-piwik-analytics/?utm_campaign=github&utm_src=cfapp_pa&utm_content=open+source+project#readme) hosted on [Github](https://github.com/). It is available under a <a href='https://github.com/px/cfapp-piwik-analytics/raw/master/LICENSE.txt'>BSD 2-Clause</a> License.
-
-If you are feeling comfortable, please feel free to [contribute](https://github.com/px/cfapp-piwik-analytics/?utm_campaign=github&utm_src=cfapp_pa&utm_content=contribute#contributing) in anyway you can; <a href="https://github.com/px/cfapp-piwik-analytics/issues">file bugs</a>, write documentation, <a href="https://github.com/px/cfapp-piwik-analytics/fork">fork</a>, and <a href="https://github.com/px/cfapp-piwik-analytics/pulls">submit pull requests</a> for consideration. Have an itch? Scratch it!
-
-<a name="tip-jar"></a>
-### Tip Jar
-Was this free application useful? Please consider supporting this work by [registering new domains](http://ns1.net/en/domains/new/?utm_campaign=github&utm_src=cfapp_pa&utm_content=tip-jar), or [transferring current names](http://ns1.net/en/domains/transfer/?utm_campaign=github&utm_src=cfapp_pa&utm_content=tip-jar) through [NS1.net](http://ns1.net/?utm_campaign=github&utm_src=cfapp_pa&utm_content=tip-jar).
-
 <a name="author"></a>
 ### About the Author
 [Rob Friedman](http://playerx.net/?utm_campaign=github&utm_src=cfapp_pa&utm_content=me) is the primary developer of this application. He is also the Owner/Operator of NS1.net.
@@ -60,34 +35,6 @@ For comments, or support, [contact Rob](http://playerx.net/contact/?utm_campaign
 Follow <a href="http://twitter.com/px">px</a> on Twitter.
 
 
-Process Notes
--------------
-* New versions TODO
-  * better describe the process
-  * npm -- there is a [package.json](package.json) to help with dependencies.
-   * Install package dependecies - (`npm install -d`)
-
-    * automatically compile changes to coffeescript files within this project using the [Cakefile](Cakefile) script. (`cake bake`)
-    * test compiled javascript using [local testing](test/index.html)
-    * test compiled javascript using [js.cloudflare.com](http://js.cloudflare.com/)
-      * [pbcopy](http://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/pbcopy.1.html) is your friend. (`pbcopy < public/javascripts/piwik_analytics.js`)
-    * Validation: (`./validate.sh`)
-      * automatically validate and check cloudflare.json &amp; and soon other json files with jsonlint
-
-    * which files need to version bump;
-      * [Cakefile](Cakefile) -- top of file
-      * [cloudflare.json](cloudflare.json) -- end of file
-      * [package.json](package.json) -- top of file
-
-    * `git commit cloudflare.json package.json Cakefile -m "version bump"`
-
-    * Once you are happy, proceed to push your new version as follows.
-      1. [login to CloudFlare](https://www.cloudflare.com/login)
-      2. [App Developer Dashboard](https://www.cloudflare.com/app-signup)
-      3. click on "more", then "Pull new version" button. Now WAIT! Here be dragons.
-
-    So your pull was successful? Now tag that version!
-    * `git tag <version>`
 
 
 Piwik Documentation
@@ -101,35 +48,6 @@ About CloudFlare Apps
 CloudFlare's Apps platform enables developers to create and publish web applications for use by website owners on CloudFlare's network. See the [full list](https://www.cloudflare.com/apps).
 
 * Developer documentation [cloudflare.json manifest](http://appdev.cloudflare.com/next/cloudflare-json.html)
-
-Logo
-----
-
-These are the current logo images used with this application. They are rendered using the [update-logo-piwik-high-res.sh](update-logo-piwik-high-res.sh) bash script which will download a high-resolution logo, and resize it accordingly.
-
-* 200x
-
-![logo-200.png](public/images/logo-200.png)
-
-
-* 132x
-
-![logo-132.png](public/images/logo-132.png)
-
-Screenshots
------------
-
-These are the current screenshots used for display within the app details page.
-
-* Features
-
-![CloudFlare App Dashboard](public/images/piwik_cfapp_screenshot_1.png)
-
-* Advanced Menu Features
-
-![CloudFlare App Dashboard](public/images/piwik_cfapp_screenshot_2.png)
-
-
 
 #### My tracking pixels
 
