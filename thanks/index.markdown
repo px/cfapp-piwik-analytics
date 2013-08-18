@@ -5,5 +5,5 @@ layout:  superhero
 ---
 
 
-{% include content/thanks_index.md %}
+{% include content/thanks/index.md %}
 

@@ -1,15 +1,51 @@
 
+/* in CSS3 prevent centering jumps on short pages */
+html {
+  overflow-y: scroll;
+}
 
-.superhero {
+/* contstrain the size of the jumbo */
+.container .jumbotron {
 
-  max-width: auto; //24em;
+  max-width: 40em !important;
+
+}
+/* center the jumbotron things */
+.jumbotron p,
+.jumbotron-buttons {
+  text-align:justify !important;/* center; */
+
+}
+
+.show-off{
+max-height:28em;
+
 }
 body {
   /* for scrollspy */
   position:relative;
 
   /*  padding-bottom: 70px; */
+
+  background-color: yellow;
+
+/*
+   background-image:url(http://www.zingerbugimages.com/backgrounds/blue_and_pink_pastel_plaid.jpg);
+
+ */
+/* so i made some plaid :D
+ *
+ * <http://plaidmaker.com/plaid/3972/>
+ * <http://plaidmaker.com/plaid/3973/>
+ */
+background-image:url(/public/images/bg/plaid-2.png);
+   background-position:top left;
+  background-repeat:repeat;
+  background-attachment:fixed;
+
 }
+
+
 div#menu {
 
 }
@@ -21,12 +57,12 @@ div#menu {
 }
 
 ul, ol {
-padding-left:1em;
-text-align: left;
+  padding-left:1em;
+  text-align: left;
 }
 
 span {
-  display:inline;
+  display:inline !important;
 
 }
 
@@ -40,7 +76,11 @@ a.navbar-brand  {
 }
 
 .jumbotron {
-/* text-align:center; */
+  /* text-align:center; */
+}
+  .row p
+  {
+text-align:justify;
 }
 
 header h1  {
@@ -52,7 +92,7 @@ header h1  {
   line-height: 1.2;
 
   /* 10em on large, but shrink it more, 6em is width of small */
-/* force the h1 to wrap lines */
+  /* force the h1 to wrap lines */
   /*  max-width: 6em; */
   /* text-align:center; */
 }
@@ -69,17 +109,19 @@ header h1 small a {
 
 }
 
-.tip-jar-right, 
-header img,
-#jumbotron < img {
-  float:right;
+/*
+ .tip-jar-right, 
+ header img,
+ #jumbotron < img {
+ float:right;
 }
-
+*/
 
 #menu nav.navbar,
 #foot nav.navbar {
 
   /* make the navbar background transparent */
+
   /* background-color: transparent; */
 }
 
@@ -92,32 +134,43 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 code {
-  /*  overflow: auto;
-   */
-  /* display:clear;
-   max-width:50%; */
 }
 
-
+/*
+ * make the footer transparent a bit
+ */
 #foot {
-  opacity: 0.8;
-  filter: alpha(opacity=80);
+  opacity: 0.75 !important;
+  filter: alpha(opacity=75) !important;
 }
 
-/* center things */
+/* on hover show it 100%
+ */
+#foot:hover {
+
+  opacity: 1 !important;
+  filter: alpha(opacity=100) !important;
+
+}
+
+/* center things  badly */
 .center {
   text-align:center;
 
 }
+#foot #author,
+#foot #license,
 #foot #copyright {
   /*  float:right; */
   text-align:center;
 }
 
+#foot #author a {
+font-weight:900;
+}
+
 .px-social {
-
   text-align:center;
-
 }
 
 .px-social 
@@ -162,49 +215,35 @@ blockquote {
 .px-social-buttons .twitter-share-button {
   width: 98px !important;
 }
+#author .activism {
+width: 18em !important;
+}
 /* Style the GitHub buttons via CSS instead of inline attributes */
 .github-btn {
   border: 0;
   overflow: hidden;
 }
 
-/* .inner,  {
- max-width: 15em;
-  } */
 
 /* #Media Queries
  * ================================================== */
 
 @media only screen and (min-width:969px) {
 
-
-  #jumbotron < p
-  {
-    max-width:22em;
-  }
-  #menu .navbar {
+  .container, .content {
+    max-width:52em !important;
   }
 
-  /* set max-width of paragraphs */
-  p {
-    max-width:23em;
+  .jumbotron p {
+    max-width:36em;
   }
-
 
 }
 
 /* Smaller than standard 960 (devices and browsers) */
 @media only screen and (max-width: 959px) {
 
-  #jumbotron > u
-  {
-    max-width:22em;
-  }
 
-  /* set max-width of paragraphs */
-  p {
-    max-width:23em;
-  }
 
 }
 
@@ -221,30 +260,30 @@ blockquote {
     padding-top: 10px;
     padding-bottom: 10px;
   }
-  /*.container, .inner {
-   width: 94%;
-   margin: 0 auto;
- }
- */
   /* set max-width of paragraphs */
-  p {
+ 1p {
     max-width:22em;
   }
-code { display:none; }
+  code { display:none; }
+  .row p
+  {
+text-align:justify;
+}
 }
 
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
 @media only screen and (min-width: 480px) and (max-width: 767px) {
 
-code { display:none; }
+  code { display:none; }
+
+  .row p
+  {
+text-align:justify;
+}
 }
 
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
 @media only screen and (max-width: 479px) {
 
-  /* set max-width of paragraphs */
-  2p {
-    max-width:18em;
-  }
 
 }

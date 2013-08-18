@@ -1,7 +1,7 @@
 
-### Miniature Hipster
-
-Smart helper to automatically dress-up websites with analytics tracking code.
+<!-- ### Miniature Hipster
+-->
+Smart looking helper designed for automatically dressing-up websites with analytics tracking code, and open source API calls. 
 
 <!--
 

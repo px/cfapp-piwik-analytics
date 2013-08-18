@@ -18,3 +18,19 @@
   <img alt="Tracking Pixel" src="https://piwik-ssl.ns1.net/piwik.php?idSite=27&rec=1"/>
 </noscript>
 
+<!--analyze mailto-->
+<script>
+  jQuery(document).ready(function($) {
+    $('a[href^="mailto"]').click(function(){
+
+      piwikTracker.setCustomVariable(1, "Share By Email",  'Email='+this.href.replace(/^mailto:/i,'') + ' /Page = ' +  location.href, "page");  piwikTracker.trackPageView();
+
+    });
+  });
+
+
+</script>
+<!--end analyze mailto-->
+
+
+

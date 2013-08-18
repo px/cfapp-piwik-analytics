@@ -3,9 +3,9 @@
 
 # Suit Up
 
-+ To use this app, Piwik must be [installed](http://piwik.org/docs/installation/) already, or use a [Piwik Hosting](http://piwik.org/hosting/) package
+To utilize Miniature Hipster, Piwik must be [installed](http://piwik.org/docs/installation/) already, or are using a [hosted Piwik](http://piwik.org/hosting/) package.
 
-+ Turn on **Piwik Analytics** for [configured domains](https://www.cloudflare.com/cloudflare-apps)
++ Turn on **Piwik Analytics** for CloudFlare [configured domains](https://www.cloudflare.com/cloudflare-apps) within the Apps section
 
 
 <a name="config">&nbsp;</a>
@@ -23,6 +23,8 @@ If configured properly all pages should have Piwik Analytics tracking enabled on
 
 <a name="details">&nbsp;</a>
 ### Details
+ 
+<span class="visible-xs hidden-lg hidden-md label label-info">View on fullsize device to see example code.</span>
 * Piwik Installation URL
 
     This is used to load the *piwik.js* library, and also for the tracker destination.

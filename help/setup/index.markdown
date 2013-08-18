@@ -4,5 +4,5 @@ layout: docs
 ---
 
 
-{% include content/help_setup.md %}
+{% include content/help/setup/index.md %}
 
