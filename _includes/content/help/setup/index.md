@@ -23,8 +23,8 @@ If configured properly all pages should have Piwik Analytics tracking enabled on
 
 <a name="details">&nbsp;</a>
 ### Details
- 
-<span class="visible-xs hidden-lg hidden-md label label-info">View on fullsize device to see example code.</span>
+{% include fullsize-warning.html %}
+
 * Piwik Installation URL
 
     This is used to load the *piwik.js* library, and also for the tracker destination.

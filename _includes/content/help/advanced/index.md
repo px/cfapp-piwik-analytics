@@ -11,7 +11,7 @@ Through use of these [JavaScript tracking](http://piwik.org/docs/javascript-trac
 
 
 ### *Examples:*
- <span class="visible-xs hidden-lg hidden-md label label-info">View on fullsize device to see example code.</span>
+{% include fullsize-warning.html %}
 
 Having a few of these example JavaScript &amp; API calls laying around should spark imaginations.
 

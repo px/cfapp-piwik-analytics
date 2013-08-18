@@ -21,6 +21,7 @@ Have an itch? Scratch it!
 
 
 ## Masterful Handouts
+{% include fullsize-warning.html %}
 
 1. Fork it on Github.
 
