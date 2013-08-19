@@ -258,11 +258,11 @@ width: 18em !important;
   .container, .content {
     max-width:52em !important;
   }
-
+/*
   .jumbotron p {
     max-width:36em;
   }
-
+*/
 }
 
 /* Smaller than standard 960 (devices and browsers) */
