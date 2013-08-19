@@ -1,5 +1,5 @@
-## Miniature Hipster 
-### A Piwik Cloudflare App
+### Miniature Hipster 
+#### A Piwik Cloudflare App
 
 Smart looking helper designed for automatically dressing-up websites with analytics tracking code, and open source API calls.
 
