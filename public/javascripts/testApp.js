@@ -72,7 +72,6 @@ TestApp = (function() {
 
   TestApp.prototype.aLink = function(url, title, element) {
     var a;
-
     console.log("aLink " + url);
     a = document.createElement('a');
     a.title = title;
@@ -94,7 +93,6 @@ TestApp = (function() {
 
 update_status = function() {
   var e;
-
   console.log("update_status() started");
   try {
     document.getElementById("app_change").innerHTML = "_pk_visitor_id='" + window._pk_visitor_id + "'";
@@ -155,7 +153,6 @@ update_status = function() {
 
 timer_updated = function() {
   var e;
-
   try {
     document.getElementById("timeDiv").innerHTML = "Timer updated, " + _delay;
     return update_status();

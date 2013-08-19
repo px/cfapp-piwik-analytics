@@ -1,6 +1,5 @@
 CloudFlare.define("piwik_analytics/config", [], function() {
   var __pkC;
-
   __pkC = {
     "_debug": "true",
     "piwik_install": "https://piwik-ssl.ns1.net",
