@@ -32,7 +32,7 @@ More information can be found on the [Piwik Analytics Media page](https://piwik.
 
 <a name="privacy" href="#privacy">&nbsp;</a>
 
-#### Privacy Features
+#### Privacy
 * By default obey a visitor's "[Do-Not-Track](https://www.eff.org/issues/do-not-track)" option with [supported browsers](https://ie.microsoft.com/testdrive/browser/donottrack/default.html).
 * Loads piwik.js from your own Piwik installation.
 
