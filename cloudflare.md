@@ -30,22 +30,22 @@ More information can be found on the [Piwik Analytics Media page](http://piwik.o
 
 
 
-<a name="privacy">&nbsp;</a>
+<a name="privacy" href="#privacy">&nbsp;</a>
 
 #### Privacy Features
 * By default obey a visitor's "[Do-Not-Track](https://www.eff.org/issues/do-not-track)" option with [supported browsers](https://ie.microsoft.com/testdrive/browser/donottrack/default.html).
 * Loads piwik.js from your own Piwik installation.
 
 
-<a name="tip-jar">&nbsp;</a>
+<a name="tip-jar" href="#tip-jar">&nbsp;</a>
 
-### <a name="tip-jar">Tip Jar</a>
+### Tip Jar
 Was this free application useful? Please consider supporting this work by [registering new domains](http://ns1.net/en/domains/new/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_medium=web&utm_content=tip-jar), or [transferring current names](http://ns1.net/en/domains/transfer/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_medium=web&utm_content=tip-jar) through [NS1.net](http://ns1.net/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_medium=web&utm_content=tip-jar).
 
 
 <a name="author">&nbsp;</a>
 
-### <a name="author">About the Author</a>
+### About the Author
 [Rob Friedman](http://playerx.net/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_medium=web&utm_content=me) got the itch. He is also the Owner/Operator of Suspicious Networks NS1.net.
 
 For comments, or support, [contact Rob](http://playerx.net/contact/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_medium=web&utm_content=contact). Please be sure to include some details, a relevant screenshot, and pasted configuration information. Either way, he would love to hear about you. [Say "Hello!"](http://playerx.net/contact/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_medium=web&utm_content=hello)
