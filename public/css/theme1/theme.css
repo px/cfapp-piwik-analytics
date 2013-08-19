@@ -4,6 +4,31 @@ html {
   overflow-y: scroll;
 }
 
+/*
+ * insert the miniature hipster mascott dude before #foot in specific place
+ * so it looks like the content is directly above the transparent image
+ */
+#foot:before{
+  content:"";
+  /* margin-top:-2.5em;
+  padding-bottom:-8.4em; */
+  margin:0;
+  margin-top:-3.5em;
+  margin-bottom:-3.5em;
+  padding:0;
+  /* bottom:0; */
+  /* left:0;
+  bottom:0; */
+  display:block;
+  height:9em !important;
+  width:15em;
+ background: transparent url('/public/images/mh-logo-test-small.png');
+ background-size:8em auto;
+ background-repeat:no-repeat;
+ background-position:left;
+
+
+}
 /* contstrain the size of the jumbo */
 .container .jumbotron {
 
