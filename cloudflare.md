@@ -3,8 +3,10 @@
 
 Smart looking helper designed for automatically dressing-up websites with analytics tracking code, and open source API calls.
 
+* [Homepage](http://mh.variablesoftware.com/)
 * [Read More](http://mh.variablesoftware.com/about/)
 * [Suit Up](http://mh.variablesoftware.com/help/setup/)
+* [Thanks](http://mh.variablesoftware.com/thanks/)
 
 This free Piwik Analytics Cloudflare Application will help you add the Piwik tracking code on your website pages. To use this app, you need to have Piwik [installed](http://piwik.org/docs/installation/) already, or use a [Piwik Hosting](http://piwik.org/hosting/) package.
 
