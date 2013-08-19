@@ -51,6 +51,6 @@ Was this free application useful? Please consider supporting this work by [regis
 For comments, or support, [contact Rob](http://playerx.net/contact/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_medium=web&utm_content=contact). Please be sure to include some details, a relevant screenshot, and pasted configuration information. Either way, he would love to hear about you. [Say "Hello!"](http://playerx.net/contact/?utm_campaign=cloudflare&utm_src=cfapp_pa&utm_medium=web&utm_content=hello)
 
 <a href="https://twitter.com/intent/tweet?user_id=3288&hashtags=piwik&text=Howdy&related=px%3ARob,piwik%3AFree%20Web%20Analytics%20Software&">Tweet @px "Howdy"</a>, and be sure to follow both <a href="https://twitter.com/intent/user?user_id=3288">@px</a> &amp; <a href="https://twitter.com/intent/user?user_id=33195609">@ns1net</a> on Twitter.
-<a href="https://twitter.com/intent/tweet?hashtags=opensource&text=Miniature%20Hipster,%20a%20simple%20%40Piwik%20web%20%23analytics%20companion%20for%20%40CloudFlare%20Apps&via=px&related=px,piwik,cloudflare&url=https://www.cloudflare.com/apps/piwik_analytics">Tweet your followers</a> about this app.
+<a href="https://twitter.com/intent/tweet?hashtags=opensource&text=Miniature%20Hipster,%20a%20simple%20%40Piwik%20web%20%23analytics%20companion%20for%20%40CloudFlare%20Apps&via=px&related=px,piwik,cloudflare&url=https://www.cloudflare.com/apps/piwik_analytics">Share this app</a> with your followers.
 
 
