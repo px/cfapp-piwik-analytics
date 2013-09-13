@@ -1,7 +1,7 @@
 {
   "name": "miniature-hipster",
   "preferGlobal": true,
-  "version": "0.2.4",
+  "version": "0.2.5",
   "author": "Rob Friedman <px@ns1.net>",
   "description": "Piwik application for the CloudFlare network.",
   "contributors": [ 
